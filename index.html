@@ -9613,6 +9613,9 @@ window.addEventListener('message', function(e) {
 <script>
 /*==CL_DATA_START==*/
 var CL_DATA = [
+  {id:17,date:'11 มิ.ย. 69',cat:'system',detail:'ปรับปรุงระบบแก้ไขในเบราว์เซอร์ (gh-edit): ตัด element ที่สคริปต์สร้าง (cl-modal-new) ออกก่อนบันทึก เพื่อกันไฟล์บวมซ้ำ, เพิ่ม Dirty-check ไม่ commit เมื่อไม่มีการแก้, เพิ่มปุ่ม Cancel ยกเลิกการแก้โดยไม่บันทึก',area:'System · gh-edit Save',by:'HR & OD',status:'done',snap:''},
+  {id:16,date:'11 มิ.ย. 69',cat:'system',detail:'จัดระเบียบโค้ดครั้งใหญ่: ลบ Modal Quality และ Change Log ที่ซ้ำซ้อน, แก้ Duplicate ID 22 จุด (modal-quality, cl-*, modal-p2-sec52), ลบ dead code และขยะ chatgpt-sidebar, ลดขนาดไฟล์ราว 139KB',area:'System · Code Cleanup',by:'HR & OD',status:'done',snap:''},
+  {id:15,date:'11 มิ.ย. 69',cat:'system',detail:'ย้ายฐานพัฒนามาที่ Claude Code (Opus Model), ตั้งค่า Deploy ขึ้น Branch main โดยตรง, เพิ่มไฟล์ CLAUDE.md บันทึกบริบทโปรเจกต์และกฎ Workflow',area:'System · Dev Workflow',by:'HR & OD',status:'done',snap:''},
   {id:14,date:'12 พ.ค. 69',cat:'system',detail:'สร้างระบบ Version Control แบบ Snapshot HTML พร้อม Index Page (versions/index.html) และเพิ่ม Snapshot Column ใน Change Log Table เพื่อ Link ย้อนกลับไปดูเอกสารแต่ละ Version',area:'Version Control · Change Log',by:'HR & OD',status:'done',snap:'versions/PCC_v13_20260512_EmbedChangeLog.html'},
   {id:13,date:'11 พ.ค. 69',cat:'system',detail:'ฝัง Change Control Register เข้าไฟล์หลักโดยตรง (Embedded Modal) พร้อมระบบ Add Entry และ Save to HTML',area:'Footer · Change Log Modal',by:'HR & OD',status:'done',snap:'versions/PCC_v13_20260512_EmbedChangeLog.html'},
   {id:12,date:'11 พ.ค. 69',cat:'personnel',detail:'อัพเดทรูปถ่ายจริงของ Group COO (คุณกิตติ สัมฤทธิ์) และ Team Leader ทั้ง 6 ท่าน ใน Org Chart MSF No.5',area:'MSF No.5 · Org Chart',by:'HR & OD',status:'done',snap:''},
@@ -9857,7 +9860,8 @@ function saveCLToHTML() {
     '.nav-strategy-label','.nav-strategy-sub'
   ];
   var active=false;
-  ['gh-fab','gh-cfg-btn','gh-status','gh-panel'].forEach(function(id){
+  var dirty=false;
+  ['gh-fab','gh-cfg-btn','gh-status','gh-panel','gh-cancel'].forEach(function(id){
     var old=document.getElementById(id);if(old)old.remove();
   });
   if(location.hash){history.replaceState(null,'',location.pathname+location.search);}
@@ -9872,6 +9876,10 @@ function saveCLToHTML() {
       'box-shadow:0 4px 16px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;transition:all .2s}'+
       '#gh-fab:hover{background:#1d4ed8;transform:scale(1.08)}'+
       '#gh-fab.edit-active{background:#16a34a}'+
+      '#gh-cancel{position:fixed;bottom:24px;right:92px;z-index:999999;width:48px;height:48px;'+
+      'border-radius:50%;background:#dc2626;color:#fff;font-size:18px;border:none;cursor:pointer;'+
+      'box-shadow:0 4px 16px rgba(0,0,0,.3);display:none;align-items:center;justify-content:center;transition:all .2s}'+
+      '#gh-cancel:hover{background:#b91c1c;transform:scale(1.08)}'+
       '#gh-cfg-btn{position:fixed;bottom:90px;right:30px;z-index:999999;width:40px;height:40px;'+
       'border-radius:50%;background:rgba(30,41,59,0.9);color:#94a3b8;font-size:16px;border:none;cursor:pointer;'+
       'box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;transition:all .2s}'+
@@ -9896,6 +9904,9 @@ function saveCLToHTML() {
   var fab=document.createElement('button');
   fab.id='gh-fab';fab.innerHTML='&#9999;&#65039;';fab.title='Toggle Edit Mode';
   document.body.appendChild(fab);
+  var cancelBtn=document.createElement('button');
+  cancelBtn.id='gh-cancel';cancelBtn.innerHTML='&#10006;';cancelBtn.title='Cancel (discard changes)';
+  document.body.appendChild(cancelBtn);
   var cfgBtn=document.createElement('button');
   cfgBtn.id='gh-cfg-btn';cfgBtn.innerHTML='&#9881;&#65039;';cfgBtn.title='GitHub Token Settings';
   document.body.appendChild(cfgBtn);
@@ -9935,23 +9946,40 @@ function saveCLToHTML() {
     localStorage.removeItem('pcc_gh_tok');refreshTokStatus();showStatus('Token cleared','#f59e0b');
   };
   document.getElementById('gh-hide-btn').onclick=function(){panel.style.display='none';};
+  function markDirty(){dirty=true;}
   function enterEdit(){
     var tok=localStorage.getItem('pcc_gh_tok');
     if(!tok){refreshTokStatus();panel.style.display='block';return;}
-    active=true;fab.innerHTML='&#128190;';fab.classList.add('edit-active');
+    active=true;dirty=false;fab.innerHTML='&#128190;';fab.classList.add('edit-active');
+    cancelBtn.style.display='flex';
     SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');});
+      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');el.__ghOrig=el.innerHTML;});
     });
-    showStatus('Edit mode ON - click save icon when done',undefined,6000);
+    document.addEventListener('input',markDirty,true);
+    showStatus('Edit mode ON - 💾 save / ✖ cancel',undefined,6000);
   }
-  function exitEdit(){
+  function clearEditState(){
     active=false;fab.innerHTML='&#9999;&#65039;';fab.classList.remove('edit-active');
+    cancelBtn.style.display='none';
+    document.removeEventListener('input',markDirty,true);
     SELS.forEach(function(sel){
       document.querySelectorAll(sel).forEach(function(el){el.contentEditable='false';el.classList.remove('gh-edit');});
     });
+  }
+  function exitEdit(){
+    clearEditState();
     doSave();
   }
+  function cancelEdit(){
+    SELS.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el){if(typeof el.__ghOrig==='string'){el.innerHTML=el.__ghOrig;}});
+    });
+    clearEditState();
+    dirty=false;
+    showStatus('Edit cancelled - no changes saved','#f59e0b');
+  }
   fab.onclick=function(){active?exitEdit():enterEdit();};
+  cancelBtn.onclick=function(){cancelEdit();};
   function encodeB64(str){
     var bytes=new TextEncoder().encode(str),result='',chunk=3*1024;
     for(var i=0;i<bytes.length;i+=chunk){
@@ -9981,11 +10009,12 @@ function saveCLToHTML() {
   async function doSave(){
     var token=localStorage.getItem('pcc_gh_tok');
     if(!token){showStatus('No token - click gear icon','#ef4444');return;}
+    if(!dirty){showStatus('No changes to save','#64748b');return;}
     showStatus('Encoding HTML...','#f59e0b',60000);
     try{
       var sha=await getSHA(token);
       var clone=document.documentElement.cloneNode(true);
-      ['gh-fab','gh-cfg-btn','gh-status','gh-panel'].forEach(function(id){
+      ['gh-fab','gh-cfg-btn','gh-status','gh-panel','gh-cancel','cl-modal-new','pcc-login-overlay'].forEach(function(id){
         var el=clone.querySelector('#'+id);if(el)el.remove();
       });
       clone.querySelectorAll('style[data-gh-edit]').forEach(function(s){s.remove();});
@@ -9996,12 +10025,12 @@ function saveCLToHTML() {
       var encoded=encodeB64('<!DOCTYPE html>\n'+clone.outerHTML);
       showStatus('Uploading...','#f59e0b',120000);
       var r=await pushHTML(token,sha,encoded);
-      if(r.ok){showStatus('Saved! Pages updating (1-2 min)','#16a34a');return;}
+      if(r.ok){dirty=false;showStatus('Saved! Pages updating (1-2 min)','#16a34a');return;}
       if(r.status===409){
         showStatus('Conflict - retrying...','#f59e0b',10000);
         sha=await getSHA(token);
         var r2=await pushHTML(token,sha,encoded);
-        if(r2.ok){showStatus('Saved!','#16a34a');return;}
+        if(r2.ok){dirty=false;showStatus('Saved!','#16a34a');return;}
       }
       var err={};try{err=await r.json();}catch(x){}
       showStatus('Error '+r.status+': '+(err.message||'check token'),'#ef4444');
