@@ -10049,6 +10049,7 @@ function saveCLToHTML() {
 
 <!-- ═══ GITHUB INLINE EDIT SYSTEM ═══ -->
 </div></div></div></div></div></div></div></div></div></div></div></div></div>
+
 <script id="gh-edit-js">
 (function(){
   'use strict';
@@ -10061,20 +10062,12 @@ function saveCLToHTML() {
     '.nav-strategy-label','.nav-strategy-sub'
   ];
   var active=false;
-
-  /* Fix 0: Remove any stale UI elements baked in from a previous save */
   ['gh-fab','gh-cfg-btn','gh-status','gh-panel'].forEach(function(id){
     var old=document.getElementById(id);if(old)old.remove();
   });
-
-  /* Fix 1: clear URL hash immediately — prevents modal auto-open on refresh */
   if(location.hash){history.replaceState(null,'',location.pathname+location.search);}
-
-  /* Fix 2: disable browser scroll restoration */
   if('scrollRestoration' in history){history.scrollRestoration='manual';}
   window.addEventListener('load',function(){window.scrollTo(0,0);});
-
-  /* CSS */
   (function(){
     var s=document.createElement('style');
     s.setAttribute('data-gh-edit','1');
@@ -10105,19 +10098,14 @@ function saveCLToHTML() {
       '.gh-edit:focus{outline:2px solid #3b82f6!important;background:rgba(59,130,246,.08)!important}';
     document.head.appendChild(s);
   })();
-
-  /* UI */
   var fab=document.createElement('button');
   fab.id='gh-fab';fab.innerHTML='&#9999;&#65039;';fab.title='Toggle Edit Mode';
   document.body.appendChild(fab);
-
   var cfgBtn=document.createElement('button');
   cfgBtn.id='gh-cfg-btn';cfgBtn.innerHTML='&#9881;&#65039;';cfgBtn.title='GitHub Token Settings';
   document.body.appendChild(cfgBtn);
-
   var st=document.createElement('div');st.id='gh-status';
   document.body.appendChild(st);
-
   var panel=document.createElement('div');panel.id='gh-panel';
   panel.innerHTML=
     '<h3>GitHub Token Settings</h3>'+
@@ -10130,69 +10118,47 @@ function saveCLToHTML() {
     '</div>'+
     '<div id="gh-tok-status"></div>';
   document.body.appendChild(panel);
-
   function showStatus(msg,col,dur){
-    st.textContent=msg;
-    st.style.borderLeft='4px solid '+(col||'#3b82f6');
-    st.style.display='block';
-    clearTimeout(st._t);
-    st._t=setTimeout(function(){st.style.display='none';},(dur||4000));
+    st.textContent=msg;st.style.borderLeft='4px solid '+(col||'#3b82f6');st.style.display='block';
+    clearTimeout(st._t);st._t=setTimeout(function(){st.style.display='none';},(dur||4000));
   }
   function refreshTokStatus(){
     var el=document.getElementById('gh-tok-status');if(!el)return;
     var t=localStorage.getItem('pcc_gh_tok');
-    el.textContent=t?('Token: ...'+t.slice(-6)):('No token - cannot save');
+    el.textContent=t?('Token: ...'+t.slice(-6)):('No token');
     el.style.color=t?'#4ade80':'#f87171';
   }
-
-  cfgBtn.onclick=function(){
-    refreshTokStatus();
-    panel.style.display=(panel.style.display==='block')?'none':'block';
-  };
+  cfgBtn.onclick=function(){refreshTokStatus();panel.style.display=(panel.style.display==='block')?'none':'block';};
   document.getElementById('gh-save-tok-btn').onclick=function(){
     var t=(document.getElementById('gh-tok-in').value||'').trim();
     if(!t){showStatus('Enter token first','#ef4444');return;}
     localStorage.setItem('pcc_gh_tok',t);
     document.getElementById('gh-tok-in').value='';
-    panel.style.display='none';
-    showStatus('Token saved','#16a34a');
+    panel.style.display='none';showStatus('Token saved','#16a34a');
   };
   document.getElementById('gh-clear-tok-btn').onclick=function(){
-    localStorage.removeItem('pcc_gh_tok');
-    refreshTokStatus();
-    showStatus('Token cleared','#f59e0b');
+    localStorage.removeItem('pcc_gh_tok');refreshTokStatus();showStatus('Token cleared','#f59e0b');
   };
   document.getElementById('gh-hide-btn').onclick=function(){panel.style.display='none';};
-
-  /* Edit mode */
   function enterEdit(){
     var tok=localStorage.getItem('pcc_gh_tok');
     if(!tok){refreshTokStatus();panel.style.display='block';return;}
-    active=true;
-    fab.innerHTML='&#128190;';fab.classList.add('edit-active');
+    active=true;fab.innerHTML='&#128190;';fab.classList.add('edit-active');
     SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){
-        el.contentEditable='true';el.classList.add('gh-edit');
-      });
+      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');});
     });
     showStatus('Edit mode ON - click save icon when done',undefined,6000);
   }
   function exitEdit(){
-    active=false;
-    fab.innerHTML='&#9999;&#65039;';fab.classList.remove('edit-active');
+    active=false;fab.innerHTML='&#9999;&#65039;';fab.classList.remove('edit-active');
     SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){
-        el.contentEditable='false';el.classList.remove('gh-edit');
-      });
+      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='false';el.classList.remove('gh-edit');});
     });
     doSave();
   }
   fab.onclick=function(){active?exitEdit():enterEdit();};
-
-  /* Base64 encoder — chunked, safe for large HTML */
   function encodeB64(str){
-    var bytes=new TextEncoder().encode(str);
-    var result='',chunk=3*1024;
+    var bytes=new TextEncoder().encode(str),result='',chunk=3*1024;
     for(var i=0;i<bytes.length;i+=chunk){
       var sl=bytes.subarray(i,i+chunk),bin='';
       for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]);
@@ -10200,8 +10166,6 @@ function saveCLToHTML() {
     }
     return result;
   }
-
-  /* Get current SHA of index.html */
   async function getSHA(token){
     try{
       var r=await fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file,
@@ -10210,48 +10174,34 @@ function saveCLToHTML() {
       return (await r.json()).sha||null;
     }catch(e){return null;}
   }
-
-  /* Push full HTML to GitHub as index.html */
   async function pushHTML(token,sha,encoded){
-    var body={
-      message:'Edit via browser ['+new Date().toISOString().slice(0,16)+']',
-      content:encoded,branch:GH.branch
-    };
+    var body={message:'Edit via browser ['+new Date().toISOString().slice(0,16)+']',content:encoded,branch:GH.branch};
     if(sha)body.sha=sha;
     return fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file,{
       method:'PUT',
-      headers:{Authorization:'token '+token,'Content-Type':'application/json',
-               Accept:'application/vnd.github.v3+json'},
+      headers:{Authorization:'token '+token,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
       body:JSON.stringify(body)
     });
   }
-
-  /* Main save — clone DOM, strip dynamic UI, push clean HTML */
   async function doSave(){
     var token=localStorage.getItem('pcc_gh_tok');
-    if(!token){showStatus('No token - click gear icon to configure','#ef4444');return;}
-    showStatus('Encoding HTML (~7 MB)...','#f59e0b',60000);
+    if(!token){showStatus('No token - click gear icon','#ef4444');return;}
+    showStatus('Encoding HTML...','#f59e0b',60000);
     try{
       var sha=await getSHA(token);
-
-      /* Clone entire document, remove dynamic UI before serializing */
       var clone=document.documentElement.cloneNode(true);
-      /* Remove UI elements injected by this script */
       ['gh-fab','gh-cfg-btn','gh-status','gh-panel'].forEach(function(id){
         var el=clone.querySelector('#'+id);if(el)el.remove();
       });
-      /* Remove injected <style data-gh-edit> */
       clone.querySelectorAll('style[data-gh-edit]').forEach(function(s){s.remove();});
-      /* Remove contenteditable + gh-edit class (not needed in saved HTML) */
       clone.querySelectorAll('[contenteditable]').forEach(function(el){
         el.removeAttribute('contenteditable');el.classList.remove('gh-edit');
       });
-
+      clone.querySelectorAll('.modal-overlay.open').forEach(function(el){el.classList.remove('open');});
       var encoded=encodeB64('<!DOCTYPE html>\n'+clone.outerHTML);
-
-      showStatus('Uploading to GitHub...','#f59e0b',120000);
+      showStatus('Uploading...','#f59e0b',120000);
       var r=await pushHTML(token,sha,encoded);
-      if(r.ok){showStatus('Saved! GitHub Pages updating (1-2 min)','#16a34a');return;}
+      if(r.ok){showStatus('Saved! Pages updating (1-2 min)','#16a34a');return;}
       if(r.status===409){
         showStatus('Conflict - retrying...','#f59e0b',10000);
         sha=await getSHA(token);
@@ -10262,7 +10212,6 @@ function saveCLToHTML() {
       showStatus('Error '+r.status+': '+(err.message||'check token'),'#ef4444');
     }catch(e){showStatus('Error: '+e.message,'#ef4444');}
   }
-
   window.ghToggle=function(){active?exitEdit():enterEdit();};
   window.ghCfg=function(){cfgBtn.click();};
   window.ghSave=function(){if(active)exitEdit();else doSave();};
