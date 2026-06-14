@@ -863,6 +863,20 @@
     }
     .sl-kw:hover { opacity: 1; background: rgba(0,0,0,.07); }
 
+    /* L2 per-company drill-down boxes (prepared for company pages) */
+    .sl-co-wrap  { margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(247,148,29,.35); }
+    .sl-co-label { font-size: 10px; font-weight: 800; letter-spacing: .3px; color: #B06000;
+                   margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    .sl-co-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .sl-co-box   { border: 1px dashed rgba(247,148,29,.45); border-radius: 8px;
+                   background: rgba(247,148,29,.07); padding: 7px 6px; text-align: center;
+                   cursor: pointer; transition: all .18s; }
+    .sl-co-box:hover { border-color: var(--orange); background: rgba(247,148,29,.16);
+                   transform: translateY(-2px); box-shadow: 0 4px 12px rgba(247,148,29,.22); }
+    .sl-co-code  { font-size: 13px; font-weight: 800; color: #B06000; line-height: 1.2; }
+    .sl-co-sub   { font-size: 8px; font-weight: 700; color: rgba(176,96,0,.7);
+                   margin-top: 2px; letter-spacing: .3px; }
+
     /* Card colour themes */
     .sl-c1 .sl-card-top  { background: linear-gradient(135deg, rgba(0,119,182,.12), rgba(0,90,150,.07)); }
     .sl-c1               { background: linear-gradient(180deg, rgba(0,119,182,.06) 0%, rgba(0,80,130,.03) 100%); }
@@ -1924,6 +1938,17 @@
             <div class="sl-desc-en">Concerns the competitive position of a corporation's products or units within a given industry</div>
             <div class="sl-desc-th">
               มีความสามารถในการ<span class="sl-kw" onclick="slClick('แข่งขัน')">แข่งขัน</span>ในแต่ละ<span class="sl-kw" onclick="openModal('modal-product')">ผลิตภัณฑ์</span>หรือของ<span class="sl-kw" onclick="openModal('modal-bizunit')">หน่วยธุรกิจ</span>ย่อยในอุตสาหกรรมที่องค์กรดำเนินการอยู่
+            </div>
+            <div class="sl-co-wrap">
+              <div class="sl-co-label">🏢 Drill Down → กลยุทธ์ระดับธุรกิจรายบริษัท</div>
+              <div class="sl-co-grid">
+                <div class="sl-co-box" onclick="coDrill('PCC')"><div class="sl-co-code">PCC</div></div>
+                <div class="sl-co-box" onclick="coDrill('PEM')"><div class="sl-co-code">PEM</div></div>
+                <div class="sl-co-box" onclick="coDrill('PSP')"><div class="sl-co-code">PSP</div></div>
+                <div class="sl-co-box" onclick="coDrill('PDE')"><div class="sl-co-code">PDE</div></div>
+                <div class="sl-co-box" onclick="coDrill('PSL')"><div class="sl-co-code">PSL</div></div>
+                <div class="sl-co-box" onclick="coDrill('RE')"><div class="sl-co-code">RE</div><div class="sl-co-sub">PPP · SBP · PCE</div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -5266,6 +5291,11 @@ function tckTab(n) {
   function slClick(keyword) {
     // Placeholder — ready to wire to specific drill-down modals
     alert('🔗 "' + keyword + '"\n\n→ Drill-down page coming soon!\nบอก Claude ว่าต้องการเชื่อมไปที่หน้าไหน');
+  }
+
+  // Per-company drill-down (L2 Business Level Strategy) — placeholder, ready to wire
+  function coDrill(code) {
+    alert('🏢 บริษัท ' + code + '\n\n→ หน้าข้อมูลรายบริษัทกำลังจัดเตรียม\nบอก Claude ว่าต้องการใส่ข้อมูลอะไรของ ' + code);
   }
 
   /* ── Modal open/close ── */
