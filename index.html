@@ -1943,7 +1943,7 @@
               <div class="sl-co-label">🏢 Drill Down → กลยุทธ์ระดับธุรกิจรายบริษัท</div>
               <div class="sl-co-grid">
                 <div class="sl-co-box" onclick="coDrill('PCC')"><div class="sl-co-code">PCC</div></div>
-                <div class="sl-co-box" onclick="coDrill('PEM')"><div class="sl-co-code">PEM</div></div>
+                <div class="sl-co-box" onclick="openModal('modal-pem')"><div class="sl-co-code">PEM</div></div>
                 <div class="sl-co-box" onclick="coDrill('PSP')"><div class="sl-co-code">PSP</div></div>
                 <div class="sl-co-box" onclick="coDrill('PDE')"><div class="sl-co-code">PDE</div></div>
                 <div class="sl-co-box" onclick="coDrill('PSL')"><div class="sl-co-code">PSL</div></div>
@@ -2777,6 +2777,263 @@
 <!-- ═══ Strategy Levels moved into 5PS Pyramid section above ═══ -->
 
 <!-- ═══ MODAL: ทิศทาง (3 Industries) ═══ -->
+  <!-- ════════════════ PEM COMPANY STRATEGY PYRAMID (full-screen drill-down) ════════════════ -->
+  <div class="modal-overlay" id="modal-pem">
+    <div class="modal-box" style="max-width:1200px;width:97%;">
+      <div class="modal-topbar">
+        <div class="modal-breadcrumb">
+          <span>PCC Corporate Strategy</span><span class="sep">›</span>
+          <span>Business Level Strategy (L2)</span><span class="sep">›</span>
+          <span class="cur" style="color:#FFB74D;">PEM</span>
+        </div>
+        <button class="modal-close" onclick="closeModal('modal-pem')">✕</button>
+      </div>
+
+      <!-- Title -->
+      <div style="text-align:center;margin-bottom:16px;">
+        <span style="display:inline-block;background:rgba(247,148,29,.16);border:1px solid rgba(247,148,29,.5);color:#FFB74D;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 14px;border-radius:14px;">PEM · STRATEGY PYRAMID</span>
+        <h2 class="modal-title" style="color:#fff;font-size:22px;font-weight:800;margin:10px 0 3px;">PEM — กลยุทธ์ระดับธุรกิจ (Business Level Strategy)</h2>
+        <div style="color:#9DB4CC;font-size:11.5px;">THE STEPS OF 5PS · Purpose · Principles · Processes · People · Performance</div>
+      </div>
+
+      <!-- ░░ APEX: VISION + MISSION ░░ -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div style="background:linear-gradient(135deg,#1E3050,#2A4070);border:1px solid rgba(247,148,29,.35);border-radius:14px;padding:15px 18px;">
+          <div style="font-size:12px;font-weight:800;color:#FFB74D;letter-spacing:1px;margin-bottom:6px;">🔭 VISION</div>
+          <div style="font-size:12.5px;color:#E8EEF5;line-height:1.7;">เป็นพันธมิตรชั้นนำด้านระบบจำหน่ายและระบบส่งไฟฟ้า ระบบควบคุมอัตโนมัติ และระบบบริหารจัดการพลังงาน รวมถึงบริการหลังการขายและบริการงานวิศวกรรมครบวงจร เพื่อตอบสนองความต้องการของลูกค้าทุกด้าน ทั้งในประเทศและภูมิภาคเอเชียตะวันออกเฉียงใต้ (ในกลุ่มประเทศ CLM)</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#1E3050,#2A4070);border:1px solid rgba(247,148,29,.35);border-radius:14px;padding:15px 18px;">
+          <div style="font-size:12px;font-weight:800;color:#FFB74D;letter-spacing:1px;margin-bottom:6px;">🎯 MISSION</div>
+          <div style="font-size:12.5px;color:#E8EEF5;line-height:1.7;">มุ่งเน้นการพัฒนาและผลิตอุปกรณ์ไฟฟ้าและระบบพลังงานไฟฟ้าที่มีคุณภาพสูง ตอบสนองความต้องการของลูกค้าทั้งในประเทศและต่างประเทศ รวมถึงสนับสนุนการพัฒนาระบบโครงสร้างพื้นฐานด้านพลังงานไฟฟ้าของประเทศ</div>
+        </div>
+      </div>
+
+      <!-- ░░ OBJECTIVE ░░ -->
+      <div style="background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 6px 24px rgba(0,0,0,.2);">
+        <div style="background:linear-gradient(135deg,#C0392B,#A52714);padding:9px 16px;display:flex;align-items:center;gap:10px;">
+          <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.8px;">OBJECTIVE</span>
+          <span style="color:rgba(255,255,255,.85);font-size:11px;">Corporate Objective · เป้าหมายองค์กร PDEM</span>
+        </div>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1.35fr;gap:14px;align-items:start;">
+          <!-- Obj 1 -->
+          <div style="background:rgba(192,57,43,.05);border:1px solid rgba(192,57,43,.18);border-radius:10px;padding:11px 13px;">
+            <div style="font-size:10px;font-weight:800;color:#C0392B;letter-spacing:.3px;">Objective No. 1 · Broad Corporate Objective</div>
+            <div style="font-size:10.5px;color:#8A5A55;margin-top:2px;">ทิศทางและเป้าหมายองค์กรโดยรวม</div>
+            <div style="font-size:11.5px;color:#3A2A28;line-height:1.7;margin-top:7px;">มุ่งสู่การเป็นองค์กรที่เติบโต ยั่งยืน มีคุณภาพสูง ผสานประโยชน์สุขทุกฝ่ายที่เกี่ยวข้อง <strong style="color:#C0392B;">(Energizing Shared Prosperity)</strong> และพัฒนาร่วมกัน โดยมีการบริหารแบบธรรมาภิบาล</div>
+          </div>
+          <!-- Obj 2 : NPAT table -->
+          <div style="background:rgba(0,60,140,.04);border:1px solid rgba(0,60,140,.15);border-radius:10px;padding:11px 13px;">
+            <div style="font-size:10px;font-weight:800;color:#1565C0;letter-spacing:.3px;">Objective No. 2 · Financial Corporate Objective</div>
+            <div style="font-size:10.5px;color:#5A6E88;margin-top:2px;">เป้าหมายทางการเงิน · NPAT (ล้านบาท) ปี 2569–2576</div>
+            <div style="overflow-x:auto;margin-top:8px;">
+              <table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:9.5px;">
+                <thead>
+                  <tr style="background:rgba(0,60,140,.1);color:#1A2A4A;">
+                    <th style="padding:4px 6px;text-align:left;border:1px solid #dde;">ปี (พ.ศ.)</th>
+                    <th style="padding:4px 5px;border:1px solid #dde;">2569</th><th style="padding:4px 5px;border:1px solid #dde;">2570</th><th style="padding:4px 5px;border:1px solid #dde;">2571</th><th style="padding:4px 5px;border:1px solid #dde;">2572</th><th style="padding:4px 5px;border:1px solid #dde;">2573</th><th style="padding:4px 5px;border:1px solid #dde;">2574</th><th style="padding:4px 5px;border:1px solid #dde;">2575</th><th style="padding:4px 5px;border:1px solid #dde;">2576</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="padding:4px 6px;border:1px solid #eef;font-weight:700;color:#5A6E88;">NPAT (Base)<br><span style="font-size:8px;font-weight:400;">เลข budget เดิม</span></td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">180.22</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">218.25</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">242.33</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">266.11</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">292.72</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">321.99</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">354.19</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;">389.61</td></tr>
+                  <tr style="background:rgba(0,150,80,.06);"><td style="padding:4px 6px;border:1px solid #eef;font-weight:700;color:#1E7E34;">NPAT (Cont.)<br><span style="font-size:8px;font-weight:400;">+Growth 10%/ปี</span></td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">192.07</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">240.08</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">266.57</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">292.72</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">321.99</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">354.19</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">389.61</td><td style="text-align:center;padding:4px 5px;border:1px solid #eef;font-weight:700;color:#1E7E34;">428.57</td></tr>
+                </tbody>
+              </table>
+              <div style="font-size:9px;color:#8A99A8;margin-top:4px;">* Growth จากฐานธุรกิจ NPAT เดิมปีละ 10%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ░░ PROJECT FUNCTION (3 levels) ░░ -->
+      <div style="background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 6px 24px rgba(0,0,0,.2);">
+        <div style="background:linear-gradient(135deg,#293580,#1E2A6E);padding:9px 16px;display:flex;align-items:center;gap:10px;">
+          <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.8px;">PROJECT FUNCTION</span>
+          <span style="color:rgba(255,255,255,.85);font-size:11px;">Levels of Strategy · ระดับของกลยุทธ์ (คลิกเพื่อดูรายละเอียด)</span>
+        </div>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <!-- L1 Company Strategy -->
+          <div onclick="openModal('modal-pem-company')" style="cursor:pointer;border:1px solid rgba(0,85,160,.25);border-radius:10px;overflow:hidden;transition:all .2s;background:linear-gradient(180deg,rgba(0,119,182,.06),rgba(0,80,130,.02));" onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,85,160,.18)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div style="background:rgba(0,85,160,.1);padding:8px 11px;"><span style="font-size:9px;font-weight:800;color:#0055A0;">L1 · กลยุทธ์ระดับองค์กร</span><div style="font-size:13px;font-weight:800;color:#0055A0;margin-top:2px;">Company Strategy</div></div>
+            <div style="padding:9px 11px;">
+              <div style="font-size:9.5px;color:#3A5878;line-height:1.55;font-style:italic;">The corporation's overall Direction and the management of its various businesses</div>
+              <div style="font-size:10px;color:#4A6888;line-height:1.6;margin-top:4px;">ทิศทางและการบริหารจัดการธุรกิจต่างๆขององค์กรโดยรวม</div>
+              <div style="font-size:8.5px;color:#8A99A8;margin-top:6px;">👤 People's Accountability by <strong>CEO</strong></div>
+              <div style="margin-top:7px;font-size:9.5px;font-weight:700;color:#0055A0;">🧭 Core Competencies → คลิกเปิด ↗</div>
+            </div>
+          </div>
+          <!-- L2 Business Level Strategy -->
+          <div onclick="openModal('modal-pem-business')" style="cursor:pointer;border:1px solid rgba(247,148,29,.3);border-radius:10px;overflow:hidden;transition:all .2s;background:linear-gradient(180deg,rgba(247,148,29,.07),rgba(200,100,0,.03));" onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(247,148,29,.22)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div style="background:rgba(247,148,29,.13);padding:8px 11px;"><span style="font-size:9px;font-weight:800;color:#B06000;">L2 · กลยุทธ์ระดับธุรกิจ</span><div style="font-size:13px;font-weight:800;color:#B06000;margin-top:2px;">Business Level Strategy</div></div>
+            <div style="padding:9px 11px;">
+              <div style="font-size:9.5px;color:#3A5878;line-height:1.55;font-style:italic;">Concerns the Competitive position of a corporation's products or units within a given industry</div>
+              <div style="font-size:10px;color:#4A6888;line-height:1.6;margin-top:4px;">มีความสามารถในการแข่งขันในแต่ละผลิตภัณฑ์ หรือของหน่วยธุรกิจย่อยในอุตสาหกรรมที่องค์กรดำเนินการอยู่</div>
+              <div style="font-size:8.5px;color:#8A99A8;margin-top:6px;">👤 People's Accountability by <strong>President / CEO-RS</strong></div>
+              <div style="margin-top:7px;font-size:9.5px;font-weight:700;color:#B06000;">📊 SWOT + Distinctive Competencies → คลิกเปิด ↗</div>
+            </div>
+          </div>
+          <!-- L3 Functional Level Strategy -->
+          <div onclick="openModal('modal-pem-functional')" style="cursor:pointer;border:1px solid rgba(46,125,50,.28);border-radius:10px;overflow:hidden;transition:all .2s;background:linear-gradient(180deg,rgba(86,160,62,.07),rgba(50,110,30,.03));" onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(46,125,50,.2)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div style="background:rgba(46,125,50,.12);padding:8px 11px;"><span style="font-size:9px;font-weight:800;color:#1E6E22;">L3 · กลยุทธ์ระดับหน้าที่</span><div style="font-size:13px;font-weight:800;color:#1E6E22;margin-top:2px;">Functional Level Strategy</div></div>
+            <div style="padding:9px 11px;">
+              <div style="font-size:9.5px;color:#3A5878;line-height:1.55;font-style:italic;">Maximizes resource performance and values creation</div>
+              <div style="font-size:10px;color:#4A6888;line-height:1.6;margin-top:4px;">เพิ่มสมรรถนะ และการสร้างคุณค่าของทรัพยากรให้สูงสุด</div>
+              <div style="font-size:8.5px;color:#8A99A8;margin-top:6px;">👤 People's Accountability by <strong>VP · COO / CTO / CFO-RS</strong></div>
+              <div style="margin-top:7px;font-size:9.5px;font-weight:700;color:#1E6E22;">🗂️ Asset Planning → คลิกเปิด ↗</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ░░ MAJOR FUNCTION (4 phases) ░░ -->
+      <div style="background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 6px 24px rgba(0,0,0,.2);">
+        <div style="background:linear-gradient(135deg,#1565C0,#1976D2);padding:9px 16px;display:flex;align-items:center;gap:10px;">
+          <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.8px;">MAJOR FUNCTION</span>
+          <span style="color:rgba(255,255,255,.85);font-size:11px;">แผนกลยุทธ์ 4 ระยะ · WAY TO ACHIEVE → BE LEADER</span>
+        </div>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:start;">
+          <div style="border:1px solid rgba(21,101,192,.2);border-radius:9px;overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#1A4A8A,#2563B0);padding:7px 10px;"><span style="font-size:8.5px;font-weight:800;color:#fff;">แผนระยะที่ 1 · WAY TO ACHIEVE</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#1565C0;line-height:1.4;">การวางแผนทางการเงินขั้นพื้นฐาน (งบประมาณ)</div><div style="font-size:9px;color:#C62828;font-weight:700;margin-top:2px;">Current Year (2569)</div><div style="font-size:9px;color:#1565C0;font-weight:700;margin-top:3px;">BASIC FINANCIAL PLANNING (Budgeting)</div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.6;"><li>ประชุมงบประมาณ เพื่อแสวงหาการควบคุมที่ดีขึ้น</li><li>ให้ความสำคัญกับภายใน</li></ul></div>
+          </div>
+          <div style="border:1px solid rgba(25,118,210,.2);border-radius:9px;overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#1565C0,#1976D2);padding:7px 10px;"><span style="font-size:8.5px;font-weight:800;color:#fff;">แผนระยะที่ 2 · WAY TO ACHIEVE</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#1565C0;line-height:1.4;">การวางแผนตามการพยากรณ์</div><div style="font-size:9px;color:#C62828;font-weight:700;margin-top:2px;">Current Year + Next 3 Years (2569–2572)</div><div style="font-size:9px;color:#1565C0;font-weight:700;margin-top:3px;">FORECAST-BASED PLANNING</div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.6;"><li>พยากรณ์อนาคตหลายปี เพื่อวางแผนการเติบโต</li><li>ทำนายและพยากรณ์สภาพแวดล้อม</li></ul></div>
+          </div>
+          <div style="border:1px solid rgba(0,105,92,.22);border-radius:9px;overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#00695C,#00897B);padding:7px 10px;"><span style="font-size:8.5px;font-weight:800;color:#fff;">แผนระยะที่ 3 · WAY TO COMPETE (Reactive)</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#00695C;line-height:1.4;">การวางแผนเชิงกลยุทธ์ มุ่งเน้นภายนอก</div><div style="font-size:9px;color:#C62828;font-weight:700;margin-top:2px;">"Reactive" · Next 5 Years (2569–2574)</div><div style="font-size:9px;color:#00695C;font-weight:700;margin-top:3px;">EXTERNALLY-ORIENTED (Strategic) PLANNING</div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.6;"><li>ตอบสนองต่อการเปลี่ยนแปลงของตลาดและพฤติกรรมของคู่แข่ง</li></ul></div>
+          </div>
+          <div style="border:1px solid rgba(46,125,50,.22);border-radius:9px;overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#2E7D32,#43A047);padding:7px 10px;"><span style="font-size:8.5px;font-weight:800;color:#fff;">แผนระยะที่ 4 · WAY TO BE LEADER (Proactive)</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#2E7D32;line-height:1.4;">การจัดการเชิงกลยุทธ์</div><div style="font-size:9px;color:#C62828;font-weight:700;margin-top:2px;">"Proactive" · Next 7 Years (2569–2576)</div><div style="font-size:9px;color:#2E7D32;font-weight:700;margin-top:3px;">STRATEGIC MANAGEMENT</div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.6;"><li>สร้างอนาคต ด้วยการพัฒนาข้อได้เปรียบในการแข่งขัน</li><li>ปฏิกิริยา + การดำเนินงานด้านสิ่งแวดล้อม</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ░░ SUB-SYSTEM FUNCTION (8 Tactical Plans) ░░ -->
+      <div style="background:#fff;border-radius:14px;overflow:hidden;margin-bottom:8px;box-shadow:0 6px 24px rgba(0,0,0,.2);">
+        <div style="background:linear-gradient(135deg,#0E7C66,#0A6655);padding:9px 16px;display:flex;align-items:center;gap:10px;">
+          <span style="color:#fff;font-size:13px;font-weight:800;letter-spacing:.8px;">SUB-SYSTEM FUNCTION</span>
+          <span style="color:rgba(255,255,255,.85);font-size:11px;">Tactical Plan 1–8</span>
+        </div>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:start;">
+
+          <!-- TP1 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 1</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">Existing Product Management for Distinctive Competency</div><div style="font-size:8.5px;color:#8A99A8;">(Existing Development Plan)</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 COO (SSP) S&amp;OP</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">รักษาระดับการเติบโตจากกลุ่มสินค้าเดิม ลูกค้าเดิม และวงจรธุรกิจเดิม เพื่อให้ได้เป้าหมาย POR, RRC ประจำปี</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>1.1 บริหาร PO Receive ตามแผนระยะที่ 1 ของ PDEM</li><li>1.2 บริหาร Revenue Recognition ตามแผนระยะที่ 1 ของ PDEM</li></ul></div>
+          </div>
+
+          <!-- TP2 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 2</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">New Product Development</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 ACTO (PPJ)</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">สร้างความได้เปรียบทางการแข่งขันด้วยนวัตกรรมที่แตกต่าง ขยายฐานลูกค้า สร้างรายได้ใหม่ — รายได้จากสินค้าใหม่ไม่น้อยกว่า 10% ของรายได้รวมต่อปี</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>2.1 พัฒนา NPD จำนวน xx โครงการ/ปี</li></ul></div>
+          </div>
+
+          <!-- TP3 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 3</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">Customer (Buyer) Development</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 CEO-RS (PRS)</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">พัฒนาลูกค้าใหม่ที่ซื้อสินค้า/บริการของธุรกิจ เพื่อสร้างการเติบโตและขยายฐานรายได้ — รายได้จากลูกค้าใหม่ไม่น้อยกว่า 5% ของรายได้รวมต่อปี</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>3.1 Tendering Customer Development</li><li>3.2 Omni Channel Customer Development</li><li>3.3 TCS Customer Development</li></ul></div>
+          </div>
+
+          <!-- TP4 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 4</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">ลดต้นทุนสินค้า (CFS) และ %SG&amp;A · Cost &amp; Fund Reduction</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 ACOO (KNC), ACFO (NLR), OIS</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">บริหาร GP ไม่น้อยกว่า 30% (ปี 2573) และลด SG&amp;A ลง 1% ของ % ปีก่อนหน้า</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>4.1 พัฒนา %GP และควบคุมต้นทุนการผลิต (CFS)</li><li>4.2 ลดค่าใช้จ่าย SG&amp;A</li><li>4.3 ลดค่าใช้จ่าย Finance Cost</li></ul></div>
+          </div>
+
+          <!-- TP5 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 5</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">Digital Organization to Agentic Transformation</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 ACTO (ACJ), MPP, RTP</div><ul style="margin:7px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>5.1 Digital Business Process &amp; Operations</li><li>5.2 Digital Technology &amp; Platform Ecosystem</li><li>5.3 Digital Infrastructure</li><li>5.4 Intellectual Capital &amp; Agentic Transformation</li></ul></div>
+          </div>
+
+          <!-- TP6 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 6</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">โครงการ Intellectual Capital Development</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 ACTO (ACJ, PPJ), KST, RTP</div><ul style="margin:7px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>6.1 พัฒนาบุคลากรเพื่อรองรับกลยุทธ์ 3 ระดับ</li><li>6.2 พัฒนาระบบ STEM สำหรับการพัฒนาสินค้าใหม่และเก่า</li><li>6.3 โครงการด้านมาตรฐานและการรับรองผลิตภัณฑ์</li></ul></div>
+          </div>
+
+          <!-- TP7 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 7</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">โครงการพัฒนา ESG</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 ARK</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">ระดับการจัดอันดับ FTSE ESG Russell Score คะแนนไม่น้อยกว่า 3.0</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>7.1 พัฒนา ESG (Environment, Social and Governance) ตามเป้าหมายองค์กร</li></ul></div>
+          </div>
+
+          <!-- TP8 -->
+          <div style="border:1px solid rgba(14,124,102,.18);border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+            <div style="background:#0E7C66;padding:5px 9px;"><span style="background:rgba(255,255,255,.22);color:#fff;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:8px;">Tactical Plan 8</span></div>
+            <div style="padding:9px 10px;"><div style="font-size:11px;font-weight:800;color:#0E5A4A;line-height:1.35;">โครงการพัฒนา Acquire, Construct and Manage Asset</div><div style="font-size:9px;color:#6A7A88;margin-top:5px;">👤 KRP, KKS, WWD</div><div style="margin-top:6px;background:rgba(14,124,102,.07);border-radius:5px;padding:5px 7px;"><div style="font-size:8.5px;font-weight:800;color:#0E7C66;">🎯 เป้าหมาย</div><div style="font-size:9.5px;color:#3A5878;line-height:1.5;margin-top:2px;">ขยายขีดความสามารถและยกระดับโครงสร้างพื้นฐาน ลงทุนเครื่องมือทดสอบประสิทธิภาพสูง ขจัดความเสี่ยงการหยุดชะงักการผลิต ควบคู่กับการฟื้นฟูเครื่องจักรเพื่อเพิ่มประสิทธิผลและยกระดับความปลอดภัย</div></div><ul style="margin:6px 0 0;padding-left:13px;font-size:9.5px;color:#3A5878;line-height:1.55;"><li>8.1 งานก่อสร้าง (Construction &amp; Installation Work)</li><li>8.2 งานปรับปรุง (Renovation / Improvement Work)</li><li>8.3 จัดซื้อเครื่องมือและเครื่องทดสอบ ป้องกันการ shut down</li><li>8.4 ซ่อมบำรุงเครื่องจักรเพื่อเพิ่มประสิทธิภาพและการทำงาน</li></ul></div>
+          </div>
+
+        </div>
+        <div style="padding:0 16px 12px;font-size:8.5px;color:#8A99A8;line-height:1.6;">📎 แหล่งข้อมูล: C1-005 PDEM_2026-2033.xlsx · Format Market Size Growth Share แผนระยะที่ 2.xlsx · Business Opportunity (For Pivot).xlsx · Template Tactical Plan 2027.xlsx · Budget_Request_Form_2027-2033_PEM.xlsx (CAPEX/OPEX)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ──── PEM L1: Company Strategy (Core Competencies) — internal placeholder ──── -->
+  <div class="modal-overlay" id="modal-pem-company" style="z-index:600;">
+    <div class="modal-box" style="max-width:880px;width:94%;">
+      <div class="modal-topbar">
+        <div class="modal-breadcrumb"><span>PEM</span><span class="sep">›</span><span>Project Function · Level 1</span><span class="sep">›</span><span class="cur" style="color:#7ECFFF;">Company Strategy · Core Competencies</span></div>
+        <button class="modal-close" onclick="closeModal('modal-pem-company')">✕</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:30px 28px;text-align:center;">
+        <div style="font-size:42px;">🧭</div>
+        <h2 class="modal-title" style="color:#0055A0;font-size:18px;margin:10px 0 4px;">Core Competencies ของ PEM</h2>
+        <p style="color:#4A6888;font-size:12.5px;line-height:1.75;max-width:600px;margin:0 auto;">หน้านี้จะแสดง <strong>Core Competencies</strong> ของ PEM (คล้ายหน้า "ทิศทาง — Core Competencies at Precise" ของ Corporate Strategy บนหน้า Main) — กำลังจัดเตรียมข้อมูลจากไฟล์ <strong>Core_Competencies.xlsx</strong></p>
+        <a href="https://preciseth.sharepoint.com/:x:/s/DBAPEM/IQCrAlKm3WG_Q771SSDj5h_6AW0iz_-Xfr4huO5tPVDfkWQ?e=RllcBK" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;background:#0055A0;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:11px 22px;border-radius:9px;">📊 เปิดเอกสารต้นทาง (SharePoint) ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── PEM L2: Business Level Strategy (SWOT + Distinctive) — internal placeholder ──── -->
+  <div class="modal-overlay" id="modal-pem-business" style="z-index:600;">
+    <div class="modal-box" style="max-width:880px;width:94%;">
+      <div class="modal-topbar">
+        <div class="modal-breadcrumb"><span>PEM</span><span class="sep">›</span><span>Project Function · Level 2</span><span class="sep">›</span><span class="cur" style="color:#FFB74D;">Business Level Strategy</span></div>
+        <button class="modal-close" onclick="closeModal('modal-pem-business')">✕</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:28px;">
+        <h2 class="modal-title" style="color:#B06000;font-size:18px;margin:0 0 4px;text-align:center;">Business Level Strategy ของ PEM</h2>
+        <p style="color:#4A6888;font-size:12px;line-height:1.7;text-align:center;max-width:600px;margin:0 auto 18px;">วิเคราะห์ความสามารถในการแข่งขันของ PEM — กำลังจัดเตรียมข้อมูล เลือกเปิดเอกสารต้นทางได้ที่นี่</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div style="border:1px solid rgba(247,148,29,.3);border-radius:11px;padding:18px;text-align:center;background:rgba(247,148,29,.04);">
+            <div style="font-size:32px;">📈</div>
+            <div style="font-size:13px;font-weight:800;color:#B06000;margin:6px 0 2px;">SWOT Analysis</div>
+            <div style="font-size:10px;color:#8A99A8;margin-bottom:12px;">SWOT_Analysis_PEM_BU.xlsx</div>
+            <a href="https://preciseth.sharepoint.com/:x:/s/DBAPEM/IQBNmIJKxjPQS4t7xo6H2_hmAdNKkWqhQ5JNL32DG01A_dc?e=7ynmdl" target="_blank" rel="noopener" style="display:inline-block;background:#B06000;color:#fff;text-decoration:none;font-weight:700;font-size:11.5px;padding:9px 18px;border-radius:8px;">เปิด SharePoint ↗</a>
+          </div>
+          <div style="border:1px solid rgba(247,148,29,.3);border-radius:11px;padding:18px;text-align:center;background:rgba(247,148,29,.04);">
+            <div style="font-size:32px;">⭐</div>
+            <div style="font-size:13px;font-weight:800;color:#B06000;margin:6px 0 2px;">Distinctive Competencies</div>
+            <div style="font-size:10px;color:#8A99A8;margin-bottom:12px;">Distinctive_Competencies_Template.xlsx</div>
+            <a href="https://preciseth.sharepoint.com/:x:/s/DBAPEM/IQDz9aSUF5fHRJQYa7-qi9r6AR3HFsxgi9lkzpAXzGy92pY?e=K80jYT" target="_blank" rel="noopener" style="display:inline-block;background:#B06000;color:#fff;text-decoration:none;font-weight:700;font-size:11.5px;padding:9px 18px;border-radius:8px;">เปิด SharePoint ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──── PEM L3: Functional Level Strategy (Asset Planning) — internal placeholder ──── -->
+  <div class="modal-overlay" id="modal-pem-functional" style="z-index:600;">
+    <div class="modal-box" style="max-width:880px;width:94%;">
+      <div class="modal-topbar">
+        <div class="modal-breadcrumb"><span>PEM</span><span class="sep">›</span><span>Project Function · Level 3</span><span class="sep">›</span><span class="cur" style="color:#9FE0A2;">Functional Level Strategy</span></div>
+        <button class="modal-close" onclick="closeModal('modal-pem-functional')">✕</button>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:30px 28px;text-align:center;">
+        <div style="font-size:42px;">🗂️</div>
+        <h2 class="modal-title" style="color:#1E6E22;font-size:18px;margin:10px 0 4px;">Functional Level Strategy ของ PEM</h2>
+        <p style="color:#4A6888;font-size:12.5px;line-height:1.75;max-width:600px;margin:0 auto;">เพิ่มสมรรถนะและการสร้างคุณค่าของทรัพยากรให้สูงสุด — กำลังจัดเตรียมข้อมูลจากไฟล์ <strong>PCC_Asset_Planning_Form.xlsx</strong></p>
+        <a href="https://preciseth.sharepoint.com/:x:/s/DBAPEM/IQCQ5V0-Q5rcSYVYJWAgCPypAcRSEgluyTVcKUe5q-H-Zfw?e=mGcqSw" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;background:#1E6E22;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:11px 22px;border-radius:9px;">🗂️ เปิดเอกสารต้นทาง (SharePoint) ↗</a>
+      </div>
+    </div>
+  </div>
+
+
 <div class="modal-overlay" id="modal-direction">
   <div class="modal-box" style="max-width:1020px;width:96%;">
     <div class="modal-topbar">
