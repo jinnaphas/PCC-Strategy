@@ -10307,6 +10307,13 @@ function saveCLToHTML() {
   };
   document.getElementById('gh-hide-btn').onclick=function(){panel.style.display='none';};
   function markDirty(){dirty=true;}
+  // While editing, a click on editable text must not also fire a card's onclick
+  // navigation (e.g. opening a phase/company modal). Swallow it — but never for the edit UI.
+  function suppressNav(e){
+    if(!active)return;
+    if(e.target.closest('#gh-fab,#gh-cancel,#gh-cfg-btn,#gh-panel,#gh-status'))return;
+    if(e.target.closest('.gh-edit'))e.stopPropagation();
+  }
   var editedEls=[];
   // Collect every element to make editable: the explicit SELS whitelist (page-wide)
   // PLUS any leaf "text" element inside ANY .modal-overlay (text + inline tags only),
@@ -10326,14 +10333,16 @@ function saveCLToHTML() {
       }
       return hasText;
     }
-    document.querySelectorAll('.modal-overlay').forEach(function(modal){
-      modal.querySelectorAll('div,span,p,h1,h2,h3,h4,h5,h6,td,th,li,figcaption,blockquote,label,dt,dd').forEach(function(el){
-        if(seen.indexOf(el)!==-1)return;
-        if(el.closest('svg')||el.closest('button')||el.closest('a'))return;
-        if(!inlineOnly(el))return;
-        var p=el.parentElement;            // only the outermost text element in a chain (avoid nesting)
-        while(p&&p!==modal){if(inlineOnly(p))return;p=p.parentElement;}
-        add(el);
+    ['.modal-overlay','.pyr-l3'].forEach(function(scopeSel){
+      document.querySelectorAll(scopeSel).forEach(function(scope){
+        scope.querySelectorAll('div,span,p,h1,h2,h3,h4,h5,h6,td,th,li,figcaption,blockquote,label,dt,dd').forEach(function(el){
+          if(seen.indexOf(el)!==-1)return;
+          if(el.closest('svg')||el.closest('button')||el.closest('a')||el.closest('.pyr-level-tag'))return;
+          if(!inlineOnly(el))return;
+          var p=el.parentElement;            // only the outermost text element in a chain (avoid nesting)
+          while(p&&p!==scope){if(inlineOnly(p))return;p=p.parentElement;}
+          add(el);
+        });
       });
     });
     return out;
@@ -10346,12 +10355,14 @@ function saveCLToHTML() {
     editedEls=collectEditable();
     editedEls.forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');el.__ghOrig=el.innerHTML;});
     document.addEventListener('input',markDirty,true);
+    document.addEventListener('click',suppressNav,true);
     showStatus('Edit mode ON - 💾 save / ✖ cancel',undefined,6000);
   }
   function clearEditState(){
     active=false;fab.innerHTML='&#9999;&#65039;';fab.classList.remove('edit-active');
     cancelBtn.style.display='none';
     document.removeEventListener('input',markDirty,true);
+    document.removeEventListener('click',suppressNav,true);
     editedEls.forEach(function(el){el.contentEditable='false';el.classList.remove('gh-edit');});
     editedEls=[];
   }
