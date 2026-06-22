@@ -10307,14 +10307,44 @@ function saveCLToHTML() {
   };
   document.getElementById('gh-hide-btn').onclick=function(){panel.style.display='none';};
   function markDirty(){dirty=true;}
+  var editedEls=[];
+  // Collect every element to make editable: the explicit SELS whitelist (page-wide)
+  // PLUS any leaf "text" element inside ANY .modal-overlay (text + inline tags only),
+  // skipping containers, buttons, links and SVG so structure can't break on save.
+  function collectEditable(){
+    var out=[],seen=[];
+    function add(el){if(seen.indexOf(el)===-1){seen.push(el);out.push(el);}}
+    SELS.forEach(function(sel){document.querySelectorAll(sel).forEach(add);});
+    var INLINE={STRONG:1,EM:1,B:1,I:1,U:1,S:1,SMALL:1,BR:1,SPAN:1,SUP:1,SUB:1,CODE:1,MARK:1,ABBR:1,WBR:1,A:1};
+    function inlineOnly(el){
+      var kids=el.childNodes,hasText=false;
+      if(!kids.length)return false;
+      for(var i=0;i<kids.length;i++){
+        var n=kids[i];
+        if(n.nodeType===3){if(n.nodeValue.trim())hasText=true;}
+        else if(n.nodeType===1){if(!INLINE[n.tagName])return false;if(n.textContent.trim())hasText=true;}
+      }
+      return hasText;
+    }
+    document.querySelectorAll('.modal-overlay').forEach(function(modal){
+      modal.querySelectorAll('div,span,p,h1,h2,h3,h4,h5,h6,td,th,li,figcaption,blockquote,label,dt,dd').forEach(function(el){
+        if(seen.indexOf(el)!==-1)return;
+        if(el.closest('svg')||el.closest('button')||el.closest('a'))return;
+        if(!inlineOnly(el))return;
+        var p=el.parentElement;            // only the outermost text element in a chain (avoid nesting)
+        while(p&&p!==modal){if(inlineOnly(p))return;p=p.parentElement;}
+        add(el);
+      });
+    });
+    return out;
+  }
   function enterEdit(){
     var tok=localStorage.getItem('pcc_gh_tok');
     if(!tok){refreshTokStatus();panel.style.display='block';return;}
     active=true;dirty=false;fab.innerHTML='&#128190;';fab.classList.add('edit-active');
     cancelBtn.style.display='flex';
-    SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');el.__ghOrig=el.innerHTML;});
-    });
+    editedEls=collectEditable();
+    editedEls.forEach(function(el){el.contentEditable='true';el.classList.add('gh-edit');el.__ghOrig=el.innerHTML;});
     document.addEventListener('input',markDirty,true);
     showStatus('Edit mode ON - 💾 save / ✖ cancel',undefined,6000);
   }
@@ -10322,18 +10352,15 @@ function saveCLToHTML() {
     active=false;fab.innerHTML='&#9999;&#65039;';fab.classList.remove('edit-active');
     cancelBtn.style.display='none';
     document.removeEventListener('input',markDirty,true);
-    SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){el.contentEditable='false';el.classList.remove('gh-edit');});
-    });
+    editedEls.forEach(function(el){el.contentEditable='false';el.classList.remove('gh-edit');});
+    editedEls=[];
   }
   function exitEdit(){
     clearEditState();
     doSave();
   }
   function cancelEdit(){
-    SELS.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){if(typeof el.__ghOrig==='string'){el.innerHTML=el.__ghOrig;}});
-    });
+    editedEls.forEach(function(el){if(typeof el.__ghOrig==='string'){el.innerHTML=el.__ghOrig;}});
     clearEditState();
     dirty=false;
     showStatus('Edit cancelled - no changes saved','#f59e0b');
@@ -10378,6 +10405,7 @@ function saveCLToHTML() {
         var el=clone.querySelector('#'+id);if(el)el.remove();
       });
       clone.querySelectorAll('style[data-gh-edit]').forEach(function(s){s.remove();});
+      clone.querySelectorAll('chatgpt-sidebar').forEach(function(s){s.remove();});
       clone.querySelectorAll('[contenteditable]').forEach(function(el){
         el.removeAttribute('contenteditable');el.classList.remove('gh-edit');
       });
@@ -11933,4 +11961,4 @@ function saveCLToHTML() {
     </div>
   </div>
 </div>
-</body><chatgpt-sidebar data-rendered="true" data-gpts-theme="light"></chatgpt-sidebar></html>
+</body></html>

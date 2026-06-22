@@ -63,7 +63,8 @@ to locate, then targeted offset reads or Python slice-and-replace for surgical e
 - ✏️ enter edit / 💾 save+exit (`exitEdit`→`doSave`); ✖ red FAB (`#gh-cancel`) = discard
   changes and exit without saving (restores `el.__ghOrig` snapshot taken on enter).
 - `doSave()` clones DOM → strips injected UI (`#gh-fab`,`#gh-cfg-btn`,`#gh-status`,`#gh-panel`,
-  `#gh-cancel`) **and JS-injected/transient nodes (`#cl-modal-new`, `#pcc-login-overlay`)**,
+  `#gh-cancel`) **and JS-injected/transient nodes (`#cl-modal-new`, `#pcc-login-overlay`,
+  `<chatgpt-sidebar>` browser-extension artifact)**,
   `style[data-gh-edit]`, `contenteditable` attrs, and **`open` on every `.modal-overlay`**
   → base64 → PUT to GitHub.
 - **Dirty-check:** `doSave` skips the commit (shows "No changes to save") unless an `input`
@@ -71,7 +72,7 @@ to locate, then targeted offset reads or Python slice-and-replace for surgical e
 - ⚠️ When adding new JS that injects elements at runtime, also add their ids to the strip
   list in `doSave`, or a browser-save will bake duplicates into the static HTML.
 - ⚙️ gear = token panel; PAT saved to localStorage `pcc_gh_tok`.
-- Editable selectors: `.p2-name/.p2-desc/.p3-*/.p4-*/.p1-title/.p1-sub/.sl-card-name(-th)/.sl-desc-en(-th)/.obj-headline/.modal-title`, modal text nodes, `.nav-strategy-label/.nav-strategy-sub`.
+- Editable targets = explicit `SELS` whitelist (page-wide: `.p2-name/.p2-desc/.p3-*/.p4-*/.p1-title/.p1-sub/.sl-card-name(-th)/.sl-desc-en(-th)/.obj-headline/.modal-title/.nav-strategy-label/.nav-strategy-sub`) **PLUS auto-detected leaf text inside every `.modal-overlay`** — `collectEditable()` makes editable any element whose children are text + inline tags only (skips containers, buttons, links, SVG, and avoids nesting). So new modal text is editable without touching `SELS`.
 
 ---
 
