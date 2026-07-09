@@ -10411,6 +10411,12 @@ function saveCLToHTML() {
   }
   fab.onclick=function(){active?exitEdit():enterEdit();};
   cancelBtn.onclick=function(){cancelEdit();};
+  // Keyboard fallback: Alt+E toggles edit mode (in case the ✏️ button is hard to reach).
+  document.addEventListener('keydown',function(e){
+    if(e.altKey&&!e.ctrlKey&&!e.metaKey&&(e.code==='KeyE'||e.key==='e'||e.key==='E')){
+      e.preventDefault();active?exitEdit():enterEdit();
+    }
+  },true);
   function encodeB64(str){
     var bytes=new TextEncoder().encode(str),result='',chunk=3*1024;
     for(var i=0;i<bytes.length;i+=chunk){
