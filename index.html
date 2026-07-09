@@ -787,7 +787,7 @@
     .sl-title .sl-th { color: var(--orange); font-size: 14px; font-weight: 600; }
     .sl-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
     .sl-card {
@@ -797,7 +797,11 @@
       box-shadow: 0 2px 16px rgba(0,0,0,.07);
       transition: transform .25s, box-shadow .25s;
       position: relative;
+      min-width: 0;   /* let the grid column shrink instead of overflowing the page */
     }
+    /* wrap long Thai/English runs so a card never forces the row wider than the viewport */
+    .sl-desc-th, .sl-desc-en, .sl-card-name, .sl-card-name-th,
+    .sl-level-tag, .sl-co-label, .sl-accountability { overflow-wrap: anywhere; word-break: break-word; }
     .sl-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 36px rgba(0,0,0,.4);
