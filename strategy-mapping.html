@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Strategy Mapping (ร่าง)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- พาเลตต์เดียวกับหน้า index หลัก ---- */
+  --paper:#F0F4F8; --paper2:#E4ECF5;
+  --card:#FFFFFF; --ink:#1E3A5F; --mute:#5A6E88; --line:#D3DEEA;
+  --a1:#005A8E;  /* เสา 1 Strategy */
+  --a2:#0077B6;  /* เสา 2 Business Model + หัวข้อ */
+  --a3:#F7941D;  /* เสา 3 Business Plan */
+  --a4:#2E7D32;  /* เสา 4 Financial */
+  --hi:#F5B301;  /* ไฮไลต์ตอนแก้ไข */
+  --brand:#005A8E;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:radial-gradient(1100px 620px at 50% -12%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);
+  font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;font-weight:400;
+  -webkit-font-smoothing:antialiased;overflow:hidden
+}
+h1,h2,h3,h4{font-family:'Inter','Sarabun',system-ui,sans-serif;margin:0}
+
+/* ---------------- toolbar ---------------- */
+.bar{
+  position:fixed;top:0;left:0;right:0;height:56px;z-index:100;display:flex;gap:7px;align-items:center;
+  padding:0 14px;background:rgba(240,244,248,.95);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);overflow-x:auto
+}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:6px;flex:none}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--brand)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8FA3B8}
+.bar .sep{width:1px;height:24px;background:var(--line);margin:0 4px;flex:none}
+.bar .lbl{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:#93A6BA;flex:none}
+button{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 10px;cursor:pointer;
+  border-radius:6px;white-space:nowrap;flex:none;transition:.14s
+}
+button:hover{border-color:var(--a2);color:var(--a2)}
+button.on{background:var(--a2);border-color:var(--a2);color:#fff}
+button.ghost{border-style:dashed}
+#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:#B7C4D2;flex:none;margin-left:auto;transition:color .25s;white-space:nowrap}
+#autosave.hit{color:var(--a4)}
+.tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;
+  background:var(--ink);color:#fff;padding:8px 16px;border-radius:8px;font-size:13.5px;
+  opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
+.tip.show{opacity:.96}
+
+/* ---------------- stage ---------------- */
+#stage{position:absolute;inset:56px 0 0 0;overflow:auto;
+  background-image:radial-gradient(#D3DEEA 1px,transparent 1px);background-size:26px 26px}
+#canvas{position:relative;width:2680px;height:1160px;transform-origin:0 0}
+
+svg#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+svg#edges path.hit{stroke:transparent;stroke-width:16;fill:none;pointer-events:stroke;cursor:pointer}
+svg#edges path.wire{stroke:#9FB4C9;stroke-width:1.6;fill:none;marker-end:url(#ah)}
+svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#ahr)}
+
+/* ---------------- cards ---------------- */
+.card{position:absolute;z-index:3;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;box-shadow:0 2px 12px rgba(30,58,95,.08);min-width:110px}
+.card .hd{height:24px;display:flex;align-items:center;gap:6px;padding:0 7px;
+  border-bottom:1px solid #E9EFF6;cursor:grab;background:#F5F8FC;border-radius:9px 9px 0 0}
+.card .hd:active{cursor:grabbing}
+.card .grip{font-size:11px;color:#AEBED0;letter-spacing:-1px}
+.card .hd .sp{flex:1}
+.card .hd button{padding:0 5px;font-size:11px;line-height:16px;border:none;background:transparent;color:#AEBED0;border-radius:4px}
+.card .hd button:hover{color:var(--a3)}
+.card .bd{padding:10px 13px 13px}
+.card h3{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:3px;color:var(--ink)}
+.card p,.card ul{font-size:13.5px;color:#41586C;margin:0;line-height:1.5}
+.card ul{padding-left:16px;margin-top:5px}
+.card li{margin-bottom:2px}
+.card .rs{position:absolute;right:-3px;bottom:-3px;width:12px;height:12px;cursor:nwse-resize;
+  border-right:2px solid #B9C7D6;border-bottom:2px solid #B9C7D6;border-radius:0 0 8px 0}
+.card.sel{outline:2px solid var(--hi);outline-offset:1px}
+.card.src{outline:2px solid var(--a3);outline-offset:1px}
+
+.card[data-k="head"]{background:transparent;border:none;box-shadow:none}
+.card[data-k="head"] .bd{padding:2px 4px}
+.card[data-k="head"] h3{font-size:22px;font-weight:800;color:var(--ac,var(--a1));line-height:1.25;letter-spacing:-.01em}
+.card[data-k="head"] .hd{background:transparent;border-bottom:none}
+
+.card[data-k="rail"]{background:transparent;border:none;box-shadow:none}
+.card[data-k="rail"] .bd{padding:2px 4px}
+.card[data-k="rail"] h3{font-size:14px;font-weight:700;color:var(--a1)}
+.card[data-k="rail"] .hd{background:transparent;border-bottom:none}
+
+.card[data-k="note"]{background:#FFF8E8;border-color:#F1DFAE}
+.card[data-k="role"]{background:#EAF3FA;border-color:#BFD9EC}
+.card[data-k="role"] h3{color:var(--a1)}
+.card[data-k="out"]{background:#EAF5EC;border-color:#BFE1C6}
+.card[data-k="out"] h3{color:var(--a4)}
+
+.card .ac{height:3px;background:var(--ac,transparent);margin:-1px -1px 0;border-radius:9px 9px 0 0}
+
+.card[data-k="vert"]{background:#EAF3FA;border-color:#BFD9EC}
+.card[data-k="vert"] .bd{writing-mode:vertical-rl;text-orientation:mixed;padding:14px 8px}
+.card[data-k="vert"] h3{font-size:15px;color:var(--a1);white-space:nowrap}
+
+.slot{position:relative;border:1px dashed #B7C7D6;background:#F7FAFD;min-height:70px;
+  display:flex;align-items:center;justify-content:center;margin-top:8px;overflow:hidden;cursor:pointer;border-radius:6px}
+.slot img{width:100%;display:block}
+.slot .ph{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:#9AACBE;text-align:center;padding:14px 8px;pointer-events:none}
+.slot .x{position:absolute;top:3px;right:3px;background:#fff;border:1px solid var(--line);
+  font-size:10px;padding:1px 5px;opacity:0;border-radius:4px}
+.slot:hover .x{opacity:1}
+
+[contenteditable="true"]:focus{background:rgba(245,179,1,.16);outline:none;border-radius:3px}
+body.connect .card{cursor:crosshair}
+body.connect .card .bd *{pointer-events:none}
+
+@media print{
+  .bar,.tip{display:none}
+  body{overflow:visible;background:#fff}
+  #stage{position:static;overflow:visible;background:none}
+  .card{box-shadow:none}
+  @page{size:A3 landscape;margin:8mm}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>PCC · Strategy Mapping</b><span>Draft · ร่างเพื่อพิจารณา</span></div>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไขข้อความ</button>
+  <button id="bConn">↗ ลากเส้นเชื่อม</button>
+  <div class="sep"></div>
+  <span class="lbl">เพิ่ม</span>
+  <button data-add="card" class="ghost">+ กล่อง</button>
+  <button data-add="note" class="ghost">+ โน้ต</button>
+  <button data-add="head" class="ghost">+ หัวข้อ</button>
+  <button data-add="image" class="ghost">+ รูป</button>
+  <div class="sep"></div>
+  <span class="lbl">เส้น</span>
+  <button data-ls="elbow" class="on">หักมุม</button>
+  <button data-ls="curve">โค้ง</button>
+  <button data-ls="straight">ตรง</button>
+  <button id="bAvoid" class="on">หลบกล่อง</button>
+  <div class="sep"></div>
+  <span class="lbl">ซูม</span>
+  <button id="zOut">−</button><button id="zFit">พอดี</button><button id="zIn">+</button>
+  <div class="sep"></div>
+  <button id="bClear">ลบเส้น</button>
+  <button id="bReset">คืนค่าเริ่มต้น</button>
+  <div class="sep"></div>
+  <button id="bSave">บันทึกไฟล์</button>
+  <button id="bOpen">เปิดไฟล์</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="stage">
+  <div id="canvas">
+    <svg id="edges">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#9FB4C9"/>
+        </marker>
+        <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#F7941D"/>
+        </marker>
+      </defs>
+      <g id="egroup"></g>
+    </svg>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+
+var LSK='pcc_strategy_mapping_v1';
+
+/* ============================ DEFAULT BOARD ============================ */
+function seed(){ return {
+cards:[
+ /* --- headers --- */
+ {id:"h1",k:"head",ac:"a1",x:150,y:14,w:230,t:"1. Strategy",b:""},
+ {id:"h2",k:"head",ac:"a2",x:800,y:14,w:280,t:"2. Business Model",b:""},
+ {id:"h3",k:"head",ac:"a3",x:1290,y:14,w:520,t:"3. Business Plan &gt; Tactical Plan &gt; Operation Plan",b:""},
+ {id:"h4",k:"head",ac:"a4",x:2060,y:14,w:400,t:"4. Financial Budgeting / Target",b:""},
+
+ /* --- left rail --- */
+ {id:"r1",k:"rail",x:14,y:640,w:130,t:"How to Achieve",b:""},
+ {id:"r2",k:"rail",x:14,y:730,w:130,t:"How to Complete",b:""},
+ {id:"r3",k:"rail",x:14,y:820,w:130,t:"How to be Leader",b:""},
+
+ /* --- column 1 : Strategy --- */
+ {id:"c_def",k:"note",ac:"a1",x:395,y:70,w:380,
+  t:"Relationship Between Strategy and Business Model",
+  b:"<p><strong>Strategy</strong> — ว่าด้วยการริเริ่มเชิงแข่งขันและแนวทางธุรกิจของบริษัท</p><p style='margin-top:6px'><strong>Business Model</strong> — ว่าด้วยว่ารายได้และต้นทุนที่ไหลออกมาจากกลยุทธ์นั้น ทำให้ธุรกิจกำไรและอยู่รอดได้จริงหรือไม่</p>"},
+ {id:"c_lvl",k:"image",ac:"a1",x:80,y:300,w:290,
+  t:"Levels of Strategy",
+  b:"<ul><li><strong>Corporate</strong> — ทิศทางรวมของกลุ่ม</li><li><strong>Business Level</strong> — ตำแหน่งการแข่งขันของแต่ละหน่วย</li><li><strong>Functional</strong> — ผลิตภาพของทรัพยากร</li></ul>"},
+ {id:"c_dir",k:"card",ac:"a1",x:410,y:300,w:340,
+  t:"Direction",
+  b:"<p>Industrial → <strong>Platform</strong> → <strong>Ecosystem Capitalism</strong> รองรับด้วย Digital และ Agentic AI Organization</p>"},
+ {id:"c_dc",k:"card",ac:"a1",x:410,y:410,w:340,
+  t:"Distinctive Competencies และ TRM",b:"<p>ขีดความสามารถที่แยกเราออกจากคู่แข่ง และแผนที่เทคโนโลยีที่รองรับ</p>"},
+ {id:"c_wf",k:"card",ac:"a1",x:410,y:510,w:340,
+  t:"Workforce Planning และ Performance Management",b:"<p>คนและตัวชี้วัดที่ทำให้กลยุทธ์เกิดขึ้นจริงในระดับฟังก์ชัน</p>"},
+ {id:"c_4p",k:"image",ac:"a1",x:150,y:620,w:420,
+  t:"การวางแผนกลยุทธ์ 4 ระยะ",
+  b:"<ul><li>1. Basic Financial Planning (Budgeting) — <strong>2570</strong></li><li>2. Forecast-Based Planning — <strong>2571–2573</strong></li><li>3. Externally-Oriented (Strategic) Planning — <strong>2576</strong></li><li>4. Strategic Management — <strong>2578</strong></li></ul>"},
+ {id:"c_da",k:"card",ac:"a1",x:600,y:640,w:200,
+  t:"Digital Architecture Model — 4 Industries",b:"<p>SGAM · SFAM · SCIAM · RAMI 4.0</p>"},
+
+ /* --- column 2 : Business Model --- */
+ {id:"c_pf",k:"card",ac:"a2",x:800,y:110,w:250,
+  t:"Platform &amp; Ecosystem Capitalism",b:"<p>รองรับด้วย Digital และ Agentic AI Organization</p>"},
+ {id:"c_bmc",k:"image",ac:"a2",x:800,y:250,w:290,
+  t:"Business Model Canvas → Business Plan",
+  b:"<p>KP · KA · KR · VP · CR · CH · CS · C$ · R$ ทำครบ 9 ช่อง แยกรายตัวทั้ง 6 RST</p>"},
+ {id:"c_rst",k:"out",ac:"a2",x:800,y:600,w:290,
+  t:"6 Revenue Stream Type",
+  b:"<ul><li>Tendering</li><li>Omni Channel</li><li>TCS</li><li>Recurring</li><li>PPA / Long Term Contract</li><li>Investment</li></ul>"},
+
+ /* --- column 3 : Business Plan --- */
+ {id:"c_31",k:"card",ac:"a3",x:1290,y:100,w:250,t:"3.1 Business Generation",b:"<p>สร้างดีมานด์และพัฒนา Revenue Stream ใหม่</p>"},
+ {id:"c_31r",k:"role",x:1580,y:100,w:290,t:"CEO / CTO",b:"<p>ร่วมกับ CMM และ KA โดยดึง Function Unit เข้ามาร่วม</p>"},
+ {id:"c_32",k:"card",ac:"a3",x:1290,y:290,w:250,t:"3.2 Demand Satisfaction",b:"<p>ส่งมอบตาม QCDS ให้ครบวงจร</p>"},
+ {id:"c_32r",k:"role",x:1580,y:290,w:290,t:"COO / BM / PM",b:"<p>ร่วมกับ Function Unit ทั้งฝั่ง Business และฝั่ง MSS</p>"},
+ {id:"c_33",k:"card",ac:"a3",x:1290,y:480,w:250,t:"3.3 Functional Units",b:"<p>หน่วยงานตามสายฟังก์ชัน</p>"},
+ {id:"c_33r",k:"role",x:1580,y:480,w:290,t:"Management and Support Service (MSS)",b:"<p>ฐานรองรับร่วมของทุกหน่วยธุรกิจ</p>"},
+ {id:"c_34",k:"card",ac:"a3",x:1290,y:650,w:290,t:"3.4 CoE R&amp;D PCC Team",b:"<p>ศูนย์ความเป็นเลิศที่รองรับ 3.1–3.3 ร่วมกัน ไม่ผูกกับหน่วยธุรกิจใดหน่วยเดียว</p>"},
+ {id:"c_out3",k:"out",ac:"a3",x:1290,y:800,w:400,t:"สิ่งที่ต้องส่งต่อ",b:"<p>Projects · Milestones · Roadmap ที่มีเจ้าภาพและตัวเลขกำกับ</p>"},
+
+ /* --- collaboration band --- */
+ {id:"c_band",k:"vert",x:1930,y:90,w:64,
+  t:"COO / BM / S&amp;OP / Functional Unit — Collaboration for Both function successful",b:""},
+
+ /* --- column 4 : Financial --- */
+ {id:"c_b70",k:"card",ac:"a4",x:2060,y:420,w:260,t:"Budgeting Year 2570",b:"<p>รอบปีปัจจุบัน ตามระยะที่ 1</p>"},
+ {id:"c_b73",k:"card",ac:"a4",x:2060,y:540,w:260,t:"Budgeting Year 2571–2573",b:"<p>รอบสามปี ตามระยะที่ 2</p>"},
+ {id:"c_con",k:"card",ac:"a4",x:2360,y:420,w:240,t:"PCC Console",b:"<p>จุดรวมตัวเลขของทั้งกลุ่มให้เห็นภาพเดียวกัน</p>"},
+ {id:"c_rs",k:"card",ac:"a4",x:2360,y:540,w:240,t:"Revenue Stream (RS)",b:"<p>สัดส่วนรายได้รายตัวทั้ง 6 RST พร้อมเป้าแต่ละปี</p>"},
+ {id:"c_tg",k:"out",ac:"a4",x:2360,y:250,w:240,t:"Target",b:"<p>หาเงินได้ · ส่งของได้ · เก็บเงินได้ · ลูกค้าซื้อซ้ำ</p>"}
+],
+edges:[
+ ["c_def","c_dir"],["c_lvl","c_dir"],["c_dir","c_dc"],["c_dc","c_wf"],
+ ["c_4p","c_b70"],["c_4p","c_b73"],["c_da","c_bmc"],
+ ["c_dir","c_pf"],["c_pf","c_bmc"],["c_bmc","c_rst"],
+ ["c_bmc","c_31"],["c_bmc","c_32"],["c_bmc","c_33"],["c_bmc","c_34"],
+ ["c_31","c_31r"],["c_32","c_32r"],["c_33","c_33r"],
+ ["c_out3","c_b70"],["c_out3","c_b73"],
+ ["c_b70","c_con"],["c_b73","c_rs"],["c_con","c_tg"],["c_rs","c_tg"],["c_rst","c_tg"]
+]};}
+
+/* ============================ STATE ============================ */
+var S;
+try{ var raw=localStorage.getItem(LSK); S = raw ? JSON.parse(raw) : seed(); if(!S||!S.cards) S=seed(); }
+catch(e){ S=seed(); }
+
+var canvas=document.getElementById('canvas'),
+    stage=document.getElementById('stage'),
+    eg=document.getElementById('egroup'),
+    tipEl=document.getElementById('tip'),
+    saveEl=document.getElementById('autosave');
+var zoom=1, editMode=true, connectMode=false, srcId=null, addN=0;
+var lineStyle=S.lineStyle||'elbow', avoid=(typeof S.avoid==='boolean')?S.avoid:true;
+
+function tip(msg){ tipEl.textContent=msg; tipEl.classList.add('show');
+  clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2200); }
+
+/* ---- autosave to localStorage (best-effort; ไฟล์นี้ host บน Pages จึงใช้ได้) ---- */
+var saveT=null;
+function persist(){
+  try{ localStorage.setItem(LSK, JSON.stringify(S));
+       saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450);
+  }catch(e){ saveEl.textContent='● เก็บชั่วคราวไม่ได้ — ใช้ปุ่มบันทึกไฟล์'; }
+}
+function commit(){ sync(); persist(); }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(commit,450); }
+
+/* ============================ RENDER ============================ */
+function build(){
+  Array.prototype.slice.call(canvas.querySelectorAll('.card')).forEach(function(n){n.remove()});
+  S.cards.forEach(makeCard);
+  restoreImages();
+  drawEdges();
+}
+function makeCard(c){
+  var d=document.createElement('div');
+  d.className='card'; d.dataset.id=c.id; d.dataset.k=c.k||'card';
+  d.style.left=c.x+'px'; d.style.top=c.y+'px'; d.style.width=c.w+'px';
+  if(c.ac) d.style.setProperty('--ac','var(--'+c.ac+')');
+  var img = c.k==='image' ? '<div class="slot"><div class="ph">คลิกเพื่อใส่รูป</div><button class="x">ลบรูป</button></div>' : '';
+  d.innerHTML =
+    (c.ac && c.k!=='head' && c.k!=='rail' ? '<div class="ac"></div>' : '')+
+    '<div class="hd"><span class="grip">⠿</span><span class="sp"></span><button class="del" title="ลบกล่อง">✕</button></div>'+
+    '<div class="bd"><h3 contenteditable="'+editMode+'">'+c.t+'</h3>'+
+    '<div class="body" contenteditable="'+editMode+'">'+(c.b||'')+'</div>'+img+'</div>'+
+    '<div class="rs"></div>';
+  canvas.appendChild(d);
+  return d;
+}
+function restoreImages(){
+  S.cards.forEach(function(c){
+    if(c.img){ var el=cardEl(c.id); if(!el) return;
+      var slot=el.querySelector('.slot'); if(!slot) return;
+      var im=document.createElement('img'); im.src=c.img;
+      slot.insertBefore(im,slot.firstChild);
+      var ph=slot.querySelector('.ph'); if(ph) ph.style.display='none';
+    }
+  });
+}
+function cardEl(id){return canvas.querySelector('.card[data-id="'+id+'"]')}
+function rectOf(id){
+  var el=cardEl(id); if(!el) return null;
+  return {x:el.offsetLeft,y:el.offsetTop,w:el.offsetWidth,h:el.offsetHeight};
+}
+
+/* ============================ EDGE ROUTING ============================ */
+var PAD=13, GAP=26, R=9;
+
+function obstacles(skipA,skipB){
+  var out=[];
+  S.cards.forEach(function(c){
+    if(c.id===skipA||c.id===skipB) return;
+    var r=rectOf(c.id); if(!r) return;
+    out.push({x:r.x-PAD,y:r.y-PAD,X:r.x+r.w+PAD,Y:r.y+r.h+PAD});
+  });
+  return out;
+}
+function segHits(p,q,o){
+  var x1=Math.min(p.x,q.x), x2=Math.max(p.x,q.x),
+      y1=Math.min(p.y,q.y), y2=Math.max(p.y,q.y);
+  return !(x2<o.x || x1>o.X || y2<o.y || y1>o.Y);
+}
+function pathCost(pts,obs){
+  var hits=0,len=0,bends=Math.max(0,pts.length-2);
+  for(var i=0;i<pts.length-1;i++){
+    len+=Math.abs(pts[i+1].x-pts[i].x)+Math.abs(pts[i+1].y-pts[i].y);
+    for(var j=0;j<obs.length;j++) if(segHits(pts[i],pts[i+1],obs[j])) hits++;
+  }
+  return hits*10000 + bends*60 + len;
+}
+function uniq(a){var s={},o=[];a.forEach(function(v){v=Math.round(v);if(!s[v]){s[v]=1;o.push(v)}});return o}
+
+function routeOrtho(a,b,obs){
+  var aR={x:a.x,y:a.y,X:a.x+a.w,Y:a.y+a.h}, bR={x:b.x,y:b.y,X:b.x+b.w,Y:b.y+b.h};
+  var acy=a.y+a.h/2, bcy=b.y+b.h/2, acx=a.x+a.w/2, bcx=b.x+b.w/2;
+  var cands=[];
+
+  var mxs=[(aR.X+bR.x)/2,(aR.x+bR.X)/2, aR.X+GAP, aR.x-GAP, bR.x-GAP, bR.X+GAP];
+  obs.forEach(function(o){ mxs.push(o.x-GAP/2); mxs.push(o.X+GAP/2); });
+  uniq(mxs).forEach(function(mx){
+    var p1={x: mx>=aR.X ? aR.X : aR.x, y:acy};
+    var p4={x: mx<=bR.x ? bR.x : bR.X, y:bcy};
+    if(mx>aR.x && mx<aR.X) return;
+    if(mx>bR.x && mx<bR.X) return;
+    cands.push([p1,{x:mx,y:acy},{x:mx,y:bcy},p4]);
+  });
+
+  var mys=[(aR.Y+bR.y)/2,(aR.y+bR.Y)/2, aR.Y+GAP, aR.y-GAP, bR.y-GAP, bR.Y+GAP];
+  obs.forEach(function(o){ mys.push(o.y-GAP/2); mys.push(o.Y+GAP/2); });
+  uniq(mys).forEach(function(my){
+    var p1={x:acx, y: my>=aR.Y ? aR.Y : aR.y};
+    var p4={x:bcx, y: my<=bR.y ? bR.y : bR.Y};
+    if(my>aR.y && my<aR.Y) return;
+    if(my>bR.y && my<bR.Y) return;
+    cands.push([p1,{x:acx,y:my},{x:bcx,y:my},p4]);
+  });
+
+  var top=Math.min(aR.y,bR.y), bot=Math.max(aR.Y,bR.Y);
+  obs.forEach(function(o){ top=Math.min(top,o.y); bot=Math.max(bot,o.Y); });
+  [top-GAP, bot+GAP].forEach(function(my){
+    var sx=aR.X+GAP, ex=bR.x-GAP;
+    cands.push([{x:aR.X,y:acy},{x:sx,y:acy},{x:sx,y:my},{x:ex,y:my},{x:ex,y:bcy},{x:bR.x,y:bcy}]);
+    var sx2=aR.x-GAP, ex2=bR.X+GAP;
+    cands.push([{x:aR.x,y:acy},{x:sx2,y:acy},{x:sx2,y:my},{x:ex2,y:my},{x:ex2,y:bcy},{x:bR.X,y:bcy}]);
+  });
+
+  var best=null,bc=Infinity;
+  cands.forEach(function(p){ var c=pathCost(p,obs); if(c<bc){bc=c;best=p} });
+  return best || [{x:aR.X,y:acy},{x:bR.x,y:bcy}];
+}
+function simplify(pts){
+  var o=[pts[0]];
+  for(var i=1;i<pts.length;i++){
+    var p=pts[i], q=o[o.length-1];
+    if(Math.abs(p.x-q.x)<1 && Math.abs(p.y-q.y)<1) continue;
+    o.push(p);
+  }
+  return o;
+}
+function polyPath(pts){ return 'M'+pts.map(function(p){return p.x+','+p.y}).join(' L'); }
+function roundedPath(pts,r){
+  if(pts.length<3) return polyPath(pts);
+  var d='M'+pts[0].x+','+pts[0].y;
+  for(var i=1;i<pts.length-1;i++){
+    var p=pts[i-1],c=pts[i],n=pts[i+1];
+    var d1=Math.hypot(c.x-p.x,c.y-p.y), d2=Math.hypot(n.x-c.x,n.y-c.y);
+    var rr=Math.min(r,d1/2,d2/2);
+    var a={x:c.x+(p.x-c.x)/d1*rr, y:c.y+(p.y-c.y)/d1*rr};
+    var b2={x:c.x+(n.x-c.x)/d2*rr, y:c.y+(n.y-c.y)/d2*rr};
+    d+=' L'+a.x+','+a.y+' Q'+c.x+','+c.y+' '+b2.x+','+b2.y;
+  }
+  var L=pts[pts.length-1];
+  return d+' L'+L.x+','+L.y;
+}
+function sideAnchors(a,b){
+  var acx=a.x+a.w/2, acy=a.y+a.h/2, bcx=b.x+b.w/2, bcy=b.y+b.h/2;
+  var dx=bcx-acx, dy=bcy-acy;
+  if(Math.abs(dx)>=Math.abs(dy))
+    return dx>0 ? [{x:a.x+a.w,y:acy},{x:b.x,y:bcy}] : [{x:a.x,y:acy},{x:b.x+b.w,y:bcy}];
+  return dy>0 ? [{x:acx,y:a.y+a.h},{x:bcx,y:b.y}] : [{x:acx,y:a.y},{x:bcx,y:b.y+b.h}];
+}
+function edgePath(e,a,b){
+  if(lineStyle==='straight'){
+    var s=sideAnchors(a,b);
+    return 'M'+s[0].x+','+s[0].y+' L'+s[1].x+','+s[1].y;
+  }
+  if(!avoid || drag){
+    var s2=sideAnchors(a,b), p1=s2[0], p2=s2[1];
+    var hz=Math.abs(p2.x-p1.x)>=Math.abs(p2.y-p1.y);
+    var o=Math.min(120,Math.max(40,(hz?Math.abs(p2.x-p1.x):Math.abs(p2.y-p1.y))/2));
+    if(lineStyle==='curve'){
+      var c1=hz?{x:p1.x+(p2.x>p1.x?o:-o),y:p1.y}:{x:p1.x,y:p1.y+(p2.y>p1.y?o:-o)};
+      var c2=hz?{x:p2.x+(p2.x>p1.x?-o:o),y:p2.y}:{x:p2.x,y:p2.y+(p2.y>p1.y?-o:o)};
+      return 'M'+p1.x+','+p1.y+' C'+c1.x+','+c1.y+' '+c2.x+','+c2.y+' '+p2.x+','+p2.y;
+    }
+    var m = hz ? [{x:(p1.x+p2.x)/2,y:p1.y},{x:(p1.x+p2.x)/2,y:p2.y}]
+               : [{x:p1.x,y:(p1.y+p2.y)/2},{x:p2.x,y:(p1.y+p2.y)/2}];
+    return roundedPath(simplify([p1,m[0],m[1],p2]),R);
+  }
+  var pts=simplify(routeOrtho(a,b,obstacles(e[0],e[1])));
+  return lineStyle==='curve' ? roundedPath(pts,16) : roundedPath(pts,R);
+}
+
+function drawEdges(){
+  eg.innerHTML='';
+  S.edges.forEach(function(e,i){
+    var a=rectOf(e[0]), b=rectOf(e[1]); if(!a||!b) return;
+    var dstr=edgePath(e,a,b);
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','e'); g.dataset.i=i;
+    var hit=document.createElementNS('http://www.w3.org/2000/svg','path');
+    hit.setAttribute('class','hit'); hit.setAttribute('d',dstr);
+    var w=document.createElementNS('http://www.w3.org/2000/svg','path');
+    w.setAttribute('class','wire'); w.setAttribute('d',dstr);
+    g.appendChild(w); g.appendChild(hit);
+    hit.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      S.edges.splice(parseInt(g.dataset.i,10),1); drawEdges(); persist(); tip('ลบเส้นแล้ว');
+    });
+    eg.appendChild(g);
+  });
+}
+
+/* ============================ INTERACTION ============================ */
+var drag=null;
+canvas.addEventListener('mousedown',function(e){
+  var card=e.target.closest('.card'); if(!card) return;
+  if(e.target.classList.contains('rs')){
+    drag={mode:'size',el:card,sx:e.clientX,w0:card.offsetWidth};
+    e.preventDefault(); return;
+  }
+  if(e.target.closest('.hd') && !e.target.classList.contains('del')){
+    drag={mode:'move',el:card,sx:e.clientX,sy:e.clientY,x0:card.offsetLeft,y0:card.offsetTop};
+    e.preventDefault();
+  }
+});
+window.addEventListener('mousemove',function(e){
+  if(!drag) return;
+  if(drag.mode==='move'){
+    var nx=drag.x0+(e.clientX-drag.sx)/zoom, ny=drag.y0+(e.clientY-drag.sy)/zoom;
+    drag.el.style.left=Math.max(0,nx)+'px'; drag.el.style.top=Math.max(0,ny)+'px';
+  }else{
+    drag.el.style.width=Math.max(110,drag.w0+(e.clientX-drag.sx)/zoom)+'px';
+  }
+  if(!drag.raf){ drag.raf=requestAnimationFrame(function(){ if(drag) drag.raf=0; drawEdges(); }); }
+});
+window.addEventListener('mouseup',function(){
+  if(drag){ if(drag.raf) cancelAnimationFrame(drag.raf); commit(); drag=null; drawEdges(); }
+});
+
+/* connect mode */
+canvas.addEventListener('click',function(e){
+  var card=e.target.closest('.card');
+  if(e.target.classList.contains('del')){
+    var id=card.dataset.id;
+    S.cards=S.cards.filter(function(c){return c.id!==id});
+    S.edges=S.edges.filter(function(x){return x[0]!==id&&x[1]!==id});
+    card.remove(); drawEdges(); persist(); tip('ลบกล่องแล้ว'); return;
+  }
+  if(!connectMode||!card) return;
+  var id=card.dataset.id;
+  if(!srcId){ srcId=id; card.classList.add('src'); tip('เลือกกล่องปลายทาง'); return; }
+  if(srcId===id){ card.classList.remove('src'); srcId=null; return; }
+  S.edges.push([srcId,id]);
+  var s=cardEl(srcId); if(s) s.classList.remove('src');
+  srcId=null; drawEdges(); persist(); tip('เชื่อมเส้นแล้ว — คลิกเส้นเพื่อลบ');
+});
+
+/* text edits → autosave */
+canvas.addEventListener('input',schedulePersist);
+
+/* image slots */
+var fi=document.createElement('input'); fi.type='file'; fi.accept='image/*'; fi.style.display='none';
+document.body.appendChild(fi);
+var slotTarget=null;
+fi.addEventListener('change',function(){
+  var f=fi.files[0]; if(!f||!slotTarget) return;
+  var fr=new FileReader();
+  fr.onload=function(ev){
+    var old=slotTarget.querySelector('img'); if(old) old.remove();
+    var ph=slotTarget.querySelector('.ph'); if(ph) ph.style.display='none';
+    var im=document.createElement('img'); im.src=ev.target.result;
+    slotTarget.insertBefore(im,slotTarget.firstChild);
+    drawEdges(); commit();
+  };
+  fr.readAsDataURL(f); fi.value='';
+});
+canvas.addEventListener('click',function(e){
+  if(connectMode) return;
+  var slot=e.target.closest('.slot'); if(!slot) return;
+  if(e.target.classList.contains('x')){
+    var im=slot.querySelector('img'); if(im) im.remove();
+    var ph=slot.querySelector('.ph'); if(ph) ph.style.display=''; drawEdges(); commit(); return;
+  }
+  slotTarget=slot; fi.click();
+});
+
+/* keep model in sync with DOM */
+function sync(){
+  S.cards.forEach(function(c){
+    var el=cardEl(c.id); if(!el) return;
+    c.x=el.offsetLeft; c.y=el.offsetTop; c.w=el.offsetWidth;
+    var h=el.querySelector('h3'), b=el.querySelector('.body');
+    if(h) c.t=h.innerHTML; if(b) c.b=b.innerHTML;
+    var im=el.querySelector('.slot img'); c.img=im?im.src:null;
+  });
+  S.lineStyle=lineStyle; S.avoid=avoid;
+}
+
+/* ============================ TOOLBAR ============================ */
+var bEdit=document.getElementById('bEdit'), bConn=document.getElementById('bConn');
+bEdit.addEventListener('click',function(){
+  editMode=!editMode; bEdit.classList.toggle('on',editMode);
+  canvas.querySelectorAll('h3,.body').forEach(function(n){n.setAttribute('contenteditable',editMode)});
+  tip(editMode?'แก้ไขข้อความได้':'ล็อกข้อความแล้ว');
+});
+bConn.addEventListener('click',function(){
+  connectMode=!connectMode; bConn.classList.toggle('on',connectMode);
+  document.body.classList.toggle('connect',connectMode);
+  if(!connectMode&&srcId){var s=cardEl(srcId); if(s)s.classList.remove('src'); srcId=null;}
+  tip(connectMode?'คลิกกล่องต้นทาง แล้วคลิกกล่องปลายทาง':'ออกจากโหมดลากเส้น');
+});
+document.querySelectorAll('[data-add]').forEach(function(b){
+  b.addEventListener('click',function(){
+    sync();
+    var k=b.getAttribute('data-add'); addN++;
+    var id='n'+(addN)+'_'+(S.cards.length);
+    var x=Math.round(stage.scrollLeft/zoom)+80+addN*18, y=Math.round(stage.scrollTop/zoom)+90+addN*18;
+    var c={id:id,k:k,ac:'a1',x:x,y:y,w:k==='head'?300:250,
+      t:k==='head'?'หัวข้อใหม่':'หัวข้อกล่อง',
+      b:k==='head'?'':'<p>พิมพ์เนื้อหาที่นี่</p>'};
+    S.cards.push(c); makeCard(c); drawEdges(); persist();
+  });
+});
+document.querySelectorAll('[data-ls]').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); lineStyle=b.getAttribute('data-ls');
+    S.lineStyle=lineStyle; drawEdges(); persist();
+    tip({elbow:'เส้นหักมุม',curve:'เส้นโค้ง',straight:'เส้นตรง'}[lineStyle]);
+  });
+});
+var bAvoid=document.getElementById('bAvoid');
+bAvoid.addEventListener('click',function(){
+  avoid=!avoid; bAvoid.classList.toggle('on',avoid); S.avoid=avoid; drawEdges(); persist();
+  tip(avoid?'เส้นจะอ้อมหลบกล่องอัตโนมัติ':'ปิดการหลบกล่อง — เส้นจะลากตรงที่สุด');
+});
+function setZoom(z){ zoom=Math.min(1.6,Math.max(.25,z)); canvas.style.transform='scale('+zoom+')'; }
+document.getElementById('zIn').addEventListener('click',function(){setZoom(zoom+.1)});
+document.getElementById('zOut').addEventListener('click',function(){setZoom(zoom-.1)});
+document.getElementById('zFit').addEventListener('click',function(){
+  setZoom((stage.clientWidth-24)/canvas.offsetWidth);
+});
+document.getElementById('bClear').addEventListener('click',function(){
+  S.edges=[]; drawEdges(); persist(); tip('ลบเส้นทั้งหมดแล้ว');
+});
+document.getElementById('bReset').addEventListener('click',function(){
+  if(!confirm('คืนค่าเริ่มต้น? งานที่แก้ไว้ในหน้านี้จะถูกล้าง (ถ้าอยากเก็บ ให้กด “บันทึกไฟล์” ก่อน)')) return;
+  S=seed(); lineStyle='elbow'; avoid=true;
+  document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-ls')==='elbow')});
+  bAvoid.classList.add('on');
+  try{ localStorage.removeItem(LSK); }catch(e){}
+  build(); persist(); tip('คืนค่าเริ่มต้นแล้ว');
+});
+document.getElementById('bPrint').addEventListener('click',function(){window.print()});
+
+/* save / open JSON */
+document.getElementById('bSave').addEventListener('click',function(){
+  sync();
+  var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='PCC_Strategy_Mapping.json'; a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+  tip('บันทึกไฟล์งานแล้ว');
+});
+var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json';
+fo.style.display='none'; document.body.appendChild(fo);
+document.getElementById('bOpen').addEventListener('click',function(){fo.click()});
+fo.addEventListener('change',function(){
+  var f=fo.files[0]; if(!f) return;
+  var fr=new FileReader();
+  fr.onload=function(e){
+    try{
+      var o=JSON.parse(e.target.result);
+      if(!o.cards) throw 0;
+      S=o;
+      if(S.lineStyle){ lineStyle=S.lineStyle;
+        document.querySelectorAll('[data-ls]').forEach(function(x){
+          x.classList.toggle('on',x.getAttribute('data-ls')===lineStyle)});
+      }
+      if(typeof S.avoid==='boolean'){ avoid=S.avoid; bAvoid.classList.toggle('on',avoid); }
+      build(); persist(); tip('เปิดไฟล์งานแล้ว');
+    }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); }
+    fo.value='';
+  };
+  fr.readAsText(f);
+});
+
+/* print fit */
+window.addEventListener('beforeprint',function(){
+  window._z=zoom; setZoom(1497/canvas.offsetWidth);
+});
+window.addEventListener('afterprint',function(){ setZoom(window._z||1) });
+
+/* restore line-style / avoid button state from saved S */
+document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-ls')===lineStyle)});
+bAvoid.classList.toggle('on',avoid);
+
+/* init */
+build();
+setTimeout(function(){ setZoom((stage.clientWidth-24)/canvas.offsetWidth); },80);
+tip('ลากหัวกล่องเพื่อย้าย · ปุ่ม “ลากเส้นเชื่อม” เพื่อโยงเส้น · งานบันทึกอัตโนมัติในเบราว์เซอร์');
+})();
+</script>
+</body>
+</html>
