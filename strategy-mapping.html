@@ -57,6 +57,22 @@ button.ghost{border-style:dashed}
   opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
 .tip.show{opacity:.96}
 
+/* ---------------- save-to-web ---------------- */
+button.pub{background:var(--a1);border-color:var(--a1);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.55;cursor:default}
+#tokPanel{display:none;position:fixed;top:64px;right:14px;z-index:120;width:314px;
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 16px;
+  box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel .tp-h{font-family:'Inter';font-weight:800;font-size:14px;color:var(--ink);margin-bottom:5px}
+#tokPanel .tp-note{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px;font-family:'Inter',monospace}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;
+  font-family:'Inter',monospace;font-size:12px;color:var(--ink);background:#F8FBFE}
+#tokInput:focus{outline:none;border-color:var(--a2)}
+#tokPanel .tp-row{display:flex;gap:6px;margin-top:9px}
+#tokPanel .tp-state{font-size:11px;margin-top:8px;color:var(--mute)}
+
 /* ---------------- stage ---------------- */
 #stage{position:absolute;inset:56px 0 0 0;overflow:auto;
   background-image:radial-gradient(#D3DEEA 1px,transparent 1px);background-size:26px 26px}
@@ -134,6 +150,10 @@ body.connect .card .bd *{pointer-events:none}
 </head>
 <body>
 
+<!--BOARD_DATA_START-->
+<script id="board-data" type="application/json">{"savedAt":0}</script>
+<!--BOARD_DATA_END-->
+
 <div class="bar">
   <div class="brand"><b>PCC · Strategy Mapping</b><span>Draft · ร่างเพื่อพิจารณา</span></div>
   <div class="sep"></div>
@@ -158,10 +178,25 @@ body.connect .card .bd *{pointer-events:none}
   <button id="bClear">ลบเส้น</button>
   <button id="bReset">คืนค่าเริ่มต้น</button>
   <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
+  <div class="sep"></div>
   <button id="bSave">บันทึกไฟล์</button>
   <button id="bOpen">เปิดไฟล์</button>
   <button id="bPrint">พิมพ์ / PDF</button>
   <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel">
+  <div class="tp-h">GitHub Token (PAT)</div>
+  <p class="tp-note">ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้า index หลัก · ต้องมีสิทธิ์ <b>repo / contents write</b></p>
+  <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
+  <div class="tp-row">
+    <button id="tokSave" class="pub">บันทึก token</button>
+    <button id="tokClear">ลบ token</button>
+    <button id="tokClose">ปิด</button>
+  </div>
+  <div id="tokState" class="tp-state"></div>
 </div>
 
 <div id="stage">
@@ -264,9 +299,23 @@ edges:[
 ]};}
 
 /* ============================ STATE ============================ */
-var S;
-try{ var raw=localStorage.getItem(LSK); S = raw ? JSON.parse(raw) : seed(); if(!S||!S.cards) S=seed(); }
-catch(e){ S=seed(); }
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'strategy-mapping.html'};
+
+/* ข้อมูลที่ฝังในไฟล์ (เวอร์ชันที่ publish แล้ว) = แหล่งความจริงร่วม */
+function fileData(){ try{ var el=document.getElementById('board-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData();
+var baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+function published(){ return (FD&&FD.cards&&FD.cards.length)?FD:seed(); }
+
+/* เลือก state: ใช้ working copy ใน localStorage ต่อเมื่อมันใหม่กว่าหรือเท่ากับเวอร์ชันที่ publish
+   (ถ้ามีใคร/เครื่องอื่น publish ใหม่กว่า → ใช้เวอร์ชันในไฟล์แทน) */
+var S=null;
+try{
+  var raw=localStorage.getItem(LSK);
+  if(raw){ var ls=JSON.parse(raw); if(ls&&ls.cards&&(ls.savedAt||0)>=baseSavedAt) S=ls; }
+}catch(e){}
+if(!S) S=published();
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
 
 var canvas=document.getElementById('canvas'),
     stage=document.getElementById('stage'),
@@ -639,6 +688,92 @@ fo.addEventListener('change',function(){
   };
   fr.readAsText(f);
 });
+
+/* ============================ SAVE TO WEB (GitHub) ============================ */
+function encodeB64(str){
+  var bytes=new TextEncoder().encode(str),result='',chunk=3*1024;
+  for(var i=0;i<bytes.length;i+=chunk){
+    var sl=bytes.subarray(i,i+chunk),bin='';
+    for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]);
+    result+=btoa(bin);
+  }
+  return result;
+}
+function decodeB64(b64){
+  var bin=atob((b64||'').replace(/\s/g,'')),bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+var DATA_RE=/<!--BOARD_DATA_START-->[\s\S]*?<!--BOARD_DATA_END-->/;
+function dataBlock(json){
+  return '<!--BOARD_DATA_START-->\n<script id="board-data" type="application/json">'+json+'<\/script>\n<!--BOARD_DATA_END-->';
+}
+
+/* token panel */
+var tokPanel=document.getElementById('tokPanel'),
+    tokInput=document.getElementById('tokInput'),
+    tokState=document.getElementById('tokState');
+function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
+function refreshTokState(){
+  var t=tokGet();
+  tokState.textContent = t ? ('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')') : '○ ยังไม่มี token — วางแล้วกด “บันทึก token”';
+  tokState.style.color = t ? 'var(--a4)' : '#B0392B';
+}
+function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTokState(); setTimeout(function(){tokInput.focus();},30); }
+document.getElementById('bTok').addEventListener('click',function(){
+  if(tokPanel.style.display==='block'){ tokPanel.style.display='none'; return; }
+  openTok();
+});
+document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+document.getElementById('tokSave').addEventListener('click',function(){
+  var v=(tokInput.value||'').trim();
+  if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; }
+  try{ localStorage.setItem('pcc_gh_tok',v); refreshTokState(); tip('เก็บ token แล้ว — กด “บันทึกขึ้นเว็บ” ได้เลย'); }
+  catch(e){ tip('เก็บ token ไม่ได้'); }
+  tokInput.value='';
+});
+document.getElementById('tokClear').addEventListener('click',function(){
+  try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){}
+  refreshTokState(); tip('ลบ token แล้ว');
+});
+
+/* publish → เขียนกลับ repo */
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet();
+  if(!token){ openTok(); tip('ใส่ GitHub token ก่อน แล้วกด “บันทึกขึ้นเว็บ” อีกครั้ง'); return; }
+  publishing=true;
+  var btn=document.getElementById('bPublish'), lbl=btn.textContent;
+  btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  sync();
+  var stamp=Date.now(), prev=S.savedAt;
+  S.savedAt=stamp;
+  try{
+    var g=await fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file+'?ref='+GH.branch,
+      {headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json'}});
+    if(!g.ok) throw new Error(g.status===401?'token ไม่ถูกต้อง/หมดอายุ':('อ่านไฟล์ไม่ได้ ('+g.status+')'));
+    var meta=await g.json(), text=decodeB64(meta.content);
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var body={message:'Strategy mapping update via browser ['+new Date().toISOString().slice(0,16)+']',content:encodeB64(out),branch:GH.branch,sha:meta.sha};
+    var p=await fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file,{
+      method:'PUT',
+      headers:{Authorization:'token '+token,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
+      body:JSON.stringify(body)
+    });
+    if(!p.ok){ var t2=''; try{t2=(await p.json()).message||'';}catch(_){}; throw new Error('บันทึกไม่สำเร็จ ('+p.status+') '+t2); }
+    baseSavedAt=stamp; persist();
+    tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที · เปิดเครื่องไหนก็เห็นเวอร์ชันนี้');
+  }catch(e){
+    S.savedAt=prev;
+    tip('✗ '+(e&&e.message?e.message:'ผิดพลาด'));
+  }finally{
+    publishing=false; btn.disabled=false; btn.textContent=lbl;
+  }
+}
+document.getElementById('bPublish').addEventListener('click',publish);
 
 /* print fit */
 window.addEventListener('beforeprint',function(){
