@@ -1017,7 +1017,8 @@ document.getElementById('tokClear').addEventListener('click',function(){
   refreshTokState(); tip('ลบ token แล้ว');
 });
 
-/* publish → เขียนกลับ repo */
+/* publish → เขียนกลับ repo ด้วย Git Data API (blob→tree→commit→ref)
+   รองรับไฟล์ใหญ่ >1MB (ฝังรูป) ที่ Contents API ทำไม่ได้ */
 var publishing=false;
 async function publish(){
   if(publishing) return;
@@ -1029,21 +1030,42 @@ async function publish(){
   sync();
   var stamp=Date.now(), prev=S.savedAt;
   S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(method,path,body,accept){
+    var h={Authorization:'token '+token, Accept: accept||'application/vnd.github+json'};
+    var o={method:method, headers:h};
+    if(body!==undefined && body!==null){ h['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+path, o);
+  }
+  async function must(res,label){
+    if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+      throw new Error(label+' ('+res.status+(res.status===401?' — token ไม่ถูกต้อง/หมดอายุ':(res.status===403?' — token ไม่มีสิทธิ์ repo/contents write':''))+') '+m); }
+    return res;
+  }
   try{
-    var g=await fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file+'?ref='+GH.branch,
-      {headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json'}});
-    if(!g.ok) throw new Error(g.status===401?'token ไม่ถูกต้อง/หมดอายุ':('อ่านไฟล์ไม่ได้ ('+g.status+')'));
-    var meta=await g.json(), text=decodeB64(meta.content);
+    /* 1) อ่านไฟล์ปัจจุบันแบบ raw (คืน content ได้แม้ไฟล์ >1MB) */
+    var rawRes=await gh('GET', base+'/contents/'+GH.file+'?ref='+GH.branch, null, 'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้');
+    var text=await rawRes.text();
     if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
     var safe=JSON.stringify(S).replace(/</g,'\\u003c');
     var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
-    var body={message:'Strategy mapping update via browser ['+new Date().toISOString().slice(0,16)+']',content:encodeB64(out),branch:GH.branch,sha:meta.sha};
-    var p=await fetch(GH.api+'/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.file,{
-      method:'PUT',
-      headers:{Authorization:'token '+token,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
-      body:JSON.stringify(body)
-    });
-    if(!p.ok){ var t2=''; try{t2=(await p.json()).message||'';}catch(_){}; throw new Error('บันทึกไม่สำเร็จ ('+p.status+') '+t2); }
+    /* 2) blob (รองรับถึง 100MB) */
+    var blobRes=await gh('POST', base+'/git/blobs', {content:encodeB64(out), encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    /* 3) ref ปัจจุบัน + commit + base tree */
+    var refRes=await gh('GET', base+'/git/ref/heads/'+GH.branch);
+    await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
+    var hcRes=await gh('GET', base+'/git/commits/'+headSha);
+    await must(hcRes,'อ่าน commit ไม่ได้'); var headCommit=await hcRes.json();
+    /* 4) tree ใหม่ (แทนไฟล์เดียว) */
+    var treeRes=await gh('POST', base+'/git/trees', {base_tree:headCommit.tree.sha, tree:[{path:GH.file, mode:'100644', type:'blob', sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    /* 5) commit + 6) update ref */
+    var cmtRes=await gh('POST', base+'/git/commits', {message:'Strategy mapping update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    var updRes=await gh('PATCH', base+'/git/refs/heads/'+GH.branch, {sha:commit.sha});
+    await must(updRes,'อัปเดต ref ไม่สำเร็จ');
     baseSavedAt=stamp; persist();
     tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที · เปิดเครื่องไหนก็เห็นเวอร์ชันนี้');
   }catch(e){
