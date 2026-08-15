@@ -102,6 +102,12 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
   border-right:2px solid #B9C7D6;border-bottom:2px solid #B9C7D6;border-radius:0 0 8px 0}
 .card.sel{outline:2px solid var(--hi);outline-offset:1px}
 .card.src{outline:2px solid var(--a3);outline-offset:1px}
+.card .clink{position:absolute;top:3px;right:28px;z-index:5;width:20px;height:20px;display:flex;align-items:center;
+  justify-content:center;font-size:12px;background:#fff;border:1px solid var(--line);border-radius:6px;cursor:pointer;
+  box-shadow:0 1px 4px rgba(30,58,95,.14);pointer-events:auto}
+.card .clink:hover{border-color:var(--a2);background:#EAF3FA}
+.card.has-link{cursor:pointer}
+.card[data-k="head"] .clink,.card[data-k="rail"] .clink{top:0}
 
 .card[data-k="head"]{background:transparent;border:none;box-shadow:none}
 .card[data-k="head"] .bd{padding:2px 4px}
@@ -320,6 +326,10 @@ body.connect .card .bd *{pointer-events:none}
       <div class="sw-row" id="bgSw"></div>
       <label class="clr">🎨 กำหนดเอง<input type="color" id="bgColor" value="#ffffff"></label>
       <button id="bgClear" class="ins-min">ล้างสีพื้น</button></div>
+    <div class="ins-grp"><span class="ins-lbl">🔗 ลิงก์ / ไฟล์แนบ (คลิกกล่องเพื่อเปิด)</span>
+      <input id="cardLink" type="text" placeholder="https://… หรือวางลิงก์ไฟล์">
+      <div class="ins-row" style="margin-top:6px"><button id="cardFileBtn">📎 แนบไฟล์</button><button id="cardLinkClear" class="ins-min">เอาออก</button></div>
+      <div id="cardLinkState" class="ins-min"></div></div>
     <div class="ins-grp ins-row"><button id="dupCard">⎘ ทำซ้ำ</button><button id="delCard" class="danger">🗑 ลบกล่อง</button></div>
   </div>
   <div id="insMulti" class="ins-body" style="display:none">
@@ -570,8 +580,24 @@ function makeCard(c){
     '<div class="bd"><h3 contenteditable="'+editMode+'">'+c.t+'</h3>'+
     '<div class="body" contenteditable="'+editMode+'">'+(c.b||'')+'</div>'+img+'</div>'+
     '<div class="rs"></div>';
+  addCardLinkBadge(d,c);
   canvas.appendChild(d);
   return d;
+}
+function openCardLink(c){
+  if(!c) return;
+  if(c.link){ var u=(''+c.link).trim(); if(!/^(https?:|mailto:|tel:|\/)/i.test(u)) u='https://'+u; window.open(u,'_blank','noopener'); }
+  else if(c.file && c.file.data){ var a=document.createElement('a'); a.href=c.file.data; a.download=c.file.name||'attachment'; document.body.appendChild(a); a.click(); a.remove(); }
+}
+function addCardLinkBadge(el,c){
+  var old=el.querySelector('.clink'); if(old) old.remove();
+  el.classList.toggle('has-link', !!(c.link||c.file));
+  if(!(c.link||c.file)) return;
+  var lb=document.createElement('div'); lb.className='clink';
+  lb.textContent = c.file?'📎':'🔗';
+  lb.title = c.file?('เปิดไฟล์: '+(c.file.name||'')):('เปิดลิงก์: '+c.link);
+  lb.addEventListener('click',function(ev){ ev.stopPropagation(); openCardLink(c); });
+  el.appendChild(lb);
 }
 function restoreImages(){
   S.cards.forEach(function(c){
@@ -783,6 +809,11 @@ canvas.addEventListener('click',function(e){
     S.edges=S.edges.filter(function(x){return x.a!==id&&x.b!==id});
     if(activeCard===card){ activeCard=null; renderInspector(); }
     card.remove(); drawEdges(); persist(); tip('ลบกล่องแล้ว'); return;
+  }
+  /* view mode (ไม่ได้แก้ไข): คลิกกล่องที่มีลิงก์/ไฟล์เพื่อเปิด */
+  if(!connectMode && !drawMode && !editMode && card && !e.target.closest('.clink') && !e.target.closest('.hd') && !e.target.closest('.slot')){
+    var lc=cardById(card.dataset.id);
+    if(lc && (lc.link||lc.file)){ openCardLink(lc); return; }
   }
   if(!connectMode||!card) return;
   var id=card.dataset.id;
@@ -1236,6 +1267,8 @@ function renderInspector(){
     if(fsNow) fsNow.textContent = c ? Math.round((c.fs||1)*100)+'%' : '';
     if(c&&c.accent){ document.getElementById('accColor').value=toHex(c.accent); }
     if(c&&c.bg){ document.getElementById('bgColor').value=toHex(c.bg); }
+    var cl=document.getElementById('cardLink'); if(cl) cl.value=(c&&c.link)?c.link:'';
+    var cls=document.getElementById('cardLinkState'); if(cls) cls.textContent=(c&&c.file)?('📎 '+(c.file.name||'ไฟล์แนบ')):((c&&c.link)?'🔗 มีลิงก์แล้ว':'');
   }else if(activeEdgeIdx>=0 && S.edges[activeEdgeIdx]){
     insEdge.style.display='block';
     var e=S.edges[activeEdgeIdx];
@@ -1267,6 +1300,33 @@ fillSwatches(document.getElementById('bgSw'), BGPAL, setCardBg);
 document.getElementById('accColor').addEventListener('input',function(){ setAccent(this.value); });
 document.getElementById('bgColor').addEventListener('input',function(){ setCardBg(this.value); });
 document.getElementById('bgClear').addEventListener('click',function(){ if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return; delete c.bg; activeCard.style.background=''; commit(); tip('ล้างสีพื้นแล้ว'); });
+
+/* card link / attachment */
+var cardLinkEl=document.getElementById('cardLink');
+function refreshCardLinkState(){
+  var c=activeCard?cardById(activeCard.dataset.id):null, st=document.getElementById('cardLinkState');
+  if(st) st.textContent = (c&&c.file)?('📎 '+(c.file.name||'ไฟล์แนบ')) : ((c&&c.link)?'🔗 มีลิงก์แล้ว':'');
+}
+cardLinkEl.addEventListener('input',function(){
+  if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return;
+  var v=(this.value||'').trim();
+  if(v){ c.link=v; if(c.file) delete c.file; } else { delete c.link; }
+  addCardLinkBadge(activeCard,c); refreshCardLinkState(); schedulePersist();
+});
+var cardFile=document.createElement('input'); cardFile.type='file'; cardFile.style.display='none'; document.body.appendChild(cardFile);
+document.getElementById('cardFileBtn').addEventListener('click',function(){ if(!activeCard){ tip('เลือกกล่องก่อน'); return; } cardFile.click(); });
+cardFile.addEventListener('change',function(){
+  var f=cardFile.files[0]; if(!f||!activeCard){ cardFile.value=''; return; }
+  if(f.size>5*1024*1024 && !confirm('ไฟล์ใหญ่ ('+Math.round(f.size/1048576)+' MB) จะฝังลงบอร์ดทำให้ไฟล์หนักขึ้นมาก\nแนะนำอัปโหลดขึ้น Drive/SharePoint แล้ววางเป็นลิงก์แทน\nยืนยันแนบไฟล์นี้?')){ cardFile.value=''; return; }
+  var c=cardById(activeCard.dataset.id); if(!c){ cardFile.value=''; return; }
+  var fr=new FileReader();
+  fr.onload=function(ev){ c.file={name:f.name, data:ev.target.result}; if(c.link) delete c.link; if(cardLinkEl) cardLinkEl.value=''; addCardLinkBadge(activeCard,c); refreshCardLinkState(); commit(); tip('แนบไฟล์ “'+f.name+'” แล้ว'); };
+  fr.readAsDataURL(f); cardFile.value='';
+});
+document.getElementById('cardLinkClear').addEventListener('click',function(){
+  if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return;
+  delete c.link; delete c.file; if(cardLinkEl) cardLinkEl.value=''; addCardLinkBadge(activeCard,c); refreshCardLinkState(); commit(); tip('เอาลิงก์/ไฟล์ออกแล้ว');
+});
 
 /* text formatting (bold / italic / highlight / clear) */
 function fmt(cmd,val){
