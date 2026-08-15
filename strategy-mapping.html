@@ -168,15 +168,16 @@ svg#edges g.e.sel text.elabel{fill:var(--a3)}
 .tpl-grid .tpl-sec{grid-column:1/-1;font-family:'Inter';font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93A6BA;margin-top:4px}
 
 /* contextual inspector */
-#inspector{position:fixed;top:70px;right:14px;z-index:95;width:272px;max-height:calc(100vh - 90px);overflow-y:auto;
+#inspector{display:none;position:fixed;top:70px;right:14px;z-index:95;width:236px;max-height:calc(100vh - 90px);overflow-y:auto;
   background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 44px rgba(30,58,95,.18)}
-.ins-head{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-bottom:1px solid #EBF1F7}
+.ins-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #EBF1F7;cursor:move;user-select:none}
+.ins-head::before{content:"⠿";color:#C2CEDB;font-size:12px;margin-right:6px}
 .ins-title{font-family:'Inter';font-weight:800;font-size:13px;color:var(--ink)}
 .ins-head button{border:none;background:transparent;color:#9AACBE;font-size:14px;padding:2px 6px}
 .ins-head button:hover{color:var(--a2)}
-.ins-body{padding:11px 13px}
+.ins-body{padding:9px 12px}
 .ins-hint{font-size:12px;color:var(--mute);line-height:1.6}
-.ins-grp{margin-bottom:11px}
+.ins-grp{margin-bottom:8px}
 .ins-lbl{display:block;font-family:'Inter';font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8FA3B8;margin-bottom:5px}
 .ins-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .ins-min{font-size:10px;color:var(--mute);text-transform:none;letter-spacing:0}
@@ -1094,6 +1095,7 @@ function toHex(c){
   return '#000000';
 }
 function renderInspector(){
+  inspector.style.display = (activeCard || activeEdgeIdx>=0) ? 'block' : 'none';
   if(activeCard){
     insEmpty.style.display='none'; insEdge.style.display='none'; insCard.style.display='block';
     var c=cardById(activeCard.dataset.id);
@@ -1168,9 +1170,30 @@ document.getElementById('delEdge').addEventListener('click',function(){
   S.edges.splice(activeEdgeIdx,1); activeEdgeIdx=-1; drawEdges(); renderInspector(); persist(); tip('ลบเส้นแล้ว');
 });
 
-/* inspector show / hide */
-document.getElementById('insClose').addEventListener('click',function(){ document.body.classList.add('ins-hidden'); });
-document.getElementById('insShow').addEventListener('click',function(){ document.body.classList.remove('ins-hidden'); });
+/* inspector close = ยกเลิกการเลือก (แผงจะซ่อนเองเพราะ renderInspector) */
+document.getElementById('insClose').addEventListener('click',function(){
+  if(activeCard) setActive(null);
+  else if(activeEdgeIdx>=0){ activeEdgeIdx=-1; drawEdges(); renderInspector(); }
+});
+/* ลากย้ายแผงปรับแต่งได้ (จับที่หัวแผง) + จำตำแหน่ง */
+(function(){
+  var d=null, head=inspector.querySelector('.ins-head');
+  head.addEventListener('mousedown',function(e){
+    if(e.target.closest('button')) return;
+    d={sx:e.clientX,sy:e.clientY,x0:inspector.offsetLeft,y0:inspector.offsetTop};
+    inspector.style.right='auto'; e.preventDefault();
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!d) return;
+    inspector.style.left=Math.max(4, Math.min(window.innerWidth-60, d.x0+(e.clientX-d.sx)))+'px';
+    inspector.style.top =Math.max(60,Math.min(window.innerHeight-60, d.y0+(e.clientY-d.sy)))+'px';
+  });
+  window.addEventListener('mouseup',function(){
+    if(!d) return; d=null;
+    try{ localStorage.setItem('pcc_sm_inspos', JSON.stringify({x:inspector.offsetLeft,y:inspector.offsetTop})); }catch(e){}
+  });
+  try{ var p=JSON.parse(localStorage.getItem('pcc_sm_inspos')||'null'); if(p){ inspector.style.left=p.x+'px'; inspector.style.top=p.y+'px'; inspector.style.right='auto'; } }catch(e){}
+})();
 
 /* undo / redo */
 function syncModeButtons(){
