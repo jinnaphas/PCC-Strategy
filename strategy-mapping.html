@@ -202,6 +202,24 @@ body.present #presentExit{display:block}
 body.present .card .hd,body.present .slot .sact,body.present .card .rs{display:none!important}
 body.present .card{cursor:default}
 
+/* ---------------- free draw ---------------- */
+svg#draw{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;overflow:visible}
+body.draw svg#draw{pointer-events:auto;cursor:crosshair}
+svg#draw path.d{fill:none;stroke-linecap:round;stroke-linejoin:round}
+svg#draw path.dhit{fill:none;stroke:transparent;stroke-width:14;pointer-events:none}
+body.draw.erase svg#draw path.dhit{pointer-events:stroke;cursor:not-allowed}
+.dtext{position:absolute;z-index:4;font-family:'Sarabun',sans-serif;font-weight:600;line-height:1.25;
+  color:#1E3A5F;padding:1px 4px;white-space:pre-wrap;max-width:420px;pointer-events:none}
+body.draw .dtext{pointer-events:auto;cursor:move}
+.dtext:focus{outline:1px dashed var(--a3);background:rgba(255,255,255,.65);cursor:text}
+#drawbar{display:none;position:fixed;top:56px;left:0;right:0;z-index:98;gap:7px;align-items:center;
+  padding:7px 14px;background:rgba(237,242,247,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+body.draw #drawbar{display:flex}
+body.draw #stage{top:99px}
+#drawbar .sw{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0;flex:none}
+#drawbar .sw:hover{transform:scale(1.12)}
+#drawbar .sw.on{outline:2px solid var(--ink);outline-offset:1px}
+
 [contenteditable="true"]:focus{background:rgba(245,179,1,.16);outline:none;border-radius:3px}
 body.connect .card{cursor:crosshair}
 body.connect .card .bd *{pointer-events:none}
@@ -227,6 +245,7 @@ body.connect .card .bd *{pointer-events:none}
   <div class="sep"></div>
   <button id="bEdit" class="on">✎ แก้ไข</button>
   <button id="bConn">↗ เชื่อมเส้น</button>
+  <button id="bDraw">✏️ วาดอิสระ</button>
   <div class="sep"></div>
   <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
   <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
@@ -314,6 +333,28 @@ body.connect .card .bd *{pointer-events:none}
   <div id="tokState" class="tp-state"></div>
 </div>
 
+<div id="drawbar">
+  <span class="lbl">วาด</span>
+  <button data-dtool="pen" class="on">✒️ ปากกา</button>
+  <button data-dtool="line">╱ เส้นตรง</button>
+  <button data-dtool="arrow">➤ ลูกศร</button>
+  <button data-dtool="text">🅣 ข้อความ</button>
+  <button data-dtool="erase">🩹 ยางลบ</button>
+  <div class="sep"></div>
+  <span class="lbl">สี</span>
+  <button class="sw" data-dc="#C0392B" style="background:#C0392B"></button>
+  <button class="sw" data-dc="#F7941D" style="background:#F7941D"></button>
+  <button class="sw" data-dc="#2E7D32" style="background:#2E7D32"></button>
+  <button class="sw" data-dc="#005A8E" style="background:#005A8E"></button>
+  <button class="sw" data-dc="#1E3A5F" style="background:#1E3A5F"></button>
+  <label class="clr">🎨<input type="color" id="drawColorPick" value="#c0392b"></label>
+  <span class="lbl">หนา</span>
+  <button id="dwDn">−</button><span id="dwNow" class="ins-min">3</span><button id="dwUp">+</button>
+  <div class="sep"></div>
+  <button id="drawClear">ล้างที่วาด</button>
+  <button id="drawDone" class="pub">เสร็จ</button>
+</div>
+
 <div id="stage">
   <div id="canvas">
     <svg id="edges">
@@ -327,6 +368,7 @@ body.connect .card .bd *{pointer-events:none}
       </defs>
       <g id="egroup"></g>
     </svg>
+    <svg id="draw"><defs><marker id="dah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="context-stroke"/></marker></defs><g id="dgroup"></g></svg>
   </div>
 </div>
 
@@ -482,6 +524,7 @@ function build(){
   restoreImages();
   drawEdges();
   applyView();
+  renderDraw();
 }
 function makeCard(c){
   var d=document.createElement('div');
@@ -749,6 +792,12 @@ function sync(){
     if(h) c.t=h.innerHTML; if(b) c.b=b.innerHTML;
     var im=el.querySelector('.slot img'); c.img=im?im.src:null;
   });
+  if(Array.isArray(S.draw)){
+    Array.prototype.slice.call(canvas.querySelectorAll('.dtext')).forEach(function(el){
+      var i=parseInt(el.dataset.di,10);
+      if(S.draw[i]){ S.draw[i].s=el.textContent; S.draw[i].x=el.offsetLeft; S.draw[i].y=el.offsetTop; }
+    });
+  }
   S.lineStyle=lineStyle; S.avoid=avoid;
 }
 
@@ -1294,6 +1343,131 @@ function insertTemplate(tp){
 }
 document.getElementById('bTpl').addEventListener('click',function(e){ e.stopPropagation(); tplPanel.classList.toggle('on'); });
 document.addEventListener('click',function(e){ if(tplPanel.classList.contains('on') && !tplPanel.contains(e.target) && e.target.id!=='bTpl') tplPanel.classList.remove('on'); });
+
+/* ============================ FREE DRAW ============================ */
+var drawSvg=document.getElementById('draw'), dgroup=document.getElementById('dgroup');
+var drawMode=false, drawTool='pen', drawColor='#C0392B', drawWidth=3;
+if(!Array.isArray(S.draw)) S.draw=[];
+function dxy(e){ var r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)/zoom, y:(e.clientY-r.top)/zoom}; }
+function penD(pts){ return 'M'+pts.map(function(p){return Math.round(p[0])+','+Math.round(p[1])}).join(' L'); }
+function dStr(o){ return o.t==='pen' ? penD(o.pts) : ('M'+o.x1+','+o.y1+' L'+o.x2+','+o.y2); }
+function renderDraw(){
+  if(!Array.isArray(S.draw)) S.draw=[];
+  dgroup.innerHTML='';
+  Array.prototype.slice.call(canvas.querySelectorAll('.dtext')).forEach(function(n){n.remove()});
+  S.draw.forEach(function(o,i){
+    if(o.t==='text'){
+      var el=document.createElement('div'); el.className='dtext'; el.dataset.di=String(i);
+      el.style.left=o.x+'px'; el.style.top=o.y+'px'; el.style.color=o.c||'#1E3A5F'; el.style.fontSize=(o.size||18)+'px';
+      el.textContent=o.s||''; el.setAttribute('contenteditable','false');
+      canvas.appendChild(el); return;
+    }
+    var d=dStr(o);
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('class','d'); p.setAttribute('d',d); p.setAttribute('stroke',o.c||'#C0392B'); p.setAttribute('stroke-width',o.w||3);
+    if(o.t==='arrow') p.setAttribute('marker-end','url(#dah)');
+    dgroup.appendChild(p);
+    var h=document.createElementNS('http://www.w3.org/2000/svg','path');
+    h.setAttribute('class','dhit'); h.setAttribute('d',d); h.dataset.di=String(i);
+    dgroup.appendChild(h);
+  });
+}
+/* eraser */
+drawSvg.addEventListener('click',function(e){
+  if(!drawMode || drawTool!=='erase') return;
+  var t=e.target;
+  if(t.classList && t.classList.contains('dhit')){ var i=parseInt(t.dataset.di,10); if(i>=0){ S.draw.splice(i,1); renderDraw(); persist(); tip('ลบที่วาดแล้ว'); } }
+});
+/* draw lines / arrows / pen / place text */
+var dcur=null;
+drawSvg.addEventListener('mousedown',function(e){
+  if(!drawMode || e.button!==0 || drawTool==='erase') return;
+  var p=dxy(e);
+  if(drawTool==='text'){
+    S.draw.push({t:'text', x:Math.round(p.x), y:Math.round(p.y), s:'', c:drawColor, size:18}); renderDraw();
+    var el=canvas.querySelector('.dtext[data-di="'+(S.draw.length-1)+'"]');
+    if(el){ el.setAttribute('contenteditable','true'); setTimeout(function(){ el.focus(); },10); }
+    e.preventDefault(); return;
+  }
+  dcur = drawTool==='pen' ? {t:'pen', pts:[[p.x,p.y]], c:drawColor, w:drawWidth}
+                          : {t:drawTool, x1:p.x, y1:p.y, x2:p.x, y2:p.y, c:drawColor, w:drawWidth};
+  e.preventDefault();
+});
+window.addEventListener('mousemove',function(e){
+  if(!dcur) return;
+  var p=dxy(e);
+  if(dcur.t==='pen') dcur.pts.push([p.x,p.y]); else { dcur.x2=p.x; dcur.y2=p.y; }
+  var prev=dgroup.querySelector('#dprev');
+  if(!prev){ prev=document.createElementNS('http://www.w3.org/2000/svg','path'); prev.id='dprev'; prev.setAttribute('class','d'); dgroup.appendChild(prev); }
+  prev.setAttribute('d',dStr(dcur)); prev.setAttribute('stroke',dcur.c); prev.setAttribute('stroke-width',dcur.w);
+  prev.setAttribute('marker-end', dcur.t==='arrow'?'url(#dah)':'');
+});
+window.addEventListener('mouseup',function(){
+  if(!dcur) return;
+  var o=dcur; dcur=null;
+  var prev=dgroup.querySelector('#dprev'); if(prev) prev.remove();
+  var big = o.t==='pen' ? o.pts.length>1 : (Math.abs(o.x2-o.x1)+Math.abs(o.y2-o.y1))>6;
+  if(big){ S.draw.push(o); renderDraw(); commit(); }
+});
+/* floating text: drag to move (in draw mode); click (no drag) to edit; blur to save */
+var dtdrag=null;
+canvas.addEventListener('mousedown',function(e){
+  if(!drawMode) return;
+  var el=e.target.closest('.dtext'); if(!el) return;
+  if(el.getAttribute('contenteditable')==='true') return;
+  dtdrag={el:el, sx:e.clientX, sy:e.clientY, x0:el.offsetLeft, y0:el.offsetTop, moved:false};
+  e.preventDefault();
+});
+window.addEventListener('mousemove',function(e){
+  if(!dtdrag) return;
+  dtdrag.el.style.left=(dtdrag.x0+(e.clientX-dtdrag.sx)/zoom)+'px';
+  dtdrag.el.style.top =(dtdrag.y0+(e.clientY-dtdrag.sy)/zoom)+'px';
+  if(Math.abs(e.clientX-dtdrag.sx)+Math.abs(e.clientY-dtdrag.sy)>3) dtdrag.moved=true;
+});
+window.addEventListener('mouseup',function(){
+  if(!dtdrag) return;
+  var el=dtdrag.el, moved=dtdrag.moved, i=parseInt(el.dataset.di,10); dtdrag=null;
+  if(moved){ if(S.draw[i]){ S.draw[i].x=el.offsetLeft; S.draw[i].y=el.offsetTop; } commit(); }
+  else { el.setAttribute('contenteditable','true'); el.focus(); }
+});
+canvas.addEventListener('blur',function(e){
+  var el=(e.target && e.target.closest)?e.target.closest('.dtext'):null; if(!el) return;
+  el.setAttribute('contenteditable','false');
+  var i=parseInt(el.dataset.di,10);
+  if(S.draw[i]){ if((el.textContent||'').trim()===''){ S.draw.splice(i,1); renderDraw(); } else { S.draw[i].s=el.textContent; } }
+  commit();
+},true);
+
+/* draw toolbar */
+function setDrawTool(t){ drawTool=t; document.querySelectorAll('[data-dtool]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-dtool')===t)}); document.body.classList.toggle('erase',t==='erase'); }
+function syncDcSw(){ document.querySelectorAll('#drawbar .sw[data-dc]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-dc').toLowerCase()===drawColor.toLowerCase()); }); }
+document.querySelectorAll('[data-dtool]').forEach(function(b){ b.addEventListener('click',function(){ setDrawTool(b.getAttribute('data-dtool')); }); });
+document.querySelectorAll('#drawbar .sw[data-dc]').forEach(function(b){ b.addEventListener('click',function(){ drawColor=b.getAttribute('data-dc'); document.getElementById('drawColorPick').value=drawColor; syncDcSw(); }); });
+document.getElementById('drawColorPick').addEventListener('input',function(){ drawColor=this.value; syncDcSw(); });
+document.getElementById('dwUp').addEventListener('click',function(){ drawWidth=Math.min(12,drawWidth+1); document.getElementById('dwNow').textContent=drawWidth; });
+document.getElementById('dwDn').addEventListener('click',function(){ drawWidth=Math.max(1,drawWidth-1); document.getElementById('dwNow').textContent=drawWidth; });
+document.getElementById('drawClear').addEventListener('click',function(){ if(!S.draw.length){ tip('ยังไม่มีที่วาด'); return; } if(!confirm('ล้างสิ่งที่วาดทั้งหมด?')) return; S.draw=[]; renderDraw(); persist(); tip('ล้างที่วาดแล้ว'); });
+function setDrawMode(on){
+  drawMode=on; document.body.classList.toggle('draw',on); document.getElementById('bDraw').classList.toggle('on',on);
+  if(on){
+    if(connectMode){ connectMode=false; bConn.classList.remove('on'); document.body.classList.remove('connect'); }
+    setActive(null); if(activeEdgeIdx>=0){ activeEdgeIdx=-1; drawEdges(); } renderInspector();
+    setDrawTool(drawTool); syncDcSw();
+    tip('โหมดวาดอิสระ: เลือกเครื่องมือด้านบน · วาดได้ทุกที่ · “เสร็จ” เพื่อออก');
+  }else{ document.body.classList.remove('erase'); }
+}
+document.getElementById('bDraw').addEventListener('click',function(){ setDrawMode(!drawMode); });
+document.getElementById('drawDone').addEventListener('click',function(){ setDrawMode(false); });
+
+/* Ctrl/⌘ + ล้อเมาส์ = ซูมเข้าจุดที่ชี้ */
+stage.addEventListener('wheel',function(e){
+  if(!e.ctrlKey && !e.metaKey) return;
+  e.preventDefault();
+  var rect=stage.getBoundingClientRect(), cx=e.clientX-rect.left, cy=e.clientY-rect.top, old=zoom;
+  var canvasX=(stage.scrollLeft+cx)/old, canvasY=(stage.scrollTop+cy)/old;
+  setZoom(zoom*(e.deltaY<0?1.1:0.9));
+  stage.scrollLeft=canvasX*zoom-cx; stage.scrollTop=canvasY*zoom-cy;
+},{passive:false});
 
 /* print fit */
 window.addEventListener('beforeprint',function(){
