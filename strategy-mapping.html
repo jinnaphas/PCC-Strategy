@@ -78,7 +78,7 @@ button:disabled{opacity:.55;cursor:default}
   background-image:radial-gradient(#D3DEEA 1px,transparent 1px);background-size:26px 26px}
 #canvas{position:relative;width:2680px;height:1160px;transform-origin:0 0}
 
-svg#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+svg#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
 svg#edges path.hit{stroke:transparent;stroke-width:16;fill:none;pointer-events:stroke;cursor:pointer}
 svg#edges path.wire{stroke:var(--wire,#9FB4C9);stroke-width:1.6;fill:none;marker-end:url(#ah)}
 svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#ahr)}
@@ -534,7 +534,7 @@ function recordHistory(){
   if(hist.length>20){ hist.shift(); hi--; }  /* cap memory (boards may embed images) */
   updateUndoUI();
 }
-function persist(){ recordHistory(); persistRaw(); if(mmOn) drawMinimap(); }
+function persist(){ fitCanvas(); recordHistory(); persistRaw(); if(mmOn) drawMinimap(); }
 function commit(){ sync(); persist(); }
 function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(commit,450); }
 function updateUndoUI(){
@@ -552,6 +552,7 @@ function build(){
   drawEdges();
   applyView();
   renderDraw();
+  fitCanvas();
   if(mmOn) drawMinimap();
 }
 function makeCard(c){
@@ -1403,23 +1404,23 @@ document.getElementById('presentExit').addEventListener('click',function(){ setP
 
 /* export PNG (best-effort via SVG foreignObject) */
 document.getElementById('bPNG').addEventListener('click',function(){
-  sync(); tip('กำลังสร้างรูป PNG…');
-  var W=canvas.offsetWidth, H=canvas.offsetHeight, scale=2;
-  var clone=canvas.cloneNode(true); clone.style.transform='none';
-  clone.querySelectorAll('.sel').forEach(function(n){n.classList.remove('sel')});
-  clone.querySelectorAll('.hd,.rs,.sact').forEach(function(n){n.remove()});
+  sync(); fitCanvas(); tip('กำลังสร้างรูป PNG…');
+  var CW=canvas.offsetWidth, CH=canvas.offsetHeight, b=contentBBox(), scale=2;
+  var clone=canvas.cloneNode(true); clone.style.transform='none'; clone.style.width=CW+'px'; clone.style.height=CH+'px';
+  clone.querySelectorAll('.sel,.found').forEach(function(n){ n.classList.remove('sel'); n.classList.remove('found'); });
+  clone.querySelectorAll('.hd,.rs,.sact,#marquee').forEach(function(n){n.remove()});
   clone.querySelectorAll('[contenteditable]').forEach(function(n){n.removeAttribute('contenteditable')});
   var styleText=''; document.querySelectorAll('style').forEach(function(s){styleText+=s.textContent;});
   var inner=new XMLSerializer().serializeToString(clone);
-  var html='<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+W+'px;height:'+H+'px;background:#fff"><style>'+styleText+'</style>'+inner+'</div>';
-  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'"><foreignObject width="100%" height="100%">'+html+'</foreignObject></svg>';
+  var html='<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+CW+'px;height:'+CH+'px;background:#fff"><style>'+styleText+'</style>'+inner+'</div>';
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+b.w+'" height="'+b.h+'" viewBox="'+b.x+' '+b.y+' '+b.w+' '+b.h+'"><foreignObject x="0" y="0" width="'+CW+'" height="'+CH+'">'+html+'</foreignObject></svg>';
   var img=new Image();
   img.onload=function(){
     try{
-      var cv=document.createElement('canvas'); cv.width=W*scale; cv.height=H*scale;
-      var ctx=cv.getContext('2d'); ctx.scale(scale,scale); ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.drawImage(img,0,0);
+      var cv=document.createElement('canvas'); cv.width=Math.round(b.w*scale); cv.height=Math.round(b.h*scale);
+      var ctx=cv.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
       var a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download='PCC_Strategy_Mapping.png'; a.click();
-      tip('บันทึกรูป PNG แล้ว');
+      tip('บันทึกรูป PNG แล้ว ('+Math.round(b.w)+'×'+Math.round(b.h)+')');
     }catch(err){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); }
   };
   img.onerror=function(){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); };
@@ -1576,6 +1577,34 @@ function setDrawMode(on){
 }
 document.getElementById('bDraw').addEventListener('click',function(){ setDrawMode(!drawMode); });
 document.getElementById('drawDone').addEventListener('click',function(){ setDrawMode(false); });
+
+/* ============================ AUTO-FIT CANVAS ============================ */
+var CANVAS_MIN_W=2680, CANVAS_MIN_H=1160, CANVAS_PAD=220;
+function contentExtent(){
+  var maxX=0, maxY=0, minX=1e9, minY=1e9, any=false;
+  S.cards.forEach(function(c){ var el=cardEl(c.id); if(!el) return; any=true;
+    minX=Math.min(minX,el.offsetLeft); minY=Math.min(minY,el.offsetTop);
+    maxX=Math.max(maxX,el.offsetLeft+el.offsetWidth); maxY=Math.max(maxY,el.offsetTop+el.offsetHeight); });
+  (S.draw||[]).forEach(function(o){ any=true;
+    if(o.t==='text'){ minX=Math.min(minX,o.x); minY=Math.min(minY,o.y); maxX=Math.max(maxX,(o.x||0)+220); maxY=Math.max(maxY,(o.y||0)+40); }
+    else if(o.t==='pen'){ (o.pts||[]).forEach(function(p){ minX=Math.min(minX,p[0]); minY=Math.min(minY,p[1]); maxX=Math.max(maxX,p[0]); maxY=Math.max(maxY,p[1]); }); }
+    else { minX=Math.min(minX,o.x1,o.x2); minY=Math.min(minY,o.y1,o.y2); maxX=Math.max(maxX,o.x1,o.x2); maxY=Math.max(maxY,o.y1,o.y2); } });
+  if(!any){ minX=0; minY=0; maxX=CANVAS_MIN_W; maxY=CANVAS_MIN_H; }
+  return {minX:minX, minY:minY, maxX:maxX, maxY:maxY};
+}
+function fitCanvas(){
+  var e=contentExtent();
+  var w=Math.max(CANVAS_MIN_W, Math.ceil(e.maxX)+CANVAS_PAD);
+  var h=Math.max(CANVAS_MIN_H, Math.ceil(e.maxY)+CANVAS_PAD);
+  if(canvas.offsetWidth!==w) canvas.style.width=w+'px';
+  if(canvas.offsetHeight!==h) canvas.style.height=h+'px';
+}
+function contentBBox(){
+  var e=contentExtent(), pad=44;
+  if(e.minX>e.maxX){ return {x:0,y:0,w:canvas.offsetWidth,h:canvas.offsetHeight}; }
+  return {x:Math.max(0,e.minX-pad), y:Math.max(0,e.minY-pad),
+          w:Math.max(80,(e.maxX-Math.max(0,e.minX-pad))+pad), h:Math.max(80,(e.maxY-Math.max(0,e.minY-pad))+pad)};
+}
 
 /* ============================ SEARCH ============================ */
 var searchBox=document.getElementById('searchBox');
