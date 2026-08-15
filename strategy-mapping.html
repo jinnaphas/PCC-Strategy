@@ -929,7 +929,7 @@ document.getElementById('bReset').addEventListener('click',function(){
   try{ localStorage.removeItem(LSK); }catch(e){}
   build(); persist(); tip('คืนค่าเริ่มต้นแล้ว');
 });
-document.getElementById('bPrint').addEventListener('click',function(){window.print()});
+/* bPrint handler อยู่ด้านล่าง (พิมพ์เป็นภาพเดียวกับ PNG) */
 
 /* ============================ FORMAT · VIEW · IMAGES ============================ */
 var activeCard=null, selected=[];
@@ -1463,8 +1463,9 @@ document.getElementById('bPresent').addEventListener('click',function(){ setPres
 document.getElementById('presentExit').addEventListener('click',function(){ setPresent(false); });
 
 /* export PNG (best-effort via SVG foreignObject) */
-document.getElementById('bPNG').addEventListener('click',function(){
-  sync(); fitCanvas(); tip('กำลังสร้างรูป PNG…');
+/* เรนเดอร์บอร์ดเป็นรูป PNG (ตาม content bbox, 2x) — ใช้ร่วมกันทั้ง PNG และ PDF */
+function renderBoardImage(cb){
+  sync(); fitCanvas();
   var CW=canvas.offsetWidth, CH=canvas.offsetHeight, b=contentBBox(), scale=2;
   var clone=canvas.cloneNode(true); clone.style.transform='none'; clone.style.width=CW+'px'; clone.style.height=CH+'px';
   clone.querySelectorAll('.sel,.found').forEach(function(n){ n.classList.remove('sel'); n.classList.remove('found'); });
@@ -1479,12 +1480,35 @@ document.getElementById('bPNG').addEventListener('click',function(){
     try{
       var cv=document.createElement('canvas'); cv.width=Math.round(b.w*scale); cv.height=Math.round(b.h*scale);
       var ctx=cv.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
-      var a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download='PCC_Strategy_Mapping.png'; a.click();
-      tip('บันทึกรูป PNG แล้ว ('+Math.round(b.w)+'×'+Math.round(b.h)+')');
-    }catch(err){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); }
+      cb(cv.toDataURL('image/png'), b);
+    }catch(err){ cb(null); }
   };
-  img.onerror=function(){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); };
+  img.onerror=function(){ cb(null); };
   img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+document.getElementById('bPNG').addEventListener('click',function(){
+  tip('กำลังสร้างรูป PNG…');
+  renderBoardImage(function(png,b){
+    if(!png){ tip('สร้างรูปไม่สำเร็จ — ลองย่อรูป/ไฟล์แนบในบอร์ด'); return; }
+    var a=document.createElement('a'); a.href=png; a.download='PCC_Strategy_Mapping.png'; a.click();
+    tip('บันทึกรูป PNG แล้ว ('+Math.round(b.w)+'×'+Math.round(b.h)+')');
+  });
+});
+/* PDF = ภาพเดียวกับ PNG (layout ตามจริง) พิมพ์เป็นหน้าเดียวขนาดตามบอร์ด */
+document.getElementById('bPrint').addEventListener('click',function(){
+  tip('กำลังเตรียม PDF…');
+  renderBoardImage(function(png,b){
+    if(!png){ window.print(); return; }
+    var w=window.open('','_blank');
+    if(!w){ tip('เบราว์เซอร์บล็อกป๊อปอัป — อนุญาตป๊อปอัปของหน้านี้แล้วลองใหม่'); return; }
+    w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>PCC Strategy Mapping</title>'+
+      '<style>@page{size:'+Math.round(b.w)+'px '+Math.round(b.h)+'px;margin:0}html,body{margin:0;padding:0;background:#fff}img{display:block;width:100%;height:auto}</style>'+
+      '</head><body><img src="'+png+'"></body></html>');
+    w.document.close();
+    var im=w.document.images[0], go=function(){ try{ w.focus(); w.print(); }catch(e){} };
+    if(im && !im.complete){ im.onload=go; im.onerror=go; setTimeout(go,1500); } else { setTimeout(go,300); }
+    tip('เปิดหน้าต่างพิมพ์แล้ว — เลือกปลายทาง “Save as PDF”');
+  });
 });
 
 /* template cards */
