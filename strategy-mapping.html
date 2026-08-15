@@ -80,7 +80,7 @@ button:disabled{opacity:.55;cursor:default}
 
 svg#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 svg#edges path.hit{stroke:transparent;stroke-width:16;fill:none;pointer-events:stroke;cursor:pointer}
-svg#edges path.wire{stroke:#9FB4C9;stroke-width:1.6;fill:none;marker-end:url(#ah)}
+svg#edges path.wire{stroke:var(--wire,#9FB4C9);stroke-width:1.6;fill:none;marker-end:url(#ah)}
 svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#ahr)}
 
 /* ---------------- cards ---------------- */
@@ -93,9 +93,9 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
 .card .hd .sp{flex:1}
 .card .hd button{padding:0 5px;font-size:11px;line-height:16px;border:none;background:transparent;color:#AEBED0;border-radius:4px}
 .card .hd button:hover{color:var(--a3)}
-.card .bd{padding:10px 13px 13px}
-.card h3{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:3px;color:var(--ink)}
-.card p,.card ul{font-size:13.5px;color:#41586C;margin:0;line-height:1.5}
+.card .bd{padding:10px 13px 13px;font-size:calc(13.5px * var(--gfs,1) * var(--cfs,1))}
+.card h3{font-size:1.13em;font-weight:700;line-height:1.35;margin-bottom:3px;color:var(--ink)}
+.card p,.card ul{font-size:1em;color:#41586C;margin:0;line-height:1.5}
 .card ul{padding-left:16px;margin-top:5px}
 .card li{margin-bottom:2px}
 .card .rs{position:absolute;right:-3px;bottom:-3px;width:12px;height:12px;cursor:nwse-resize;
@@ -105,12 +105,12 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
 
 .card[data-k="head"]{background:transparent;border:none;box-shadow:none}
 .card[data-k="head"] .bd{padding:2px 4px}
-.card[data-k="head"] h3{font-size:22px;font-weight:800;color:var(--ac,var(--a1));line-height:1.25;letter-spacing:-.01em}
+.card[data-k="head"] h3{font-size:calc(22px * var(--cfs,1));font-weight:800;color:var(--ac,var(--a1));line-height:1.25;letter-spacing:-.01em}
 .card[data-k="head"] .hd{background:transparent;border-bottom:none}
 
 .card[data-k="rail"]{background:transparent;border:none;box-shadow:none}
 .card[data-k="rail"] .bd{padding:2px 4px}
-.card[data-k="rail"] h3{font-size:14px;font-weight:700;color:var(--a1)}
+.card[data-k="rail"] h3{font-size:calc(14px * var(--cfs,1));font-weight:700;color:var(--a1)}
 .card[data-k="rail"] .hd{background:transparent;border-bottom:none}
 
 .card[data-k="note"]{background:#FFF8E8;border-color:#F1DFAE}
@@ -123,16 +123,34 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
 
 .card[data-k="vert"]{background:#EAF3FA;border-color:#BFD9EC}
 .card[data-k="vert"] .bd{writing-mode:vertical-rl;text-orientation:mixed;padding:14px 8px}
-.card[data-k="vert"] h3{font-size:15px;color:var(--a1);white-space:nowrap}
+.card[data-k="vert"] h3{font-size:calc(15px * var(--cfs,1));color:var(--a1);white-space:nowrap}
 
 .slot{position:relative;border:1px dashed #B7C7D6;background:#F7FAFD;min-height:70px;
   display:flex;align-items:center;justify-content:center;margin-top:8px;overflow:hidden;cursor:pointer;border-radius:6px}
 .slot img{width:100%;display:block}
 .slot .ph{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;color:#9AACBE;text-align:center;padding:14px 8px;pointer-events:none}
-.slot .x{position:absolute;top:3px;right:3px;background:#fff;border:1px solid var(--line);
-  font-size:10px;padding:1px 5px;opacity:0;border-radius:4px}
-.slot:hover .x{opacity:1}
+.slot:hover img{cursor:zoom-in}
+.slot .sact{position:absolute;top:4px;right:4px;display:flex;gap:4px;opacity:0;transition:.15s;z-index:2}
+.slot:hover .sact{opacity:1}
+.slot .sact button{background:rgba(255,255,255,.95);border:1px solid var(--line);font-size:10px;
+  font-weight:600;color:#41566E;padding:2px 6px;border-radius:4px;line-height:1.4}
+.slot .sact button:hover{border-color:var(--a2);color:var(--a2)}
+/* color swatches + native pickers in toolbar */
+.bar label.clr{display:inline-flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;flex:none;
+  border:1px solid var(--line);border-radius:6px;padding:3px 7px;background:#fff}
+.bar label.clr:hover{border-color:var(--a2)}
+.bar label.clr input[type=color]{width:22px;height:18px;border:none;padding:0;background:none;cursor:pointer}
+.bar .sw{width:19px;height:19px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;flex:none;padding:0}
+.bar .sw:hover{transform:scale(1.12)}
+/* image lightbox */
+#lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(11,23,34,.92);
+  align-items:center;justify-content:center;padding:30px;cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.55);cursor:default}
+#lightbox .lb-x{position:fixed;top:16px;right:20px;font-size:24px;color:#fff;cursor:pointer;border:none;
+  background:rgba(255,255,255,.14);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+#lightbox .lb-x:hover{background:rgba(255,255,255,.28)}
 
 [contenteditable="true"]:focus{background:rgba(245,179,1,.16);outline:none;border-radius:3px}
 body.connect .card{cursor:crosshair}
@@ -171,6 +189,19 @@ body.connect .card .bd *{pointer-events:none}
   <button data-ls="curve">โค้ง</button>
   <button data-ls="straight">ตรง</button>
   <button id="bAvoid" class="on">หลบกล่อง</button>
+  <div class="sep"></div>
+  <span class="lbl">ตัวอักษร</span>
+  <button id="fsDn" title="เล็กลง">A−</button><button id="fsUp" title="ใหญ่ขึ้น">A+</button>
+  <button class="sw" data-tc="#1E3A5F" style="background:#1E3A5F" title="น้ำเงินเข้ม"></button>
+  <button class="sw" data-tc="#0077B6" style="background:#0077B6" title="ฟ้า"></button>
+  <button class="sw" data-tc="#F7941D" style="background:#F7941D" title="ส้ม"></button>
+  <button class="sw" data-tc="#2E7D32" style="background:#2E7D32" title="เขียว"></button>
+  <button class="sw" data-tc="#C0392B" style="background:#C0392B" title="แดง"></button>
+  <label class="clr" title="สีตัวอักษรแบบกำหนดเอง">🎨<input type="color" id="txtColor" value="#1e3a5f"></label>
+  <div class="sep"></div>
+  <span class="lbl">เส้น·สี</span>
+  <label class="clr" title="สีเส้นเชื่อม">〰<input type="color" id="lineColor" value="#9fb4c9"></label>
+  <button id="dupCard" title="ทำซ้ำกล่องที่เลือก">⎘ ทำซ้ำ</button>
   <div class="sep"></div>
   <span class="lbl">ซูม</span>
   <button id="zOut">−</button><button id="zFit">พอดี</button><button id="zIn">+</button>
@@ -216,6 +247,8 @@ body.connect .card .bd *{pointer-events:none}
 </div>
 
 <div class="tip" id="tip"></div>
+
+<div id="lightbox"><button class="lb-x" title="ปิด (Esc)">✕</button><img alt="รูปขยาย"></div>
 
 <script>
 (function(){
@@ -340,17 +373,20 @@ function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(commit,450); }
 
 /* ============================ RENDER ============================ */
 function build(){
+  activeCard=null;
   Array.prototype.slice.call(canvas.querySelectorAll('.card')).forEach(function(n){n.remove()});
   S.cards.forEach(makeCard);
   restoreImages();
   drawEdges();
+  applyView();
 }
 function makeCard(c){
   var d=document.createElement('div');
   d.className='card'; d.dataset.id=c.id; d.dataset.k=c.k||'card';
   d.style.left=c.x+'px'; d.style.top=c.y+'px'; d.style.width=c.w+'px';
   if(c.ac) d.style.setProperty('--ac','var(--'+c.ac+')');
-  var img = c.k==='image' ? '<div class="slot"><div class="ph">คลิกเพื่อใส่รูป</div><button class="x">ลบรูป</button></div>' : '';
+  if(c.fs) d.style.setProperty('--cfs', c.fs);
+  var img = c.k==='image' ? '<div class="slot"><div class="ph">คลิกเพื่อใส่รูป</div><div class="sact"><button class="rep">เปลี่ยน</button><button class="x">ลบรูป</button></div></div>' : '';
   d.innerHTML =
     (c.ac && c.k!=='head' && c.k!=='rail' ? '<div class="ac"></div>' : '')+
     '<div class="hd"><span class="grip">⠿</span><span class="sp"></span><button class="del" title="ลบกล่อง">✕</button></div>'+
@@ -518,6 +554,7 @@ function drawEdges(){
 var drag=null;
 canvas.addEventListener('mousedown',function(e){
   var card=e.target.closest('.card'); if(!card) return;
+  if(!connectMode) setActive(card);
   if(e.target.classList.contains('rs')){
     drag={mode:'size',el:card,sx:e.clientX,w0:card.offsetWidth};
     e.preventDefault(); return;
@@ -585,7 +622,10 @@ canvas.addEventListener('click',function(e){
     var im=slot.querySelector('img'); if(im) im.remove();
     var ph=slot.querySelector('.ph'); if(ph) ph.style.display=''; drawEdges(); commit(); return;
   }
-  slotTarget=slot; fi.click();
+  if(e.target.classList.contains('rep')){ slotTarget=slot; fi.click(); return; }
+  var img0=slot.querySelector('img');
+  if(img0){ openLightbox(img0.src); return; }   /* มีรูปแล้ว → คลิกเพื่อขยาย */
+  slotTarget=slot; fi.click();                    /* ยังไม่มีรูป → เลือกรูป */
 });
 
 /* keep model in sync with DOM */
@@ -656,6 +696,116 @@ document.getElementById('bReset').addEventListener('click',function(){
   build(); persist(); tip('คืนค่าเริ่มต้นแล้ว');
 });
 document.getElementById('bPrint').addEventListener('click',function(){window.print()});
+
+/* ============================ FORMAT · VIEW · IMAGES ============================ */
+var activeCard=null;
+function cardById(id){ for(var i=0;i<S.cards.length;i++){ if(S.cards[i].id===id) return S.cards[i]; } return null; }
+function setActive(el){
+  if(activeCard===el) return;
+  if(activeCard) activeCard.classList.remove('sel');
+  activeCard=el||null;
+  if(activeCard) activeCard.classList.add('sel');
+}
+stage.addEventListener('mousedown',function(e){ if(!e.target.closest('.card')) setActive(null); });
+
+/* apply global text scale + connector colour on load / rebuild */
+function applyView(){
+  canvas.style.setProperty('--gfs', S.gfs||1);
+  var edges=document.getElementById('edges'), col=S.edgeColor||'';
+  if(col) edges.style.setProperty('--wire',col); else edges.style.removeProperty('--wire');
+  var mk=document.querySelector('#ah path'); if(mk) mk.setAttribute('fill', col||'#9FB4C9');
+  var lc=document.getElementById('lineColor'); if(lc) lc.value = col||'#9fb4c9';
+}
+
+/* text size — active card if one is selected, else the whole board */
+function bump(delta){
+  if(activeCard){
+    var c=cardById(activeCard.dataset.id); if(!c) return;
+    c.fs=Math.round(Math.min(2.4,Math.max(.6,(c.fs||1)+delta))*100)/100;
+    activeCard.style.setProperty('--cfs',c.fs); drawEdges(); commit();
+    tip('ขนาดกล่องนี้ '+Math.round(c.fs*100)+'%');
+  }else{
+    S.gfs=Math.round(Math.min(2,Math.max(.6,(S.gfs||1)+delta))*100)/100;
+    canvas.style.setProperty('--gfs',S.gfs); drawEdges(); persist();
+    tip('ขนาดทั้งบอร์ด '+Math.round(S.gfs*100)+'% · (คลิกเลือกกล่องก่อน ถ้าต้องการปรับเฉพาะกล่อง)');
+  }
+}
+document.getElementById('fsDn').addEventListener('click',function(){bump(-.1)});
+document.getElementById('fsUp').addEventListener('click',function(){bump(.1)});
+
+/* text colour — the current selection if any, else the whole active card */
+function inCanvas(node){ node=node&&(node.nodeType===1?node:node.parentNode); return !!(node&&canvas.contains(node)); }
+function colorText(color){
+  if(!editMode){ tip('เปิด “✎ แก้ไขข้อความ” ก่อน แล้วลองใหม่'); return; }
+  var sel=window.getSelection();
+  if(sel&&sel.rangeCount&&!sel.isCollapsed&&inCanvas(sel.anchorNode)){
+    document.execCommand('styleWithCSS',false,true);
+    document.execCommand('foreColor',false,color); commit();
+    tip('เปลี่ยนสีข้อความที่เลือกแล้ว'); return;
+  }
+  if(!activeCard){ tip('ลากคลุมข้อความ หรือคลิกเลือกกล่องก่อน'); return; }
+  ['h3','.body'].forEach(function(q){
+    var el=activeCard.querySelector(q); if(!el) return;
+    var r=document.createRange(); r.selectNodeContents(el);
+    var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    document.execCommand('styleWithCSS',false,true);
+    document.execCommand('foreColor',false,color);
+    s.removeAllRanges();
+  });
+  commit(); tip('เปลี่ยนสีข้อความกล่องนี้แล้ว');
+}
+document.querySelectorAll('.sw[data-tc]').forEach(function(b){
+  b.addEventListener('click',function(){ colorText(b.getAttribute('data-tc')); });
+});
+var txtColor=document.getElementById('txtColor');
+txtColor.addEventListener('input',function(){ colorText(txtColor.value); });
+
+/* connector colour (global) */
+function setLineColor(color){
+  S.edgeColor=color;
+  document.getElementById('edges').style.setProperty('--wire',color);
+  var mk=document.querySelector('#ah path'); if(mk) mk.setAttribute('fill',color);
+  persist(); tip('เปลี่ยนสีเส้นเชื่อมแล้ว');
+}
+var lineColorEl=document.getElementById('lineColor');
+lineColorEl.addEventListener('input',function(){ setLineColor(lineColorEl.value); });
+
+/* duplicate the selected card */
+document.getElementById('dupCard').addEventListener('click',function(){
+  if(!activeCard){ tip('คลิกเลือกกล่องที่จะทำซ้ำก่อน'); return; }
+  sync();
+  var src=cardById(activeCard.dataset.id); if(!src) return;
+  var copy=JSON.parse(JSON.stringify(src));
+  copy.id='n'+(S.cards.length)+'_'+Math.round(src.x+src.y);
+  copy.x=src.x+24; copy.y=src.y+24;
+  S.cards.push(copy); var el=makeCard(copy);
+  if(copy.img){ var slot=el.querySelector('.slot'); if(slot){ var im=document.createElement('img'); im.src=copy.img; slot.insertBefore(im,slot.firstChild); var ph=slot.querySelector('.ph'); if(ph) ph.style.display='none'; } }
+  setActive(el); drawEdges(); commit(); tip('ทำซ้ำกล่องแล้ว');
+});
+
+/* image lightbox — click an inserted image to enlarge */
+var lb=document.getElementById('lightbox'), lbImg=lb.querySelector('img');
+function openLightbox(src){ lbImg.src=src; lb.classList.add('on'); }
+function closeLightbox(){ lb.classList.remove('on'); lbImg.removeAttribute('src'); }
+lb.addEventListener('click',function(e){ if(e.target!==lbImg) closeLightbox(); });
+lb.querySelector('.lb-x').addEventListener('click',closeLightbox);
+
+/* keyboard: Esc closes overlays · Delete removes the selected card (เมื่อไม่ได้พิมพ์อยู่) */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(lb.classList.contains('on')){ closeLightbox(); return; }
+    if(typeof tokPanel!=='undefined' && tokPanel && tokPanel.style.display==='block'){ tokPanel.style.display='none'; }
+    return;
+  }
+  if(e.key==='Delete' && activeCard){
+    var ae=document.activeElement;
+    if(ae && (ae.isContentEditable || ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;
+    var id=activeCard.dataset.id;
+    S.cards=S.cards.filter(function(c){return c.id!==id});
+    S.edges=S.edges.filter(function(x){return x[0]!==id&&x[1]!==id});
+    activeCard.remove(); activeCard=null; drawEdges(); persist(); tip('ลบกล่องแล้ว');
+  }
+});
 
 /* save / open JSON */
 document.getElementById('bSave').addEventListener('click',function(){
