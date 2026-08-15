@@ -152,6 +152,55 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
   background:rgba(255,255,255,.14);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center}
 #lightbox .lb-x:hover{background:rgba(255,255,255,.28)}
 
+/* edge label + selected edge */
+svg#edges text.elabel{font:600 12px 'Inter','Sarabun',sans-serif;fill:#33475B;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+svg#edges g.e.sel path.wire{stroke:var(--a3)!important;stroke-width:2.8}
+svg#edges g.e.sel text.elabel{fill:var(--a3)}
+#bUndo,#bRedo{font-size:14px;line-height:1;padding:5px 9px}
+
+/* template dropdown */
+#tplPanel{display:none;position:fixed;top:64px;left:14px;z-index:120;width:520px;max-width:92vw;
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tplPanel.on{display:block}
+#tplPanel .tp-h{font-family:'Inter';font-weight:800;font-size:13px;color:var(--ink);margin-bottom:9px}
+.tpl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.tpl-grid button{text-transform:none;font-weight:600;font-size:11px;padding:8px;text-align:left;white-space:normal;line-height:1.3;border-radius:8px}
+.tpl-grid .tpl-sec{grid-column:1/-1;font-family:'Inter';font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93A6BA;margin-top:4px}
+
+/* contextual inspector */
+#inspector{position:fixed;top:70px;right:14px;z-index:95;width:272px;max-height:calc(100vh - 90px);overflow-y:auto;
+  background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 44px rgba(30,58,95,.18)}
+.ins-head{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-bottom:1px solid #EBF1F7}
+.ins-title{font-family:'Inter';font-weight:800;font-size:13px;color:var(--ink)}
+.ins-head button{border:none;background:transparent;color:#9AACBE;font-size:14px;padding:2px 6px}
+.ins-head button:hover{color:var(--a2)}
+.ins-body{padding:11px 13px}
+.ins-hint{font-size:12px;color:var(--mute);line-height:1.6}
+.ins-grp{margin-bottom:11px}
+.ins-lbl{display:block;font-family:'Inter';font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8FA3B8;margin-bottom:5px}
+.ins-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ins-min{font-size:10px;color:var(--mute);text-transform:none;letter-spacing:0}
+.ins-body button{padding:5px 9px;font-size:11px}
+.ins-body input[type=text]{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-family:'Sarabun';font-size:13px;color:var(--ink);background:#F8FBFE}
+.ins-body input[type=text]:focus{outline:none;border-color:var(--a2)}
+.ins-body label.clr{margin-top:6px;font-size:11px;text-transform:none;letter-spacing:0;color:#41566E}
+.sw-row{display:flex;gap:5px;flex-wrap:wrap}
+.sw-row .sw{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0}
+.sw-row .sw:hover{transform:scale(1.12)}
+button.danger{color:#B0392B;border-color:#E7C3BD}
+button.danger:hover{background:#B0392B;border-color:#B0392B;color:#fff}
+#insShow{display:none;position:fixed;top:70px;right:14px;z-index:95;background:var(--a1);color:#fff;border-color:var(--a1)}
+body.ins-hidden #inspector{display:none}
+body.ins-hidden #insShow{display:block}
+
+/* present mode */
+#presentExit{display:none;position:fixed;top:14px;right:16px;z-index:210;background:var(--ink);color:#fff;border-color:var(--ink);text-transform:none}
+body.present .bar,body.present #inspector,body.present #insShow,body.present #tplPanel,body.present #tokPanel{display:none!important}
+body.present #stage{inset:0}
+body.present #presentExit{display:block}
+body.present .card .hd,body.present .slot .sact,body.present .card .rs{display:none!important}
+body.present .card{cursor:default}
+
 [contenteditable="true"]:focus{background:rgba(245,179,1,.16);outline:none;border-radius:3px}
 body.connect .card{cursor:crosshair}
 body.connect .card .bd *{pointer-events:none}
@@ -175,48 +224,82 @@ body.connect .card .bd *{pointer-events:none}
 <div class="bar">
   <div class="brand"><b>PCC · Strategy Mapping</b><span>Draft · ร่างเพื่อพิจารณา</span></div>
   <div class="sep"></div>
-  <button id="bEdit" class="on">✎ แก้ไขข้อความ</button>
-  <button id="bConn">↗ ลากเส้นเชื่อม</button>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <button id="bConn">↗ เชื่อมเส้น</button>
+  <div class="sep"></div>
+  <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
+  <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
   <div class="sep"></div>
   <span class="lbl">เพิ่ม</span>
   <button data-add="card" class="ghost">+ กล่อง</button>
   <button data-add="note" class="ghost">+ โน้ต</button>
   <button data-add="head" class="ghost">+ หัวข้อ</button>
   <button data-add="image" class="ghost">+ รูป</button>
+  <button id="bTpl" class="ghost">+ เทมเพลต ▾</button>
   <div class="sep"></div>
   <span class="lbl">เส้น</span>
   <button data-ls="elbow" class="on">หักมุม</button>
   <button data-ls="curve">โค้ง</button>
   <button data-ls="straight">ตรง</button>
   <button id="bAvoid" class="on">หลบกล่อง</button>
+  <label class="clr" title="สีเส้นเริ่มต้น (ทุกเส้น)">〰<input type="color" id="lineColor" value="#9fb4c9"></label>
   <div class="sep"></div>
-  <span class="lbl">ตัวอักษร</span>
-  <button id="fsDn" title="เล็กลง">A−</button><button id="fsUp" title="ใหญ่ขึ้น">A+</button>
-  <button class="sw" data-tc="#1E3A5F" style="background:#1E3A5F" title="น้ำเงินเข้ม"></button>
-  <button class="sw" data-tc="#0077B6" style="background:#0077B6" title="ฟ้า"></button>
-  <button class="sw" data-tc="#F7941D" style="background:#F7941D" title="ส้ม"></button>
-  <button class="sw" data-tc="#2E7D32" style="background:#2E7D32" title="เขียว"></button>
-  <button class="sw" data-tc="#C0392B" style="background:#C0392B" title="แดง"></button>
-  <label class="clr" title="สีตัวอักษรแบบกำหนดเอง">🎨<input type="color" id="txtColor" value="#1e3a5f"></label>
-  <div class="sep"></div>
-  <span class="lbl">เส้น·สี</span>
-  <label class="clr" title="สีเส้นเชื่อม">〰<input type="color" id="lineColor" value="#9fb4c9"></label>
-  <button id="dupCard" title="ทำซ้ำกล่องที่เลือก">⎘ ทำซ้ำ</button>
-  <div class="sep"></div>
-  <span class="lbl">ซูม</span>
+  <span class="lbl">มุมมอง</span>
   <button id="zOut">−</button><button id="zFit">พอดี</button><button id="zIn">+</button>
-  <div class="sep"></div>
-  <button id="bClear">ลบเส้น</button>
-  <button id="bReset">คืนค่าเริ่มต้น</button>
+  <button id="bSnap" title="ดูดกล่องเข้ากริดเวลาลาก">Snap</button>
+  <button id="bPresent" title="โหมดนำเสนอ (ซ่อนแถบเครื่องมือ)">🖥 นำเสนอ</button>
   <div class="sep"></div>
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
   <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
   <div class="sep"></div>
   <button id="bSave">บันทึกไฟล์</button>
   <button id="bOpen">เปิดไฟล์</button>
-  <button id="bPrint">พิมพ์ / PDF</button>
+  <button id="bPNG" title="บันทึกเป็นรูป PNG">🖼 PNG</button>
+  <button id="bPrint">พิมพ์</button>
+  <button id="bClear">ลบเส้น</button>
+  <button id="bReset">คืนค่า</button>
   <span id="autosave">● บันทึกอัตโนมัติ</span>
 </div>
+
+<!-- template dropdown -->
+<div id="tplPanel">
+  <div class="tp-h">แทรกเทมเพลตการ์ด</div>
+  <div class="tpl-grid" id="tplGrid"></div>
+</div>
+
+<!-- contextual inspector -->
+<div id="inspector">
+  <div class="ins-head"><span class="ins-title">ปรับแต่ง</span><button id="insClose" title="ซ่อนแผง">✕</button></div>
+  <div id="insEmpty" class="ins-body ins-hint">คลิกเลือก <b>กล่อง</b> หรือ <b>เส้น</b> เพื่อปรับแต่ง</div>
+  <div id="insCard" class="ins-body" style="display:none">
+    <div class="ins-grp"><span class="ins-lbl">ขนาดตัวอักษร</span>
+      <div class="ins-row"><button id="fsDn">A−</button><button id="fsUp">A+</button><span id="fsNow" class="ins-min"></span></div></div>
+    <div class="ins-grp"><span class="ins-lbl">จัดรูปแบบ (คลุมข้อความก่อน)</span>
+      <div class="ins-row"><button id="fmtB" style="font-weight:800">B</button><button id="fmtI" style="font-style:italic;font-family:serif">I</button><button id="fmtH" title="ไฮไลต์">▮ ไฮไลต์</button><button id="fmtClear" title="ล้างรูปแบบ">⌫</button></div></div>
+    <div class="ins-grp"><span class="ins-lbl">สีตัวอักษร</span>
+      <div class="sw-row" id="tcSw"></div>
+      <label class="clr">🎨 กำหนดเอง<input type="color" id="txtColor" value="#1e3a5f"></label></div>
+    <div class="ins-grp"><span class="ins-lbl">สีแถบหัวการ์ด</span>
+      <div class="sw-row" id="acSw"></div>
+      <label class="clr">🎨 กำหนดเอง<input type="color" id="accColor" value="#005a8e"></label></div>
+    <div class="ins-grp"><span class="ins-lbl">สีพื้นการ์ด</span>
+      <div class="sw-row" id="bgSw"></div>
+      <label class="clr">🎨 กำหนดเอง<input type="color" id="bgColor" value="#ffffff"></label>
+      <button id="bgClear" class="ins-min">ล้างสีพื้น</button></div>
+    <div class="ins-grp ins-row"><button id="dupCard">⎘ ทำซ้ำ</button><button id="delCard" class="danger">🗑 ลบกล่อง</button></div>
+  </div>
+  <div id="insEdge" class="ins-body" style="display:none">
+    <div class="ins-grp"><span class="ins-lbl">ป้ายข้อความบนเส้น</span>
+      <input id="edgeLabel" type="text" placeholder="เช่น ส่งต่อ / อนุมัติ / feed"></div>
+    <div class="ins-grp"><span class="ins-lbl">สีเส้นนี้</span>
+      <div class="sw-row" id="ecSw"></div>
+      <label class="clr">🎨 กำหนดเอง<input type="color" id="edgeColor" value="#9fb4c9"></label>
+      <button id="edgeColorClear" class="ins-min">ใช้สีเริ่มต้น</button></div>
+    <div class="ins-grp ins-row"><button id="delEdge" class="danger">🗑 ลบเส้นนี้</button></div>
+  </div>
+</div>
+<button id="insShow" title="แสดงแผงปรับแต่ง">⚙ ปรับแต่ง</button>
+<button id="presentExit">✕ ออกจากโหมดนำเสนอ (Esc)</button>
 
 <div id="tokPanel">
   <div class="tp-h">GitHub Token (PAT)</div>
@@ -235,10 +318,10 @@ body.connect .card .bd *{pointer-events:none}
     <svg id="edges">
       <defs>
         <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 z" fill="#9FB4C9"/>
+          <path d="M0,1 L9,5 L0,9 z" fill="context-stroke"/>
         </marker>
         <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 z" fill="#F7941D"/>
+          <path d="M0,1 L9,5 L0,9 z" fill="context-stroke"/>
         </marker>
       </defs>
       <g id="egroup"></g>
@@ -349,6 +432,8 @@ try{
 }catch(e){}
 if(!S) S=published();
 if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+/* edges may be legacy arrays [a,b] or objects {a,b,label,color} — normalise to objects */
+S.edges=(S.edges||[]).map(function(e){ return Array.isArray(e)?{a:e[0],b:e[1]}:e; });
 
 var canvas=document.getElementById('canvas'),
     stage=document.getElementById('stage'),
@@ -357,19 +442,36 @@ var canvas=document.getElementById('canvas'),
     saveEl=document.getElementById('autosave');
 var zoom=1, editMode=true, connectMode=false, srcId=null, addN=0;
 var lineStyle=S.lineStyle||'elbow', avoid=(typeof S.avoid==='boolean')?S.avoid:true;
+var snap=(typeof S.snap==='boolean')?S.snap:false, GRID=20;
+var present=false, activeEdgeIdx=-1;
+var hist=[], hi=-1, restoring=false;   /* undo/redo linear history */
 
 function tip(msg){ tipEl.textContent=msg; tipEl.classList.add('show');
   clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2200); }
 
 /* ---- autosave to localStorage (best-effort; ไฟล์นี้ host บน Pages จึงใช้ได้) ---- */
 var saveT=null;
-function persist(){
+function persistRaw(){
   try{ localStorage.setItem(LSK, JSON.stringify(S));
        saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450);
   }catch(e){ saveEl.textContent='● เก็บชั่วคราวไม่ได้ — ใช้ปุ่มบันทึกไฟล์'; }
 }
+function recordHistory(){
+  if(restoring) return;
+  var snap0=JSON.stringify(S);
+  if(hi>=0 && hist[hi]===snap0) return;      /* no real change */
+  hist=hist.slice(0,hi+1); hist.push(snap0); hi=hist.length-1;
+  if(hist.length>20){ hist.shift(); hi--; }  /* cap memory (boards may embed images) */
+  updateUndoUI();
+}
+function persist(){ recordHistory(); persistRaw(); }
 function commit(){ sync(); persist(); }
 function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(commit,450); }
+function updateUndoUI(){
+  var u=document.getElementById('bUndo'), r=document.getElementById('bRedo');
+  if(u) u.disabled = hi<=0;
+  if(r) r.disabled = hi>=hist.length-1;
+}
 
 /* ============================ RENDER ============================ */
 function build(){
@@ -385,7 +487,9 @@ function makeCard(c){
   d.className='card'; d.dataset.id=c.id; d.dataset.k=c.k||'card';
   d.style.left=c.x+'px'; d.style.top=c.y+'px'; d.style.width=c.w+'px';
   if(c.ac) d.style.setProperty('--ac','var(--'+c.ac+')');
+  if(c.accent) d.style.setProperty('--ac', c.accent);
   if(c.fs) d.style.setProperty('--cfs', c.fs);
+  if(c.bg) d.style.background = c.bg;
   var img = c.k==='image' ? '<div class="slot"><div class="ph">คลิกเพื่อใส่รูป</div><div class="sact"><button class="rep">เปลี่ยน</button><button class="x">ลบรูป</button></div></div>' : '';
   d.innerHTML =
     (c.ac && c.k!=='head' && c.k!=='rail' ? '<div class="ac"></div>' : '')+
@@ -526,26 +630,31 @@ function edgePath(e,a,b){
                : [{x:p1.x,y:(p1.y+p2.y)/2},{x:p2.x,y:(p1.y+p2.y)/2}];
     return roundedPath(simplify([p1,m[0],m[1],p2]),R);
   }
-  var pts=simplify(routeOrtho(a,b,obstacles(e[0],e[1])));
+  var pts=simplify(routeOrtho(a,b,obstacles(e.a,e.b)));
   return lineStyle==='curve' ? roundedPath(pts,16) : roundedPath(pts,R);
 }
 
+function edgeMid(a,b){ var s=sideAnchors(a,b); return {x:(s[0].x+s[1].x)/2, y:(s[0].y+s[1].y)/2}; }
 function drawEdges(){
   eg.innerHTML='';
   S.edges.forEach(function(e,i){
-    var a=rectOf(e[0]), b=rectOf(e[1]); if(!a||!b) return;
+    var a=rectOf(e.a), b=rectOf(e.b); if(!a||!b) return;
     var dstr=edgePath(e,a,b);
     var g=document.createElementNS('http://www.w3.org/2000/svg','g');
-    g.setAttribute('class','e'); g.dataset.i=i;
+    g.setAttribute('class','e'+(i===activeEdgeIdx?' sel':'')); g.dataset.i=i;
     var hit=document.createElementNS('http://www.w3.org/2000/svg','path');
     hit.setAttribute('class','hit'); hit.setAttribute('d',dstr);
     var w=document.createElementNS('http://www.w3.org/2000/svg','path');
     w.setAttribute('class','wire'); w.setAttribute('d',dstr);
+    if(e.color) w.style.stroke=e.color;
     g.appendChild(w); g.appendChild(hit);
-    hit.addEventListener('click',function(ev){
-      ev.stopPropagation();
-      S.edges.splice(parseInt(g.dataset.i,10),1); drawEdges(); persist(); tip('ลบเส้นแล้ว');
-    });
+    if(e.label){
+      var m=edgeMid(a,b);
+      var t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('class','elabel'); t.setAttribute('x',m.x); t.setAttribute('y',m.y);
+      t.textContent=e.label; g.appendChild(t);
+    }
+    hit.addEventListener('click',function(ev){ ev.stopPropagation(); setActiveEdge(parseInt(g.dataset.i,10)); });
     eg.appendChild(g);
   });
 }
@@ -568,6 +677,7 @@ window.addEventListener('mousemove',function(e){
   if(!drag) return;
   if(drag.mode==='move'){
     var nx=drag.x0+(e.clientX-drag.sx)/zoom, ny=drag.y0+(e.clientY-drag.sy)/zoom;
+    if(snap){ nx=Math.round(nx/GRID)*GRID; ny=Math.round(ny/GRID)*GRID; }
     drag.el.style.left=Math.max(0,nx)+'px'; drag.el.style.top=Math.max(0,ny)+'px';
   }else{
     drag.el.style.width=Math.max(110,drag.w0+(e.clientX-drag.sx)/zoom)+'px';
@@ -584,16 +694,17 @@ canvas.addEventListener('click',function(e){
   if(e.target.classList.contains('del')){
     var id=card.dataset.id;
     S.cards=S.cards.filter(function(c){return c.id!==id});
-    S.edges=S.edges.filter(function(x){return x[0]!==id&&x[1]!==id});
+    S.edges=S.edges.filter(function(x){return x.a!==id&&x.b!==id});
+    if(activeCard===card){ activeCard=null; renderInspector(); }
     card.remove(); drawEdges(); persist(); tip('ลบกล่องแล้ว'); return;
   }
   if(!connectMode||!card) return;
   var id=card.dataset.id;
   if(!srcId){ srcId=id; card.classList.add('src'); tip('เลือกกล่องปลายทาง'); return; }
   if(srcId===id){ card.classList.remove('src'); srcId=null; return; }
-  S.edges.push([srcId,id]);
+  S.edges.push({a:srcId,b:id});
   var s=cardEl(srcId); if(s) s.classList.remove('src');
-  srcId=null; drawEdges(); persist(); tip('เชื่อมเส้นแล้ว — คลิกเส้นเพื่อลบ');
+  srcId=null; drawEdges(); persist(); tip('เชื่อมเส้นแล้ว — คลิกเส้นเพื่อปรับแต่ง/ลบ');
 });
 
 /* text edits → autosave */
@@ -701,19 +812,29 @@ document.getElementById('bPrint').addEventListener('click',function(){window.pri
 var activeCard=null;
 function cardById(id){ for(var i=0;i<S.cards.length;i++){ if(S.cards[i].id===id) return S.cards[i]; } return null; }
 function setActive(el){
-  if(activeCard===el) return;
-  if(activeCard) activeCard.classList.remove('sel');
-  activeCard=el||null;
-  if(activeCard) activeCard.classList.add('sel');
+  var hadEdge = activeEdgeIdx>=0;
+  if(el) activeEdgeIdx=-1;
+  if(activeCard!==el){
+    if(activeCard) activeCard.classList.remove('sel');
+    activeCard=el||null;
+    if(activeCard) activeCard.classList.add('sel');
+  }
+  if(hadEdge) drawEdges();
+  renderInspector();
 }
-stage.addEventListener('mousedown',function(e){ if(!e.target.closest('.card')) setActive(null); });
+function setActiveEdge(i){
+  if(activeCard){ activeCard.classList.remove('sel'); activeCard=null; }
+  activeEdgeIdx=i; drawEdges(); renderInspector();
+}
+stage.addEventListener('mousedown',function(e){
+  if(!e.target.closest('.card') && !e.target.closest('svg')) { setActive(null); if(activeEdgeIdx>=0){ activeEdgeIdx=-1; drawEdges(); renderInspector(); } }
+});
 
 /* apply global text scale + connector colour on load / rebuild */
 function applyView(){
   canvas.style.setProperty('--gfs', S.gfs||1);
   var edges=document.getElementById('edges'), col=S.edgeColor||'';
   if(col) edges.style.setProperty('--wire',col); else edges.style.removeProperty('--wire');
-  var mk=document.querySelector('#ah path'); if(mk) mk.setAttribute('fill', col||'#9FB4C9');
   var lc=document.getElementById('lineColor'); if(lc) lc.value = col||'#9fb4c9';
 }
 
@@ -764,8 +885,7 @@ txtColor.addEventListener('input',function(){ colorText(txtColor.value); });
 function setLineColor(color){
   S.edgeColor=color;
   document.getElementById('edges').style.setProperty('--wire',color);
-  var mk=document.querySelector('#ah path'); if(mk) mk.setAttribute('fill',color);
-  persist(); tip('เปลี่ยนสีเส้นเชื่อมแล้ว');
+  persist(); tip('เปลี่ยนสีเส้นเริ่มต้นแล้ว');
 }
 var lineColorEl=document.getElementById('lineColor');
 lineColorEl.addEventListener('input',function(){ setLineColor(lineColorEl.value); });
@@ -792,18 +912,28 @@ lb.querySelector('.lb-x').addEventListener('click',closeLightbox);
 
 /* keyboard: Esc closes overlays · Delete removes the selected card (เมื่อไม่ได้พิมพ์อยู่) */
 document.addEventListener('keydown',function(e){
+  var ae=document.activeElement, typing = ae && (ae.isContentEditable || ae.tagName==='INPUT' || ae.tagName==='TEXTAREA');
+  var mod = e.ctrlKey||e.metaKey;
+  if(mod && (e.key==='z'||e.key==='Z')){ e.preventDefault(); if(e.shiftKey) redo(); else undo(); return; }
+  if(mod && (e.key==='y'||e.key==='Y')){ e.preventDefault(); redo(); return; }
   if(e.key==='Escape'){
     if(lb.classList.contains('on')){ closeLightbox(); return; }
-    if(typeof tokPanel!=='undefined' && tokPanel && tokPanel.style.display==='block'){ tokPanel.style.display='none'; }
+    if(present){ setPresent(false); return; }
+    if(typeof tplPanel!=='undefined' && tplPanel.classList.contains('on')){ tplPanel.classList.remove('on'); return; }
+    if(typeof tokPanel!=='undefined' && tokPanel && tokPanel.style.display==='block'){ tokPanel.style.display='none'; return; }
     return;
   }
-  if(e.key==='Delete' && activeCard){
-    var ae=document.activeElement;
-    if(ae && (ae.isContentEditable || ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;
-    var id=activeCard.dataset.id;
-    S.cards=S.cards.filter(function(c){return c.id!==id});
-    S.edges=S.edges.filter(function(x){return x[0]!==id&&x[1]!==id});
-    activeCard.remove(); activeCard=null; drawEdges(); persist(); tip('ลบกล่องแล้ว');
+  if(e.key==='Delete' && !typing){
+    if(activeCard){
+      e.preventDefault();
+      var id=activeCard.dataset.id;
+      S.cards=S.cards.filter(function(c){return c.id!==id});
+      S.edges=S.edges.filter(function(x){return x.a!==id&&x.b!==id});
+      activeCard.remove(); activeCard=null; renderInspector(); drawEdges(); persist(); tip('ลบกล่องแล้ว');
+    }else if(activeEdgeIdx>=0){
+      e.preventDefault();
+      S.edges.splice(activeEdgeIdx,1); activeEdgeIdx=-1; drawEdges(); renderInspector(); persist(); tip('ลบเส้นแล้ว');
+    }
   }
 });
 
@@ -925,20 +1055,215 @@ async function publish(){
 }
 document.getElementById('bPublish').addEventListener('click',publish);
 
+/* ============================ INSPECTOR · FORMAT · TEMPLATES · VIEW ============================ */
+var inspector=document.getElementById('inspector'),
+    insEmpty=document.getElementById('insEmpty'),
+    insCard=document.getElementById('insCard'),
+    insEdge=document.getElementById('insEdge'),
+    fsNow=document.getElementById('fsNow'),
+    edgeLabelEl=document.getElementById('edgeLabel'),
+    edgeColorEl=document.getElementById('edgeColor');
+
+function toHex(c){
+  if(!c) return '#000000';
+  if(c[0]==='#') return c.length===4 ? '#'+c[1]+c[1]+c[2]+c[2]+c[3]+c[3] : c.slice(0,7);
+  var m=c.match(/\d+/g);
+  if(m&&m.length>=3) return '#'+m.slice(0,3).map(function(n){return ('0'+parseInt(n,10).toString(16)).slice(-2);}).join('');
+  return '#000000';
+}
+function renderInspector(){
+  if(activeCard){
+    insEmpty.style.display='none'; insEdge.style.display='none'; insCard.style.display='block';
+    var c=cardById(activeCard.dataset.id);
+    if(fsNow) fsNow.textContent = c ? Math.round((c.fs||1)*100)+'%' : '';
+    if(c&&c.accent){ document.getElementById('accColor').value=toHex(c.accent); }
+    if(c&&c.bg){ document.getElementById('bgColor').value=toHex(c.bg); }
+  }else if(activeEdgeIdx>=0 && S.edges[activeEdgeIdx]){
+    insEmpty.style.display='none'; insCard.style.display='none'; insEdge.style.display='block';
+    var e=S.edges[activeEdgeIdx];
+    if(edgeLabelEl) edgeLabelEl.value=e.label||'';
+    if(edgeColorEl) edgeColorEl.value=e.color?toHex(e.color):'#9fb4c9';
+  }else{
+    insCard.style.display='none'; insEdge.style.display='none'; insEmpty.style.display='block';
+  }
+}
+
+/* swatch rows */
+function fillSwatches(row,colors,cb){
+  if(!row) return;
+  colors.forEach(function(col){
+    var b=document.createElement('button'); b.className='sw'; b.style.background=col; b.title=col;
+    b.addEventListener('click',function(){ cb(col); });
+    row.appendChild(b);
+  });
+}
+var PAL=['#1E3A5F','#005A8E','#0077B6','#00AADF','#F7941D','#2E7D32','#C0392B','#6D4C9F','#5A6E88','#111111'];
+var BGPAL=['#FFFFFF','#FFF8E8','#EAF3FA','#EAF5EC','#FDECEA','#F3EEFA','#FFF3D6','#EAF7FB'];
+
+/* card accent / background */
+function setAccent(color){ if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return; c.accent=color; activeCard.style.setProperty('--ac',color); commit(); tip('เปลี่ยนสีแถบหัวการ์ดแล้ว'); }
+function setCardBg(color){ if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return; c.bg=color; activeCard.style.background=color; commit(); tip('เปลี่ยนสีพื้นการ์ดแล้ว'); }
+fillSwatches(document.getElementById('tcSw'), PAL, colorText);
+fillSwatches(document.getElementById('acSw'), PAL, setAccent);
+fillSwatches(document.getElementById('bgSw'), BGPAL, setCardBg);
+document.getElementById('accColor').addEventListener('input',function(){ setAccent(this.value); });
+document.getElementById('bgColor').addEventListener('input',function(){ setCardBg(this.value); });
+document.getElementById('bgClear').addEventListener('click',function(){ if(!activeCard) return; var c=cardById(activeCard.dataset.id); if(!c) return; delete c.bg; activeCard.style.background=''; commit(); tip('ล้างสีพื้นแล้ว'); });
+
+/* text formatting (bold / italic / highlight / clear) */
+function fmt(cmd,val){
+  if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; }
+  var sel=window.getSelection();
+  if(!(sel&&sel.rangeCount&&!sel.isCollapsed&&inCanvas(sel.anchorNode))){ tip('ลากคลุมข้อความในกล่องก่อน'); return; }
+  document.execCommand('styleWithCSS',false,true);
+  document.execCommand(cmd,false,val||null);
+  commit();
+}
+document.getElementById('fmtB').addEventListener('click',function(){ fmt('bold'); });
+document.getElementById('fmtI').addEventListener('click',function(){ fmt('italic'); });
+document.getElementById('fmtH').addEventListener('click',function(){ fmt('hiliteColor','#FFE29A'); });
+document.getElementById('fmtClear').addEventListener('click',function(){ fmt('removeFormat'); });
+
+/* card delete (inspector) */
+document.getElementById('delCard').addEventListener('click',function(){
+  if(!activeCard) return;
+  var id=activeCard.dataset.id;
+  S.cards=S.cards.filter(function(c){return c.id!==id});
+  S.edges=S.edges.filter(function(x){return x.a!==id&&x.b!==id});
+  activeCard.remove(); activeCard=null; renderInspector(); drawEdges(); persist(); tip('ลบกล่องแล้ว');
+});
+
+/* edge inspector: label + per-edge colour */
+function currentEdge(){ return (activeEdgeIdx>=0)?S.edges[activeEdgeIdx]:null; }
+fillSwatches(document.getElementById('ecSw'), PAL, setEdgeColor);
+function setEdgeColor(color){ var e=currentEdge(); if(!e) return; e.color=color; if(edgeColorEl) edgeColorEl.value=toHex(color); drawEdges(); persist(); tip('เปลี่ยนสีเส้นนี้แล้ว'); }
+edgeLabelEl.addEventListener('input',function(){ var e=currentEdge(); if(!e) return; e.label=this.value; drawEdges(); persistRaw(); });
+edgeLabelEl.addEventListener('change',function(){ if(!restoring) recordHistory(); });
+edgeColorEl.addEventListener('input',function(){ setEdgeColor(this.value); });
+document.getElementById('edgeColorClear').addEventListener('click',function(){ var e=currentEdge(); if(!e) return; delete e.color; drawEdges(); persist(); tip('ใช้สีเริ่มต้นแล้ว'); });
+document.getElementById('delEdge').addEventListener('click',function(){
+  if(activeEdgeIdx<0) return;
+  S.edges.splice(activeEdgeIdx,1); activeEdgeIdx=-1; drawEdges(); renderInspector(); persist(); tip('ลบเส้นแล้ว');
+});
+
+/* inspector show / hide */
+document.getElementById('insClose').addEventListener('click',function(){ document.body.classList.add('ins-hidden'); });
+document.getElementById('insShow').addEventListener('click',function(){ document.body.classList.remove('ins-hidden'); });
+
+/* undo / redo */
+function syncModeButtons(){
+  document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-ls')===lineStyle)});
+  bAvoid.classList.toggle('on',avoid);
+  var sn=document.getElementById('bSnap'); if(sn) sn.classList.toggle('on',snap);
+  var lc=document.getElementById('lineColor'); if(lc) lc.value=S.edgeColor||'#9fb4c9';
+}
+function loadState(json){
+  restoring=true;
+  S=JSON.parse(json);
+  S.edges=(S.edges||[]).map(function(e){return Array.isArray(e)?{a:e[0],b:e[1]}:e;});
+  lineStyle=S.lineStyle||'elbow'; avoid=(typeof S.avoid==='boolean')?S.avoid:true; snap=(typeof S.snap==='boolean')?S.snap:false;
+  activeCard=null; activeEdgeIdx=-1;
+  syncModeButtons(); build(); renderInspector(); persistRaw();
+  restoring=false; updateUndoUI();
+}
+function undo(){ if(hi>0){ hi--; loadState(hist[hi]); tip('ย้อนกลับแล้ว'); } else tip('ไม่มีให้ย้อนแล้ว'); }
+function redo(){ if(hi<hist.length-1){ hi++; loadState(hist[hi]); tip('ทำซ้ำแล้ว'); } else tip('ไม่มีให้ทำซ้ำแล้ว'); }
+document.getElementById('bUndo').addEventListener('click',undo);
+document.getElementById('bRedo').addEventListener('click',redo);
+
+/* snap toggle */
+document.getElementById('bSnap').addEventListener('click',function(){
+  snap=!snap; S.snap=snap; this.classList.toggle('on',snap); persist();
+  tip(snap?'ดูดเข้ากริด '+GRID+'px เวลาลาก':'ปิด Snap');
+});
+
+/* present mode */
+function setPresent(on){
+  present=on; document.body.classList.toggle('present',on);
+  document.querySelectorAll('h3,.body').forEach(function(n){ n.setAttribute('contenteditable', (!on&&editMode)?'true':'false'); });
+  if(on){ try{ if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); }catch(e){}
+          setTimeout(function(){ setZoom((stage.clientWidth-8)/canvas.offsetWidth); },60); }
+  else{ try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+        setTimeout(function(){ setZoom((stage.clientWidth-24)/canvas.offsetWidth); },60); }
+}
+document.getElementById('bPresent').addEventListener('click',function(){ setPresent(true); });
+document.getElementById('presentExit').addEventListener('click',function(){ setPresent(false); });
+
+/* export PNG (best-effort via SVG foreignObject) */
+document.getElementById('bPNG').addEventListener('click',function(){
+  sync(); tip('กำลังสร้างรูป PNG…');
+  var W=canvas.offsetWidth, H=canvas.offsetHeight, scale=2;
+  var clone=canvas.cloneNode(true); clone.style.transform='none';
+  clone.querySelectorAll('.sel').forEach(function(n){n.classList.remove('sel')});
+  clone.querySelectorAll('.hd,.rs,.sact').forEach(function(n){n.remove()});
+  clone.querySelectorAll('[contenteditable]').forEach(function(n){n.removeAttribute('contenteditable')});
+  var styleText=''; document.querySelectorAll('style').forEach(function(s){styleText+=s.textContent;});
+  var inner=new XMLSerializer().serializeToString(clone);
+  var html='<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+W+'px;height:'+H+'px;background:#fff"><style>'+styleText+'</style>'+inner+'</div>';
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'"><foreignObject width="100%" height="100%">'+html+'</foreignObject></svg>';
+  var img=new Image();
+  img.onload=function(){
+    try{
+      var cv=document.createElement('canvas'); cv.width=W*scale; cv.height=H*scale;
+      var ctx=cv.getContext('2d'); ctx.scale(scale,scale); ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.drawImage(img,0,0);
+      var a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download='PCC_Strategy_Mapping.png'; a.click();
+      tip('บันทึกรูป PNG แล้ว');
+    }catch(err){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); }
+  };
+  img.onerror=function(){ tip('สร้างรูปไม่สำเร็จ — ลองใช้ “พิมพ์” → บันทึก PDF แทน'); };
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+});
+
+/* template cards */
+var TEMPLATES=[
+  {sec:'6 Revenue Stream Types'},
+  {k:'out',ac:'a2',t:'RST1 · Tendering',b:'<p>Best Product · ประมูลงาน · <strong>ต้องลดสัดส่วน</strong><br>Win Rate · Backlog · Price Realization</p>'},
+  {k:'out',ac:'a2',t:'RST2 · Omni Channel',b:'<p>Reach · หลายช่องทาง<br>Customer Acquisition · Channel Mix · Repeat</p>'},
+  {k:'out',ac:'a2',t:'RST3 · TCS',b:'<p>Total Customer Solutions · ขายผลลัพธ์<br>Solution Margin · Attach Rate · CLV</p>'},
+  {k:'out',ac:'a2',t:'RST4 · Recurring',b:'<p>Lock-in · O&amp;M · MaaS · EMS<br>ARR · NRR · GRR · Churn</p>'},
+  {k:'out',ac:'a2',t:'RST5 · PPA / Long Term',b:'<p>Asset · สัญญายาว<br>Contracted Revenue · IRR · Availability</p>'},
+  {k:'out',ac:'a2',t:'RST6 · Investment',b:'<p>Ecosystem · Dividend &amp; Capital Gain<br>Dividend Yield · Synergy Realized</p>'},
+  {sec:'บริษัทย่อย (P&L Owner)'},
+  {k:'role',t:'PEM',b:'<p>เจ้าภาพ RST: <em>ระบุ</em> · P&amp;L Owner: <em>ระบุ</em></p>'},
+  {k:'role',t:'PSP',b:'<p>เจ้าภาพ RST: Recurring · P&amp;L Owner: <em>ระบุ</em></p>'},
+  {k:'role',t:'PDE',b:'<p>เจ้าภาพ RST: <em>ระบุ</em> · P&amp;L Owner: <em>ระบุ</em></p>'},
+  {k:'role',t:'PPP',b:'<p>เจ้าภาพ RST: <em>ระบุ</em> · P&amp;L Owner: <em>ระบุ</em></p>'},
+  {k:'role',t:'PSL',b:'<p>เจ้าภาพ RST: <em>ระบุ</em> · P&amp;L Owner: <em>ระบุ</em></p>'},
+  {sec:'อื่นๆ'},
+  {k:'note',ac:'a1',t:'Gate — คำถามที่ต้องตอบได้',b:'<p>เขียนเกณฑ์ผ่านด่านที่นี่…</p>'},
+  {k:'card',ac:'a4',t:'KPI',b:'<ul><li>ตัวชี้วัด…</li><li>เป้าหมาย…</li></ul>'}
+];
+var tplGrid=document.getElementById('tplGrid'), tplPanel=document.getElementById('tplPanel');
+TEMPLATES.forEach(function(tp){
+  if(tp.sec){ var s=document.createElement('div'); s.className='tpl-sec'; s.textContent=tp.sec; tplGrid.appendChild(s); return; }
+  var b=document.createElement('button'); b.textContent=tp.t;
+  b.addEventListener('click',function(){ insertTemplate(tp); tplPanel.classList.remove('on'); });
+  tplGrid.appendChild(b);
+});
+function insertTemplate(tp){
+  sync(); addN++;
+  var id='n'+addN+'_'+S.cards.length;
+  var x=Math.round(stage.scrollLeft/zoom)+90+addN*16, y=Math.round(stage.scrollTop/zoom)+90+addN*16;
+  var c={id:id,k:tp.k,ac:tp.ac,x:x,y:y,w:tp.k==='role'?200:260,t:tp.t,b:tp.b};
+  S.cards.push(c); var el=makeCard(c); setActive(el); drawEdges(); commit(); tip('แทรกเทมเพลต “'+tp.t+'” แล้ว');
+}
+document.getElementById('bTpl').addEventListener('click',function(e){ e.stopPropagation(); tplPanel.classList.toggle('on'); });
+document.addEventListener('click',function(e){ if(tplPanel.classList.contains('on') && !tplPanel.contains(e.target) && e.target.id!=='bTpl') tplPanel.classList.remove('on'); });
+
 /* print fit */
 window.addEventListener('beforeprint',function(){
   window._z=zoom; setZoom(1497/canvas.offsetWidth);
 });
 window.addEventListener('afterprint',function(){ setZoom(window._z||1) });
 
-/* restore line-style / avoid button state from saved S */
-document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-ls')===lineStyle)});
-bAvoid.classList.toggle('on',avoid);
-
 /* init */
 build();
+syncModeButtons();
+renderInspector();
+recordHistory();      /* seed undo history with the loaded state */
+updateUndoUI();
 setTimeout(function(){ setZoom((stage.clientWidth-24)/canvas.offsetWidth); },80);
-tip('ลากหัวกล่องเพื่อย้าย · ปุ่ม “ลากเส้นเชื่อม” เพื่อโยงเส้น · งานบันทึกอัตโนมัติในเบราว์เซอร์');
+tip('เลือกกล่อง/เส้น → ปรับแต่งในแผงขวา · ลากหัวกล่องเพื่อย้าย · งานบันทึกอัตโนมัติ');
 })();
 </script>
 </body>
