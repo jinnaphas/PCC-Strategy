@@ -281,7 +281,7 @@ function moveColumn(i,dir){
   var j=i+dir; if(j<0||j>=S.cols.length) return;
   var gs=S.gpStart, ge=S.gpStart+S.gpCount;
   function region(k){ return k<gs?0:(k<ge?1:2); }
-  if(region(i)!==region(j)){ tip('สลับได้ภายในกลุ่มเดียวกัน (คอลัมน์ปีอยู่ในกลุ่ม GP)'); return; }
+  if(S.gpCount>0 && region(i)!==region(j)){ tip('คอลัมน์ปีในกลุ่ม GP ย้ายข้ามกลุ่มไม่ได้'); return; }
   syncAll();
   var t=S.cols[i]; S.cols[i]=S.cols[j]; S.cols[j]=t;
   if(S.colw){ var w=S.colw[i]; S.colw[i]=S.colw[j]; S.colw[j]=w; }
