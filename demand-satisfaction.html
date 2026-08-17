@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PCC — Business Generation (3.1)</title>
+<title>PCC — Demand Satisfaction (3.2)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -90,12 +90,12 @@ body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
 </head>
 <body class="edit">
 
-<!--BG_DATA_START-->
-<script id="bg-data" type="application/json">{"savedAt":0}</script>
-<!--BG_DATA_END-->
+<!--DS_DATA_START-->
+<script id="ds-data" type="application/json">{"savedAt":0}</script>
+<!--DS_DATA_END-->
 
 <div class="bar">
-  <div class="brand"><b>Business Generation</b><span>3.1 · PCC Strategy</span></div>
+  <div class="brand"><b>Demand Satisfaction</b><span>3.2 · PCC Strategy</span></div>
   <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
   <div class="sep"></div>
   <button id="bEdit" class="on">✎ แก้ไข</button>
@@ -146,32 +146,27 @@ body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
 <script>
 (function(){
 "use strict";
-var LSK='pcc_bg_v1';
-var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'business-generation.html'};
+var LSK='pcc_ds_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'demand-satisfaction.html'};
 
 function seed(){ return {
   savedAt:0, fs:1, gpStart:6, gpCount:4,
-  title:'Mission Statement: Business Generation',
-  sub:'3.1 Business Generation · ภารกิจเป้าหมายของ Management Team (GP) หน่วย: ล้านบาท · แก้ไขได้ทุกช่อง แล้วกด “บันทึกขึ้นเว็บ”',
-  gpLabel:'ภารกิจเป้าหมายของ Management Team (GP)',
-  cols:['No','Team','Management Team','Platform Dev Team','Strategy: Core Product Distinctive Competencies and TRM (กวาดนอกเหนือจาก Existing)','Unit','2570','2571','2572','2573'],
+  title:'Mission Statement: Demand Satisfaction',
+  sub:'3.2 Demand Satisfaction · ส่งมอบตาม QCDS ให้ครบวงจร (Quality · Cost · Delivery · Service) · เจ้าภาพ COO / BM / PM · แก้ไขได้ทุกช่อง แล้วกด “บันทึกขึ้นเว็บ”',
+  gpLabel:'เป้าหมายการส่งมอบ (Delivery / QCDS Target)',
+  cols:['No','Team','Management Team','COO / BM / PM · Delivery Team','Demand Satisfaction · QCDS (Quality · Cost · Delivery · Service) — end-to-end','Unit','2570','2571','2572','2573'],
   rows:[
-    ['1','Tendering RST','คุณภาสกร. คุณภัทราวุธ','PSP - ปอ, ไอซ์\nPEM - ตาล','ตั้งที่ ปอ ทำ Tendering 1 หน่วยงานใน สำหรับ Product Scope ใหม่ Interopability Layer ใน Digital Architecture Model ทั้ง 4 (SGAM, SFAM, SCIAM, RAMI4.0)','PSP','30','50','70','90'],
-    ['','','คุณภาสกร. คุณภัทราวุธ','PSP - ปอ, ไอซ์\nPEM - ตาล','Platform AI ในการ Collect Enquiry In, Budgeting และสามารถดำเนินการตาม TOR ได้อัตโนมัติ และสร้าง Proposal ได้อัตโนมัติ','','','','',''],
-    ['2','Omni Channel RST','คุณภัทราวุธ, คุณโม้ย, คุณเก๋, คุณกิ๊ก','คุณปุ๊ก','Sale Forecast by\n1. Product Scope (จำนวน Product List (Existing, New))\n2. Channel Members\n3. Infrastructure รองรับ Sale Growth\n4. One Stop Service, Fast Responsiveness (Stock and Shipment Overnight)','PEM','360','400','430','450'],
-    ['3','TCS','อุ๊บอิ๊บ, กุ้ง / คุณแอ๊ด, คุณโก้, คุณณัฐวุฒิ, BM','อุ๊บอิ๊บ, เบส, แพรวรุ่ง','กวาดแยกตามชื่อลูกค้า','PSP','90','125','150',''],
-    ['','','','','','PEM104','20','25','30',''],
-    ['','','','','','PEM105','40','55','70',''],
-    ['','','','','','PCE','20','25','50',''],
-    ['','','','','','Total','170','230','300',''],
-    ['4','Recurring','คุณวิชัย, คุณเศกสรร, หนุ่ย ท๊อป, พีค','หญิง, New BA, แอ๊ม (Digital Twin), แพรวรุ่ง','','','','','',''],
-    ['5','PPA / Long Term','คุณอมร. เฟย์, จุ๊บแจง, อ๊อฟ','เฟย์, เติ๊ด, บอล, ตุลา, พอลล่า','','','','','',''],
-    ['6','Investment in Other Industries','คุณกาญ, จิ๊ก','น้ำ','','PCC','10','20','30','40']
+    ['1','Tendering RST','','','','','','','',''],
+    ['2','Omni Channel RST','','','','','','','',''],
+    ['3','TCS','','','','','','','',''],
+    ['4','Recurring','','','','','','','',''],
+    ['5','PPA / Long Term','','','','','','','',''],
+    ['6','Investment in Other Industries','','','','','','','','']
   ]
 };}
 
 /* ---------- state ---------- */
-function fileData(){ try{ var el=document.getElementById('bg-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+function fileData(){ try{ var el=document.getElementById('ds-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
 var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
 function published(){ return (FD&&FD.rows&&FD.rows.length)?FD:seed(); }
 var S=null;
@@ -300,7 +295,7 @@ document.getElementById('bEdit').addEventListener('click',function(){
 });
 
 /* JSON save / open */
-document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Business_Generation.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
+document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Demand_Satisfaction.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
 var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json'; fo.style.display='none'; document.body.appendChild(fo);
 document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
 fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!o.rows) throw 0; S=o; if(!S.fs)S.fs=1; if(S.gpStart===undefined)S.gpStart=6; if(S.gpCount===undefined)S.gpCount=4; render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
@@ -318,8 +313,8 @@ document.getElementById('tokClear').addEventListener('click',function(){ try{ lo
 
 /* save to web (Git Data API) */
 function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
-var DATA_RE=/<!--BG_DATA_START-->[\s\S]*?<!--BG_DATA_END-->/;
-function dataBlock(json){ return '<!--BG_DATA_START-->\n<script id="bg-data" type="application/json">'+json+'<\/script>\n<!--BG_DATA_END-->'; }
+var DATA_RE=/<!--DS_DATA_START-->[\s\S]*?<!--DS_DATA_END-->/;
+function dataBlock(json){ return '<!--DS_DATA_START-->\n<script id="ds-data" type="application/json">'+json+'<\/script>\n<!--DS_DATA_END-->'; }
 var publishing=false;
 async function publish(){
   if(publishing) return;
@@ -339,7 +334,7 @@ async function publish(){
     var refRes=await gh('GET', base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
     var hcRes=await gh('GET', base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
     var treeRes=await gh('POST', base+'/git/trees', {base_tree:hc.tree.sha, tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}); await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
-    var cmtRes=await gh('POST', base+'/git/commits', {message:'Business Generation update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    var cmtRes=await gh('POST', base+'/git/commits', {message:'Demand Satisfaction update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
     await must(await gh('PATCH', base+'/git/refs/heads/'+GH.branch, {sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
     baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที · เปิดเครื่องไหนก็เห็น');
   }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
