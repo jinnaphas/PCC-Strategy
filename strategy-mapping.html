@@ -584,18 +584,28 @@ function makeCard(c){
   canvas.appendChild(d);
   return d;
 }
+/* ลิงก์เริ่มต้นที่ฝังในโค้ด — เวลา publish จะแทนเฉพาะ board-data โค้ดไม่ถูกแตะ → ลิงก์ติดถาวร ไม่โดนทับ */
+var DEFAULT_LINKS={ c_31:'business-generation.html' };
+function cardLinkOf(c){ return (c && (c.link||DEFAULT_LINKS[c.id]))||''; }
+function cardHasLink(c){ return !!(c && (c.link||c.file||DEFAULT_LINKS[c.id])); }
+function normUrl(u){ u=(''+u).trim(); if(!u) return '';
+  if(/^(https?:|mailto:|tel:|\/|\.)/i.test(u)) return u;
+  if(/\.html?($|[?#])/i.test(u)) return u;
+  return 'https://'+u; }
 function openCardLink(c){
   if(!c) return;
-  if(c.link){ var u=(''+c.link).trim(); if(!/^(https?:|mailto:|tel:|\/)/i.test(u)) u='https://'+u; window.open(u,'_blank','noopener'); }
+  var link=cardLinkOf(c);
+  if(link){ window.open(normUrl(link),'_blank','noopener'); }
   else if(c.file && c.file.data){ var a=document.createElement('a'); a.href=c.file.data; a.download=c.file.name||'attachment'; document.body.appendChild(a); a.click(); a.remove(); }
 }
 function addCardLinkBadge(el,c){
   var old=el.querySelector('.clink'); if(old) old.remove();
-  el.classList.toggle('has-link', !!(c.link||c.file));
-  if(!(c.link||c.file)) return;
+  el.classList.toggle('has-link', cardHasLink(c));
+  if(!cardHasLink(c)) return;
+  var showFile = c.file && !cardLinkOf(c);
   var lb=document.createElement('div'); lb.className='clink';
-  lb.textContent = c.file?'📎':'🔗';
-  lb.title = c.file?('เปิดไฟล์: '+(c.file.name||'')):('เปิดลิงก์: '+c.link);
+  lb.textContent = showFile?'📎':'🔗';
+  lb.title = showFile?('เปิดไฟล์: '+(c.file.name||'')):('เปิดลิงก์: '+cardLinkOf(c));
   lb.addEventListener('click',function(ev){ ev.stopPropagation(); openCardLink(c); });
   el.appendChild(lb);
 }
@@ -813,7 +823,7 @@ canvas.addEventListener('click',function(e){
   /* view mode (ไม่ได้แก้ไข): คลิกกล่องที่มีลิงก์/ไฟล์เพื่อเปิด */
   if(!connectMode && !drawMode && !editMode && card && !e.target.closest('.clink') && !e.target.closest('.hd') && !e.target.closest('.slot')){
     var lc=cardById(card.dataset.id);
-    if(lc && (lc.link||lc.file)){ openCardLink(lc); return; }
+    if(lc && cardHasLink(lc)){ openCardLink(lc); return; }
   }
   if(!connectMode||!card) return;
   var id=card.dataset.id;
@@ -1268,7 +1278,8 @@ function renderInspector(){
     if(c&&c.accent){ document.getElementById('accColor').value=toHex(c.accent); }
     if(c&&c.bg){ document.getElementById('bgColor').value=toHex(c.bg); }
     var cl=document.getElementById('cardLink'); if(cl) cl.value=(c&&c.link)?c.link:'';
-    var cls=document.getElementById('cardLinkState'); if(cls) cls.textContent=(c&&c.file)?('📎 '+(c.file.name||'ไฟล์แนบ')):((c&&c.link)?'🔗 มีลิงก์แล้ว':'');
+    var eff=cardLinkOf(c), cls=document.getElementById('cardLinkState');
+    if(cls) cls.textContent=(c&&c.file&&!eff)?('📎 '+(c.file.name||'ไฟล์แนบ')):(eff?('🔗 '+eff+((c&&c.link)?'':' (ค่าเริ่มต้น)')):'');
   }else if(activeEdgeIdx>=0 && S.edges[activeEdgeIdx]){
     insEdge.style.display='block';
     var e=S.edges[activeEdgeIdx];
