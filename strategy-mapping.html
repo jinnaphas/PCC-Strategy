@@ -609,11 +609,41 @@ function addCardLinkBadge(el,c){
   lb.addEventListener('click',function(ev){ ev.stopPropagation(); openCardLink(c); });
   el.appendChild(lb);
 }
+/* ---------- image externalization (เก็บรูปเป็นไฟล์ใน assets/board/ ไม่ฝัง base64) ---------- */
+var imgCache={}, IMG_DIR='assets/board/';
+function isDataURL(s){ return typeof s==='string' && /^data:/.test(s); }
+function parseDataURL(d){ var m=/^data:([^;]+);base64,(.*)$/.exec(d||''); if(!m) return null;
+  var mime=m[1], b64=m[2], bin=atob(b64), bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i); return {mime:mime,b64:b64,bytes:bytes}; }
+function hashStr(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(16); }
+function imgHash(pd){
+  if(window.crypto && crypto.subtle && crypto.subtle.digest){
+    return crypto.subtle.digest('SHA-1', pd.bytes).then(function(buf){
+      return Array.from(new Uint8Array(buf)).map(function(b){return ('0'+b.toString(16)).slice(-2);}).join('').slice(0,20); });
+  }
+  return Promise.resolve(hashStr(pd.b64).slice(0,16)+'-'+pd.b64.length.toString(16));
+}
+function compressImg(dataURL){ return new Promise(function(res){
+  var img=new Image();
+  img.onload=function(){
+    var max=1600, w=img.naturalWidth||img.width, h=img.naturalHeight||img.height, sc=Math.min(1, max/Math.max(w,h,1));
+    var cw=Math.max(1,Math.round(w*sc)), ch=Math.max(1,Math.round(h*sc));
+    try{ var cv=document.createElement('canvas'); cv.width=cw; cv.height=ch; cv.getContext('2d').drawImage(img,0,0,cw,ch);
+      res(/^data:image\/png/i.test(dataURL) ? cv.toDataURL('image/png') : cv.toDataURL('image/jpeg',0.85));
+    }catch(e){ res(dataURL); }
+  };
+  img.onerror=function(){ res(dataURL); };
+  img.src=dataURL;
+}); }
+function imgElSrc(im,val){ im.loading='lazy';
+  if(isDataURL(val)){ im.removeAttribute('data-path'); im.src=val; }
+  else { im.dataset.path=val; im.src=imgCache[val]||val; } }
+
 function restoreImages(){
   S.cards.forEach(function(c){
     if(c.img){ var el=cardEl(c.id); if(!el) return;
       var slot=el.querySelector('.slot'); if(!slot) return;
-      var im=document.createElement('img'); im.src=c.img;
+      var im=document.createElement('img'); imgElSrc(im,c.img);
       slot.insertBefore(im,slot.firstChild);
       var ph=slot.querySelector('.ph'); if(ph) ph.style.display='none';
     }
@@ -844,12 +874,15 @@ var slotTarget=null;
 fi.addEventListener('change',function(){
   var f=fi.files[0]; if(!f||!slotTarget) return;
   var fr=new FileReader();
+  var st=slotTarget;
   fr.onload=function(ev){
-    var old=slotTarget.querySelector('img'); if(old) old.remove();
-    var ph=slotTarget.querySelector('.ph'); if(ph) ph.style.display='none';
-    var im=document.createElement('img'); im.src=ev.target.result;
-    slotTarget.insertBefore(im,slotTarget.firstChild);
-    drawEdges(); commit();
+    compressImg(ev.target.result).then(function(d){
+      var old=st.querySelector('img'); if(old) old.remove();
+      var ph=st.querySelector('.ph'); if(ph) ph.style.display='none';
+      var im=document.createElement('img'); imgElSrc(im,d);
+      st.insertBefore(im,st.firstChild);
+      drawEdges(); commit();
+    });
   };
   fr.readAsDataURL(f); fi.value='';
 });
@@ -873,7 +906,7 @@ function sync(){
     c.x=el.offsetLeft; c.y=el.offsetTop; c.w=el.offsetWidth;
     var h=el.querySelector('h3'), b=el.querySelector('.body');
     if(h) c.t=h.innerHTML; if(b) c.b=b.innerHTML;
-    var im=el.querySelector('.slot img'); c.img=im?im.src:null;
+    var im=el.querySelector('.slot img'); c.img=im?(im.dataset.path||im.src):null;
   });
   if(Array.isArray(S.draw)){
     Array.prototype.slice.call(canvas.querySelectorAll('.dtext')).forEach(function(el){
@@ -1069,7 +1102,7 @@ document.getElementById('dupCard').addEventListener('click',function(){
   copy.id='n'+(S.cards.length)+'_'+Math.round(src.x+src.y);
   copy.x=src.x+24; copy.y=src.y+24;
   S.cards.push(copy); var el=makeCard(copy);
-  if(copy.img){ var slot=el.querySelector('.slot'); if(slot){ var im=document.createElement('img'); im.src=copy.img; slot.insertBefore(im,slot.firstChild); var ph=slot.querySelector('.ph'); if(ph) ph.style.display='none'; } }
+  if(copy.img){ var slot=el.querySelector('.slot'); if(slot){ var im=document.createElement('img'); imgElSrc(im,copy.img); slot.insertBefore(im,slot.firstChild); var ph=slot.querySelector('.ph'); if(ph) ph.style.display='none'; } }
   setActive(el); drawEdges(); commit(); tip('ทำซ้ำกล่องแล้ว');
 });
 
@@ -1213,6 +1246,26 @@ async function publish(){
     return res;
   }
   try{
+    /* 0) ย้ายรูปที่ฝังอยู่ (data URL) → ไฟล์ใน assets/board/ แล้วเก็บแค่ path (ไฟล์เล็กลงมาก) */
+    var imgEntries=[], seen={}, origImgs=[], moved=0;
+    for(var ci=0; ci<S.cards.length; ci++){
+      var cc=S.cards[ci]; if(!isDataURL(cc.img)) continue;
+      btn.textContent='⏳ ย่อ/อัปรูป '+(moved+1)+'…';
+      var comp=await compressImg(cc.img);
+      var pd=parseDataURL(comp); if(!pd) continue;
+      var hash=await imgHash(pd);
+      var ext=pd.mime==='image/png'?'png':(pd.mime==='image/webp'?'webp':'jpg');
+      var path=IMG_DIR+hash+'.'+ext;
+      if(!seen[path]){
+        var ib=await gh('POST', base+'/git/blobs', {content:pd.b64, encoding:'base64'});
+        await must(ib,'อัปรูปไม่สำเร็จ'); var ibj=await ib.json();
+        imgEntries.push({path:path, mode:'100644', type:'blob', sha:ibj.sha}); seen[path]=1;
+      }
+      origImgs.push({i:ci, data:cc.img}); cc.img=path; imgCache[path]=comp;
+      var iel=cardEl(cc.id); var iim=iel&&iel.querySelector('.slot img'); if(iim) iim.dataset.path=path;
+      moved++;
+    }
+    btn.textContent='⏳ กำลังบันทึก…';
     /* 1) อ่านไฟล์ปัจจุบันแบบ raw (คืน content ได้แม้ไฟล์ >1MB) */
     var rawRes=await gh('GET', base+'/contents/'+GH.file+'?ref='+GH.branch, null, 'application/vnd.github.raw');
     await must(rawRes,'อ่านไฟล์ไม่ได้');
@@ -1229,7 +1282,7 @@ async function publish(){
     var hcRes=await gh('GET', base+'/git/commits/'+headSha);
     await must(hcRes,'อ่าน commit ไม่ได้'); var headCommit=await hcRes.json();
     /* 4) tree ใหม่ (แทนไฟล์เดียว) */
-    var treeRes=await gh('POST', base+'/git/trees', {base_tree:headCommit.tree.sha, tree:[{path:GH.file, mode:'100644', type:'blob', sha:blob.sha}]});
+    var treeRes=await gh('POST', base+'/git/trees', {base_tree:headCommit.tree.sha, tree:[{path:GH.file, mode:'100644', type:'blob', sha:blob.sha}].concat(imgEntries)});
     await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
     /* 5) commit + 6) update ref */
     var cmtRes=await gh('POST', base+'/git/commits', {message:'Strategy mapping update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]});
@@ -1237,9 +1290,10 @@ async function publish(){
     var updRes=await gh('PATCH', base+'/git/refs/heads/'+GH.branch, {sha:commit.sha});
     await must(updRes,'อัปเดต ref ไม่สำเร็จ');
     baseSavedAt=stamp; persist();
-    tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที · เปิดเครื่องไหนก็เห็นเวอร์ชันนี้');
+    tip('✓ บันทึกขึ้นเว็บแล้ว'+(moved?(' · ย้าย '+moved+' รูปไปเป็นไฟล์ในโฟลเดอร์แล้ว'):'')+' — live ใน ~1 นาที');
   }catch(e){
     S.savedAt=prev;
+    if(typeof origImgs!=='undefined' && origImgs){ origImgs.forEach(function(o){ if(S.cards[o.i]){ S.cards[o.i].img=o.data; var el=cardEl(S.cards[o.i].id); var im=el&&el.querySelector('.slot img'); if(im){ im.removeAttribute('data-path'); im.src=o.data; } } }); }
     tip('✗ '+(e&&e.message?e.message:'ผิดพลาด'));
   }finally{
     publishing=false; btn.disabled=false; btn.textContent=lbl;
