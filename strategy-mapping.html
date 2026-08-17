@@ -585,7 +585,7 @@ function makeCard(c){
   return d;
 }
 /* ลิงก์เริ่มต้นที่ฝังในโค้ด — เวลา publish จะแทนเฉพาะ board-data โค้ดไม่ถูกแตะ → ลิงก์ติดถาวร ไม่โดนทับ */
-var DEFAULT_LINKS={ c_31:'business-generation.html', c_32:'demand-satisfaction.html' };
+var DEFAULT_LINKS={ c_31:'business-generation.html', c_32:'demand-satisfaction.html', c_33:'functional-units.html' };
 function cardLinkOf(c){ return (c && (c.link||DEFAULT_LINKS[c.id]))||''; }
 function cardHasLink(c){ return !!(c && (c.link||c.file||DEFAULT_LINKS[c.id])); }
 function normUrl(u){ u=(''+u).trim(); if(!u) return '';
