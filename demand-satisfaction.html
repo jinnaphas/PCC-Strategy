@@ -50,10 +50,13 @@ thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-s
   padding:6px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:relative}
 thead tr:nth-child(2) th{background:#0a5b8c}
 thead .hlabel{outline:none;display:inline-block;min-width:14px}
-thead .delcol{position:absolute;top:1px;right:11px;padding:0 4px;font-size:10px;line-height:15px;border:none;
-  background:rgba(255,255,255,.16);color:#fff;border-radius:3px;text-transform:none}
-thead .delcol:hover{background:#C0392B;color:#fff}
-body:not(.edit) .delcol{display:none}
+thead .th-tools{position:absolute;top:0;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:1px;
+  background:rgba(2,40,72,.94);z-index:8;padding:0 1px;border-radius:0 0 5px 5px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+body.edit thead th:hover .th-tools{display:flex}
+thead .th-tools button{padding:0 6px;font-size:11px;line-height:16px;border:none;background:transparent;color:#fff;text-transform:none;border-radius:3px}
+thead .th-tools button:hover{background:rgba(255,255,255,.22)}
+thead .th-tools .delcol:hover{background:#C0392B}
+body:not(.edit) .th-tools{display:none}
 .rz{position:absolute;top:0;right:0;width:8px;height:100%;cursor:col-resize;z-index:7}
 .rz:hover{background:rgba(255,255,255,.4)}
 tbody td{border:1px solid var(--line);padding:6px 9px;vertical-align:top;white-space:pre-wrap;line-height:1.45;
@@ -197,7 +200,7 @@ function sumColw(){ var t=0; for(var i=0;i<S.cols.length;i++) t+=colW(i); return
 if(!Array.isArray(S.colw)) S.colw=[];
 while(S.colw.length<S.cols.length) S.colw.push(defaultColW(S.colw.length));
 S.colw.length=S.cols.length;
-function delColBtn(i){ return editMode ? '<button class="delcol" data-delcol="'+i+'" title="ลบคอลัมน์">✕</button>' : ''; }
+function delColBtn(i){ return editMode ? '<div class="th-tools"><button data-mv="-1" data-c="'+i+'" title="เลื่อนซ้าย">◀</button><button class="delcol" data-delcol="'+i+'" title="ลบคอลัมน์">✕</button><button data-mv="1" data-c="'+i+'" title="เลื่อนขวา">▶</button></div>' : ''; }
 function txt(html){ var d=document.createElement('div'); d.innerHTML=html||''; return (d.textContent||'').trim(); }
 
 function render(){
@@ -248,6 +251,8 @@ document.getElementById('hdSub').addEventListener('input',function(){ S.sub=this
 
 /* row + column controls */
 tbl.addEventListener('click',function(e){
+  var mvb=e.target.closest('button[data-mv]');
+  if(mvb){ e.preventDefault(); moveColumn(+mvb.dataset.c, +mvb.dataset.mv); return; }
   var dc=e.target.closest('button[data-delcol]');
   if(dc){ e.preventDefault(); delColumn(+dc.dataset.delcol); return; }
   var b=e.target.closest('button[data-act]'); if(!b) return;
@@ -267,6 +272,16 @@ function delColumn(i){
   if(i<S.gpStart) S.gpStart--; else if(i<S.gpStart+S.gpCount) S.gpCount=Math.max(0,S.gpCount-1);
   render(); persist(); tip('ลบคอลัมน์แล้ว');
 }
+function moveColumn(i,dir){
+  var j=i+dir; if(j<0||j>=S.cols.length) return;
+  var gs=S.gpStart, ge=S.gpStart+S.gpCount;
+  function region(k){ return k<gs?0:(k<ge?1:2); }
+  if(region(i)!==region(j)){ tip('สลับได้ภายในกลุ่มเดียวกัน (คอลัมน์ปีอยู่ในกลุ่ม GP)'); return; }
+  syncAll();
+  var t=S.cols[i]; S.cols[i]=S.cols[j]; S.cols[j]=t;
+  if(S.colw){ var w=S.colw[i]; S.colw[i]=S.colw[j]; S.colw[j]=w; }
+  S.rows.forEach(function(r){ var v=r[i]; r[i]=r[j]; r[j]=v; });
+  render(); persist(); tip('สลับคอลัมน์แล้ว'); }
 document.getElementById('bAddRow').addEventListener('click',function(){ syncAll(); S.rows.push(blankRow()); render(); persist(); tip('เพิ่มแถวแล้ว'); });
 document.getElementById('bAddCol').addEventListener('click',function(){ syncAll(); S.cols.push('คอลัมน์ใหม่'); S.colw.push(140); S.rows.forEach(function(r){ r.push(''); }); render(); persist(); tip('เพิ่มคอลัมน์แล้ว (แก้หัวคอลัมน์ได้)'); });
 document.getElementById('bAddYear').addEventListener('click',function(){ syncAll(); var at=S.gpStart+S.gpCount; S.cols.splice(at,0,'25xx'); S.colw.splice(at,0,64); S.rows.forEach(function(r){ r.splice(at,0,''); }); S.gpCount++; render(); persist(); tip('เพิ่มคอลัมน์ปีในกลุ่ม GP แล้ว'); });
