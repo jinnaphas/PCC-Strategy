@@ -45,17 +45,19 @@ label.clr input[type=color]{width:20px;height:18px;border:none;padding:0;backgro
 .hd-title{font-size:22px;font-weight:800;color:var(--blue2);margin:0 0 2px}
 .hd-sub{font-size:12.5px;color:var(--mute);margin:0 0 16px}
 .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 18px rgba(30,58,95,.07);background:#fff}
-table{border-collapse:collapse;width:100%;min-width:1200px;font-size:13px}
+table{border-collapse:collapse;table-layout:fixed;width:auto;font-size:13px}
 thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:12px;
   padding:6px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:relative}
 thead tr:nth-child(2) th{background:#0a5b8c}
 thead .hlabel{outline:none;display:inline-block;min-width:14px}
-thead .delcol{position:absolute;top:1px;right:1px;padding:0 4px;font-size:10px;line-height:15px;border:none;
+thead .delcol{position:absolute;top:1px;right:11px;padding:0 4px;font-size:10px;line-height:15px;border:none;
   background:rgba(255,255,255,.16);color:#fff;border-radius:3px;text-transform:none}
 thead .delcol:hover{background:#C0392B;color:#fff}
 body:not(.edit) .delcol{display:none}
+.rz{position:absolute;top:0;right:0;width:8px;height:100%;cursor:col-resize;z-index:7}
+.rz:hover{background:rgba(255,255,255,.4)}
 tbody td{border:1px solid var(--line);padding:6px 9px;vertical-align:top;white-space:pre-wrap;line-height:1.45;
-  color:#26384d;font-size:calc(13px * var(--tfs,1))}
+  color:#26384d;font-size:calc(13px * var(--tfs,1));overflow-wrap:anywhere;word-break:break-word}
 tbody tr:hover td{background:#F7FBFE}
 td.c-no{width:38px;text-align:center;font-weight:800;color:var(--blue2)}
 td.c-unit{width:80px;font-weight:600}
@@ -194,6 +196,12 @@ function updateUndo(){ var u=document.getElementById('bUndo'),r=document.getElem
 
 var LEADCLS=['c-no','c-team','c-mgmt','c-dev','c-strat','c-unit'];
 function colClass(c){ if(c>=S.gpStart && c<S.gpStart+S.gpCount) return 'c-yr'; return c<LEADCLS.length ? LEADCLS[c] : 'c-extra'; }
+function defaultColW(i){ var cls=colClass(i); return cls==='c-no'?46:cls==='c-yr'?64:cls==='c-unit'?88:cls==='c-team'?150:(cls==='c-mgmt'||cls==='c-dev')?165:cls==='c-strat'?320:140; }
+function colW(i){ return (S.colw&&S.colw[i])||defaultColW(i); }
+function sumColw(){ var t=0; for(var i=0;i<S.cols.length;i++) t+=colW(i); return t; }
+if(!Array.isArray(S.colw)) S.colw=[];
+while(S.colw.length<S.cols.length) S.colw.push(defaultColW(S.colw.length));
+S.colw.length=S.cols.length;
 function delColBtn(i){ return editMode ? '<button class="delcol" data-delcol="'+i+'" title="ลบคอลัมน์">✕</button>' : ''; }
 function txt(html){ var d=document.createElement('div'); d.innerHTML=html||''; return (d.textContent||'').trim(); }
 
@@ -202,12 +210,15 @@ function render(){
   document.getElementById('hdSub').textContent=S.sub||'';
   tbl.style.setProperty('--tfs', S.fs||1);
   var ce=editMode?'true':'false', gs=S.gpStart, gc=S.gpCount, n=S.cols.length;
-  var h='<thead><tr>';
-  for(var i=0;i<gs && i<n;i++) h+='<th rowspan="'+(gc>0?2:1)+'" class="'+colClass(i)+'"><span class="hlabel" data-col="'+i+'" contenteditable="'+ce+'">'+(S.cols[i]||'')+'</span>'+delColBtn(i)+'</th>';
+  var rzH=function(i){ return '<div class="rz" data-rz="'+i+'" title="ลากขอบเพื่อปรับความกว้าง"></div>'; };
+  var h='<colgroup>';
+  for(var cc=0;cc<n;cc++) h+='<col data-c="'+cc+'" style="width:'+colW(cc)+'px">';
+  h+='<col style="width:100px"></colgroup><thead><tr>';
+  for(var i=0;i<gs && i<n;i++) h+='<th rowspan="'+(gc>0?2:1)+'" class="'+colClass(i)+'"><span class="hlabel" data-col="'+i+'" contenteditable="'+ce+'">'+(S.cols[i]||'')+'</span>'+delColBtn(i)+rzH(i)+'</th>';
   if(gc>0) h+='<th colspan="'+gc+'" style="text-align:center"><span class="hlabel" data-gp="1" contenteditable="'+ce+'">'+(S.gpLabel||'')+'</span></th>';
-  for(var i2=gs+gc;i2<n;i2++) h+='<th rowspan="'+(gc>0?2:1)+'" class="'+colClass(i2)+'"><span class="hlabel" data-col="'+i2+'" contenteditable="'+ce+'">'+(S.cols[i2]||'')+'</span>'+delColBtn(i2)+'</th>';
+  for(var i2=gs+gc;i2<n;i2++) h+='<th rowspan="'+(gc>0?2:1)+'" class="'+colClass(i2)+'"><span class="hlabel" data-col="'+i2+'" contenteditable="'+ce+'">'+(S.cols[i2]||'')+'</span>'+delColBtn(i2)+rzH(i2)+'</th>';
   h+='<th rowspan="'+(gc>0?2:1)+'" class="ctrl">จัดการ</th></tr>';
-  if(gc>0){ h+='<tr>'; for(var y=gs;y<gs+gc;y++) h+='<th class="c-yr"><span class="hlabel" data-col="'+y+'" contenteditable="'+ce+'">'+(S.cols[y]||'')+'</span>'+delColBtn(y)+'</th>'; h+='</tr>'; }
+  if(gc>0){ h+='<tr>'; for(var y=gs;y<gs+gc;y++) h+='<th class="c-yr"><span class="hlabel" data-col="'+y+'" contenteditable="'+ce+'">'+(S.cols[y]||'')+'</span>'+delColBtn(y)+rzH(y)+'</th>'; h+='</tr>'; }
   h+='</thead><tbody>';
   S.rows.forEach(function(row,ri){
     var isGrp=txt(row[0])!=='';
@@ -221,6 +232,7 @@ function render(){
        '<button data-act="del" data-r="'+ri+'" title="ลบแถว">✕</button></td></tr>';
   });
   h+='</tbody>'; tbl.innerHTML=h;
+  tbl.style.width=(sumColw()+100)+'px';
 }
 
 /* read DOM back into S */
@@ -256,13 +268,19 @@ function delColumn(i){
   if(S.cols.length<=1){ tip('ต้องมีอย่างน้อย 1 คอลัมน์'); return; }
   if(!confirm('ลบคอลัมน์ “'+txt(S.cols[i])+'” ทั้งคอลัมน์?')) return;
   syncAll();
-  S.cols.splice(i,1); S.rows.forEach(function(r){ r.splice(i,1); });
+  S.cols.splice(i,1); S.colw.splice(i,1); S.rows.forEach(function(r){ r.splice(i,1); });
   if(i<S.gpStart) S.gpStart--; else if(i<S.gpStart+S.gpCount) S.gpCount=Math.max(0,S.gpCount-1);
   render(); persist(); tip('ลบคอลัมน์แล้ว');
 }
 document.getElementById('bAddRow').addEventListener('click',function(){ syncAll(); S.rows.push(blankRow()); render(); persist(); tip('เพิ่มแถวแล้ว'); });
-document.getElementById('bAddCol').addEventListener('click',function(){ syncAll(); S.cols.push('คอลัมน์ใหม่'); S.rows.forEach(function(r){ r.push(''); }); render(); persist(); tip('เพิ่มคอลัมน์แล้ว (แก้หัวคอลัมน์ได้)'); });
-document.getElementById('bAddYear').addEventListener('click',function(){ syncAll(); var at=S.gpStart+S.gpCount; S.cols.splice(at,0,'25xx'); S.rows.forEach(function(r){ r.splice(at,0,''); }); S.gpCount++; render(); persist(); tip('เพิ่มคอลัมน์ปีในกลุ่ม GP แล้ว'); });
+document.getElementById('bAddCol').addEventListener('click',function(){ syncAll(); S.cols.push('คอลัมน์ใหม่'); S.colw.push(140); S.rows.forEach(function(r){ r.push(''); }); render(); persist(); tip('เพิ่มคอลัมน์แล้ว (แก้หัวคอลัมน์ได้)'); });
+document.getElementById('bAddYear').addEventListener('click',function(){ syncAll(); var at=S.gpStart+S.gpCount; S.cols.splice(at,0,'25xx'); S.colw.splice(at,0,64); S.rows.forEach(function(r){ r.splice(at,0,''); }); S.gpCount++; render(); persist(); tip('เพิ่มคอลัมน์ปีในกลุ่ม GP แล้ว'); });
+
+/* column resize (ลากปรับความกว้าง) */
+var rzDrag=null;
+tbl.addEventListener('mousedown',function(e){ var h=e.target.closest('.rz'); if(!h) return; e.preventDefault(); e.stopPropagation(); var i=+h.dataset.rz; rzDrag={i:i,sx:e.clientX,w0:colW(i)}; document.body.style.cursor='col-resize'; });
+window.addEventListener('mousemove',function(e){ if(!rzDrag) return; var w=Math.max(30, rzDrag.w0+(e.clientX-rzDrag.sx)); S.colw[rzDrag.i]=w; var col=tbl.querySelector('col[data-c="'+rzDrag.i+'"]'); if(col) col.style.width=w+'px'; tbl.style.width=(sumColw()+100)+'px'; });
+window.addEventListener('mouseup',function(){ if(!rzDrag) return; rzDrag=null; document.body.style.cursor=''; persist(); });
 
 /* font size + text formatting */
 function setFs(v){ S.fs=Math.round(Math.min(1.8,Math.max(.7,v))*100)/100; tbl.style.setProperty('--tfs',S.fs); persist(); tip('ขนาดตัวอักษร '+Math.round(S.fs*100)+'%'); }
