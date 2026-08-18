@@ -196,9 +196,9 @@ svg#edges g.e.sel text.elabel{fill:var(--a3)}
 .sw-row .sw:hover{transform:scale(1.12)}
 button.danger{color:#B0392B;border-color:#E7C3BD}
 button.danger:hover{background:#B0392B;border-color:#B0392B;color:#fff}
-#insShow{display:none;position:fixed;top:70px;right:14px;z-index:95;background:var(--a1);color:#fff;border-color:var(--a1)}
+#insShow{display:block;position:fixed;bottom:14px;left:14px;z-index:96;background:var(--a1);color:#fff;border-color:var(--a1);box-shadow:0 4px 16px rgba(0,60,120,.3)}
+#insShow:hover{background:#00466f;color:#fff}
 body.ins-hidden #inspector{display:none}
-body.ins-hidden #insShow{display:block}
 
 /* present mode */
 #presentExit{display:none;position:fixed;top:14px;right:16px;z-index:210;background:#C0392B;color:#fff;border:2px solid #fff;text-transform:none;font-size:13px;font-weight:700;padding:9px 14px;border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
@@ -1435,6 +1435,13 @@ document.getElementById('insClose').addEventListener('click',function(){
   if(activeCard) setActive(null);
   else if(activeEdgeIdx>=0){ activeEdgeIdx=-1; drawEdges(); renderInspector(); }
 });
+/* ปุ่ม ⚙ ปรับแต่ง: รีเซ็ตตำแหน่งแผงกลับที่เดิม (กันค้างนอกจอ) + แสดง/แนะนำให้เลือกกล่อง */
+document.getElementById('insShow').addEventListener('click',function(){
+  inspector.style.left=''; inspector.style.top=''; inspector.style.right='';
+  try{ localStorage.removeItem('pcc_sm_inspos'); }catch(e){}
+  renderInspector();
+  if(!(activeCard || activeEdgeIdx>=0)) tip('คลิกเลือก “กล่อง” หรือ “เส้น” บนบอร์ด แล้วแผงปรับแต่ง (สี/ขนาดอักษร/ลิงก์) จะโผล่ทางขวา');
+});
 /* ลากย้ายแผงปรับแต่งได้ (จับที่หัวแผง) + จำตำแหน่ง */
 (function(){
   var d=null, head=inspector.querySelector('.ins-head');
@@ -1452,7 +1459,7 @@ document.getElementById('insClose').addEventListener('click',function(){
     if(!d) return; d=null;
     try{ localStorage.setItem('pcc_sm_inspos', JSON.stringify({x:inspector.offsetLeft,y:inspector.offsetTop})); }catch(e){}
   });
-  try{ var p=JSON.parse(localStorage.getItem('pcc_sm_inspos')||'null'); if(p){ inspector.style.left=p.x+'px'; inspector.style.top=p.y+'px'; inspector.style.right='auto'; } }catch(e){}
+  try{ var p=JSON.parse(localStorage.getItem('pcc_sm_inspos')||'null'); if(p){ var px=Math.max(4,Math.min((window.innerWidth||1200)-120, p.x)), py=Math.max(56,Math.min((window.innerHeight||800)-80, p.y)); inspector.style.left=px+'px'; inspector.style.top=py+'px'; inspector.style.right='auto'; } }catch(e){}
 })();
 
 /* align / distribute / group ops (multi-select) */
