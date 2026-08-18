@@ -201,7 +201,8 @@ body.ins-hidden #inspector{display:none}
 body.ins-hidden #insShow{display:block}
 
 /* present mode */
-#presentExit{display:none;position:fixed;top:14px;right:16px;z-index:210;background:var(--ink);color:#fff;border-color:var(--ink);text-transform:none}
+#presentExit{display:none;position:fixed;top:14px;right:16px;z-index:210;background:#C0392B;color:#fff;border:2px solid #fff;text-transform:none;font-size:13px;font-weight:700;padding:9px 14px;border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+#presentExit:hover{background:#a52714;color:#fff}
 body.present .bar,body.present #inspector,body.present #insShow,body.present #tplPanel,body.present #tokPanel{display:none!important}
 body.present #stage{inset:0}
 body.present #presentExit{display:block}
@@ -1526,6 +1527,8 @@ function setPresent(on){
 }
 document.getElementById('bPresent').addEventListener('click',function(){ setPresent(true); });
 document.getElementById('presentExit').addEventListener('click',function(){ setPresent(false); });
+/* ออกจากเต็มจอ (เช่นกด Esc) → ออกจากโหมดนำเสนอ + คืนแถบเครื่องมืออัตโนมัติ */
+document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement && present) setPresent(false); });
 
 /* export PNG (best-effort via SVG foreignObject) */
 /* เรนเดอร์บอร์ดเป็นรูป PNG (ตาม content bbox, 2x) — ใช้ร่วมกันทั้ง PNG และ PDF */
