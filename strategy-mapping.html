@@ -82,6 +82,11 @@ svg#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 svg#edges path.hit{stroke:transparent;stroke-width:16;fill:none;pointer-events:stroke;cursor:pointer}
 svg#edges path.wire{stroke:var(--wire,#9FB4C9);stroke-width:1.6;fill:none;marker-end:url(#ah)}
 svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#ahr)}
+.anchor-dot{position:absolute;width:13px;height:13px;border-radius:50%;background:#fff;
+  border:2.5px solid var(--a3);transform:translate(-50%,-50%);z-index:9;cursor:grab;
+  box-shadow:0 1px 5px rgba(30,58,95,.4)}
+.anchor-dot:hover{background:var(--a3)}
+body.present .anchor-dot,body.draw .anchor-dot,body.connect .anchor-dot{display:none}
 
 /* ---------------- cards ---------------- */
 .card{position:absolute;z-index:3;background:var(--card);border:1px solid var(--line);
@@ -98,8 +103,20 @@ svg#edges g.e:hover path.wire{stroke:var(--a3);stroke-width:2.4;marker-end:url(#
 .card p,.card ul{font-size:1em;color:#41586C;margin:0;line-height:1.5}
 .card ul{padding-left:16px;margin-top:5px}
 .card li{margin-bottom:2px}
-.card .rs{position:absolute;right:-3px;bottom:-3px;width:12px;height:12px;cursor:nwse-resize;
-  border-right:2px solid #B9C7D6;border-bottom:2px solid #B9C7D6;border-radius:0 0 8px 0}
+.card.sized{display:flex;flex-direction:column}
+.card.sized>.bd{flex:1 1 auto;min-height:0;overflow:auto}
+.card .rsz{position:absolute;z-index:6;display:none}
+.card.solo .rsz{display:block}
+.card .rsz.n,.card .rsz.s{left:14px;right:14px;height:9px;cursor:ns-resize}
+.card .rsz.e,.card .rsz.w{top:14px;bottom:14px;width:9px;cursor:ew-resize}
+.card .rsz.n{top:-4px}.card .rsz.s{bottom:-4px}
+.card .rsz.w{left:-4px}.card .rsz.e{right:-4px}
+.card .rsz.nw,.card .rsz.ne,.card .rsz.sw,.card .rsz.se{width:12px;height:12px;background:#fff;
+  border:1.5px solid var(--a3);border-radius:3px;z-index:7;box-shadow:0 1px 3px rgba(30,58,95,.3)}
+.card .rsz.nw{left:-6px;top:-6px;cursor:nwse-resize}
+.card .rsz.ne{right:-6px;top:-6px;cursor:nesw-resize}
+.card .rsz.sw{left:-6px;bottom:-6px;cursor:nesw-resize}
+.card .rsz.se{right:-6px;bottom:-6px;cursor:nwse-resize}
 .card.sel{outline:2px solid var(--hi);outline-offset:1px}
 .card.src{outline:2px solid var(--a3);outline-offset:1px}
 .card .clink{position:absolute;top:3px;right:28px;z-index:5;width:20px;height:20px;display:flex;align-items:center;
@@ -206,7 +223,7 @@ body.ins-hidden #inspector{display:none}
 body.present .bar,body.present #inspector,body.present #insShow,body.present #tplPanel,body.present #tokPanel{display:none!important}
 body.present #stage{inset:0}
 body.present #presentExit{display:block}
-body.present .card .hd,body.present .slot .sact,body.present .card .rs{display:none!important}
+body.present .card .hd,body.present .slot .sact,body.present .card .rsz{display:none!important}
 body.present .card{cursor:default}
 
 /* ---------------- free draw ---------------- */
@@ -366,6 +383,23 @@ body.connect .card .bd *{pointer-events:none}
         <button data-ed="dashed">ประ – –</button>
         <button data-ed="dotted">จุด · · ·</button>
       </div></div>
+    <div class="ins-grp"><span class="ins-lbl">จุดเชื่อม — กล่องต้นทาง (จุดเริ่ม)</span>
+      <div class="ins-row" id="edgeASide">
+        <button data-aside="">อัตโนมัติ</button>
+        <button data-aside="top" title="ด้านบน">▲</button>
+        <button data-aside="right" title="ด้านขวา">▶</button>
+        <button data-aside="bottom" title="ด้านล่าง">▼</button>
+        <button data-aside="left" title="ด้านซ้าย">◀</button>
+      </div></div>
+    <div class="ins-grp"><span class="ins-lbl">จุดเชื่อม — กล่องปลายทาง (หัวลูกศร)</span>
+      <div class="ins-row" id="edgeBSide">
+        <button data-bside="">อัตโนมัติ</button>
+        <button data-bside="top" title="ด้านบน">▲</button>
+        <button data-bside="right" title="ด้านขวา">▶</button>
+        <button data-bside="bottom" title="ด้านล่าง">▼</button>
+        <button data-bside="left" title="ด้านซ้าย">◀</button>
+      </div>
+      <div class="ins-hint">💡 หรือคลิกที่เส้น แล้วลากจุดวงกลมสองจุดไปวางตรงด้าน/ตำแหน่งที่ต้องการ เพื่อไม่ให้เส้นทับกัน</div></div>
     <div class="ins-grp"><span class="ins-lbl">สีเส้นนี้</span>
       <div class="sw-row" id="ecSw"></div>
       <label class="clr">🎨 กำหนดเอง<input type="color" id="edgeColor" value="#9fb4c9"></label>
@@ -590,6 +624,7 @@ function makeCard(c){
   var d=document.createElement('div');
   d.className='card'; d.dataset.id=c.id; d.dataset.k=c.k||'card';
   d.style.left=c.x+'px'; d.style.top=c.y+'px'; d.style.width=c.w+'px';
+  if(c.h){ d.classList.add('sized'); d.style.height=c.h+'px'; }
   if(c.ac) d.style.setProperty('--ac','var(--'+c.ac+')');
   if(c.accent) d.style.setProperty('--ac', c.accent);
   if(c.fs) d.style.setProperty('--cfs', c.fs);
@@ -600,7 +635,10 @@ function makeCard(c){
     '<div class="hd"><span class="grip">⠿</span><span class="sp"></span><button class="del" title="ลบกล่อง">✕</button></div>'+
     '<div class="bd"><h3 contenteditable="'+editMode+'">'+c.t+'</h3>'+
     '<div class="body" contenteditable="'+editMode+'">'+(c.b||'')+'</div>'+img+'</div>'+
-    '<div class="rs"></div>';
+    '<div class="rsz n" data-dir="n"></div><div class="rsz s" data-dir="s"></div>'+
+    '<div class="rsz e" data-dir="e"></div><div class="rsz w" data-dir="w"></div>'+
+    '<div class="rsz nw" data-dir="nw"></div><div class="rsz ne" data-dir="ne"></div>'+
+    '<div class="rsz sw" data-dir="sw"></div><div class="rsz se" data-dir="se"></div>';
   addCardLinkBadge(d,c);
   canvas.appendChild(d);
   return d;
@@ -765,12 +803,38 @@ function roundedPath(pts,r){
   var L=pts[pts.length-1];
   return d+' L'+L.x+','+L.y;
 }
-function sideAnchors(a,b){
-  var acx=a.x+a.w/2, acy=a.y+a.h/2, bcx=b.x+b.w/2, bcy=b.y+b.h/2;
-  var dx=bcx-acx, dy=bcy-acy;
-  if(Math.abs(dx)>=Math.abs(dy))
-    return dx>0 ? [{x:a.x+a.w,y:acy},{x:b.x,y:bcy}] : [{x:a.x,y:acy},{x:b.x+b.w,y:bcy}];
-  return dy>0 ? [{x:acx,y:a.y+a.h},{x:bcx,y:b.y}] : [{x:acx,y:a.y},{x:bcx,y:b.y+b.h}];
+function clamp01(v){ return v<0?0:v>1?1:v; }
+function sideNormal(s){ return s==='top'?{x:0,y:-1}: s==='bottom'?{x:0,y:1}: s==='left'?{x:-1,y:0}: {x:1,y:0}; }
+function anchorFor(box, side, pos){
+  pos=(typeof pos==='number')?clamp01(pos):0.5;
+  if(side==='top')    return {x:box.x+box.w*pos, y:box.y};
+  if(side==='bottom') return {x:box.x+box.w*pos, y:box.y+box.h};
+  if(side==='left')   return {x:box.x,           y:box.y+box.h*pos};
+  return {x:box.x+box.w, y:box.y+box.h*pos}; /* right */
+}
+function autoSides(a,b){
+  var dx=(b.x+b.w/2)-(a.x+a.w/2), dy=(b.y+b.h/2)-(a.y+a.h/2);
+  if(Math.abs(dx)>=Math.abs(dy)) return dx>0?['right','left']:['left','right'];
+  return dy>0?['bottom','top']:['top','bottom'];
+}
+/* returns {pA,pB,nA,nB,sA,sB} honouring per-edge side/pos overrides (e.aSide/e.aPos/e.bSide/e.bPos) */
+function anchorsOf(a,b,e){
+  e=e||{};
+  var as=autoSides(a,b);
+  var sA=e.aSide||as[0], sB=e.bSide||as[1];
+  return {pA:anchorFor(a,sA,e.aPos), pB:anchorFor(b,sB,e.bPos), nA:sideNormal(sA), nB:sideNormal(sB), sA:sA, sB:sB};
+}
+function sideAnchors(a,b,e){ var an=anchorsOf(a,b,e); return [an.pA, an.pB]; }
+/* clean orthogonal elbow that leaves/enters along the chosen side normals */
+function orthWithSides(pA,nA,pB,nB){
+  var G=26;
+  var a1={x:pA.x+nA.x*G, y:pA.y+nA.y*G}, b1={x:pB.x+nB.x*G, y:pB.y+nB.y*G};
+  var aH=nA.x!==0, bH=nB.x!==0, seam;
+  if(aH&&bH){ var mx=(a1.x+b1.x)/2; seam=[{x:mx,y:a1.y},{x:mx,y:b1.y}]; }
+  else if(!aH&&!bH){ var my=(a1.y+b1.y)/2; seam=[{x:a1.x,y:my},{x:b1.x,y:my}]; }
+  else if(aH&&!bH){ seam=[{x:b1.x,y:a1.y}]; }
+  else { seam=[{x:a1.x,y:b1.y}]; }
+  return [pA,a1].concat(seam).concat([b1,pB]);
 }
 /* curly-brace ( ปีกกา ) path between two anchor points — symmetric, tip in the middle */
 function bracePath(a,b,bw){
@@ -788,27 +852,25 @@ function bracePath(a,b,bw){
 }
 function edgePath(e,a,b){
   var st = e.style || lineStyle;
-  var s=sideAnchors(a,b), p1=s[0], p2=s[1];
+  var manual = !!(e.aSide || e.bSide);
+  var an=anchorsOf(a,b,e), p1=an.pA, p2=an.pB;
   if(st==='straight') return 'M'+p1.x+','+p1.y+' L'+p2.x+','+p2.y;
   if(st==='brace')    return bracePath(p1,p2);
-  if(st==='curve' && (!avoid || drag)){
-    var hz0=Math.abs(p2.x-p1.x)>=Math.abs(p2.y-p1.y);
-    var o0=Math.min(120,Math.max(40,(hz0?Math.abs(p2.x-p1.x):Math.abs(p2.y-p1.y))/2));
-    var c1=hz0?{x:p1.x+(p2.x>p1.x?o0:-o0),y:p1.y}:{x:p1.x,y:p1.y+(p2.y>p1.y?o0:-o0)};
-    var c2=hz0?{x:p2.x+(p2.x>p1.x?-o0:o0),y:p2.y}:{x:p2.x,y:p2.y+(p2.y>p1.y?-o0:o0)};
+  if(st==='curve'){
+    var o0=Math.min(140,Math.max(40,Math.hypot(p2.x-p1.x,p2.y-p1.y)/2));
+    var c1={x:p1.x+an.nA.x*o0, y:p1.y+an.nA.y*o0};
+    var c2={x:p2.x+an.nB.x*o0, y:p2.y+an.nB.y*o0};
     return 'M'+p1.x+','+p1.y+' C'+c1.x+','+c1.y+' '+c2.x+','+c2.y+' '+p2.x+','+p2.y;
   }
-  if(!avoid || drag){
-    var hz=Math.abs(p2.x-p1.x)>=Math.abs(p2.y-p1.y);
-    var m = hz ? [{x:(p1.x+p2.x)/2,y:p1.y},{x:(p1.x+p2.x)/2,y:p2.y}]
-               : [{x:p1.x,y:(p1.y+p2.y)/2},{x:p2.x,y:(p1.y+p2.y)/2}];
-    return roundedPath(simplify([p1,m[0],m[1],p2]),R);
+  /* elbow: keep the smart obstacle-avoiding router only for auto edges; manual sides route by their normals */
+  if(avoid && !manual && !drag){
+    var pts=simplify(routeOrtho(a,b,obstacles(e.a,e.b)));
+    return roundedPath(pts,R);
   }
-  var pts=simplify(routeOrtho(a,b,obstacles(e.a,e.b)));
-  return st==='curve' ? roundedPath(pts,16) : roundedPath(pts,R);
+  return roundedPath(simplify(orthWithSides(p1,an.nA,p2,an.nB)),R);
 }
 
-function edgeMid(a,b){ var s=sideAnchors(a,b); return {x:(s[0].x+s[1].x)/2, y:(s[0].y+s[1].y)/2}; }
+function edgeMid(a,b,e){ var an=anchorsOf(a,b,e); return {x:(an.pA.x+an.pB.x)/2, y:(an.pA.y+an.pB.y)/2}; }
 function drawEdges(){
   eg.innerHTML='';
   S.edges.forEach(function(e,i){
@@ -826,7 +888,7 @@ function drawEdges(){
     else if(e.dash==='dotted'){ w.style.strokeDasharray='0.1,6'; w.style.strokeLinecap='round'; }
     g.appendChild(w); g.appendChild(hit);
     if(e.label){
-      var m=edgeMid(a,b);
+      var m=edgeMid(a,b,e);
       var t=document.createElementNS('http://www.w3.org/2000/svg','text');
       t.setAttribute('class','elabel'); t.setAttribute('x',m.x); t.setAttribute('y',m.y);
       t.textContent=e.label; g.appendChild(t);
@@ -834,7 +896,48 @@ function drawEdges(){
     hit.addEventListener('click',function(ev){ ev.stopPropagation(); setActiveEdge(parseInt(g.dataset.i,10)); });
     eg.appendChild(g);
   });
+  renderEdgeAnchors();
 }
+/* draggable anchor points for the selected edge — drag onto any side/point of a box */
+function renderEdgeAnchors(){
+  Array.prototype.slice.call(canvas.querySelectorAll('.anchor-dot')).forEach(function(n){n.remove()});
+  if(activeEdgeIdx<0) return;
+  var e=S.edges[activeEdgeIdx]; if(!e) return;
+  var a=rectOf(e.a), b=rectOf(e.b); if(!a||!b) return;
+  var an=anchorsOf(a,b,e);
+  [['a',an.pA],['b',an.pB]].forEach(function(pr){
+    var d=document.createElement('div'); d.className='anchor-dot'; d.dataset.end=pr[0];
+    d.style.left=pr[1].x+'px'; d.style.top=pr[1].y+'px';
+    d.title='ลากไปยังด้าน/จุดที่ต้องการให้เส้นเชื่อม';
+    d.addEventListener('mousedown', anchorDotDown);
+    canvas.appendChild(d);
+  });
+}
+function snapToBox(box,P){
+  var x=Math.max(box.x,Math.min(box.x+box.w,P.x)), y=Math.max(box.y,Math.min(box.y+box.h,P.y));
+  var dl=Math.abs(P.x-box.x), dr=Math.abs(box.x+box.w-P.x), dt=Math.abs(P.y-box.y), db=Math.abs(box.y+box.h-P.y);
+  var m=Math.min(dl,dr,dt,db);
+  if(m===dt) return {side:'top',    pos:box.w?clamp01((x-box.x)/box.w):0.5};
+  if(m===db) return {side:'bottom', pos:box.w?clamp01((x-box.x)/box.w):0.5};
+  if(m===dl) return {side:'left',   pos:box.h?clamp01((y-box.y)/box.h):0.5};
+  return       {side:'right',  pos:box.h?clamp01((y-box.y)/box.h):0.5};
+}
+var anchorDrag=null;
+function anchorDotDown(ev){
+  if(activeEdgeIdx<0) return;
+  ev.stopPropagation(); ev.preventDefault();
+  anchorDrag={end:this.dataset.end};
+}
+window.addEventListener('mousemove',function(ev){
+  if(!anchorDrag) return;
+  var e=S.edges[activeEdgeIdx]; if(!e){ anchorDrag=null; return; }
+  var box=rectOf(anchorDrag.end==='a'?e.a:e.b); if(!box) return;
+  var r=canvas.getBoundingClientRect();
+  var sn=snapToBox(box,{x:(ev.clientX-r.left)/zoom, y:(ev.clientY-r.top)/zoom});
+  if(anchorDrag.end==='a'){ e.aSide=sn.side; e.aPos=sn.pos; } else { e.bSide=sn.side; e.bPos=sn.pos; }
+  drawEdges();
+});
+window.addEventListener('mouseup',function(){ if(anchorDrag){ anchorDrag=null; commit(); renderInspector(); tip('ปรับจุดเชื่อมแล้ว'); } });
 
 /* ============================ INTERACTION ============================ */
 var drag=null;
@@ -845,8 +948,9 @@ canvas.addEventListener('mousedown',function(e){
     if(e.shiftKey){ toggleSel(card.dataset.id); e.preventDefault(); return; }
     if(selected.indexOf(card.dataset.id)<0) setActive(card);
   }
-  if(e.target.classList.contains('rs')){
-    drag={mode:'size',el:card,sx:e.clientX,w0:card.offsetWidth};
+  if(e.target.classList.contains('rsz')){
+    drag={mode:'size',el:card,dir:e.target.dataset.dir||'se',sx:e.clientX,sy:e.clientY,
+          x0:card.offsetLeft,y0:card.offsetTop,w0:card.offsetWidth,h0:card.offsetHeight};
     e.preventDefault(); return;
   }
   if(e.target.closest('.hd') && !e.target.classList.contains('del')){
@@ -870,7 +974,14 @@ window.addEventListener('mousemove',function(e){
       drag.el.style.left=Math.max(0,nx)+'px'; drag.el.style.top=Math.max(0,ny)+'px';
     }
   }else{
-    drag.el.style.width=Math.max(110,drag.w0+(e.clientX-drag.sx)/zoom)+'px';
+    var d=drag, dir=d.dir||'se', dx=(e.clientX-d.sx)/zoom, dy=(e.clientY-d.sy)/zoom;
+    var minW=90, minH=36, L=d.x0, T=d.y0, W=d.w0, H=d.h0, vert=false;
+    if(dir.indexOf('e')>=0) W=Math.max(minW, d.w0+dx);
+    if(dir.indexOf('w')>=0){ W=Math.max(minW, d.w0-dx); L=d.x0+(d.w0-W); }
+    if(dir.indexOf('s')>=0){ H=Math.max(minH, d.h0+dy); vert=true; }
+    if(dir.indexOf('n')>=0){ H=Math.max(minH, d.h0-dy); T=d.y0+(d.h0-H); vert=true; }
+    d.el.style.width=W+'px'; d.el.style.left=Math.max(0,L)+'px';
+    if(vert){ d.el.classList.add('sized'); d.el.style.height=H+'px'; d.el.style.top=Math.max(0,T)+'px'; }
   }
   if(!drag.raf){ drag.raf=requestAnimationFrame(function(){ if(drag) drag.raf=0; drawEdges(); }); }
 });
@@ -942,6 +1053,7 @@ function sync(){
   S.cards.forEach(function(c){
     var el=cardEl(c.id); if(!el) return;
     c.x=el.offsetLeft; c.y=el.offsetTop; c.w=el.offsetWidth;
+    if(el.classList.contains('sized')) c.h=el.offsetHeight; else if('h' in c) delete c.h;
     var h=el.querySelector('h3'), b=el.querySelector('.body');
     if(h) c.t=h.innerHTML; if(b) c.b=b.innerHTML;
     var im=el.querySelector('.slot img'); c.img=im?(im.dataset.path||im.src):null;
@@ -1016,8 +1128,10 @@ document.getElementById('bReset').addEventListener('click',function(){
 var activeCard=null, selected=[];
 function cardById(id){ for(var i=0;i<S.cards.length;i++){ if(S.cards[i].id===id) return S.cards[i]; } return null; }
 function paintSel(){
+  var solo = selected.length===1 ? selected[0] : null;
   Array.prototype.slice.call(canvas.querySelectorAll('.card')).forEach(function(el){
     el.classList.toggle('sel', selected.indexOf(el.dataset.id)>=0);
+    el.classList.toggle('solo', el.dataset.id===solo);
   });
 }
 function selectCards(ids){
@@ -1380,6 +1494,9 @@ function renderInspector(){
     var estyle=e.style||'', edash=e.dash||'';
     document.querySelectorAll('#edgeStyleRow [data-es]').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-es')===estyle); });
     document.querySelectorAll('#edgeDashRow [data-ed]').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-ed')===edash); });
+    var asd=e.aSide||'', bsd=e.bSide||'';
+    document.querySelectorAll('#edgeASide [data-aside]').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-aside')===asd); });
+    document.querySelectorAll('#edgeBSide [data-bside]').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-bside')===bsd); });
   }else{
     insEmpty.style.display='block';
   }
@@ -1481,6 +1598,23 @@ document.querySelectorAll('#edgeDashRow [data-ed]').forEach(function(b){
     if(v) e.dash=v; else delete e.dash;
     drawEdges(); persist(); renderInspector();
     tip('ลักษณะเส้น: '+{'':'ทึบ',dashed:'ประ',dotted:'จุด'}[v||'']);
+  });
+});
+var SIDE_TH={'':'อัตโนมัติ',top:'ด้านบน',right:'ด้านขวา',bottom:'ด้านล่าง',left:'ด้านซ้าย'};
+document.querySelectorAll('#edgeASide [data-aside]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var e=currentEdge(); if(!e) return;
+    var v=b.getAttribute('data-aside');
+    if(v){ e.aSide=v; if(typeof e.aPos!=='number') e.aPos=0.5; } else { delete e.aSide; delete e.aPos; }
+    drawEdges(); persist(); renderInspector(); tip('จุดเชื่อมต้นทาง: '+SIDE_TH[v||'']);
+  });
+});
+document.querySelectorAll('#edgeBSide [data-bside]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var e=currentEdge(); if(!e) return;
+    var v=b.getAttribute('data-bside');
+    if(v){ e.bSide=v; if(typeof e.bPos!=='number') e.bPos=0.5; } else { delete e.bSide; delete e.bPos; }
+    drawEdges(); persist(); renderInspector(); tip('จุดเชื่อมปลายทาง: '+SIDE_TH[v||'']);
   });
 });
 document.getElementById('delEdge').addEventListener('click',function(){
@@ -1602,7 +1736,7 @@ function renderBoardImage(cb){
   var CW=canvas.offsetWidth, CH=canvas.offsetHeight, b=contentBBox(), scale=2;
   var clone=canvas.cloneNode(true); clone.style.transform='none'; clone.style.width=CW+'px'; clone.style.height=CH+'px';
   clone.querySelectorAll('.sel,.found').forEach(function(n){ n.classList.remove('sel'); n.classList.remove('found'); });
-  clone.querySelectorAll('.hd,.rs,.sact,#marquee').forEach(function(n){n.remove()});
+  clone.querySelectorAll('.hd,.rsz,.sact,#marquee,.anchor-dot').forEach(function(n){n.remove()});
   clone.querySelectorAll('[contenteditable]').forEach(function(n){n.removeAttribute('contenteditable')});
   var styleText=''; document.querySelectorAll('style').forEach(function(s){styleText+=s.textContent;});
   var inner=new XMLSerializer().serializeToString(clone);
