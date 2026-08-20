@@ -50,14 +50,7 @@ label.clr input[type=color]{width:20px;height:18px;border:none;padding:0;backgro
 .meta .mv{color:#26384d;min-width:40px}
 
 /* ---- Business Model Canvas grid ---- */
-.bmc{display:grid;gap:10px;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  grid-template-areas:
-    "kp ka vp cr cs"
-    "kp kr vp ch cs"
-    "cost cost cost rev rev";}
-.a-kp{grid-area:kp}.a-ka{grid-area:ka}.a-kr{grid-area:kr}.a-vp{grid-area:vp}
-.a-cr{grid-area:cr}.a-ch{grid-area:ch}.a-cs{grid-area:cs}.a-cost{grid-area:cost}.a-rev{grid-area:rev}
+.bmc{display:grid;gap:10px;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));grid-auto-flow:row dense;align-items:stretch}
 .blk{background:#fff;border:1px solid var(--line);border-radius:11px;display:flex;flex-direction:column;
   min-height:120px;overflow:hidden;box-shadow:0 2px 12px rgba(30,58,95,.06)}
 .blk.g-left{border-top:3px solid var(--blue)}
@@ -65,9 +58,20 @@ label.clr input[type=color]{width:20px;height:18px;border:none;padding:0;backgro
 .blk.g-right{border-top:3px solid var(--green)}
 .blk.g-cost{border-top:3px solid #C0392B}
 .blk.g-rev{border-top:3px solid var(--green)}
+.blk.g-new{border-top:3px solid #8FA3B8}
+.blk.dragging{opacity:.4}
+.blk.dragover{outline:2px dashed var(--blue);outline-offset:-2px}
 .blk-h{font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:12px;padding:7px 11px;
   border-bottom:1px solid #E9EFF6;background:#F5F8FC;color:var(--blue2);display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
 .blk-h .en{font-size:9.5px;color:#8FA3B8;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.blk-h .bdrag{display:none;cursor:grab;color:#AEBED0;font-size:13px;align-self:center}
+.blk-h .bdrag:active{cursor:grabbing}
+body.edit .blk-h .bdrag{display:inline}
+.blk-h .bctl{margin-left:auto;display:none;gap:1px;align-self:center}
+body.edit .blk-h .bctl{display:inline-flex}
+.blk-h .bctl button{padding:1px 6px;font-size:11px;line-height:16px;border:1px solid transparent;background:transparent;color:#7a90a8;text-transform:none;letter-spacing:0}
+.blk-h .bctl button:hover{color:var(--blue);background:#EAF3FA;border-color:var(--line)}
+.blk-h .bctl .bx:hover{color:#fff;background:#C0392B;border-color:#C0392B}
 .blk-b{padding:9px 12px;font-size:calc(12.5px*var(--bfs,1));line-height:1.5;color:#26384d;flex:1;overflow:auto}
 .blk-b p{margin:0 0 6px}
 .blk-b ol,.blk-b ul{margin:4px 0;padding-left:20px}
@@ -89,7 +93,7 @@ body.edit .blk-b:hover{background:#FFFDF6}
 #tokInput:focus{outline:none;border-color:var(--blue)}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
-@media(max-width:900px){ .bmc{grid-template-columns:1fr;grid-template-areas:"kp" "ka" "kr" "vp" "cr" "ch" "cs" "cost" "rev";} }
+@media(max-width:900px){ .bmc{grid-template-columns:1fr!important} .blk{grid-column:1/-1!important;grid-row:auto!important} }
 @media print{.bar,.tip,#tokPanel{display:none!important}
   body{background:#fff}.wrap{max-width:none;padding:0}
   .blk{box-shadow:none;break-inside:avoid}
@@ -120,6 +124,11 @@ body.edit .blk-b:hover{background:#FFFDF6}
   <button class="sw" data-tc="#2E7D32" style="background:#2E7D32"></button>
   <button class="sw" data-tc="#C0392B" style="background:#C0392B"></button>
   <label class="clr" title="สีตัวอักษร">🎨<input type="color" id="txtColor" value="#1e3a5f"></label>
+  <div class="sep"></div>
+  <span class="lbl">Block</span>
+  <button id="bAddBlk">＋ Block</button>
+  <span class="lbl" style="margin-left:4px">คอลัมน์</span>
+  <button id="bColDn" title="ลดจำนวนคอลัมน์">−</button><button id="bColUp" title="เพิ่มจำนวนคอลัมน์">＋</button>
   <div class="sep"></div>
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
   <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
@@ -158,20 +167,28 @@ var LSK='pcc_bmc_v1';
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'business-model-canvas.html'};
 
 /* 9-block layout order + accent group */
-var BLKS=[
-  {k:'kp',area:'a-kp',g:'g-left'},
-  {k:'ka',area:'a-ka',g:'g-left'},
-  {k:'kr',area:'a-kr',g:'g-left'},
-  {k:'vp',area:'a-vp',g:'g-vp'},
-  {k:'cr',area:'a-cr',g:'g-right'},
-  {k:'ch',area:'a-ch',g:'g-right'},
-  {k:'cs',area:'a-cs',g:'g-right'},
-  {k:'cost',area:'a-cost',g:'g-cost'},
-  {k:'rev',area:'a-rev',g:'g-rev'}
+/* dense-flow order + default spans so the 9 blocks pack into a standard BMC */
+var BLK_META=[
+  {k:'kp',g:'g-left',w:1,ht:2},{k:'ka',g:'g-left',w:1,ht:1},{k:'vp',g:'g-vp',w:1,ht:2},
+  {k:'cr',g:'g-right',w:1,ht:1},{k:'cs',g:'g-right',w:1,ht:2},{k:'kr',g:'g-left',w:1,ht:1},
+  {k:'ch',g:'g-right',w:1,ht:1},{k:'cost',g:'g-cost',w:3,ht:1},{k:'rev',g:'g-rev',w:2,ht:1}
 ];
+function blocksToArray(bo){
+  var arr=[], seen={};
+  BLK_META.forEach(function(m){ var b=bo[m.k]; if(b){ seen[m.k]=1; arr.push({id:m.k,h:b.h,en:b.en,b:b.b,w:b.w||m.w,ht:b.ht||m.ht,g:b.g||m.g}); } });
+  Object.keys(bo).forEach(function(k){ if(!seen[k]){ var b=bo[k]; arr.push({id:k,h:b.h,en:b.en,b:b.b,w:b.w||1,ht:b.ht||1,g:b.g||'g-new'}); } });
+  return arr;
+}
+function normBlocks(blocks){
+  var arr=Array.isArray(blocks)?blocks.slice():blocksToArray(blocks||{});
+  arr.forEach(function(b){ if(!b.w)b.w=1; if(!b.ht)b.ht=1; if(!b.g)b.g='g-new'; if(b.en===undefined)b.en=''; });
+  return arr;
+}
+var blkSeq=0;
+function newBlockId(){ blkSeq++; return 'b'+Date.now().toString(36)+blkSeq; }
 
 function seed(){ return {
-  savedAt:0, fs:1,
+  savedAt:0, fs:1, cols:5,
   title:'Business Model Canvas — PCC',
   sub:'Platform &amp; Ecosystem Capitalism support by Digital and Agentic AI Organization for Each Subsidiary Company, and Business in Sub Com',
   rst:'—',
@@ -253,9 +270,10 @@ try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&
 if(!S) S=published();
 var sd=seed();
 if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
-['fs','title','sub','rst','author','foot'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+['fs','cols','title','sub','rst','author','foot'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
 if(!S.blocks) S.blocks=sd.blocks;
-BLKS.forEach(function(x){ if(!S.blocks[x.k]) S.blocks[x.k]=sd.blocks[x.k]; else { if(S.blocks[x.k].h===undefined) S.blocks[x.k].h=sd.blocks[x.k].h; if(S.blocks[x.k].en===undefined) S.blocks[x.k].en=sd.blocks[x.k].en; if(S.blocks[x.k].b===undefined) S.blocks[x.k].b=sd.blocks[x.k].b; } });
+S.blocks=normBlocks(S.blocks);
+if(!(S.cols>=1)) S.cols=5;
 if(!S.fs) S.fs=1;
 
 var editMode=true;
@@ -276,13 +294,21 @@ function render(){
   document.getElementById('mAuthor').innerHTML=S.author||'';
   document.getElementById('foot').innerHTML=S.foot||'';
   document.documentElement.style.setProperty('--bfs',S.fs||1);
+  bmc.style.setProperty('--cols',S.cols||5);
   var h='';
-  BLKS.forEach(function(x){
-    var bl=S.blocks[x.k]||{h:'',en:'',b:''};
-    h+='<div class="blk '+x.g+' '+x.area+'">'+
-       '<div class="blk-h"><span class="hlabel" data-bh="'+x.k+'" contenteditable="'+ce+'">'+(bl.h||'')+'</span>'+
-       '<span class="en" data-ben="'+x.k+'" contenteditable="'+ce+'">'+(bl.en||'')+'</span></div>'+
-       '<div class="blk-b" data-bb="'+x.k+'" contenteditable="'+ce+'">'+(bl.b||'')+'</div></div>';
+  S.blocks.forEach(function(bl,i){
+    var w=Math.min(bl.w||1,S.cols||5), ht=bl.ht||1;
+    h+='<div class="blk '+(bl.g||'g-new')+'" data-i="'+i+'" style="grid-column:span '+w+';grid-row:span '+ht+'">'+
+       '<div class="blk-h">'+
+       '<span class="bdrag" draggable="false" title="ลากเพื่อย้าย Block">⠿</span>'+
+       '<span class="hlabel" data-bh="'+i+'" contenteditable="'+ce+'">'+(bl.h||'')+'</span>'+
+       '<span class="en" data-ben="'+i+'" contenteditable="'+ce+'">'+(bl.en||'')+'</span>'+
+       '<span class="bctl">'+
+         '<button data-act="w" data-i="'+i+'" title="ปรับความกว้าง (span '+w+')">↔</button>'+
+         '<button data-act="h" data-i="'+i+'" title="ปรับความสูง (span '+ht+')">↕</button>'+
+         '<button class="bx" data-act="del" data-i="'+i+'" title="ลบ Block นี้">✕</button>'+
+       '</span></div>'+
+       '<div class="blk-b" data-bb="'+i+'" contenteditable="'+ce+'">'+(bl.b||'')+'</div></div>';
   });
   bmc.innerHTML=h;
 }
@@ -294,9 +320,9 @@ function syncAll(){
   S.rst=document.getElementById('mRst').innerHTML;
   S.author=document.getElementById('mAuthor').innerHTML;
   S.foot=document.getElementById('foot').innerHTML;
-  bmc.querySelectorAll('[data-bb]').forEach(function(el){ S.blocks[el.dataset.bb].b=el.innerHTML; });
-  bmc.querySelectorAll('[data-bh]').forEach(function(el){ S.blocks[el.dataset.bh].h=el.innerHTML; });
-  bmc.querySelectorAll('[data-ben]').forEach(function(el){ S.blocks[el.dataset.ben].en=el.innerHTML; });
+  bmc.querySelectorAll('[data-bb]').forEach(function(el){ var b=S.blocks[+el.dataset.bb]; if(b) b.b=el.innerHTML; });
+  bmc.querySelectorAll('[data-bh]').forEach(function(el){ var b=S.blocks[+el.dataset.bh]; if(b) b.h=el.innerHTML; });
+  bmc.querySelectorAll('[data-ben]').forEach(function(el){ var b=S.blocks[+el.dataset.ben]; if(b) b.en=el.innerHTML; });
 }
 
 /* live edit */
@@ -308,11 +334,38 @@ bindInput(document.getElementById('mAuthor'),function(v){S.author=v;});
 bindInput(document.getElementById('foot'),function(v){S.foot=v;});
 bmc.addEventListener('input',function(e){
   var t=e.target.closest('[data-bb],[data-bh],[data-ben]'); if(!t) return;
-  if(t.dataset.bb!==undefined) S.blocks[t.dataset.bb].b=t.innerHTML;
-  else if(t.dataset.bh!==undefined) S.blocks[t.dataset.bh].h=t.innerHTML;
-  else if(t.dataset.ben!==undefined) S.blocks[t.dataset.ben].en=t.innerHTML;
+  if(t.dataset.bb!==undefined){ var b=S.blocks[+t.dataset.bb]; if(b) b.b=t.innerHTML; }
+  else if(t.dataset.bh!==undefined){ var b2=S.blocks[+t.dataset.bh]; if(b2) b2.h=t.innerHTML; }
+  else if(t.dataset.ben!==undefined){ var b3=S.blocks[+t.dataset.ben]; if(b3) b3.en=t.innerHTML; }
   schedulePersist();
 });
+
+/* add / delete / resize blocks + drag-reorder + column count */
+document.getElementById('bAddBlk').addEventListener('click',function(){
+  if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; }
+  syncAll();
+  S.blocks.push({id:newBlockId(), h:'หัวข้อใหม่', en:'NEW BLOCK', b:'<p>พิมพ์เนื้อหาที่นี่…</p>', w:1, ht:1, g:'g-new'});
+  render(); persist(); tip('เพิ่ม Block แล้ว · ลาก ⠿ เพื่อย้าย · ↔ ↕ ปรับขนาด');
+});
+document.getElementById('bColUp').addEventListener('click',function(){ syncAll(); S.cols=Math.min(8,(S.cols||5)+1); render(); persist(); tip('คอลัมน์: '+S.cols); });
+document.getElementById('bColDn').addEventListener('click',function(){ syncAll(); S.cols=Math.max(1,(S.cols||5)-1); render(); persist(); tip('คอลัมน์: '+S.cols); });
+bmc.addEventListener('click',function(e){
+  var btn=e.target.closest('button[data-act]'); if(!btn) return;
+  var i=+btn.dataset.i, bl=S.blocks[i]; if(!bl) return;
+  var act=btn.dataset.act; syncAll();
+  if(act==='w'){ bl.w=(bl.w>=Math.min(S.cols,4))?1:(bl.w||1)+1; render(); persist(); tip('ความกว้าง Block: '+bl.w); }
+  else if(act==='h'){ bl.ht=(bl.ht>=3)?1:(bl.ht||1)+1; render(); persist(); tip('ความสูง Block: '+bl.ht); }
+  else if(act==='del'){ if(confirm('ลบ Block “'+(_txt(bl.h)||'')+'” ?')){ S.blocks.splice(i,1); render(); persist(); tip('ลบ Block แล้ว'); } }
+});
+function _txt(html){ var d=document.createElement('div'); d.innerHTML=html||''; return (d.textContent||'').trim(); }
+/* drag-reorder via the ⠿ handle */
+var dragI=-1;
+bmc.addEventListener('mousedown',function(e){ var hd=e.target.closest('.bdrag'); if(!hd) return; var blk=hd.closest('.blk'); if(!blk) return; blk.draggable=true; var reset=function(){ if(dragI<0) blk.draggable=false; document.removeEventListener('mouseup',reset); }; document.addEventListener('mouseup',reset); });
+bmc.addEventListener('dragstart',function(e){ var blk=e.target.closest('.blk'); if(!blk||!blk.draggable) { e.preventDefault(); return; } dragI=+blk.dataset.i; e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain',String(dragI)); }catch(_){}; blk.classList.add('dragging'); });
+bmc.addEventListener('dragover',function(e){ if(dragI<0) return; e.preventDefault(); e.dataTransfer.dropEffect='move'; var blk=e.target.closest('.blk'); bmc.querySelectorAll('.blk.dragover').forEach(function(n){n.classList.remove('dragover')}); if(blk && +blk.dataset.i!==dragI) blk.classList.add('dragover'); });
+bmc.addEventListener('drop',function(e){ if(dragI<0) return; e.preventDefault(); var blk=e.target.closest('.blk'); if(blk){ var to=+blk.dataset.i; syncAll(); var arr=S.blocks.slice(), b=arr.splice(dragI,1)[0]; arr.splice(to>dragI?to-1:to,0,b); S.blocks=arr; render(); persist(); tip('ย้าย Block แล้ว'); } cleanupDrag(); });
+bmc.addEventListener('dragend',cleanupDrag);
+function cleanupDrag(){ dragI=-1; bmc.querySelectorAll('.blk').forEach(function(n){ n.draggable=false; n.classList.remove('dragging'); n.classList.remove('dragover'); }); }
 
 /* font size + text formatting */
 function setFs(v){ S.fs=Math.round(Math.min(1.8,Math.max(.7,v))*100)/100; document.documentElement.style.setProperty('--bfs',S.fs); persist(); tip('ขนาดตัวอักษร '+Math.round(S.fs*100)+'%'); }
@@ -355,8 +408,8 @@ var fo=document.createElement('input'); fo.type='file'; fo.accept='application/j
 document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
 fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{
   var o=JSON.parse(e.target.result); if(!o.blocks) throw 0; S=o; if(!S.fs)S.fs=1;
-  var s2=seed(); ['title','sub','rst','author','foot'].forEach(function(k){ if(S[k]===undefined) S[k]=s2[k]; });
-  BLKS.forEach(function(x){ if(!S.blocks[x.k]) S.blocks[x.k]=s2.blocks[x.k]; });
+  var s2=seed(); ['title','sub','rst','author','foot','cols'].forEach(function(k){ if(S[k]===undefined) S[k]=s2[k]; });
+  S.blocks=normBlocks(S.blocks); if(!(S.cols>=1)) S.cols=5;
   render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
 document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
 
