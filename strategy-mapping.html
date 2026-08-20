@@ -215,6 +215,10 @@ body.draw svg#draw{pointer-events:auto;cursor:crosshair}
 svg#draw path.d{fill:none;stroke-linecap:round;stroke-linejoin:round}
 svg#draw path.dhit{fill:none;stroke:transparent;stroke-width:14;pointer-events:none}
 body.draw.erase svg#draw path.dhit{pointer-events:stroke;cursor:not-allowed}
+svg#draw circle.dhandle{fill:#fff;stroke:var(--a3);stroke-width:2;display:none;pointer-events:none}
+svg#draw circle.dhandle.bulge{stroke:var(--a2);fill:#FFF6E9}
+body.draw:not(.erase) svg#draw circle.dhandle{display:inline;pointer-events:all;cursor:grab}
+body.draw:not(.erase) svg#draw circle.dhandle:hover{stroke-width:3}
 .dtext{position:absolute;z-index:4;font-family:'Sarabun',sans-serif;font-weight:600;line-height:1.25;
   color:#1E3A5F;padding:1px 4px;white-space:pre-wrap;max-width:420px;pointer-events:none}
 body.draw .dtext{pointer-events:auto;cursor:move}
@@ -389,6 +393,7 @@ body.connect .card .bd *{pointer-events:none}
   <button data-dtool="pen" class="on">✒️ ปากกา</button>
   <button data-dtool="line">╱ เส้นตรง</button>
   <button data-dtool="arrow">➤ ลูกศร</button>
+  <button data-dtool="brace" title="ปีกกาอิสระ — ลากวาง แล้วลากจุดปลาย/จุดกลางเพื่อปรับ">⟯ ปีกกา</button>
   <button data-dtool="text">🅣 ข้อความ</button>
   <button data-dtool="erase">🩹 ยางลบ</button>
   <div class="sep"></div>
@@ -768,11 +773,11 @@ function sideAnchors(a,b){
   return dy>0 ? [{x:acx,y:a.y+a.h},{x:bcx,y:b.y}] : [{x:acx,y:a.y},{x:bcx,y:b.y+b.h}];
 }
 /* curly-brace ( ปีกกา ) path between two anchor points — symmetric, tip in the middle */
-function bracePath(a,b){
+function bracePath(a,b,bw){
   var x1=a.x,y1=a.y,x2=b.x,y2=b.y;
   var dx=x1-x2, dy=y1-y2, len=Math.hypot(dx,dy)||1;
   dx/=len; dy/=len;
-  var q=0.6, w=Math.min(46,Math.max(16,len*0.12));
+  var q=0.6, w=(typeof bw==='number') ? bw : Math.min(46,Math.max(16,len*0.12));
   var qx1=x1+q*w*dy,                    qy1=y1-q*w*dx;
   var qx2=(x1-0.25*len*dx)+(1-q)*w*dy,  qy2=(y1-0.25*len*dy)-(1-q)*w*dx;
   var tx =(x1-0.5*len*dx)+w*dy,         ty =(y1-0.5*len*dy)-w*dx;
@@ -1681,7 +1686,16 @@ var drawMode=false, drawTool='pen', drawColor='#C0392B', drawWidth=3;
 if(!Array.isArray(S.draw)) S.draw=[];
 function dxy(e){ var r=canvas.getBoundingClientRect(); return {x:(e.clientX-r.left)/zoom, y:(e.clientY-r.top)/zoom}; }
 function penD(pts){ return 'M'+pts.map(function(p){return Math.round(p[0])+','+Math.round(p[1])}).join(' L'); }
-function dStr(o){ return o.t==='pen' ? penD(o.pts) : ('M'+o.x1+','+o.y1+' L'+o.x2+','+o.y2); }
+function braceTip(o){
+  var dx=o.x1-o.x2, dy=o.y1-o.y2, len=Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+  var w=(typeof o.bw==='number')?o.bw:Math.min(46,Math.max(16,len*0.12));
+  return {x:(o.x1+o.x2)/2 + w*dy, y:(o.y1+o.y2)/2 - w*dx};
+}
+function dStr(o){
+  if(o.t==='pen') return penD(o.pts);
+  if(o.t==='brace') return bracePath({x:o.x1,y:o.y1},{x:o.x2,y:o.y2}, (typeof o.bw==='number')?o.bw:undefined);
+  return 'M'+o.x1+','+o.y1+' L'+o.x2+','+o.y2;
+}
 function renderDraw(){
   if(!Array.isArray(S.draw)) S.draw=[];
   dgroup.innerHTML='';
@@ -1701,6 +1715,14 @@ function renderDraw(){
     var h=document.createElementNS('http://www.w3.org/2000/svg','path');
     h.setAttribute('class','dhit'); h.setAttribute('d',d); h.dataset.di=String(i);
     dgroup.appendChild(h);
+    if(o.t==='brace'){
+      var tp=braceTip(o);
+      [[o.x1,o.y1,'1',''],[o.x2,o.y2,'2',''],[tp.x,tp.y,'b','bulge']].forEach(function(hh){
+        var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('class','dhandle'+(hh[3]?' '+hh[3]:'')); c.setAttribute('cx',hh[0]); c.setAttribute('cy',hh[1]); c.setAttribute('r',6);
+        c.dataset.di=String(i); c.dataset.hk=hh[2]; dgroup.appendChild(c);
+      });
+    }
   });
 }
 /* eraser */
@@ -1709,10 +1731,13 @@ drawSvg.addEventListener('click',function(e){
   var t=e.target;
   if(t.classList && t.classList.contains('dhit')){ var i=parseInt(t.dataset.di,10); if(i>=0){ S.draw.splice(i,1); renderDraw(); persist(); tip('ลบที่วาดแล้ว'); } }
 });
-/* draw lines / arrows / pen / place text */
-var dcur=null;
+/* draw lines / arrows / pen / place text · brace handles */
+var dcur=null, bhdrag=null;
 drawSvg.addEventListener('mousedown',function(e){
   if(!drawMode || e.button!==0 || drawTool==='erase') return;
+  if(e.target.classList && e.target.classList.contains('dhandle')){
+    bhdrag={di:parseInt(e.target.dataset.di,10), hk:e.target.dataset.hk}; e.preventDefault(); return;
+  }
   var p=dxy(e);
   if(drawTool==='text'){
     S.draw.push({t:'text', x:Math.round(p.x), y:Math.round(p.y), s:'', c:drawColor, size:18}); renderDraw();
@@ -1738,8 +1763,20 @@ window.addEventListener('mouseup',function(){
   var o=dcur; dcur=null;
   var prev=dgroup.querySelector('#dprev'); if(prev) prev.remove();
   var big = o.t==='pen' ? o.pts.length>1 : (Math.abs(o.x2-o.x1)+Math.abs(o.y2-o.y1))>6;
-  if(big){ S.draw.push(o); renderDraw(); commit(); }
+  if(big){ S.draw.push(o); renderDraw(); commit(); if(o.t==='brace') tip('วางปีกกาแล้ว · ลากจุดปลายเพื่อปรับความยาว/ทิศทาง · ลากจุดสีส้มเพื่อปรับความลึก'); }
 });
+/* brace free-adjust: drag endpoint / bulge handles */
+window.addEventListener('mousemove',function(e){
+  if(!bhdrag) return;
+  var o=S.draw[bhdrag.di]; if(!o){ bhdrag=null; return; }
+  var p=dxy(e);
+  if(bhdrag.hk==='1'){ o.x1=p.x; o.y1=p.y; }
+  else if(bhdrag.hk==='2'){ o.x2=p.x; o.y2=p.y; }
+  else { var dx=o.x1-o.x2, dy=o.y1-o.y2, len=Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    var mx=(o.x1+o.x2)/2, my=(o.y1+o.y2)/2; o.bw=(p.x-mx)*dy-(p.y-my)*dx; }
+  renderDraw();
+});
+window.addEventListener('mouseup',function(){ if(!bhdrag) return; bhdrag=null; commit(); });
 /* floating text: drag to move (in draw mode); click (no drag) to edit; blur to save */
 var dtdrag=null;
 canvas.addEventListener('mousedown',function(e){
