@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Business Model Canvas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F0F4F8;--card:#FFFFFF;--ink:#1E3A5F;--mute:#5A6E88;--line:#D3DEEA;
+  --blue:#0077B6;--blue2:#005A8E;--orange:#F7941D;--green:#2E7D32;--hi:#F5B301}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1100px 620px at 50% -12%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+h1{font-family:'Inter','Sarabun',sans-serif;margin:0}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 14px;background:rgba(240,244,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.sep{width:1px;height:22px;background:var(--line);margin:0 3px}
+.lbl{font-family:'Inter';font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93A6BA}
+button{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
+button:hover{border-color:var(--blue);color:var(--blue)}
+button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.5;cursor:default}
+a.back{font-family:'Inter';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+  text-decoration:none;color:#41566E;border:1px solid var(--line);padding:6px 9px;border-radius:6px}
+a.back:hover{border-color:var(--blue);color:var(--blue)}
+label.clr{display:inline-flex;align-items:center;gap:3px;font-size:13px;cursor:pointer;border:1px solid var(--line);border-radius:6px;padding:2px 6px;background:#fff}
+label.clr input[type=color]{width:20px;height:18px;border:none;padding:0;background:none;cursor:pointer}
+.sw{width:18px;height:18px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0}
+.sw:hover{transform:scale(1.12)}
+#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto;transition:color .25s}
+#autosave.hit{color:var(--green)}
+.tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
+  padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
+.tip.show{opacity:.96}
+.wrap{max-width:1760px;margin:0 auto;padding:18px 16px 90px}
+.hd-title{font-size:22px;font-weight:800;color:var(--blue2);margin:0 0 3px}
+.hd-sub{font-size:13px;color:var(--mute);margin:0 0 12px;line-height:1.5}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 14px;font-size:12.5px;color:var(--mute)}
+.meta .mi{display:flex;gap:6px;align-items:baseline}
+.meta .mk{font-family:'Inter';font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#8FA3B8;white-space:nowrap}
+.meta .mv{color:#26384d;min-width:40px}
+
+/* ---- Business Model Canvas grid ---- */
+.bmc{display:grid;gap:10px;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  grid-template-areas:
+    "kp ka vp cr cs"
+    "kp kr vp ch cs"
+    "cost cost cost rev rev";}
+.a-kp{grid-area:kp}.a-ka{grid-area:ka}.a-kr{grid-area:kr}.a-vp{grid-area:vp}
+.a-cr{grid-area:cr}.a-ch{grid-area:ch}.a-cs{grid-area:cs}.a-cost{grid-area:cost}.a-rev{grid-area:rev}
+.blk{background:#fff;border:1px solid var(--line);border-radius:11px;display:flex;flex-direction:column;
+  min-height:120px;overflow:hidden;box-shadow:0 2px 12px rgba(30,58,95,.06)}
+.blk.g-left{border-top:3px solid var(--blue)}
+.blk.g-vp{border-top:3px solid var(--orange)}
+.blk.g-right{border-top:3px solid var(--green)}
+.blk.g-cost{border-top:3px solid #C0392B}
+.blk.g-rev{border-top:3px solid var(--green)}
+.blk-h{font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:12px;padding:7px 11px;
+  border-bottom:1px solid #E9EFF6;background:#F5F8FC;color:var(--blue2);display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.blk-h .en{font-size:9.5px;color:#8FA3B8;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.blk-b{padding:9px 12px;font-size:calc(12.5px*var(--bfs,1));line-height:1.5;color:#26384d;flex:1;overflow:auto}
+.blk-b p{margin:0 0 6px}
+.blk-b ol,.blk-b ul{margin:4px 0;padding-left:20px}
+.blk-b li{margin:2px 0}
+.blk-b .note{background:#FFF8E8;border:1px solid #F1DFAE;border-radius:6px;padding:5px 8px;margin:0 0 7px;font-size:.95em;color:#7a5b12}
+.blk-b .subh{font-weight:700;color:var(--blue2);margin:6px 0 3px}
+.blk-b .todo{color:#B0392B;font-style:italic}
+[contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
+body:not(.edit) [contenteditable]{cursor:default}
+body.edit .blk-b:hover{background:#FFFDF6}
+.foot{margin:14px 2px 0;font-size:12px;color:var(--mute);line-height:1.6}
+.foot b{color:var(--blue2)}
+#tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+#tokInput:focus{outline:none;border-color:var(--blue)}
+.tp-row{display:flex;gap:6px;margin-top:9px}
+#tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+@media(max-width:900px){ .bmc{grid-template-columns:1fr;grid-template-areas:"kp" "ka" "kr" "vp" "cr" "ch" "cs" "cost" "rev";} }
+@media print{.bar,.tip,#tokPanel{display:none!important}
+  body{background:#fff}.wrap{max-width:none;padding:0}
+  .blk{box-shadow:none;break-inside:avoid}
+  @page{size:A3 landscape;margin:8mm}}
+</style>
+</head>
+<body class="edit">
+
+<!--CANVAS_DATA_START-->
+<script id="canvas-data" type="application/json">{"savedAt":0}</script>
+<!--CANVAS_DATA_END-->
+
+<div class="bar">
+  <div class="brand"><b>Business Model Canvas</b><span>PCC Strategy</span></div>
+  <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
+  <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
+  <div class="sep"></div>
+  <span class="lbl">อักษร</span>
+  <button id="fsDn" title="เล็กลง">A−</button><button id="fsUp" title="ใหญ่ขึ้น">A+</button>
+  <button id="fmtB" style="font-weight:800" title="ตัวหนา (คลุมข้อความก่อน)">B</button>
+  <button id="fmtI" style="font-style:italic;font-family:serif" title="ตัวเอียง">I</button>
+  <button class="sw" data-tc="#1E3A5F" style="background:#1E3A5F"></button>
+  <button class="sw" data-tc="#0077B6" style="background:#0077B6"></button>
+  <button class="sw" data-tc="#F7941D" style="background:#F7941D"></button>
+  <button class="sw" data-tc="#2E7D32" style="background:#2E7D32"></button>
+  <button class="sw" data-tc="#C0392B" style="background:#C0392B"></button>
+  <label class="clr" title="สีตัวอักษร">🎨<input type="color" id="txtColor" value="#1e3a5f"></label>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
+  <div class="sep"></div>
+  <button id="bSave">บันทึกไฟล์</button>
+  <button id="bOpen">เปิดไฟล์</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel">
+  <h4>GitHub Token (PAT)</h4>
+  <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้า Strategy Mapping · ต้องมีสิทธิ์ <b>repo / contents write</b></p>
+  <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
+  <div class="tp-row"><button id="tokSave" class="pub">บันทึก token</button><button id="tokClear">ลบ token</button><button id="tokClose">ปิด</button></div>
+  <div id="tokState"></div>
+</div>
+
+<div class="wrap">
+  <h1 class="hd-title" id="hdTitle" contenteditable="true"></h1>
+  <p class="hd-sub" id="hdSub" contenteditable="true"></p>
+  <div class="meta">
+    <div class="mi"><span class="mk">RST / ธุรกิจที่วิเคราะห์</span><span class="mv" id="mRst" contenteditable="true"></span></div>
+    <div class="mi"><span class="mk">วันที่ / ผู้จัดทำ</span><span class="mv" id="mAuthor" contenteditable="true"></span></div>
+  </div>
+  <div class="bmc" id="bmc"></div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+var LSK='pcc_bmc_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'business-model-canvas.html'};
+
+/* 9-block layout order + accent group */
+var BLKS=[
+  {k:'kp',area:'a-kp',g:'g-left'},
+  {k:'ka',area:'a-ka',g:'g-left'},
+  {k:'kr',area:'a-kr',g:'g-left'},
+  {k:'vp',area:'a-vp',g:'g-vp'},
+  {k:'cr',area:'a-cr',g:'g-right'},
+  {k:'ch',area:'a-ch',g:'g-right'},
+  {k:'cs',area:'a-cs',g:'g-right'},
+  {k:'cost',area:'a-cost',g:'g-cost'},
+  {k:'rev',area:'a-rev',g:'g-rev'}
+];
+
+function seed(){ return {
+  savedAt:0, fs:1,
+  title:'Business Model Canvas — PCC',
+  sub:'Platform &amp; Ecosystem Capitalism support by Digital and Agentic AI Organization for Each Subsidiary Company, and Business in Sub Com',
+  rst:'—',
+  author:'—',
+  foot:'<b>ลำดับกรอก:</b> CS → VP → CH → CR → R$ → KR → KA → KP → C$ &nbsp;|&nbsp; ช่องที่ยังไม่ได้กรอกให้เติมเพิ่มได้ (เปิด “✎ แก้ไข” แล้วพิมพ์ในช่องได้เลย จากนั้นกด “บันทึกขึ้นเว็บ”)',
+  blocks:{
+    kp:{h:'KP · พันธมิตรหลัก', en:'Key Partners', b:
+      '<ul><li><b>Business Generation</b></li><li><b>Demand Satisfaction</b></li><li><b>Functional Management</b></li></ul>'},
+    ka:{h:'KA · กิจกรรมหลัก', en:'Key Activities', b:
+      '<p class="subh">Value Chain (21 ขั้น)</p><ol>'+
+      '<li>Raw Materials</li><li>Materials</li><li>Components</li><li>Sub-Assembly</li><li>Final Assembly</li>'+
+      '<li>Buying / Trading</li><li>Product Design</li><li>Marketing</li><li>Retail Sales</li><li>End Use Consumer</li>'+
+      '<li>Commissioning &amp; Energization</li><li>Operation &amp; Energy Loss</li><li>Condition Monitoring &amp; Diagnostics</li>'+
+      '<li>Preventive / Predictive Maintenance</li><li>Spare Parts &amp; Consumables</li><li>Repair &amp; Emergency Response</li>'+
+      '<li>Retrofit / Upgrade / Life Extension</li><li>Compliance &amp; ESG Reporting</li><li>Refurbishment / Remanufacturing</li>'+
+      '<li>Decommissioning &amp; Disposal</li><li>Material Recovery</li></ol>'},
+    kr:{h:'KR · ทรัพยากรหลัก', en:'Key Resources', b:
+      '<div class="note">Apply Business Process to add Recurring Revenue Stream Type Model (Matching 20 Functions of Recurring)</div>'+
+      '<p class="subh">20 Recurring Digital Services</p><ol>'+
+      '<li><b>Platform Subscription</b> — ค่าใช้ระบบรายเดือน</li>'+
+      '<li><b>Digital Engineering Updates</b> — ดูแลแบบและเอกสารวิศวกรรมให้เป็นฉบับล่าสุด</li>'+
+      '<li><b>Digital Twin</b> — แบบจำลองดิจิทัลของระบบจริง</li>'+
+      '<li><b>AI Optimization</b> — ใช้ AI ปรับการเดินเครื่องให้ประหยัดและมีประสิทธิภาพขึ้น</li>'+
+      '<li><b>Remote Monitoring</b> — เฝ้าระวังอุปกรณ์จากศูนย์ตลอด 24 ชั่วโมง</li>'+
+      '<li><b>Preventive Maintenance</b> — บำรุงรักษาตามรอบเวลาหรือชั่วโมงการใช้งาน</li>'+
+      '<li><b>Predictive Maintenance</b> — คาดการณ์ว่าอุปกรณ์ตัวไหนเสี่ยงจะเสีย</li>'+
+      '<li><b>Asset Performance</b> — ติดตามสมรรถนะสินทรัพย์เทียบกับเป้าหมาย</li>'+
+      '<li><b>Energy Optimization</b> — ลดค่าพลังงานของลูกค้า</li>'+
+      '<li><b>Reliability Improvement</b> — งานยกระดับความน่าเชื่อถือของระบบ</li>'+
+      '<li><b>Spare Parts Subscription</b> — แผนสำรองอะไหล่รายเดือน</li>'+
+      '<li><b>Software Licenses</b> — สิทธิ์ใช้งานซอฟต์แวร์รายผู้ใช้ต่อปี</li>'+
+      '<li><b>Cybersecurity</b> — ดูแลความมั่นคงปลอดภัยของระบบที่เราติดตั้งให้ลูกค้า</li>'+
+      '<li><b>ESG Reporting</b> — จัดทำรายงานด้านสิ่งแวดล้อม สังคม และธรรมาภิบาล</li>'+
+      '<li><b>Carbon Accounting</b> — คำนวณและติดตามปริมาณคาร์บอนขององค์กรลูกค้า</li>'+
+      '<li><b>Carbon Credit</b> — ดูแลวงจรคาร์บอนเครดิตให้ลูกค้า</li>'+
+      '<li><b>Asset Health Assessment</b> — ตรวจสุขภาพสินทรัพย์เป็นครั้ง</li>'+
+      '<li><b>Life Cycle Cost Optimization</b> — ศึกษาต้นทุนตลอดอายุการใช้งาน</li>'+
+      '<li><b>O&amp;M Outsourcing</b> — รับเหมาเดินระบบและบำรุงรักษาทั้งไซต์แทนลูกค้า</li>'+
+      '<li><b>Decommissioning</b> — รื้อถอน เก็บกู้ และจัดการอุปกรณ์ปลายอายุการใช้งาน</li></ol>'},
+    vp:{h:'VP · คุณค่าที่นำเสนอ', en:'Value Propositions', b:
+      '<p><b>Platform &amp; Ecosystem Capitalism</b> support by Digital and Agentic AI Organization for Each Subsidiary Company, and Business in Sub Com</p>'+
+      '<p class="subh">Customer Need / Asset Life Cycle (12 ขั้น)</p><ol>'+
+      '<li>Need / Requirement</li><li>Solution Design</li><li>Purchase / Financing</li>'+
+      '<li>Installation &amp; Commissioning</li><li>Operation</li><li>Service &amp; Maintenance</li>'+
+      '<li>Performance Improvement</li><li>Environmental &amp; ESG</li><li>Modernization / Life Extension</li>'+
+      '<li>Decommissioning</li><li>Recycling / Circular Economy</li><li>Next Life Cycle</li></ol>'},
+    cr:{h:'CR · ความสัมพันธ์กับลูกค้า', en:'Customer Relationships', b:
+      '<p>Develop Customer Relationship, Customer Segment and Customer Focus (KA) and Channel Member in the process of Digital Platform Development, consist of:</p>'+
+      '<p class="subh">Platform Capitalism RST Development for Business Generation</p><ol>'+
+      '<li>Tendering Platform Development</li><li>Omni Channel Platform</li><li>TCS Platform</li>'+
+      '<li>Recurring Platform</li><li>PPA / Long-Term Contract Platform</li><li>Investment</li></ol>'+
+      '<p style="margin-top:6px;color:#5A6E88">Process: Customer Relationship · Customer Segment and Customer Focus (KA) · Channel Member</p>'},
+    ch:{h:'CH · ช่องทาง', en:'Channels', b:
+      '<p class="subh">For Channel Member (Buyers)</p><ol>'+
+      '<li>One Stop Service</li>'+
+      '<li>Change from Selling by sale to be Customer Centric (Customer Contact for buying)</li></ol>'+
+      '<p style="margin-top:6px">Inbound Marketing – One Stop Service Provider (Graybar Model)</p>'},
+    cs:{h:'CS · กลุ่มลูกค้า', en:'Customer Segments', b:
+      '<p class="subh">For Channel Member (Buyers) / For End User (Buyers)</p><ol>'+
+      '<li>All PO and Contract must be fully comply and customer delight for complete DE &amp; DBTP</li>'+
+      '<li>Give the service and recommendation to provide Life Cycle Costing for create recurring revenue</li>'+
+      '<li>CRM calling, visiting, response time, response result of business operation for customer satisfaction and proposal buyers to buy recurring revenue (Customer Insight, Customer Behavior Analytics)</li></ol>'},
+    cost:{h:'C$ · โครงสร้างต้นทุน', en:'Cost Structure', b:
+      '<p class="todo">กรอกโครงสร้างต้นทุนหลัก… (ต้นทุนคงที่ / ผันแปร, การลงทุนแพลตฟอร์มดิจิทัล, ทีมงาน ฯลฯ)</p>'},
+    rev:{h:'R$ · กระแสรายได้', en:'Revenue Streams', b:
+      '<p class="subh">6 Revenue Stream Types (RST)</p>'+
+      '<ol><li>Tendering</li><li>Omni Channel</li><li>TCS</li><li>Recurring</li><li>PPA / Long-Term Contract</li><li>Investment</li></ol>'+
+      '<p style="margin-top:6px;color:#5A6E88">+ 20 Recurring Services (ดูช่อง KR) — โมเดลรายได้ต่อเนื่อง</p>'+
+      '<p class="todo">เพิ่มรายละเอียด/ตัวเลขรายได้ได้ที่นี่</p>'}
+  }
+};}
+
+/* ---------- state ---------- */
+function fileData(){ try{ var el=document.getElementById('canvas-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+function published(){ return (FD&&FD.blocks)?FD:seed(); }
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.blocks&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=published();
+var sd=seed();
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+['fs','title','sub','rst','author','foot'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+if(!S.blocks) S.blocks=sd.blocks;
+BLKS.forEach(function(x){ if(!S.blocks[x.k]) S.blocks[x.k]=sd.blocks[x.k]; else { if(S.blocks[x.k].h===undefined) S.blocks[x.k].h=sd.blocks[x.k].h; if(S.blocks[x.k].en===undefined) S.blocks[x.k].en=sd.blocks[x.k].en; if(S.blocks[x.k].b===undefined) S.blocks[x.k].b=sd.blocks[x.k].b; } });
+if(!S.fs) S.fs=1;
+
+var editMode=true;
+var bmc=document.getElementById('bmc'), tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
+var hist=[], hi=-1, restoring=false, saveT=null;
+function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2400); }
+function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450); }catch(e){ saveEl.textContent='● เก็บชั่วคราวไม่ได้'; } }
+function recordHistory(){ if(restoring) return; var s=JSON.stringify(S); if(hi>=0&&hist[hi]===s) return; hist=hist.slice(0,hi+1); hist.push(s); hi=hist.length-1; if(hist.length>40){hist.shift();hi--;} updateUndo(); }
+function persist(){ recordHistory(); persistRaw(); }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persist,500); }
+function updateUndo(){ var u=document.getElementById('bUndo'),r=document.getElementById('bRedo'); if(u)u.disabled=hi<=0; if(r)r.disabled=hi>=hist.length-1; }
+
+function render(){
+  var ce=editMode?'true':'false';
+  document.getElementById('hdTitle').innerHTML=S.title||'';
+  document.getElementById('hdSub').innerHTML=S.sub||'';
+  document.getElementById('mRst').innerHTML=S.rst||'';
+  document.getElementById('mAuthor').innerHTML=S.author||'';
+  document.getElementById('foot').innerHTML=S.foot||'';
+  document.documentElement.style.setProperty('--bfs',S.fs||1);
+  var h='';
+  BLKS.forEach(function(x){
+    var bl=S.blocks[x.k]||{h:'',en:'',b:''};
+    h+='<div class="blk '+x.g+' '+x.area+'">'+
+       '<div class="blk-h"><span class="hlabel" data-bh="'+x.k+'" contenteditable="'+ce+'">'+(bl.h||'')+'</span>'+
+       '<span class="en" data-ben="'+x.k+'" contenteditable="'+ce+'">'+(bl.en||'')+'</span></div>'+
+       '<div class="blk-b" data-bb="'+x.k+'" contenteditable="'+ce+'">'+(bl.b||'')+'</div></div>';
+  });
+  bmc.innerHTML=h;
+}
+
+/* read DOM back into S */
+function syncAll(){
+  S.title=document.getElementById('hdTitle').innerHTML;
+  S.sub=document.getElementById('hdSub').innerHTML;
+  S.rst=document.getElementById('mRst').innerHTML;
+  S.author=document.getElementById('mAuthor').innerHTML;
+  S.foot=document.getElementById('foot').innerHTML;
+  bmc.querySelectorAll('[data-bb]').forEach(function(el){ S.blocks[el.dataset.bb].b=el.innerHTML; });
+  bmc.querySelectorAll('[data-bh]').forEach(function(el){ S.blocks[el.dataset.bh].h=el.innerHTML; });
+  bmc.querySelectorAll('[data-ben]').forEach(function(el){ S.blocks[el.dataset.ben].en=el.innerHTML; });
+}
+
+/* live edit */
+function bindInput(el, setter){ el.addEventListener('input',function(){ setter(this.innerHTML); schedulePersist(); }); }
+bindInput(document.getElementById('hdTitle'),function(v){S.title=v;});
+bindInput(document.getElementById('hdSub'),function(v){S.sub=v;});
+bindInput(document.getElementById('mRst'),function(v){S.rst=v;});
+bindInput(document.getElementById('mAuthor'),function(v){S.author=v;});
+bindInput(document.getElementById('foot'),function(v){S.foot=v;});
+bmc.addEventListener('input',function(e){
+  var t=e.target.closest('[data-bb],[data-bh],[data-ben]'); if(!t) return;
+  if(t.dataset.bb!==undefined) S.blocks[t.dataset.bb].b=t.innerHTML;
+  else if(t.dataset.bh!==undefined) S.blocks[t.dataset.bh].h=t.innerHTML;
+  else if(t.dataset.ben!==undefined) S.blocks[t.dataset.ben].en=t.innerHTML;
+  schedulePersist();
+});
+
+/* font size + text formatting */
+function setFs(v){ S.fs=Math.round(Math.min(1.8,Math.max(.7,v))*100)/100; document.documentElement.style.setProperty('--bfs',S.fs); persist(); tip('ขนาดตัวอักษร '+Math.round(S.fs*100)+'%'); }
+document.getElementById('fsUp').addEventListener('click',function(){ setFs((S.fs||1)+.1); });
+document.getElementById('fsDn').addEventListener('click',function(){ setFs((S.fs||1)-.1); });
+function inWrap(node){ node=node&&(node.nodeType===1?node:node.parentNode); return !!(node&&document.querySelector('.wrap').contains(node)); }
+function fmt(cmd,val){
+  if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; }
+  var s=window.getSelection();
+  if(!(s&&s.rangeCount&&!s.isCollapsed&&inWrap(s.anchorNode))){ tip('ลากคลุมข้อความในช่องก่อน'); return; }
+  document.execCommand('styleWithCSS',false,true);
+  document.execCommand(cmd,false,val||null);
+  syncAll(); persist();
+}
+document.getElementById('fmtB').addEventListener('click',function(){ fmt('bold'); });
+document.getElementById('fmtI').addEventListener('click',function(){ fmt('italic'); });
+document.querySelectorAll('.sw[data-tc]').forEach(function(b){ b.addEventListener('click',function(){ fmt('foreColor', b.getAttribute('data-tc')); }); });
+document.getElementById('txtColor').addEventListener('input',function(){ fmt('foreColor', this.value); });
+
+/* undo / redo */
+function loadState(json){ restoring=true; S=JSON.parse(json); render(); persistRaw(); restoring=false; updateUndo(); }
+function undo(){ if(hi>0){ hi--; loadState(hist[hi]); tip('ย้อนกลับแล้ว'); } else tip('ไม่มีให้ย้อน'); }
+function redo(){ if(hi<hist.length-1){ hi++; loadState(hist[hi]); tip('ทำซ้ำแล้ว'); } else tip('ไม่มีให้ทำซ้ำ'); }
+document.getElementById('bUndo').addEventListener('click',undo);
+document.getElementById('bRedo').addEventListener('click',redo);
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&(e.key==='z'||e.key==='Z')){ e.preventDefault(); e.shiftKey?redo():undo(); }
+  else if((e.ctrlKey||e.metaKey)&&(e.key==='y'||e.key==='Y')){ e.preventDefault(); redo(); }
+});
+
+/* edit toggle */
+document.getElementById('bEdit').addEventListener('click',function(){
+  syncAll(); editMode=!editMode; this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
+  render(); tip(editMode?'แก้ไขได้ทุกช่อง':'ล็อกแล้ว');
+});
+
+/* JSON save / open */
+document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Business_Model_Canvas.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
+var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json'; fo.style.display='none'; document.body.appendChild(fo);
+document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
+fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{
+  var o=JSON.parse(e.target.result); if(!o.blocks) throw 0; S=o; if(!S.fs)S.fs=1;
+  var s2=seed(); ['title','sub','rst','author','foot'].forEach(function(k){ if(S[k]===undefined) S[k]=s2[k]; });
+  BLKS.forEach(function(x){ if(!S.blocks[x.k]) S.blocks[x.k]=s2.blocks[x.k]; });
+  render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
+document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* token */
+var tokPanel=document.getElementById('tokPanel'), tokInput=document.getElementById('tokInput'), tokState=document.getElementById('tokState');
+function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
+function refreshTok(){ var t=tokGet(); tokState.textContent=t?('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')'):'○ ยังไม่มี token'; tokState.style.color=t?'var(--green)':'#B0392B'; }
+function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTok(); setTimeout(function(){tokInput.focus();},30); }
+document.getElementById('bTok').addEventListener('click',function(){ tokPanel.style.display==='block'?(tokPanel.style.display='none'):openTok(); });
+document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+document.getElementById('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){ tip('เก็บไม่ได้'); } tokInput.value=''; });
+document.getElementById('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+
+/* save to web (Git Data API) */
+function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--CANVAS_DATA_START-->[\s\S]*?<!--CANVAS_DATA_END-->/;
+function dataBlock(json){ return '<!--CANVAS_DATA_START-->\n<script id="canvas-data" type="application/json">'+json+'<\/script>\n<!--CANVAS_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=document.getElementById('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  syncAll(); var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var h={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'}; var o={method:m,headers:h}; if(body!=null){ h['Content-Type']='application/json'; o.body=JSON.stringify(body); } return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var msg=''; try{ msg=(await res.json()).message||''; }catch(_){}
+      throw new Error(label+' ('+res.status+(res.status===401?' — token ไม่ถูกต้อง':(res.status===403?' — token ไม่มีสิทธิ์':''))+') '+msg); } return res; }
+  try{
+    var rawRes=await gh('GET', base+'/contents/'+GH.file+'?ref='+GH.branch, null, 'application/vnd.github.raw'); await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST', base+'/git/blobs', {content:encodeB64(out), encoding:'base64'}); await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET', base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
+    var hcRes=await gh('GET', base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST', base+'/git/trees', {base_tree:hc.tree.sha, tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}); await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST', base+'/git/commits', {message:'Business Model Canvas update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH', base+'/git/refs/heads/'+GH.branch, {sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที · เปิดเครื่องไหนก็เห็น');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+document.getElementById('bPublish').addEventListener('click',publish);
+
+/* init */
+render(); recordHistory(); updateUndo();
+tip('แก้ไขได้ทุกช่อง · Undo/Redo (Ctrl+Z/Y) · กด “บันทึกขึ้นเว็บ” เพื่อ live ทุกเครื่อง');
+})();
+</script>
+</body>
+</html>
