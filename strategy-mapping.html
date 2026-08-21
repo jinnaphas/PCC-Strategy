@@ -232,6 +232,8 @@ body.draw svg#draw{pointer-events:auto;cursor:crosshair}
 svg#draw path.d{fill:none;stroke-linecap:round;stroke-linejoin:round}
 svg#draw path.dhit{fill:none;stroke:transparent;stroke-width:14;pointer-events:none}
 body.draw.erase svg#draw path.dhit{pointer-events:stroke;cursor:not-allowed}
+body.draw.dmove svg#draw path.dhit{pointer-events:stroke;cursor:move}
+svg#draw path.d.dsel{filter:drop-shadow(0 0 3px rgba(0,119,182,.95))}
 svg#draw circle.dhandle{fill:#fff;stroke:var(--a3);stroke-width:2;display:none;pointer-events:none}
 svg#draw circle.dhandle.bulge{stroke:var(--a2);fill:#FFF6E9}
 body.draw:not(.erase) svg#draw circle.dhandle{display:inline;pointer-events:all;cursor:grab}
@@ -424,6 +426,7 @@ body.connect .card .bd *{pointer-events:none}
 
 <div id="drawbar">
   <span class="lbl">วาด</span>
+  <button data-dtool="sel" title="เลือก/ย้ายเส้นที่วาด — คลิกเส้นแล้วลากย้าย · Del ลบ">✥ เลือก/ย้าย</button>
   <button data-dtool="pen" class="on">✒️ ปากกา</button>
   <button data-dtool="line">╱ เส้นตรง</button>
   <button data-dtool="arrow">➤ ลูกศร</button>
@@ -1843,7 +1846,7 @@ function renderDraw(){
     }
     var d=dStr(o);
     var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('class','d'); p.setAttribute('d',d); p.setAttribute('stroke',o.c||'#C0392B'); p.setAttribute('stroke-width',o.w||3);
+    p.setAttribute('class','d'+(i===selDraw?' dsel':'')); p.setAttribute('d',d); p.setAttribute('stroke',o.c||'#C0392B'); p.setAttribute('stroke-width',o.w||3);
     if(o.t==='arrow') p.setAttribute('marker-end','url(#dah)');
     dgroup.appendChild(p);
     var h=document.createElementNS('http://www.w3.org/2000/svg','path');
@@ -1865,12 +1868,19 @@ drawSvg.addEventListener('click',function(e){
   var t=e.target;
   if(t.classList && t.classList.contains('dhit')){ var i=parseInt(t.dataset.di,10); if(i>=0){ S.draw.splice(i,1); renderDraw(); persist(); tip('ลบที่วาดแล้ว'); } }
 });
-/* draw lines / arrows / pen / place text · brace handles */
-var dcur=null, bhdrag=null;
+/* draw lines / arrows / pen / place text · brace handles · select-move */
+var dcur=null, bhdrag=null, selDraw=-1, seldrag=null;
 drawSvg.addEventListener('mousedown',function(e){
   if(!drawMode || e.button!==0 || drawTool==='erase') return;
   if(e.target.classList && e.target.classList.contains('dhandle')){
     bhdrag={di:parseInt(e.target.dataset.di,10), hk:e.target.dataset.hk}; e.preventDefault(); return;
+  }
+  if(drawTool==='sel'){
+    var hit=(e.target.classList && e.target.classList.contains('dhit')) ? e.target : null;
+    if(hit){ var di=parseInt(hit.dataset.di,10); var o=S.draw[di];
+      selDraw=di; seldrag={i:di, sx:e.clientX, sy:e.clientY, snap:JSON.parse(JSON.stringify(o))}; renderDraw(); }
+    else { if(selDraw>=0){ selDraw=-1; renderDraw(); } }
+    e.preventDefault(); return;
   }
   var p=dxy(e);
   if(drawTool==='text'){
@@ -1911,6 +1921,25 @@ window.addEventListener('mousemove',function(e){
   renderDraw();
 });
 window.addEventListener('mouseup',function(){ if(!bhdrag) return; bhdrag=null; commit(); });
+/* select-move: drag a whole drawn stroke (pen/line/arrow/brace) to a new position */
+window.addEventListener('mousemove',function(e){
+  if(!seldrag) return;
+  var o=S.draw[seldrag.i]; if(!o){ seldrag=null; return; }
+  var dx=(e.clientX-seldrag.sx)/zoom, dy=(e.clientY-seldrag.sy)/zoom, s=seldrag.snap;
+  if(Math.abs(e.clientX-seldrag.sx)+Math.abs(e.clientY-seldrag.sy)>2) seldrag.moved=true;
+  if(o.t==='pen'){ o.pts=s.pts.map(function(pt){ return [pt[0]+dx, pt[1]+dy]; }); }
+  else if(o.t==='text'){ o.x=Math.round(s.x+dx); o.y=Math.round(s.y+dy); }
+  else { o.x1=s.x1+dx; o.y1=s.y1+dy; o.x2=s.x2+dx; o.y2=s.y2+dy; }
+  renderDraw();
+});
+window.addEventListener('mouseup',function(){ if(!seldrag) return; var moved=seldrag.moved; seldrag=null; if(moved){ commit(); tip('ย้ายเส้นแล้ว'); } });
+/* Delete/Backspace removes the selected stroke (when not typing in a box) */
+document.addEventListener('keydown',function(e){
+  if(!drawMode || drawTool!=='sel' || selDraw<0) return;
+  if(e.key!=='Delete' && e.key!=='Backspace') return;
+  var ae=document.activeElement; if(ae && (ae.isContentEditable || ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;
+  e.preventDefault(); S.draw.splice(selDraw,1); selDraw=-1; renderDraw(); persist(); tip('ลบเส้นที่เลือกแล้ว');
+});
 /* floating text: drag to move (in draw mode); click (no drag) to edit; blur to save */
 var dtdrag=null;
 canvas.addEventListener('mousedown',function(e){
@@ -1941,7 +1970,7 @@ canvas.addEventListener('blur',function(e){
 },true);
 
 /* draw toolbar */
-function setDrawTool(t){ drawTool=t; document.querySelectorAll('[data-dtool]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-dtool')===t)}); document.body.classList.toggle('erase',t==='erase'); }
+function setDrawTool(t){ drawTool=t; document.querySelectorAll('[data-dtool]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-dtool')===t)}); document.body.classList.toggle('erase',t==='erase'); document.body.classList.toggle('dmove',t==='sel'); if(t!=='sel'&&selDraw>=0){ selDraw=-1; renderDraw(); } }
 function syncDcSw(){ document.querySelectorAll('#drawbar .sw[data-dc]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-dc').toLowerCase()===drawColor.toLowerCase()); }); }
 document.querySelectorAll('[data-dtool]').forEach(function(b){ b.addEventListener('click',function(){ setDrawTool(b.getAttribute('data-dtool')); }); });
 document.querySelectorAll('#drawbar .sw[data-dc]').forEach(function(b){ b.addEventListener('click',function(){ drawColor=b.getAttribute('data-dc'); document.getElementById('drawColorPick').value=drawColor; syncDcSw(); }); });
@@ -1955,7 +1984,7 @@ function setDrawMode(on){
     if(connectMode){ connectMode=false; bConn.classList.remove('on'); document.body.classList.remove('connect'); }
     setActive(null); if(activeEdgeIdx>=0){ activeEdgeIdx=-1; drawEdges(); } renderInspector();
     setDrawTool(drawTool); syncDcSw();
-    tip('โหมดวาดอิสระ: เลือกเครื่องมือด้านบน · วาดได้ทุกที่ · “เสร็จ” เพื่อออก');
+    tip('โหมดวาดอิสระ: เลือกเครื่องมือด้านบน · วาดได้ทุกที่ · “✥ เลือก/ย้าย” คลิกเส้นเพื่อลากย้าย/ลบ · “เสร็จ” เพื่อออก');
   }else{ document.body.classList.remove('erase'); }
 }
 document.getElementById('bDraw').addEventListener('click',function(){ setDrawMode(!drawMode); });
