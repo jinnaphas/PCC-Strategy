@@ -72,6 +72,26 @@ body.edit .blk-h .bctl{display:inline-flex}
 .blk-h .bctl button{padding:1px 6px;font-size:11px;line-height:16px;border:1px solid transparent;background:transparent;color:#7a90a8;text-transform:none;letter-spacing:0}
 .blk-h .bctl button:hover{color:var(--blue);background:#EAF3FA;border-color:var(--line)}
 .blk-h .bctl .bx:hover{color:#fff;background:#C0392B;border-color:#C0392B}
+/* ---- free layout (ลากวาง/ปรับขนาดอิสระ) ---- */
+.bmc.free{display:block;position:relative;min-height:640px;border:1px dashed var(--line);border-radius:12px;background:
+  linear-gradient(90deg,rgba(0,119,182,.04) 1px,transparent 1px) 0 0/26px 26px,
+  linear-gradient(rgba(0,119,182,.04) 1px,transparent 1px) 0 0/26px 26px}
+.bmc.free .blk{position:absolute;min-height:60px;overflow:visible;box-shadow:0 3px 16px rgba(30,58,95,.10)}
+.bmc.free .blk .blk-h{border-radius:10px 10px 0 0}
+.bmc.free .blk .blk-b{overflow:auto;min-height:0;border-radius:0 0 10px 10px}
+.bmc.free .blk-h .bdrag{cursor:move}
+.bmc.free .blk .rsz{position:absolute;z-index:6;display:none}
+body.edit .bmc.free .blk .rsz{display:block}
+.bmc.free .blk .rsz.n,.bmc.free .blk .rsz.s{left:14px;right:14px;height:9px;cursor:ns-resize}
+.bmc.free .blk .rsz.e,.bmc.free .blk .rsz.w{top:14px;bottom:14px;width:9px;cursor:ew-resize}
+.bmc.free .blk .rsz.n{top:-4px}.bmc.free .blk .rsz.s{bottom:-4px}
+.bmc.free .blk .rsz.w{left:-4px}.bmc.free .blk .rsz.e{right:-4px}
+.bmc.free .blk .rsz.nw,.bmc.free .blk .rsz.ne,.bmc.free .blk .rsz.sw,.bmc.free .blk .rsz.se{
+  width:12px;height:12px;background:#fff;border:1.5px solid var(--blue);border-radius:3px;z-index:7;box-shadow:0 1px 3px rgba(30,58,95,.3)}
+.bmc.free .blk .rsz.nw{left:-6px;top:-6px;cursor:nwse-resize}
+.bmc.free .blk .rsz.ne{right:-6px;top:-6px;cursor:nesw-resize}
+.bmc.free .blk .rsz.sw{left:-6px;bottom:-6px;cursor:nesw-resize}
+.bmc.free .blk .rsz.se{right:-6px;bottom:-6px;cursor:nwse-resize}
 .blk-b{padding:9px 12px;font-size:calc(12.5px*var(--bfs,1));line-height:1.5;color:#26384d;flex:1;overflow:auto}
 .blk-b p{margin:0 0 6px}
 .blk-b ol,.blk-b ul{margin:4px 0;padding-left:20px}
@@ -94,9 +114,10 @@ body.edit .blk-b:hover{background:#FFFDF6}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
 @media(max-width:900px){ .bmc{grid-template-columns:1fr!important} .blk{grid-column:1/-1!important;grid-row:auto!important} }
-@media print{.bar,.tip,#tokPanel{display:none!important}
+@media print{.bar,.tip,#tokPanel,.blk-h .bctl,.blk-h .bdrag,.bmc.free .blk .rsz{display:none!important}
   body{background:#fff}.wrap{max-width:none;padding:0}
   .blk{box-shadow:none;break-inside:avoid}
+  .bmc.free{border:none;background:none}
   @page{size:A3 landscape;margin:8mm}}
 </style>
 </head>
@@ -127,7 +148,9 @@ body.edit .blk-b:hover{background:#FFFDF6}
   <div class="sep"></div>
   <span class="lbl">Block</span>
   <button id="bAddBlk">＋ Block</button>
-  <span class="lbl" style="margin-left:4px">คอลัมน์</span>
+  <button id="bLayout" title="สลับ กริดอัตโนมัติ ⇄ ลากวางอิสระ">▦ เลย์เอาต์: กริด</button>
+  <button id="bArrange" title="จัดตำแหน่ง Block เป็น BMC มาตรฐานอัตโนมัติ">↺ จัดอัตโนมัติ</button>
+  <span class="lbl" id="lblCols" style="margin-left:4px">คอลัมน์</span>
   <button id="bColDn" title="ลดจำนวนคอลัมน์">−</button><button id="bColUp" title="เพิ่มจำนวนคอลัมน์">＋</button>
   <div class="sep"></div>
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
@@ -274,6 +297,7 @@ if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
 if(!S.blocks) S.blocks=sd.blocks;
 S.blocks=normBlocks(S.blocks);
 if(!(S.cols>=1)) S.cols=5;
+if(S.layout!=='free') S.layout='grid';
 if(!S.fs) S.fs=1;
 
 var editMode=true;
@@ -294,23 +318,41 @@ function render(){
   document.getElementById('mAuthor').innerHTML=S.author||'';
   document.getElementById('foot').innerHTML=S.foot||'';
   document.documentElement.style.setProperty('--bfs',S.fs||1);
+  var free=S.layout==='free';
+  bmc.classList.toggle('free',free);
   bmc.style.setProperty('--cols',S.cols||5);
+  var RSZ='<div class="rsz n" data-dir="n"></div><div class="rsz s" data-dir="s"></div><div class="rsz e" data-dir="e"></div><div class="rsz w" data-dir="w"></div><div class="rsz nw" data-dir="nw"></div><div class="rsz ne" data-dir="ne"></div><div class="rsz sw" data-dir="sw"></div><div class="rsz se" data-dir="se"></div>';
   var h='';
   S.blocks.forEach(function(bl,i){
-    var w=Math.min(bl.w||1,S.cols||5), ht=bl.ht||1;
-    h+='<div class="blk '+(bl.g||'g-new')+'" data-i="'+i+'" style="grid-column:span '+w+';grid-row:span '+ht+'">'+
+    var w=Math.min(bl.w||1,S.cols||5), ht=bl.ht||1, st;
+    if(free){ st='left:'+(bl.fx||0)+'px;top:'+(bl.fy||0)+'px;width:'+(bl.fw||240)+'px;height:'+(bl.fh||160)+'px'+(bl.z?';z-index:'+bl.z:''); }
+    else { st='grid-column:span '+w+';grid-row:span '+ht; }
+    var ctl='<span class="bctl">'+
+       (free?'':'<button data-act="w" data-i="'+i+'" title="ปรับความกว้าง (span '+w+')">↔</button>'+
+              '<button data-act="h" data-i="'+i+'" title="ปรับความสูง (span '+ht+')">↕</button>')+
+       '<button class="bx" data-act="del" data-i="'+i+'" title="ลบ Block นี้">✕</button></span>';
+    h+='<div class="blk '+(bl.g||'g-new')+'" data-i="'+i+'" style="'+st+'">'+
        '<div class="blk-h">'+
-       '<span class="bdrag" draggable="false" title="ลากเพื่อย้าย Block">⠿</span>'+
+       '<span class="bdrag" draggable="false" title="'+(free?'ลากเพื่อย้ายอิสระ':'ลากเพื่อย้าย Block')+'">⠿</span>'+
        '<span class="hlabel" data-bh="'+i+'" contenteditable="'+ce+'">'+(bl.h||'')+'</span>'+
-       '<span class="en" data-ben="'+i+'" contenteditable="'+ce+'">'+(bl.en||'')+'</span>'+
-       '<span class="bctl">'+
-         '<button data-act="w" data-i="'+i+'" title="ปรับความกว้าง (span '+w+')">↔</button>'+
-         '<button data-act="h" data-i="'+i+'" title="ปรับความสูง (span '+ht+')">↕</button>'+
-         '<button class="bx" data-act="del" data-i="'+i+'" title="ลบ Block นี้">✕</button>'+
-       '</span></div>'+
-       '<div class="blk-b" data-bb="'+i+'" contenteditable="'+ce+'">'+(bl.b||'')+'</div></div>';
+       '<span class="en" data-ben="'+i+'" contenteditable="'+ce+'">'+(bl.en||'')+'</span>'+ctl+'</div>'+
+       '<div class="blk-b" data-bb="'+i+'" contenteditable="'+ce+'">'+(bl.b||'')+'</div>'+
+       (free?RSZ:'')+'</div>';
   });
   bmc.innerHTML=h;
+  document.getElementById('bLayout').textContent = free?'▦ เลย์เอาต์: อิสระ':'▦ เลย์เอาต์: กริด';
+  document.getElementById('bLayout').classList.toggle('on',free);
+  document.getElementById('lblCols').style.display=free?'none':'';
+  document.getElementById('bColDn').style.display=free?'none':'';
+  document.getElementById('bColUp').style.display=free?'none':'';
+  document.getElementById('bArrange').style.display=free?'':'none';
+  if(free) fitFree();
+}
+function fitFree(){
+  if(S.layout!=='free') return;
+  var maxB=600;
+  S.blocks.forEach(function(bl){ maxB=Math.max(maxB,(bl.fy||0)+(bl.fh||160)); });
+  bmc.style.minHeight=(maxB+48)+'px';
 }
 
 /* read DOM back into S */
@@ -344,8 +386,10 @@ bmc.addEventListener('input',function(e){
 document.getElementById('bAddBlk').addEventListener('click',function(){
   if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; }
   syncAll();
-  S.blocks.push({id:newBlockId(), h:'หัวข้อใหม่', en:'NEW BLOCK', b:'<p>พิมพ์เนื้อหาที่นี่…</p>', w:1, ht:1, g:'g-new'});
-  render(); persist(); tip('เพิ่ม Block แล้ว · ลาก ⠿ เพื่อย้าย · ↔ ↕ ปรับขนาด');
+  var nb={id:newBlockId(), h:'หัวข้อใหม่', en:'NEW BLOCK', b:'<p>พิมพ์เนื้อหาที่นี่…</p>', w:1, ht:1, g:'g-new'};
+  if(S.layout==='free'){ var k=S.blocks.length; nb.fx=24+(k%6)*28; nb.fy=24+(k%6)*28; nb.fw=240; nb.fh=150; nb.z=++topZ; }
+  S.blocks.push(nb);
+  render(); persist(); tip(S.layout==='free'?'เพิ่ม Block แล้ว · ลาก ⠿ ย้าย · ลากมุม/ขอบปรับขนาด':'เพิ่ม Block แล้ว · ลาก ⠿ เพื่อย้าย · ↔ ↕ ปรับขนาด');
 });
 document.getElementById('bColUp').addEventListener('click',function(){ syncAll(); S.cols=Math.min(8,(S.cols||5)+1); render(); persist(); tip('คอลัมน์: '+S.cols); });
 document.getElementById('bColDn').addEventListener('click',function(){ syncAll(); S.cols=Math.max(1,(S.cols||5)-1); render(); persist(); tip('คอลัมน์: '+S.cols); });
@@ -358,14 +402,57 @@ bmc.addEventListener('click',function(e){
   else if(act==='del'){ if(confirm('ลบ Block “'+(_txt(bl.h)||'')+'” ?')){ S.blocks.splice(i,1); render(); persist(); tip('ลบ Block แล้ว'); } }
 });
 function _txt(html){ var d=document.createElement('div'); d.innerHTML=html||''; return (d.textContent||'').trim(); }
-/* drag-reorder via the ⠿ handle */
+/* GRID mode: drag-reorder via the ⠿ handle (HTML5 DnD) */
 var dragI=-1;
-bmc.addEventListener('mousedown',function(e){ var hd=e.target.closest('.bdrag'); if(!hd) return; var blk=hd.closest('.blk'); if(!blk) return; blk.draggable=true; var reset=function(){ if(dragI<0) blk.draggable=false; document.removeEventListener('mouseup',reset); }; document.addEventListener('mouseup',reset); });
-bmc.addEventListener('dragstart',function(e){ var blk=e.target.closest('.blk'); if(!blk||!blk.draggable) { e.preventDefault(); return; } dragI=+blk.dataset.i; e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain',String(dragI)); }catch(_){}; blk.classList.add('dragging'); });
+bmc.addEventListener('mousedown',function(e){ if(S.layout==='free') return; var hd=e.target.closest('.bdrag'); if(!hd) return; var blk=hd.closest('.blk'); if(!blk) return; blk.draggable=true; var reset=function(){ if(dragI<0) blk.draggable=false; document.removeEventListener('mouseup',reset); }; document.addEventListener('mouseup',reset); });
+bmc.addEventListener('dragstart',function(e){ if(S.layout==='free'){ e.preventDefault(); return; } var blk=e.target.closest('.blk'); if(!blk||!blk.draggable) { e.preventDefault(); return; } dragI=+blk.dataset.i; e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain',String(dragI)); }catch(_){}; blk.classList.add('dragging'); });
 bmc.addEventListener('dragover',function(e){ if(dragI<0) return; e.preventDefault(); e.dataTransfer.dropEffect='move'; var blk=e.target.closest('.blk'); bmc.querySelectorAll('.blk.dragover').forEach(function(n){n.classList.remove('dragover')}); if(blk && +blk.dataset.i!==dragI) blk.classList.add('dragover'); });
 bmc.addEventListener('drop',function(e){ if(dragI<0) return; e.preventDefault(); var blk=e.target.closest('.blk'); if(blk){ var to=+blk.dataset.i; syncAll(); var arr=S.blocks.slice(), b=arr.splice(dragI,1)[0]; arr.splice(to>dragI?to-1:to,0,b); S.blocks=arr; render(); persist(); tip('ย้าย Block แล้ว'); } cleanupDrag(); });
 bmc.addEventListener('dragend',cleanupDrag);
 function cleanupDrag(){ dragI=-1; bmc.querySelectorAll('.blk').forEach(function(n){ n.draggable=false; n.classList.remove('dragging'); n.classList.remove('dragover'); }); }
+
+/* FREE mode: move (⠿) + resize (8 handles), absolute positioning */
+var topZ=10, fdrag=null;
+function bringFront(i){ var bl=S.blocks[i]; if(!bl) return; bl.z=++topZ; var el=bmc.querySelector('.blk[data-i="'+i+'"]'); if(el) el.style.zIndex=bl.z; }
+bmc.addEventListener('mousedown',function(e){
+  if(S.layout!=='free' || !editMode) return;
+  var blk=e.target.closest('.blk'); if(!blk) return;
+  var i=+blk.dataset.i, bl=S.blocks[i]; if(!bl) return;
+  var rz=e.target.closest('.rsz'), hd=e.target.closest('.bdrag');
+  if(rz){ fdrag={mode:'size',i:i,dir:rz.dataset.dir,sx:e.clientX,sy:e.clientY,x0:bl.fx||0,y0:bl.fy||0,w0:bl.fw||240,h0:bl.fh||160}; bringFront(i); e.preventDefault(); e.stopPropagation(); }
+  else if(hd){ fdrag={mode:'move',i:i,sx:e.clientX,sy:e.clientY,x0:bl.fx||0,y0:bl.fy||0}; bringFront(i); e.preventDefault(); }
+});
+window.addEventListener('mousemove',function(e){
+  if(!fdrag) return;
+  var bl=S.blocks[fdrag.i], el=bmc.querySelector('.blk[data-i="'+fdrag.i+'"]'); if(!bl||!el) return;
+  var dx=e.clientX-fdrag.sx, dy=e.clientY-fdrag.sy;
+  if(fdrag.mode==='move'){ bl.fx=Math.max(0,fdrag.x0+dx); bl.fy=Math.max(0,fdrag.y0+dy); el.style.left=bl.fx+'px'; el.style.top=bl.fy+'px'; }
+  else { var dir=fdrag.dir, L=fdrag.x0,T=fdrag.y0,W=fdrag.w0,H=fdrag.h0, minW=130,minH=64;
+    if(dir.indexOf('e')>=0) W=Math.max(minW,fdrag.w0+dx);
+    if(dir.indexOf('w')>=0){ W=Math.max(minW,fdrag.w0-dx); L=fdrag.x0+(fdrag.w0-W); }
+    if(dir.indexOf('s')>=0) H=Math.max(minH,fdrag.h0+dy);
+    if(dir.indexOf('n')>=0){ H=Math.max(minH,fdrag.h0-dy); T=fdrag.y0+(fdrag.h0-H); }
+    bl.fx=Math.max(0,L); bl.fy=Math.max(0,T); bl.fw=W; bl.fh=H;
+    el.style.left=bl.fx+'px'; el.style.top=bl.fy+'px'; el.style.width=W+'px'; el.style.height=H+'px';
+  }
+});
+window.addEventListener('mouseup',function(){ if(!fdrag) return; fdrag=null; fitFree(); persist(); });
+
+/* switch grid <-> free; derive free coords from the current grid render so nothing jumps */
+function measureIntoFree(){
+  syncAll();
+  var wasFree=S.layout==='free';
+  S.layout='grid'; render();
+  var cr=bmc.getBoundingClientRect();
+  bmc.querySelectorAll('.blk').forEach(function(el){ var i=+el.dataset.i, r=el.getBoundingClientRect(), b=S.blocks[i];
+    b.fx=Math.round(r.left-cr.left); b.fy=Math.round(r.top-cr.top); b.fw=Math.round(r.width); b.fh=Math.round(r.height); });
+  S.layout='free'; render();
+}
+document.getElementById('bLayout').addEventListener('click',function(){
+  if(S.layout==='free'){ syncAll(); S.layout='grid'; render(); persist(); tip('โหมดกริดอัตโนมัติ'); }
+  else { measureIntoFree(); persist(); tip('โหมดอิสระ · ลาก ⠿ เพื่อย้าย · ลากมุม/ขอบเพื่อปรับขนาด'); }
+});
+document.getElementById('bArrange').addEventListener('click',function(){ measureIntoFree(); persist(); tip('จัดตำแหน่งเป็น BMC มาตรฐานแล้ว (ปรับต่อได้อิสระ)'); });
 
 /* font size + text formatting */
 function setFs(v){ S.fs=Math.round(Math.min(1.8,Math.max(.7,v))*100)/100; document.documentElement.style.setProperty('--bfs',S.fs); persist(); tip('ขนาดตัวอักษร '+Math.round(S.fs*100)+'%'); }
