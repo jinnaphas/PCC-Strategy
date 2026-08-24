@@ -74,7 +74,19 @@ button:disabled{opacity:.55;cursor:default}
 #tokPanel .tp-state{font-size:11px;margin-top:8px;color:var(--mute)}
 
 /* ---------------- stage ---------------- */
-#stage{position:absolute;inset:56px 0 0 0;overflow:auto;
+#sheetbar{position:absolute;top:56px;left:0;right:0;height:34px;z-index:40;display:flex;align-items:center;gap:5px;
+  padding:0 10px;background:#E8EFF6;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+#sheetbar #sheetTabs{display:flex;gap:4px;align-items:center}
+#sheetbar .stab{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid var(--line);border-bottom:none;
+  background:#F4F8FC;border-radius:8px 8px 0 0;cursor:pointer;font:600 12px 'Inter','Sarabun',sans-serif;color:#41566E;white-space:nowrap}
+#sheetbar .stab:hover{background:#fff}
+#sheetbar .stab.on{background:var(--a2);border-color:var(--a2);color:#fff}
+#sheetbar .stab .snm{outline:none}
+#sheetbar .stab .x{font-size:11px;opacity:.55;padding:0 1px;border-radius:3px}
+#sheetbar .stab .x:hover{opacity:1;background:rgba(192,57,43,.85);color:#fff}
+#sheetbar #bAddSheet{padding:4px 9px;font-size:11px}
+body.present #sheetbar{display:none}
+#stage{position:absolute;inset:90px 0 0 0;overflow:auto;
   background-image:radial-gradient(#D3DEEA 1px,transparent 1px);background-size:26px 26px}
 #canvas{position:relative;width:2680px;height:1160px;transform-origin:0 0}
 
@@ -245,7 +257,7 @@ body.draw .dtext{pointer-events:auto;cursor:move}
 #drawbar{display:none;position:fixed;top:56px;left:0;right:0;z-index:98;gap:7px;align-items:center;
   padding:7px 14px;background:rgba(237,242,247,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
 body.draw #drawbar{display:flex}
-body.draw #stage{top:99px}
+body.draw #stage{top:133px}
 #drawbar .sw{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.18);cursor:pointer;padding:0;flex:none}
 #drawbar .sw:hover{transform:scale(1.12)}
 #drawbar .sw.on{outline:2px solid var(--ink);outline-offset:1px}
@@ -267,7 +279,7 @@ body.connect .card{cursor:crosshair}
 body.connect .card .bd *{pointer-events:none}
 
 @media print{
-  .bar,.tip{display:none}
+  .bar,.tip,#sheetbar{display:none}
   body{overflow:visible;background:#fff}
   #stage{position:static;overflow:visible;background:none}
   .card{box-shadow:none}
@@ -448,6 +460,8 @@ body.connect .card .bd *{pointer-events:none}
   <button id="drawDone" class="pub">เสร็จ</button>
 </div>
 
+<div id="sheetbar"><span class="lbl" style="margin-right:2px">ชีต</span><div id="sheetTabs"></div><button id="bAddSheet" title="เพิ่มชีตใหม่">＋ ชีต</button></div>
+
 <div id="stage">
   <div id="canvas">
     <svg id="edges">
@@ -552,6 +566,13 @@ edges:[
  ["c_b70","c_con"],["c_b73","c_rs"],["c_con","c_tg"],["c_rs","c_tg"],["c_rst","c_tg"]
 ]};}
 
+/* ชีต “Platform Flow” — ร่างจากตัวอย่าง Excel (Mapping โครงสร้างการดำเนินงาน Platform Capitalism) */
+function seedFlow(){ return {
+cards:[{"id": "ft", "k": "head", "x": 760, "y": 10, "w": 760, "t": "Group 1 · เปลี่ยนธุรกิจจาก Industrial → Platform Capitalism", "b": "", "ac": "a2"}, {"id": "hA", "k": "head", "x": 60, "y": 70, "w": 820, "t": "A. Business Generation — Platform Development Team &amp; Target (RST Team)", "b": "", "ac": "a1"}, {"id": "hB", "k": "head", "x": 980, "y": 70, "w": 760, "t": "B. Demand Satisfaction by RS (COO ในฐานะ RS)", "b": "", "ac": "a3"}, {"id": "hC", "k": "head", "x": 1900, "y": 70, "w": 440, "t": "C. Functional Management by Function Unit", "b": "", "ac": "a4"}, {"id": "fA1", "k": "note", "x": 60, "y": 150, "w": 380, "t": "Scope of work: Develop Platform Capitalism of Tendering", "b": "<p>ขอบเขตงานพัฒนา Platform Capitalism สำหรับงาน Tendering</p>", "ac": "a1"}, {"id": "fA_bg", "k": "card", "x": 60, "y": 300, "w": 380, "t": "① Business Generation (Platform Development)", "b": "<p>by Platform Development: <strong>OI → OQ → Enquiry in → Quotation → Status</strong> (Yes P1, P2, T1, T2)</p><ul><li>from PEM / by Business</li><li>PSP101 — New Tendering เหนือ Component Layer ของ 4 AM</li><li>PSP Tendering / by Business (Existing)</li></ul>", "ac": "a1"}, {"id": "fA_if", "k": "card", "x": 60, "y": 520, "w": 380, "t": "Information Flow &amp; Work Progress", "b": "<ul><li>from OI</li><li>from TOR Online</li><li>Support information flow แต่ละ process เช่น Change P1,T1 → P2,T2</li></ul>", "ac": "a1"}, {"id": "fA_end", "k": "out", "x": 60, "y": 700, "w": 380, "t": "End Result (A)", "b": "<p>ส่ง CTR / PO / Contract → Demand Satisfaction เพื่อ Operation ทุกสัปดาห์ เทียบ target และสัดส่วน GP (% ของแต่ละ RST เทียบทั้ง Corporate)</p>", "ac": "a1"}, {"id": "fA2", "k": "note", "x": 470, "y": 300, "w": 400, "t": "Scope of work: Tendering Platform Management", "b": "<ol><li>Recommend for Platform Development &amp; Expand Products / KA Scope</li><li>Work Assignment &amp; Recommendation → Develop OI to PO Received</li><li>Manage on Function Changing P1,T1 → P2,T2</li></ol>", "ac": "a1"}, {"id": "fA3", "k": "note", "x": 470, "y": 520, "w": 400, "t": "Scope of work: MM — focus PO Received → Business EBIT Target", "b": "<p>มุ่ง PO Received เพื่อสร้าง Business EBIT ตามเป้า</p>", "ac": "a1"}, {"id": "fA_s2", "k": "card", "x": 470, "y": 680, "w": 400, "t": "② by RS — Follow Up", "b": "<ul><li>Follow Up PO Received 4 Quarter ahead by Business</li><li>Summary PO Received 4Q ahead by Business (สำหรับ RS)</li><li>Information Flow &amp; Work Progress</li><li>End Result: ส่ง CTR/PO/Contract ทุกสัปดาห์ เทียบ target</li></ul>", "ac": "a1"}, {"id": "fB_rs", "k": "card", "x": 980, "y": 150, "w": 380, "t": "① RS Formulate List", "b": "<p>RS จัดทำ CTR, PO, Contract List ของแต่ละ Business ให้เป็นปัจจุบัน เพื่อเป็น execution สำหรับ <strong>RRC</strong></p>", "ac": "a3"}, {"id": "fB_op", "k": "note", "x": 980, "y": 320, "w": 380, "t": "② Operation &amp; Factory 4.0 Platform", "b": "<ul><li><strong>Group 1</strong> — Field, Control &amp; Supervision Level (Pilot: PEM104 &amp; PSL101 by ZTT)</li><li><strong>Group 2</strong> — Management &amp; Enterprise Level (ERP + Digital Workspace) สำหรับ Manufacturing &amp; Operation Project Management</li></ul>", "ac": "a3"}, {"id": "fB_info", "k": "card", "x": 980, "y": 540, "w": 380, "t": "③ Information Flow", "b": "<p>ติดตามความคืบหน้างาน และ problem management / control</p>", "ac": "a3"}, {"id": "fB_rrc", "k": "card", "x": 980, "y": 680, "w": 380, "t": "④ RRC List", "b": "", "ac": "a3"}, {"id": "fB_cd", "k": "out", "x": 980, "y": 800, "w": 380, "t": "Customer Delight Score / End Result", "b": "<p>ส่ง CTR / PO / Contract → Operation ทุกสัปดาห์ เทียบ target</p>", "ac": "a3"}, {"id": "fB_mss", "k": "role", "x": 1400, "y": 320, "w": 300, "t": "Management Support and Service", "b": "<p>ฐานรองรับงานร่วมของทุกหน่วย</p>"}, {"id": "fC1", "k": "card", "x": 1900, "y": 150, "w": 440, "t": "① Strategy 3 ระดับ · 4 ระยะ (JPP เสนอ)", "b": "<p>and Business Model, Business Plan &amp; Execution</p>", "ac": "a4"}, {"id": "fC2", "k": "card", "x": 1900, "y": 330, "w": 440, "t": "② Upskill / Reskill", "b": "<p>รองรับแผนกลยุทธ์ระยะที่ — แผน 2 (Forecasting), 3 (Reactive) และ Platform &amp; Ecosystem Capitalism</p><p style='margin-top:4px;color:#8093a6'>ปรึกษา: คุณแนน · คุณยู้ · คุณวิชัย</p>", "ac": "a4"}, {"id": "fC3", "k": "out", "x": 1900, "y": 520, "w": 440, "t": "③ Budgeting", "b": "", "ac": "a4"}],
+edges:[{"a": "ft", "b": "hA"}, {"a": "ft", "b": "hB"}, {"a": "ft", "b": "hC"}, {"a": "fA1", "b": "fA_bg"}, {"a": "fA_bg", "b": "fA_if"}, {"a": "fA_if", "b": "fA_end"}, {"a": "fA_bg", "b": "fA2", "style": "straight", "dash": "dashed"}, {"a": "fA2", "b": "fA3"}, {"a": "fA3", "b": "fA_s2"}, {"a": "fA_end", "b": "fB_rs", "label": "ส่งต่อ"}, {"a": "fA_s2", "b": "fB_rs", "dash": "dashed"}, {"a": "fB_rs", "b": "fB_op"}, {"a": "fB_op", "b": "fB_info"}, {"a": "fB_info", "b": "fB_rrc"}, {"a": "fB_rrc", "b": "fB_cd"}, {"a": "fB_op", "b": "fB_mss", "style": "straight", "dash": "dashed"}, {"a": "fC1", "b": "fC2"}, {"a": "fC2", "b": "fC3"}, {"a": "fC1", "b": "fA1", "dash": "dotted"}, {"a": "fC1", "b": "fB_rs", "dash": "dotted"}],
+draw:[], lineStyle:'elbow', avoid:true
+};}
+
 /* ============================ STATE ============================ */
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'strategy-mapping.html'};
 
@@ -559,19 +580,32 @@ var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.git
 function fileData(){ try{ var el=document.getElementById('board-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
 var FD=fileData();
 var baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
-function published(){ return (FD&&FD.cards&&FD.cards.length)?FD:seed(); }
 
-/* เลือก state: ใช้ working copy ใน localStorage ต่อเมื่อมันใหม่กว่าหรือเท่ากับเวอร์ชันที่ publish
-   (ถ้ามีใคร/เครื่องอื่น publish ใหม่กว่า → ใช้เวอร์ชันในไฟล์แทน) */
-var S=null;
+/* ---- เอกสารหลายชีต (Tabs) : DOC = {sheets:[{id,name,board}], active, savedAt} ----
+   รองรับข้อมูลเก่า (บอร์ดเดียว มี .cards) โดยห่อเป็น 1 ชีตอัตโนมัติ */
+function normBoard(b){ if(!b) return seed(); b.edges=(b.edges||[]).map(function(e){return Array.isArray(e)?{a:e[0],b:e[1]}:e;}); if(!Array.isArray(b.cards)) b.cards=[]; if(!Array.isArray(b.draw)) b.draw=[]; return b; }
+function docFromRaw(d){
+  if(!d) return null;
+  if(Array.isArray(d.sheets)) return d;                 /* new multi-sheet format */
+  if(d.cards) return {sheets:[{id:'main',name:'Strategy Mapping',board:d}], active:0, savedAt:d.savedAt||0};
+  return null;
+}
+function seedDoc(){ return {sheets:[{id:'main',name:'Strategy Mapping',board:seed()}], active:0, savedAt:0}; }
+
+var DOC=null, wasMultiSheet=false;
 try{
   var raw=localStorage.getItem(LSK);
-  if(raw){ var ls=JSON.parse(raw); if(ls&&ls.cards&&(ls.savedAt||0)>=baseSavedAt) S=ls; }
+  if(raw){ var ls=JSON.parse(raw); var lsd=docFromRaw(ls); if(lsd && ((typeof lsd.savedAt==='number'?lsd.savedAt:0)>=baseSavedAt)){ DOC=lsd; wasMultiSheet=Array.isArray(ls.sheets); } }
 }catch(e){}
-if(!S) S=published();
-if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
-/* edges may be legacy arrays [a,b] or objects {a,b,label,color} — normalise to objects */
-S.edges=(S.edges||[]).map(function(e){ return Array.isArray(e)?{a:e[0],b:e[1]}:e; });
+if(!DOC){ DOC=docFromRaw(FD)||seedDoc(); wasMultiSheet=!!(FD&&Array.isArray(FD.sheets)); }
+if(typeof DOC.savedAt!=='number') DOC.savedAt=baseSavedAt;
+DOC.sheets.forEach(function(sh){ sh.board=normBoard(sh.board); if(!sh.id) sh.id='s'+Math.random().toString(36).slice(2,7); });
+/* migrating from a single-board file → draft the “Platform Flow” sheet once
+   (a document that is already multi-sheet is respected as-is, so deleting the sheet sticks) */
+if(!wasMultiSheet && !DOC.sheets.some(function(sh){return sh.id==='flow';})) DOC.sheets.push({id:'flow', name:'Platform Flow', board:normBoard(seedFlow())});
+DOC.active=Math.min(Math.max(0,DOC.active||0), DOC.sheets.length-1);
+
+var S=DOC.sheets[DOC.active].board;
 
 var canvas=document.getElementById('canvas'),
     stage=document.getElementById('stage'),
@@ -590,7 +624,7 @@ function tip(msg){ tipEl.textContent=msg; tipEl.classList.add('show');
 /* ---- autosave to localStorage (best-effort; ไฟล์นี้ host บน Pages จึงใช้ได้) ---- */
 var saveT=null;
 function persistRaw(){
-  try{ localStorage.setItem(LSK, JSON.stringify(S));
+  try{ DOC.sheets[DOC.active].board=S; localStorage.setItem(LSK, JSON.stringify(DOC));
        saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450);
   }catch(e){ saveEl.textContent='● เก็บชั่วคราวไม่ได้ — ใช้ปุ่มบันทึกไฟล์'; }
 }
@@ -1118,12 +1152,11 @@ document.getElementById('bClear').addEventListener('click',function(){
   S.edges=[]; drawEdges(); persist(); tip('ลบเส้นทั้งหมดแล้ว');
 });
 document.getElementById('bReset').addEventListener('click',function(){
-  if(!confirm('คืนค่าเริ่มต้น? งานที่แก้ไว้ในหน้านี้จะถูกล้าง (ถ้าอยากเก็บ ให้กด “บันทึกไฟล์” ก่อน)')) return;
-  S=seed(); lineStyle='elbow'; avoid=true;
-  document.querySelectorAll('[data-ls]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-ls')==='elbow')});
-  bAvoid.classList.add('on');
-  try{ localStorage.removeItem(LSK); }catch(e){}
-  build(); persist(); tip('คืนค่าเริ่มต้นแล้ว');
+  if(!confirm('คืนค่าเริ่มต้นเฉพาะชีตนี้? งานที่แก้ไว้ในชีตนี้จะถูกล้าง (ถ้าอยากเก็บ ให้กด “บันทึกไฟล์” ก่อน)')) return;
+  S=(DOC.sheets[DOC.active].id==='flow')?seedFlow():seed(); DOC.sheets[DOC.active].board=S;
+  lineStyle=S.lineStyle||'elbow'; avoid=(typeof S.avoid==='boolean')?S.avoid:true;
+  syncModeButtons();
+  build(); persist(); tip('คืนค่าเริ่มต้นชีตนี้แล้ว');
 });
 /* bPrint handler อยู่ด้านล่าง (พิมพ์เป็นภาพเดียวกับ PNG) */
 
@@ -1314,7 +1347,7 @@ fo.addEventListener('change',function(){
     try{
       var o=JSON.parse(e.target.result);
       if(!o.cards) throw 0;
-      S=o;
+      S=normBoard(o); DOC.sheets[DOC.active].board=S;
       if(S.lineStyle){ lineStyle=S.lineStyle;
         document.querySelectorAll('[data-ls]').forEach(function(x){
           x.classList.toggle('on',x.getAttribute('data-ls')===lineStyle)});
@@ -1386,8 +1419,8 @@ async function publish(){
   var btn=document.getElementById('bPublish'), lbl=btn.textContent;
   btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
   sync();
-  var stamp=Date.now(), prev=S.savedAt;
-  S.savedAt=stamp;
+  var stamp=Date.now(), prev=DOC.savedAt;
+  DOC.savedAt=stamp;
   var base='/repos/'+GH.owner+'/'+GH.repo;
   function gh(method,path,body,accept){
     var h={Authorization:'token '+token, Accept: accept||'application/vnd.github+json'};
@@ -1401,10 +1434,11 @@ async function publish(){
     return res;
   }
   try{
-    /* 0) ย้ายรูปที่ฝังอยู่ (data URL) → ไฟล์ใน assets/board/ แล้วเก็บแค่ path (ไฟล์เล็กลงมาก) */
-    var imgEntries=[], seen={}, origImgs=[], moved=0;
-    for(var ci=0; ci<S.cards.length; ci++){
-      var cc=S.cards[ci]; if(!isDataURL(cc.img)) continue;
+    /* 0) ย้ายรูปที่ฝังอยู่ (data URL) → ไฟล์ใน assets/board/ แล้วเก็บแค่ path (ทุกชีต) */
+    var imgEntries=[], seen={}, origImgs=[], moved=0, allCards=[];
+    DOC.sheets.forEach(function(sh){ (sh.board.cards||[]).forEach(function(cc){ allCards.push({cc:cc, active: sh.board===S}); }); });
+    for(var ci=0; ci<allCards.length; ci++){
+      var cc=allCards[ci].cc; if(!isDataURL(cc.img)) continue;
       btn.textContent='⏳ ย่อ/อัปรูป '+(moved+1)+'…';
       var comp=await compressImg(cc.img);
       var pd=parseDataURL(comp); if(!pd) continue;
@@ -1416,8 +1450,8 @@ async function publish(){
         await must(ib,'อัปรูปไม่สำเร็จ'); var ibj=await ib.json();
         imgEntries.push({path:path, mode:'100644', type:'blob', sha:ibj.sha}); seen[path]=1;
       }
-      origImgs.push({i:ci, data:cc.img}); cc.img=path; imgCache[path]=comp;
-      var iel=cardEl(cc.id); var iim=iel&&iel.querySelector('.slot img'); if(iim) iim.dataset.path=path;
+      origImgs.push({cc:cc, data:cc.img, active:allCards[ci].active}); cc.img=path; imgCache[path]=comp;
+      if(allCards[ci].active){ var iel=cardEl(cc.id); var iim=iel&&iel.querySelector('.slot img'); if(iim) iim.dataset.path=path; }
       moved++;
     }
     btn.textContent='⏳ กำลังบันทึก…';
@@ -1426,7 +1460,8 @@ async function publish(){
     await must(rawRes,'อ่านไฟล์ไม่ได้');
     var text=await rawRes.text();
     if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
-    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    DOC.sheets[DOC.active].board=S;
+    var safe=JSON.stringify(DOC).replace(/</g,'\\u003c');
     var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
     /* 2) blob (รองรับถึง 100MB) */
     var blobRes=await gh('POST', base+'/git/blobs', {content:encodeB64(out), encoding:'base64'});
@@ -1447,8 +1482,8 @@ async function publish(){
     baseSavedAt=stamp; persist();
     tip('✓ บันทึกขึ้นเว็บแล้ว'+(moved?(' · ย้าย '+moved+' รูปไปเป็นไฟล์ในโฟลเดอร์แล้ว'):'')+' — live ใน ~1 นาที');
   }catch(e){
-    S.savedAt=prev;
-    if(typeof origImgs!=='undefined' && origImgs){ origImgs.forEach(function(o){ if(S.cards[o.i]){ S.cards[o.i].img=o.data; var el=cardEl(S.cards[o.i].id); var im=el&&el.querySelector('.slot img'); if(im){ im.removeAttribute('data-path'); im.src=o.data; } } }); }
+    DOC.savedAt=prev;
+    if(typeof origImgs!=='undefined' && origImgs){ origImgs.forEach(function(o){ o.cc.img=o.data; if(o.active){ var el=cardEl(o.cc.id); var im=el&&el.querySelector('.slot img'); if(im){ im.removeAttribute('data-path'); im.src=o.data; } } }); }
     tip('✗ '+(e&&e.message?e.message:'ผิดพลาด'));
   }finally{
     publishing=false; btn.disabled=false; btn.textContent=lbl;
@@ -1700,7 +1735,7 @@ function syncModeButtons(){
 }
 function loadState(json){
   restoring=true;
-  S=JSON.parse(json);
+  S=JSON.parse(json); DOC.sheets[DOC.active].board=S;
   S.edges=(S.edges||[]).map(function(e){return Array.isArray(e)?{a:e[0],b:e[1]}:e;});
   lineStyle=S.lineStyle||'elbow'; avoid=(typeof S.avoid==='boolean')?S.avoid:true; snap=(typeof S.snap==='boolean')?S.snap:false;
   activeCard=null; activeEdgeIdx=-1;
@@ -1711,6 +1746,61 @@ function undo(){ if(hi>0){ hi--; loadState(hist[hi]); tip('ย้อนกลั
 function redo(){ if(hi<hist.length-1){ hi++; loadState(hist[hi]); tip('ทำซ้ำแล้ว'); } else tip('ไม่มีให้ทำซ้ำแล้ว'); }
 document.getElementById('bUndo').addEventListener('click',undo);
 document.getElementById('bRedo').addEventListener('click',redo);
+
+/* ============================ SHEETS (TABS) ============================ */
+var sheetTabsEl=document.getElementById('sheetTabs');
+function renderSheets(){
+  var h='';
+  DOC.sheets.forEach(function(sh,i){
+    h+='<div class="stab'+(i===DOC.active?' on':'')+'" data-si="'+i+'" title="ดับเบิลคลิกเพื่อเปลี่ยนชื่อ">'+
+       '<span class="snm">'+escapeHtml(sh.name||('ชีต '+(i+1)))+'</span>'+
+       (DOC.sheets.length>1?'<span class="x" data-del="'+i+'" title="ลบชีต">✕</span>':'')+'</div>';
+  });
+  sheetTabsEl.innerHTML=h;
+}
+function escapeHtml(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function switchSheet(i){
+  if(i===DOC.active || i<0 || i>=DOC.sheets.length) return;
+  sync();
+  DOC.active=i; S=DOC.sheets[i].board;
+  lineStyle=S.lineStyle||'elbow'; avoid=(typeof S.avoid==='boolean')?S.avoid:true; snap=(typeof S.snap==='boolean')?S.snap:false;
+  activeCard=null; activeEdgeIdx=-1; selected=[];
+  hist=[]; hi=-1;                       /* undo/redo per active sheet */
+  syncModeButtons(); build(); renderInspector(); renderSheets(); recordHistory(); persistRaw();
+  setZoom((stage.clientWidth-24)/canvas.offsetWidth);
+  tip('ชีต: '+(DOC.sheets[i].name||''));
+}
+function addSheet(){
+  sync();
+  var n=DOC.sheets.length+1;
+  DOC.sheets.push({id:'s'+Date.now().toString(36), name:'ชีต '+n, board:normBoard(seed())});
+  switchSheet(DOC.sheets.length-1);
+  tip('เพิ่มชีตใหม่แล้ว · ดับเบิลคลิกแท็บเพื่อเปลี่ยนชื่อ');
+}
+function deleteSheet(i){
+  if(DOC.sheets.length<=1) return;
+  if(!confirm('ลบชีต “'+(DOC.sheets[i].name||'')+'” ? (ลบเฉพาะชีตนี้)')) return;
+  DOC.sheets.splice(i,1);
+  if(DOC.active>=DOC.sheets.length) DOC.active=DOC.sheets.length-1;
+  else if(i<DOC.active) DOC.active--;
+  S=DOC.sheets[DOC.active].board;
+  lineStyle=S.lineStyle||'elbow'; avoid=(typeof S.avoid==='boolean')?S.avoid:true; snap=(typeof S.snap==='boolean')?S.snap:false;
+  activeCard=null; activeEdgeIdx=-1; selected=[]; hist=[]; hi=-1;
+  syncModeButtons(); build(); renderInspector(); renderSheets(); recordHistory(); persistRaw();
+  tip('ลบชีตแล้ว');
+}
+sheetTabsEl.addEventListener('click',function(e){
+  var del=e.target.closest('.x[data-del]');
+  if(del){ e.stopPropagation(); deleteSheet(+del.dataset.del); return; }
+  var tab=e.target.closest('.stab'); if(tab) switchSheet(+tab.dataset.si);
+});
+sheetTabsEl.addEventListener('dblclick',function(e){
+  var tab=e.target.closest('.stab'); if(!tab) return;
+  var i=+tab.dataset.si, cur=DOC.sheets[i].name||'';
+  var nm=prompt('ชื่อชีต:', cur); if(nm===null) return;
+  DOC.sheets[i].name=nm.trim()||cur; renderSheets(); persistRaw();
+});
+document.getElementById('bAddSheet').addEventListener('click',addSheet);
 
 /* snap toggle */
 document.getElementById('bSnap').addEventListener('click',function(){
@@ -2086,6 +2176,7 @@ window.addEventListener('afterprint',function(){ setZoom(window._z||1) });
 build();
 syncModeButtons();
 renderInspector();
+renderSheets();
 recordHistory();      /* seed undo history with the loaded state */
 updateUndoUI();
 setTimeout(function(){ setZoom((stage.clientWidth-24)/canvas.offsetWidth); },80);
