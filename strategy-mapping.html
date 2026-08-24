@@ -708,6 +708,21 @@ function addCardLinkBadge(el,c){
 /* ---------- image externalization (เก็บรูปเป็นไฟล์ใน assets/board/ ไม่ฝัง base64) ---------- */
 var imgCache={}, IMG_DIR='assets/board/';
 function isDataURL(s){ return typeof s==='string' && /^data:/.test(s); }
+/* คืน data URL ของรูป (สำหรับฝังลง PNG/PDF) — assets อยู่ origin เดียวกัน วาดลง canvas ได้ไม่ taint */
+function imgToDataURL(im){
+  try{
+    var cur=im.getAttribute('src')||'';
+    if(isDataURL(cur)) return cur;
+    var pth=im.getAttribute('data-path');
+    if(pth && isDataURL(imgCache[pth])) return imgCache[pth];
+    if(!im.complete || !im.naturalWidth) return null;
+    var c=document.createElement('canvas'); c.width=im.naturalWidth; c.height=im.naturalHeight;
+    c.getContext('2d').drawImage(im,0,0);
+    var du=c.toDataURL('image/png');
+    if(pth) imgCache[pth]=du;      /* จำไว้ใช้ครั้งต่อไป */
+    return du;
+  }catch(e){ return null; }
+}
 function parseDataURL(d){ var m=/^data:([^;]+);base64,(.*)$/.exec(d||''); if(!m) return null;
   var mime=m[1], b64=m[2], bin=atob(b64), bytes=new Uint8Array(bin.length);
   for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i); return {mime:mime,b64:b64,bytes:bytes}; }
@@ -1826,11 +1841,28 @@ document.addEventListener('fullscreenchange',function(){ if(!document.fullscreen
 /* เรนเดอร์บอร์ดเป็นรูป PNG (ตาม content bbox, 2x) — ใช้ร่วมกันทั้ง PNG และ PDF */
 function renderBoardImage(cb){
   sync(); fitCanvas();
+  /* รอรูปที่ยังโหลดไม่เสร็จก่อน (กัน CDN ช้า) แล้วค่อยเรนเดอร์ */
+  var live=Array.prototype.slice.call(canvas.querySelectorAll('.slot img'));
+  var pending=live.filter(function(im){ return im.getAttribute('src') && (!im.complete || !im.naturalWidth); });
+  var started=false; function go(){ if(started) return; started=true; _renderBoardImage(cb, live); }
+  if(pending.length){ var left=pending.length;
+    pending.forEach(function(im){ var h=function(){ if(--left<=0) go(); };
+      im.addEventListener('load',h,{once:true}); im.addEventListener('error',h,{once:true}); });
+    setTimeout(go, 3000);
+  } else go();
+}
+function _renderBoardImage(cb, liveImgs){
   var CW=canvas.offsetWidth, CH=canvas.offsetHeight, b=contentBBox(), scale=2;
   var clone=canvas.cloneNode(true); clone.style.transform='none'; clone.style.width=CW+'px'; clone.style.height=CH+'px';
   clone.querySelectorAll('.sel,.found').forEach(function(n){ n.classList.remove('sel'); n.classList.remove('found'); });
   clone.querySelectorAll('.hd,.rsz,.sact,#marquee,.anchor-dot').forEach(function(n){n.remove()});
   clone.querySelectorAll('[contenteditable]').forEach(function(n){n.removeAttribute('contenteditable')});
+  /* ฝังรูปในกล่องเป็น data URL เพื่อให้ออกมาในภาพ/PDF ด้วย */
+  var cloneImgs=clone.querySelectorAll('.slot img');
+  for(var ii=0; ii<cloneImgs.length && ii<liveImgs.length; ii++){
+    var du=imgToDataURL(liveImgs[ii]);
+    if(du){ cloneImgs[ii].setAttribute('src',du); cloneImgs[ii].removeAttribute('data-path'); }
+  }
   var styleText=''; document.querySelectorAll('style').forEach(function(s){styleText+=s.textContent;});
   var inner=new XMLSerializer().serializeToString(clone);
   var html='<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+CW+'px;height:'+CH+'px;background:#fff"><style>'+styleText+'</style>'+inner+'</div>';
