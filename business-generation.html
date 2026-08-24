@@ -81,6 +81,7 @@ td.ctrl button[data-act="type"]{color:var(--blue2);font-weight:800}
 body:not(.edit) .ctrl{display:none}
 td.ctrl,th.ctrl{width:96px;white-space:nowrap;text-align:center;background:#fff;border-left:2px solid var(--line)}
 td.ctrl button{padding:2px 5px;font-size:11px;margin:1px;text-transform:none}
+td.merged{background:#F3F8FC;vertical-align:middle}
 [contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:-2px}
 body.edit tbody td[contenteditable]{cursor:text}
 body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
@@ -127,6 +128,8 @@ body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
   <button id="bAddRow">＋ แถว</button>
   <button id="bAddCol">＋ คอลัมน์</button>
   <button id="bAddYear" title="เพิ่มกลุ่มปีใหม่ (เช่น Target PO Received)">＋ กลุ่มปี</button>
+  <button id="bMerge" title="รวมช่อง — ลากคลุมช่องที่ติดกันก่อน แล้วกด">⬒ รวมช่อง</button>
+  <button id="bUnmerge" title="แยกช่องที่รวมไว้ — คลิกในช่องที่รวม แล้วกด">⬓ แยกช่อง</button>
   <div class="sep"></div>
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
   <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
@@ -253,6 +256,44 @@ S.colw.length=S.cols.length;
 function delColBtn(i){ return editMode ? '<div class="th-tools"><button data-mv="-1" data-c="'+i+'" title="เลื่อนซ้าย">◀</button><button class="delcol" data-delcol="'+i+'" title="ลบคอลัมน์">✕</button><button data-mv="1" data-c="'+i+'" title="เลื่อนขวา">▶</button></div>' : ''; }
 function txt(html){ var d=document.createElement('div'); d.innerHTML=html||''; return (d.textContent||'').trim(); }
 
+/* ---- merge cells (รวมช่อง) : S.merges = [{r,c,rs,cs}] ---- */
+if(!Array.isArray(S.merges)) S.merges=[];
+function mAnchor(r,c){ for(var i=0;i<S.merges.length;i++){ var m=S.merges[i]; if(m.r===r&&m.c===c) return m; } return null; }
+function mCovered(r,c){ for(var i=0;i<S.merges.length;i++){ var m=S.merges[i]; if(r>=m.r&&r<m.r+m.rs&&c>=m.c&&c<m.c+m.cs&&!(r===m.r&&c===m.c)) return true; } return false; }
+function mOnRowInsert(k){ S.merges.forEach(function(m){ if(m.r>=k) m.r++; else if(k<m.r+m.rs) m.rs++; }); }
+function mOnRowDelete(k){ S.merges=S.merges.filter(function(m){ if(k<m.r){ m.r--; return true; } if(k>=m.r+m.rs) return true; m.rs--; return (m.rs>1||m.cs>1); }); }
+function mOnColInsert(k){ S.merges.forEach(function(m){ if(m.c>=k) m.c++; else if(k<m.c+m.cs) m.cs++; }); }
+function mOnColDelete(k){ S.merges=S.merges.filter(function(m){ if(k<m.c){ m.c--; return true; } if(k>=m.c+m.cs) return true; m.cs--; return (m.rs>1||m.cs>1); }); }
+function mDropRows(a,b){ S.merges=S.merges.filter(function(m){ return m.r+m.rs-1<a || m.r>b; }); }
+function mDropCols(a,b){ S.merges=S.merges.filter(function(m){ return m.c+m.cs-1<a || m.c>b; }); }
+function selCellRange(){
+  var s=window.getSelection(); if(!s||!s.rangeCount) return null;
+  function cellOf(node){ node=node&&(node.nodeType===1?node:node.parentNode); return node&&node.closest?node.closest('td[data-r]'):null; }
+  var a=cellOf(s.anchorNode), b=cellOf(s.focusNode); if(!a||!b) return null;
+  return {r0:Math.min(+a.dataset.r,+b.dataset.r), r1:Math.max(+a.dataset.r,+b.dataset.r),
+          c0:Math.min(+a.dataset.c,+b.dataset.c), c1:Math.max(+a.dataset.c,+b.dataset.c)};
+}
+function doMerge(){
+  var g=selCellRange(); if(!g){ tip('ลากคลุมช่องที่จะรวมก่อน (คลุมข้ามช่อง)'); return; }
+  if(g.r0===g.r1 && g.c0===g.c1){ tip('เลือกอย่างน้อย 2 ช่องที่ติดกัน'); return; }
+  syncAll();
+  var changed=true;
+  while(changed){ changed=false; S.merges=S.merges.filter(function(m){
+    var overlap=!(m.c+m.cs-1<g.c0||m.c>g.c1||m.r+m.rs-1<g.r0||m.r>g.r1);
+    if(overlap){ g.r0=Math.min(g.r0,m.r); g.c0=Math.min(g.c0,m.c); g.r1=Math.max(g.r1,m.r+m.rs-1); g.c1=Math.max(g.c1,m.c+m.cs-1); changed=true; return false; }
+    return true; }); }
+  S.merges.push({r:g.r0,c:g.c0,rs:g.r1-g.r0+1,cs:g.c1-g.c0+1});
+  render(); persist(); tip('รวมช่องแล้ว ('+(g.r1-g.r0+1)+'×'+(g.c1-g.c0+1)+')');
+}
+function doUnmerge(){
+  var g=selCellRange(); if(!g){ tip('คลิกในช่องที่รวมไว้ก่อน'); return; }
+  syncAll();
+  var before=S.merges.length;
+  S.merges=S.merges.filter(function(m){ return (m.c+m.cs-1<g.c0||m.c>g.c1||m.r+m.rs-1<g.r0||m.r>g.r1); });
+  if(S.merges.length===before){ tip('ไม่พบช่องที่รวมในบริเวณนี้'); return; }
+  render(); persist(); tip('แยกช่องแล้ว');
+}
+
 function grpTools(i){ return editMode ? '<div class="th-tools grp-tools"><button data-addyr="'+i+'" title="เพิ่มปีในกลุ่มนี้">＋ปี</button></div>' : ''; }
 function render(){
   document.getElementById('hdTitle').textContent=S.title||'';
@@ -282,8 +323,8 @@ function render(){
     var isGrp=txt(row[0])!=='', rt=S.rtype[ri];
     var cls=((isGrp?'grp ':'')+(rt==='sub'?'total ':'')+(rt==='grand'?'grand ':'')).trim();
     h+='<tr class="'+cls+'" data-row="'+ri+'">';
-    for(var c=0;c<n;c++){ var comp=isComputed(ri,c);
-      h+='<td class="'+colClass(c)+(comp?' calc':'')+'" data-r="'+ri+'" data-c="'+c+'"'+(comp?' data-ro="1"':' contenteditable="'+ce+'"')+'>'+cellDisplay(ri,c)+'</td>'; }
+    for(var c=0;c<n;c++){ if(mCovered(ri,c)) continue; var comp=isComputed(ri,c); var _m=mAnchor(ri,c), _sp=_m?(' rowspan="'+_m.rs+'" colspan="'+_m.cs+'"'):'';
+      h+='<td class="'+colClass(c)+(comp?' calc':'')+(_m?' merged':'')+'" data-r="'+ri+'" data-c="'+c+'"'+_sp+(comp?' data-ro="1"':' contenteditable="'+ce+'"')+'>'+cellDisplay(ri,c)+'</td>'; }
     h+='<td class="ctrl">'+
        '<button data-act="type" data-r="'+ri+'" title="ชนิดแถว: ปกติ → รวมกลุ่ม → รวมทั้งหมด">Σ</button>'+
        '<button data-act="up" data-r="'+ri+'" title="ขึ้น">↑</button>'+
@@ -322,10 +363,10 @@ tbl.addEventListener('click',function(e){
   if(dc){ e.preventDefault(); delColumn(+dc.dataset.delcol); return; }
   var b=e.target.closest('button[data-act]'); if(!b) return;
   syncAll(); var ri=+b.dataset.r, act=b.dataset.act;
-  if(act==='del'){ if(S.rows.length>1 && confirm('ลบแถวนี้?')){ S.rows.splice(ri,1); S.rtype.splice(ri,1); } }
-  else if(act==='ins'){ S.rows.splice(ri+1,0,blankRow()); S.rtype.splice(ri+1,0,'data'); }
-  else if(act==='up'){ if(ri>0) swapRow(ri,ri-1); }
-  else if(act==='down'){ if(ri<S.rows.length-1) swapRow(ri,ri+1); }
+  if(act==='del'){ if(S.rows.length>1 && confirm('ลบแถวนี้?')){ S.rows.splice(ri,1); S.rtype.splice(ri,1); mOnRowDelete(ri); } }
+  else if(act==='ins'){ S.rows.splice(ri+1,0,blankRow()); S.rtype.splice(ri+1,0,'data'); mOnRowInsert(ri+1); }
+  else if(act==='up'){ if(ri>0){ mDropRows(ri-1,ri); swapRow(ri,ri-1); } }
+  else if(act==='down'){ if(ri<S.rows.length-1){ mDropRows(ri,ri+1); swapRow(ri,ri+1); } }
   else if(act==='type'){ S.rtype[ri]=(S.rtype[ri]==='data')?'sub':(S.rtype[ri]==='sub'?'grand':'data'); tip('แถวนี้: '+({data:'ปกติ',sub:'รวมกลุ่ม (Subtotal)',grand:'รวมทั้งหมด (Grand Total)'}[S.rtype[ri]])); }
   render(); persist();
 });
@@ -336,13 +377,13 @@ function delColumn(i){
   if(!confirm('ลบคอลัมน์ “'+txt(S.cols[i])+'” ทั้งคอลัมน์?')) return;
   syncAll();
   ['cols','colw','grp','kind','calc'].forEach(function(a){ S[a].splice(i,1); });
-  S.rows.forEach(function(r){ r.splice(i,1); });
+  S.rows.forEach(function(r){ r.splice(i,1); }); mOnColDelete(i);
   render(); persist(); tip('ลบคอลัมน์แล้ว');
 }
 function moveColumn(i,dir){
   var j=i+dir; if(j<0||j>=S.cols.length) return;
   if((S.grp[i]||'')!==(S.grp[j]||'')){ tip('ย้ายได้ภายในกลุ่มเดียวกัน'); return; }
-  syncAll();
+  syncAll(); mDropCols(Math.min(i,j),Math.max(i,j));
   ['cols','colw','grp','kind','calc'].forEach(function(a){ var t=S[a][i]; S[a][i]=S[a][j]; S[a][j]=t; });
   S.rows.forEach(function(r){ var v=r[i]; r[i]=r[j]; r[j]=v; });
   render(); persist(); tip('สลับคอลัมน์แล้ว');
@@ -351,6 +392,7 @@ function insertColAt(at,label,grp,kind,calc,w){
   S.cols.splice(at,0,label); S.colw.splice(at,0,w||(kind==='text'?140:64));
   S.grp.splice(at,0,grp||''); S.kind.splice(at,0,kind||'text'); S.calc.splice(at,0,calc||null);
   S.rows.forEach(function(r){ r.splice(at,0,''); });
+  mOnColInsert(at);
 }
 function addYearToGroup(gi){
   syncAll(); var label=S.grp[gi]; if(!label) return;
@@ -362,6 +404,8 @@ function addYearToGroup(gi){
 document.getElementById('bAddRow').addEventListener('click',function(){ syncAll(); S.rows.push(blankRow()); S.rtype.push('data'); render(); persist(); tip('เพิ่มแถวแล้ว'); });
 document.getElementById('bAddCol').addEventListener('click',function(){ syncAll(); insertColAt(S.cols.length,'คอลัมน์ใหม่','','text',null,140); render(); persist(); tip('เพิ่มคอลัมน์แล้ว'); });
 document.getElementById('bAddYear').addEventListener('click',function(){ syncAll(); insertColAt(S.cols.length,'25xx','กลุ่มปีใหม่','num',null,64); render(); persist(); tip('เพิ่มกลุ่มปีใหม่ (แก้ชื่อกลุ่ม + ＋ปี ในหัวกลุ่ม)'); });
+document.getElementById('bMerge').addEventListener('mousedown',function(e){ e.preventDefault(); if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; } doMerge(); });
+document.getElementById('bUnmerge').addEventListener('mousedown',function(e){ e.preventDefault(); if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; } doUnmerge(); });
 
 /* column resize (ลากปรับความกว้าง) */
 var rzDrag=null;
@@ -420,6 +464,7 @@ fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var f
   while(S.kind.length<S.cols.length) S.kind.push('text'); S.kind.length=S.cols.length;
   while(S.calc.length<S.cols.length) S.calc.push(null); S.calc.length=S.cols.length;
   while(S.rtype.length<S.rows.length) S.rtype.push('data'); S.rtype.length=S.rows.length;
+  if(!Array.isArray(S.merges)) S.merges=[];
   render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
 document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
 
