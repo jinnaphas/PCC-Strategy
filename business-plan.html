@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Business Plan Execution (ระดับ 7–9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F0F4F8;--card:#FFFFFF;--ink:#1E3A5F;--mute:#5A6E88;--line:#D3DEEA;
+  --blue:#0077B6;--blue2:#005A8E;--orange:#F7941D;--green:#2E7D32;--hi:#F5B301}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1100px 620px at 50% -12%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+h1{font-family:'Inter','Sarabun',sans-serif;margin:0}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 14px;background:rgba(240,244,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.sep{width:1px;height:22px;background:var(--line);margin:0 3px}
+.lbl{font-family:'Inter';font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93A6BA}
+button{font-family:'Inter','Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
+button:hover{border-color:var(--blue);color:var(--blue)}
+button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.5;cursor:default}
+a.back{font-family:'Inter';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+  text-decoration:none;color:#41566E;border:1px solid var(--line);padding:6px 9px;border-radius:6px}
+a.back:hover{border-color:var(--blue);color:var(--blue)}
+#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto;transition:color .25s}
+#autosave.hit{color:var(--green)}
+.tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
+  padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
+.tip.show{opacity:.96}
+.wrap{max-width:1900px;margin:0 auto;padding:18px 16px 90px}
+.hd-title{font-size:22px;font-weight:800;color:var(--blue2);margin:0 0 2px}
+.hd-sub{font-size:12.5px;color:var(--mute);margin:0 0 12px;line-height:1.5}
+/* summary + filters */
+.dash{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 13px;font-size:12px;display:flex;gap:8px;align-items:baseline}
+.stat b{font-family:'Inter';font-size:16px;color:var(--blue2)}
+.stat.warn b{color:#C0392B}
+.lvchip{font-family:'Inter';font-size:11px;font-weight:700;background:#EAF3FA;border:1px solid #CBDEF0;border-radius:14px;padding:3px 10px;color:var(--blue2)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px;font-size:12px}
+.filters select,.filters input[type=search]{font-family:'Sarabun';font-size:12.5px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+.filters label.ck{display:inline-flex;gap:5px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 10px;cursor:pointer}
+/* table */
+.tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 18px rgba(30,58,95,.07);background:#fff}
+table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1760px;font-size:12.5px}
+thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:11.5px;
+  padding:7px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:sticky;top:0;z-index:5}
+thead th.oi{background:#0a5b8c}
+tbody td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;white-space:pre-wrap;line-height:1.5;
+  color:#26384d;font-size:calc(12.5px * var(--tfs,1));overflow-wrap:anywhere}
+tr.comp-h td{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:800;font-size:13px;padding:8px 12px;border-color:#14496e}
+tr.unit-h td{background:#E4EEF7;color:var(--blue2);font-weight:800;font-size:12.5px;padding:6px 12px;border-top:2px solid var(--blue2)}
+tr.unit-h td .cnt{font-weight:600;color:#7d93aa;font-size:11px}
+td.person{width:230px;background:#F8FBFE}
+td.person .nm{font-weight:800;color:var(--ink)}
+td.person .ps{font-size:11px;color:var(--mute);margin-top:2px;line-height:1.4}
+.lv{display:inline-block;font-family:'Inter';font-size:10px;font-weight:800;color:#fff;border-radius:6px;padding:1px 8px;margin-top:5px}
+.lv.l9{background:#5B34A6}.lv.l8{background:#0077B6}.lv.l7{background:#3E8A2E}
+td.bp-c{background:#F2F8FC;font-weight:700}
+td.out-c{background:#F2F8FC}td.oc-c{background:#F0F8F1}td.im-c{background:#FFF7EC}
+.tag{display:inline-block;font-family:'Inter';font-size:9.5px;font-weight:800;border-radius:5px;padding:2px 7px;margin:1px 3px 1px 0;color:#fff;cursor:default}
+.t-STEM{background:#7B4FC9}.t-IT{background:#0077B6}.t-AI{background:#E8484F}.t-Automation{background:#E8820E}
+.tag.off{background:#E7EDF4;color:#9AACBE}
+body.edit .tag{cursor:pointer}
+.st{display:inline-block;font-size:11px;font-weight:700;border-radius:12px;padding:2px 9px;background:#F1F4F8;color:#7d93aa;cursor:default}
+.st.s1{background:#FFF3D6;color:#C98A00}.st.s2{background:#E3F3E4;color:var(--green)}
+body.edit .st{cursor:pointer}
+.doc{display:inline-flex;align-items:center;gap:4px;font-family:'Inter','Sarabun';font-size:11px;font-weight:700;text-decoration:none;
+  color:var(--orange);background:#FFF4E4;border:1px solid #F6D9AD;padding:2px 9px;border-radius:14px;margin-top:3px}
+.doc:hover{background:var(--orange);color:#fff}
+.doc .rm{opacity:.7}.doc .rm:hover{color:#C0392B}
+td.ctrl{width:86px;white-space:nowrap;text-align:center;background:#fff}
+td.ctrl button{padding:2px 5px;font-size:11px;margin:1px;text-transform:none;border-color:transparent;background:transparent}
+td.ctrl button:hover{background:#EAF3FA}
+td.ctrl .del:hover{background:#C0392B;color:#fff}
+body:not(.edit) td.ctrl,body:not(.edit) th.ctrl{display:none}
+tr.unassigned td.empty{background:#FDF3F2;color:#B0392B;text-align:center;font-weight:600}
+tr.unassigned td.empty button{margin-left:10px;text-transform:none;border-color:#E4B7B2;color:#B0392B}
+tr.unassigned td.empty button:hover{background:#B0392B;color:#fff}
+[contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:-2px}
+body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
+#tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+.tp-row{display:flex;gap:6px;margin-top:9px}
+#tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+@media print{.bar,.tip,#tokPanel,.filters,td.ctrl,th.ctrl,.doc .rm{display:none!important}
+  body{background:#fff}.wrap{max-width:none;padding:0}.tbl-scroll{overflow:visible;border:none;box-shadow:none}
+  table{min-width:0;font-size:9.5px}thead th{position:static}@page{size:A3 landscape;margin:8mm}}
+</style>
+</head>
+<body class="edit">
+
+<!--PLAN_DATA_START-->
+<script id="plan-data" type="application/json">{"savedAt":0}</script>
+<!--PLAN_DATA_END-->
+
+<div class="bar">
+  <div class="brand"><b>Business Plan Execution</b><span>ระดับ 7–9 · PCC Strategy</span></div>
+  <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
+  <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
+  <div class="sep"></div>
+  <span class="lbl">อักษร</span>
+  <button id="fsDn">A−</button><button id="fsUp">A+</button>
+  <div class="sep"></div>
+  <button id="bAddPerson" title="เพิ่มพนักงานใหม่เข้ารายชื่อ">＋ พนักงาน</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
+  <div class="sep"></div>
+  <button id="bSave">บันทึกไฟล์</button>
+  <button id="bOpen">เปิดไฟล์</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel">
+  <h4>GitHub Token (PAT)</h4>
+  <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้าอื่น · ต้องมีสิทธิ์ <b>repo / contents write</b></p>
+  <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
+  <div class="tp-row"><button id="tokSave" class="pub">บันทึก token</button><button id="tokClear">ลบ token</button><button id="tokClose">ปิด</button></div>
+  <div id="tokState"></div>
+</div>
+
+<div class="wrap">
+  <h1 class="hd-title" id="hdTitle" contenteditable="true"></h1>
+  <p class="hd-sub" id="hdSub" contenteditable="true"></p>
+  <div class="dash" id="dash"></div>
+  <div class="filters">
+    <span class="lbl">กรอง</span>
+    <select id="fComp"><option value="">บริษัท: ทั้งหมด</option></select>
+    <select id="fUnit"><option value="">หน่วยงาน: ทั้งหมด</option></select>
+    <select id="fLvl"><option value="">ระดับ: ทั้งหมด</option></select>
+    <select id="fMeans"><option value="">Means: ทั้งหมด</option><option>STEM</option><option>IT</option><option>AI</option><option>Automation</option></select>
+    <label class="ck"><input type="checkbox" id="fUn"> เฉพาะที่ยังไม่ได้มอบหมาย</label>
+    <input type="search" id="fQ" placeholder="🔍 ค้นหาชื่อ / หน่วยงาน / โครงการ">
+  </div>
+  <div class="tbl-scroll"><table id="tbl"></table></div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+var LSK='pcc_plan79_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'business-plan.html'};
+var FILE_DIR='assets/plan/';
+var MEANS=['STEM','IT','AI','Automation'];
+var LVORD={'9A':0,'9B':1,'8A':2,'8B':3,'7A':4,'7B':5};
+function lvOrd(l){ return (LVORD[l]===undefined)?9:LVORD[l]; }
+var STATUS=[['s0','⚪ ยังไม่เริ่ม'],['s1','🟡 กำลังทำ'],['s2','🟢 เสร็จ']];
+
+function seed(){ return {
+  savedAt:0, fs:1,
+  title:'Business Plan → Execution (พนักงานระดับ 7–9)',
+  sub:'กระจายโครงการจาก Business Plan แผนระยะที่ 2 ให้พนักงานระดับ 7–9 รับผิดชอบรายคน · Business Plan → Action Plan (รวม Technical & Operation) → Ways → Means (STEM · IT · AI · Automation) → Output · Outcome · Impact → Individual Performance',
+  people: [{"id": "621513", "name": "นางสาว นนท์ลดา ฤกษ์อนันต์", "pos": "Senior Division Manager (DM2)", "lvl": "8B", "comp": "PEM", "unit": "Accounting Management", "assigns": []}, {"id": "530533", "name": "นางสาว ยุวรี ประสพมงคล", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Accounting Management", "assigns": []}, {"id": "450236", "name": "นาง สัณหรัตน์ ปิลันธนภาคย์", "pos": "Company(or Corporate) Service & Support Manager (CSM1)", "lvl": "8A", "comp": "PEM", "unit": "Business Logistic and Vendor Management Division", "assigns": []}, {"id": "550685", "name": "นาย คงกวี ผลาผล", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Commercial & Technical Proposal Team", "assigns": []}, {"id": "420168", "name": "นางสาว ทิตยาภรณ์ บัวแก้ว", "pos": "Business Manager (BM1)", "lvl": "9A", "comp": "PEM", "unit": "Customer Capital and Channel Member & Key Account Customer Management Office", "assigns": []}, {"id": "380091", "name": "นาย เกียรติศักดิ์ สารพิมพ์", "pos": "Senior Business Support Manager (BSM2)", "lvl": "9A", "comp": "PEM", "unit": "Customer Capital and Channel Member & Key Account Customer Management Office", "assigns": []}, {"id": "440208", "name": "นาย รัฐพงษ์ สุภเจริญผล", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Customer Value Management & SME Section (PEA)", "assigns": []}, {"id": "420174", "name": "นาย บรรหาร เขียวอำพร", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Customer Value Management Division", "assigns": []}, {"id": "570807", "name": "นางสาว ปัทมนันท์ สุขปรุง", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Data & Intelligence Capital Team", "assigns": []}, {"id": "460296", "name": "ว่าที่ร้อยเอก วรวัฒน์ ดวงแก้วมณี", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Digital & Physical Calibration Center", "assigns": []}, {"id": "631739", "name": "นางสาว มนพร พงศ์สิทธิศาสตร์", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Digital Business Architecture (DBA)", "assigns": []}, {"id": "540583", "name": "นาย รัฐกูร ปั้นจันทร์", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Digital Process Capital", "assigns": []}, {"id": "350034", "name": "นาย มณฑล สินลอย", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Digital Process Capital (ISO / Digital Manual) and Business Analyst Team", "assigns": []}, {"id": "631766", "name": "นาย กิติกร สืบศรีชัย", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Digital and Automation Development for Production and Operation Management (DE, Factory 4.0)", "assigns": []}, {"id": "510455", "name": "นาย ชัยธวัช ปรากฏกาญจนา", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Digital and Automation Development for Production and Operation Management (DE, Factory 4.0)", "assigns": []}, {"id": "570843", "name": "นางสาว อัจฉรา คำอ้น", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "ESG & Sustainable Development and Safety Management", "assigns": []}, {"id": "390126", "name": "นางสาว อรอินทร์ ทรัพย์ประเสริฐ", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Financial Management", "assigns": []}, {"id": "390116", "name": "นางสาว ทรัสตี มั่นเฮง", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Foreign Trade Section", "assigns": []}, {"id": "550621", "name": "นาย สรยศ สัมฤทธิ์", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Government & Water Utility Section", "assigns": []}, {"id": "621469", "name": "นาย อำนวย เต็มปิยพล", "pos": "Project Manager", "lvl": "7B", "comp": "PEM", "unit": "Installation, Commissioning, Maintenance and Services Section", "assigns": []}, {"id": "500392", "name": "นาย ณรัฐกรณ์ แก้วอ้น", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Main Contractor (for End user, Electric Utility & Electric Railway Business) Section", "assigns": []}, {"id": "651998", "name": "นาย ศุภฤกษ์ ประกอบกิจ", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Main Contractors,Channel Member and MEA, PEA, Regional Better Care Section", "assigns": []}, {"id": "360054", "name": "นางสาว ศุภารมย์ สรณ์สิริศุภากร", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Managerial & Cost Accounting Management", "assigns": []}, {"id": "530492", "name": "นางสาว กนกวรรณ แป้นด้วง", "pos": "Senior Products Manager (PM2)", "lvl": "9B", "comp": "PEM", "unit": "Metal Fabrication and Enclosure Business", "assigns": []}, {"id": "340019", "name": "นางสาว สุปราณี ธิปฏิสนธิ", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Outbound Logistics Section II", "assigns": []}, {"id": "601199", "name": "นางสาว ณิชาภา บุญเรือง", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "PEA Regional & Channel Member Section", "assigns": []}, {"id": "540586", "name": "นางสาว สุธาทิพย์ ไชยพลบาล", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Polymer Product and Electrical Equipment Business", "assigns": []}, {"id": "530532", "name": "นางสาว กาญจนา ชีวะพานิช", "pos": "Assistant Chief Operating Officer RS (ACOO RS1)", "lvl": "8A", "comp": "PEM", "unit": "Precise Electric Manufacturing (Head Office) (COO)", "assigns": []}, {"id": "530503", "name": "นาย อนุชา จรูญกิตติกร", "pos": "Assistant Chief Technology Officer RS (ACTO RS2)", "lvl": "9B", "comp": "PEM", "unit": "Precise Electric Manufacturing (Head Office) (CTO)", "assigns": []}, {"id": "530502", "name": "นาย กรชาล จียโชค", "pos": "Assistant Chief Technology Officer RS (ACTO RS1)", "lvl": "8A", "comp": "PEM", "unit": "Precise Electric Manufacturing (Head Office) (CTO)", "assigns": []}, {"id": "500390", "name": "นาย พรเทพ ปรีชากาศ", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Product & Digital Engineering Development Office", "assigns": []}, {"id": "560741", "name": "นาย กิตติพงศ์ ประดิษแก้ว", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Product & Digital Engineering Development Office", "assigns": []}, {"id": "550682", "name": "นาย ธนพล จารุชิตโสภณ", "pos": "Assistant Division Manager (ADM)", "lvl": "7B", "comp": "PEM", "unit": "Product & Digital Engineering Development Office", "assigns": []}, {"id": "550658", "name": "นาย ปรเมศวร์ อนุพันธิกุล", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Product & Digital Engineering Development Office", "assigns": []}, {"id": "560757", "name": "นางสาว ปทิดา เอี่ยมจุฬา", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Production Management Section", "assigns": []}, {"id": "560761", "name": "นางสาว วรรณภา มิเถาวัลย์", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Production Management Section", "assigns": []}, {"id": "550695", "name": "นางสาว วิจิตตรา จันทวงศ์", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Production Management Section", "assigns": []}, {"id": "580987", "name": "นาย ปริวรรต คงอ่อน", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Production Management Team-1", "assigns": []}, {"id": "611381", "name": "นางสาว กัญญารัตน์ เจริญสุข", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Project Management Office (PMO)", "assigns": []}, {"id": "591106", "name": "นาย วุฒิไกร สีกันหา", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Project Management Section", "assigns": []}, {"id": "490372", "name": "นาง ทิพยรัตน์ วีระพงศ์", "pos": "Senior Division Manager (DM2)", "lvl": "8B", "comp": "PEM", "unit": "Risk and Compliance Management", "assigns": []}, {"id": "540609", "name": "นาย นพดล เปียงใจ", "pos": "Senior Division Manager (DM2)", "lvl": "8B", "comp": "PEM", "unit": "SF6 free LBS & Switching Device Business", "assigns": []}, {"id": "550646", "name": "นางสาว กนกภรณ์ จารุชิตโสภณ", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Sale & Operation Plan and Proposal Section", "assigns": []}, {"id": "580940", "name": "นาย ธนาวุฒิ ชินบุตร", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Sale & Operation Plan and Proposal Section", "assigns": []}, {"id": "550636", "name": "นางสาว กัลยา ปั้นทองคำ", "pos": "Division Manager (DM1)", "lvl": "7A", "comp": "PEM", "unit": "Sale and Operation Plan Team", "assigns": []}, {"id": "500386", "name": "นางสาว รัศมี ทับสีรักษ์", "pos": "Assistant Business Manager (ABM)", "lvl": "8B", "comp": "PEM", "unit": "Switchgear & Switchboard and Digital Engineering Business", "assigns": []}, {"id": "591019", "name": "นางสาว กัลยาณี คงเนียม", "pos": "Assistant Division Manager (ADM)", "lvl": "7B", "comp": "PEM", "unit": "Total Customer Solution & Sale Division", "assigns": []}, {"id": "460310", "name": "นาง พัชรินทร์ มูหะหมัด", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEM", "unit": "Wholesale Distribution Management & Warehouse Section", "assigns": []}, {"id": "22000", "name": "นาย Sina Nut", "pos": "Senior Section Manager (SM2)", "lvl": "7B", "comp": "PEMC", "unit": "ไม่ระบุหน่วยงาน", "assigns": []}]
+};}
+
+/* ---------- state ---------- */
+function fileData(){ try{ var el=document.getElementById('plan-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+function published(){ return (FD&&Array.isArray(FD.people))?FD:seed(); }
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&Array.isArray(ls.people)&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=published();
+var sd=seed();
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+['fs','title','sub'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+if(!Array.isArray(S.people)) S.people=sd.people;
+S.people.forEach(function(p){ if(!Array.isArray(p.assigns)) p.assigns=[]; });
+if(!S.fs) S.fs=1;
+
+var editMode=true;
+var tbl=document.getElementById('tbl'), tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
+var hist=[], hi=-1, restoring=false, saveT=null;
+var F={comp:'',unit:'',lvl:'',means:'',un:false,q:''};
+function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2600); }
+function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450); }catch(e){ saveEl.textContent='● เก็บชั่วคราวไม่ได้'; } }
+function recordHistory(){ if(restoring) return; var s=JSON.stringify(S); if(hi>=0&&hist[hi]===s) return; hist=hist.slice(0,hi+1); hist.push(s); hi=hist.length-1; if(hist.length>40){hist.shift();hi--;} updateUndo(); }
+function persist(){ recordHistory(); persistRaw(); }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persist,500); }
+function updateUndo(){ var u=document.getElementById('bUndo'),r=document.getElementById('bRedo'); if(u)u.disabled=hi<=0; if(r)r.disabled=hi>=hist.length-1; }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function normUrl(u){ u=(''+u).trim(); if(!u) return ''; if(/^(https?:|mailto:|tel:|\/|\.|data:)/i.test(u)) return u; if(/\.[a-z]{2,}($|[\/?#])/i.test(u)) return 'https://'+u; return u; }
+function hrefOf(a){ if(a.link) return normUrl(a.link); if(a.file) return a.file.path||a.file.data||''; return ''; }
+
+/* ---------- filtering / grouping ---------- */
+function personMatches(p){
+  if(F.comp && p.comp!==F.comp) return false;
+  if(F.unit && p.unit!==F.unit) return false;
+  if(F.lvl && p.lvl!==F.lvl) return false;
+  if(F.un && p.assigns.length>0) return false;
+  if(F.means){ var ok=p.assigns.some(function(a){ return (a.means||[]).indexOf(F.means)>=0; }); if(!ok) return false; }
+  if(F.q){ var q=F.q.toLowerCase(); var blob=(p.name+' '+p.pos+' '+p.unit+' '+p.assigns.map(function(a){return (a.bp||'')+' '+(a.ap||'');}).join(' ')).toLowerCase(); if(blob.indexOf(q)<0) return false; }
+  return true;
+}
+function lvCls(l){ return 'l'+((''+l).charAt(0)); }
+
+/* ---------- render ---------- */
+var NCOLS=11;
+function docChip(a,pi,ai){
+  var href=hrefOf(a); if(!href) return '';
+  var isFile=!a.link&&a.file, name=isFile?(a.file.name||'เอกสาร'):'เปิดลิงก์';
+  var attr=isFile?(' download="'+esc(a.file.name||'document')+'"'):' target="_blank" rel="noopener"';
+  return '<a class="doc" href="'+esc(href)+'"'+attr+'>📄 '+esc(name.length>20?name.slice(0,18)+'…':name)+
+    (editMode?'<span class="rm" data-rmdoc="'+pi+'.'+ai+'" title="เอาออก">✕</span>':'')+'</a>';
+}
+function meansTags(a,pi,ai){
+  var out='';
+  MEANS.forEach(function(m){
+    var on=(a.means||[]).indexOf(m)>=0;
+    if(!on && !editMode) return;
+    out+='<span class="tag '+(on?('t-'+m):'off')+'" data-tg="'+pi+'.'+ai+'.'+m+'">'+m+'</span>';
+  });
+  return out||'<span style="color:#B7C4D2">—</span>';
+}
+function statusChip(a,pi,ai){
+  var s=a.st||'s0', lb={s0:STATUS[0][1],s1:STATUS[1][1],s2:STATUS[2][1]}[s]||STATUS[0][1];
+  return '<span class="st '+s+'" data-st="'+pi+'.'+ai+'" title="คลิกเพื่อเปลี่ยนสถานะ">'+lb+'</span>';
+}
+function render(){
+  document.getElementById('hdTitle').textContent=S.title||'';
+  document.getElementById('hdSub').textContent=S.sub||'';
+  tbl.style.setProperty('--tfs',S.fs||1);
+  renderDash(); renderFilterOptions();
+  var ce=editMode?'true':'false';
+  var idxs=[]; S.people.forEach(function(p,i){ if(personMatches(p)) idxs.push(i); });
+  var h='<colgroup><col style="width:230px"><col style="width:170px"><col style="width:210px"><col style="width:170px"><col style="width:120px">'+
+    '<col style="width:140px"><col style="width:140px"><col style="width:140px"><col style="width:170px"><col style="width:110px"><col style="width:86px"></colgroup>';
+  h+='<thead><tr><th>พนักงาน (ระดับ 7–9)</th><th>Business Plan<br><span style="font-weight:400;font-size:9.5px">โครงการจากแผนระยะที่ 2</span></th>'+
+     '<th>Action Plan<br><span style="font-weight:400;font-size:9.5px">รวม Technical &amp; Operation</span></th><th>Ways</th>'+
+     '<th>Means<br><span style="font-weight:400;font-size:9.5px">Developer</span></th>'+
+     '<th class="oi">Output</th><th class="oi">Outcome</th><th class="oi">Impact</th>'+
+     '<th>Individual KPI</th><th>สถานะ</th><th class="ctrl">จัดการ</th></tr></thead><tbody>';
+  var lastComp=null, lastUnit=null;
+  idxs.forEach(function(pi){
+    var p=S.people[pi];
+    if(p.comp!==lastComp){ h+='<tr class="comp-h"><td colspan="'+NCOLS+'">🏢 '+esc(p.comp)+'</td></tr>'; lastComp=p.comp; lastUnit=null; }
+    if(p.unit!==lastUnit){
+      var cnt=idxs.filter(function(k){ return S.people[k].comp===p.comp && S.people[k].unit===p.unit; }).length;
+      h+='<tr class="unit-h"><td colspan="'+NCOLS+'">'+esc(p.unit)+' <span class="cnt">· '+cnt+' คน</span></td></tr>'; lastUnit=p.unit;
+    }
+    var n=Math.max(1,p.assigns.length);
+    var pcell='<td class="person" rowspan="'+n+'"><div class="nm">'+esc(p.name)+'</div><div class="ps">'+esc(p.pos)+'</div>'+
+      '<span class="lv '+lvCls(p.lvl)+'">'+esc(p.lvl)+'</span>'+
+      (editMode?' <button data-addas="'+pi+'" title="มอบหมายโครงการเพิ่ม" style="padding:0 6px;font-size:11px;text-transform:none">＋</button>':'')+'</td>';
+    if(!p.assigns.length){
+      h+='<tr class="unassigned" data-p="'+pi+'">'+pcell+'<td class="empty" colspan="'+(NCOLS-2)+'">— ยังไม่ได้มอบหมายโครงการ —'+
+         (editMode?'<button data-addas="'+pi+'">＋ มอบหมายโครงการ</button>':'')+'</td>'+(editMode?'<td class="ctrl"></td>':'<td class="ctrl"></td>')+'</tr>';
+      return;
+    }
+    p.assigns.forEach(function(a,ai){
+      h+='<tr data-p="'+pi+'" data-a="'+ai+'">'+(ai===0?pcell:'')+
+        '<td class="bp-c" data-f="bp" contenteditable="'+ce+'">'+esc(a.bp)+'</td>'+
+        '<td data-f="ap" contenteditable="'+ce+'">'+esc(a.ap)+'</td>'+
+        '<td data-f="ways" contenteditable="'+ce+'">'+esc(a.ways)+'</td>'+
+        '<td>'+meansTags(a,pi,ai)+'</td>'+
+        '<td class="out-c" data-f="out" contenteditable="'+ce+'">'+esc(a.out)+'</td>'+
+        '<td class="oc-c" data-f="outc" contenteditable="'+ce+'">'+esc(a.outc)+'</td>'+
+        '<td class="im-c" data-f="imp" contenteditable="'+ce+'">'+esc(a.imp)+'</td>'+
+        '<td data-f="kpi" contenteditable="'+ce+'">'+esc(a.kpi)+'</td>'+
+        '<td>'+statusChip(a,pi,ai)+docChip(a,pi,ai)+'</td>'+
+        '<td class="ctrl">'+
+          '<button data-link="'+pi+'.'+ai+'" title="ใส่ลิงก์เอกสาร">🔗</button>'+
+          '<button data-file="'+pi+'.'+ai+'" title="แนบไฟล์">📎</button>'+
+          '<button class="del" data-delas="'+pi+'.'+ai+'" title="ลบโครงการนี้">✕</button>'+
+        '</td></tr>';
+    });
+  });
+  if(!idxs.length) h+='<tr><td colspan="'+NCOLS+'" style="text-align:center;color:#93A6BA;padding:26px">ไม่พบพนักงานตามเงื่อนไขที่กรอง</td></tr>';
+  h+='</tbody>'; tbl.innerHTML=h;
+}
+function renderDash(){
+  var tot=S.people.length, asg=S.people.filter(function(p){return p.assigns.length>0;}).length;
+  var un=tot-asg, prj=S.people.reduce(function(s,p){return s+p.assigns.length;},0);
+  var d='<div class="stat">พนักงาน 7–9 <b>'+tot+'</b> คน</div>'+
+    '<div class="stat">รับมอบแล้ว <b style="color:var(--green)">'+asg+'</b> คน</div>'+
+    '<div class="stat warn">ยังไม่ได้มอบหมาย <b>'+un+'</b> คน</div>'+
+    '<div class="stat">โครงการทั้งหมด <b>'+prj+'</b></div>';
+  var lvls={}; S.people.forEach(function(p){ var k=p.lvl||'?'; if(!lvls[k]) lvls[k]={t:0,a:0}; lvls[k].t++; if(p.assigns.length) lvls[k].a++; });
+  Object.keys(lvls).sort(function(a,b){return lvOrd(a)-lvOrd(b);}).forEach(function(k){
+    d+='<span class="lvchip">'+esc(k)+' · '+lvls[k].a+'/'+lvls[k].t+'</span>';
+  });
+  document.getElementById('dash').innerHTML=d;
+}
+var filtersInit=false;
+function renderFilterOptions(){
+  if(filtersInit) return; filtersInit=true;
+  var comps={},units={},lvls={};
+  S.people.forEach(function(p){ comps[p.comp]=1; units[p.unit]=1; lvls[p.lvl]=1; });
+  var fc=document.getElementById('fComp'); Object.keys(comps).sort().forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent='บริษัท: '+c; fc.appendChild(o); });
+  var fu=document.getElementById('fUnit'); Object.keys(units).sort().forEach(function(u){ var o=document.createElement('option'); o.value=u; o.textContent=u.length>44?u.slice(0,42)+'…':u; fu.appendChild(o); });
+  var fl=document.getElementById('fLvl'); Object.keys(lvls).sort(function(a,b){return lvOrd(a)-lvOrd(b);}).forEach(function(l){ var o=document.createElement('option'); o.value=l; o.textContent='ระดับ: '+l; fl.appendChild(o); });
+}
+['fComp','fUnit','fLvl','fMeans'].forEach(function(id){
+  document.getElementById(id).addEventListener('change',function(){ syncAll(); F[{fComp:'comp',fUnit:'unit',fLvl:'lvl',fMeans:'means'}[id]]=this.value; render(); });
+});
+document.getElementById('fUn').addEventListener('change',function(){ syncAll(); F.un=this.checked; render(); });
+var qT=null;
+document.getElementById('fQ').addEventListener('input',function(){ var v=this.value; clearTimeout(qT); qT=setTimeout(function(){ syncAll(); F.q=v.trim(); render(); },250); });
+
+/* ---------- sync + live edit ---------- */
+function syncAll(){
+  S.title=document.getElementById('hdTitle').innerText;
+  S.sub=document.getElementById('hdSub').innerText;
+  tbl.querySelectorAll('td[data-f]').forEach(function(td){
+    var tr=td.closest('tr[data-p]'); if(!tr||tr.dataset.a===undefined) return;
+    var p=S.people[+tr.dataset.p]; if(!p) return; var a=p.assigns[+tr.dataset.a]; if(!a) return;
+    a[td.dataset.f]=td.innerText;
+  });
+}
+document.getElementById('hdTitle').addEventListener('input',function(){ S.title=this.innerText; schedulePersist(); });
+document.getElementById('hdSub').addEventListener('input',function(){ S.sub=this.innerText; schedulePersist(); });
+tbl.addEventListener('input',function(e){
+  var td=e.target.closest('td[data-f]'); if(!td) return;
+  var tr=td.closest('tr[data-p]'); if(!tr||tr.dataset.a===undefined) return;
+  var p=S.people[+tr.dataset.p]; if(!p) return; var a=p.assigns[+tr.dataset.a]; if(!a) return;
+  a[td.dataset.f]=td.innerText; schedulePersist();
+});
+
+/* ---------- actions ---------- */
+function newAssign(){ return {bp:'',ap:'',ways:'',means:[],out:'',outc:'',imp:'',kpi:'',st:'s0',link:'',file:null}; }
+function at(str){ var p=(''+str).split('.'); var per=S.people[+p[0]]; if(!per) return null; return {pi:+p[0],ai:+p[1],p:per,a:per.assigns[+p[1]]}; }
+var fileTarget=null;
+var fileInput=document.createElement('input'); fileInput.type='file'; fileInput.style.display='none'; document.body.appendChild(fileInput);
+fileInput.addEventListener('change',function(){
+  var f=fileInput.files[0]; if(!f||!fileTarget){ fileInput.value=''; return; }
+  if(f.size>8*1024*1024 && !confirm('ไฟล์ใหญ่ ('+Math.round(f.size/1048576)+' MB) แนะนำใช้ “ลิงก์” แทน — ดำเนินการต่อ?')){ fileInput.value=''; return; }
+  var fr=new FileReader(); fr.onload=function(ev){ syncAll(); var t=at(fileTarget); if(t&&t.a){ t.a.file={name:f.name,data:ev.target.result}; t.a.link=''; } render(); persist(); tip('แนบไฟล์ “'+f.name+'” แล้ว'); fileTarget=null; }; fr.readAsDataURL(f); fileInput.value='';
+});
+tbl.addEventListener('click',function(e){
+  var b;
+  if((b=e.target.closest('[data-rmdoc]'))){ e.preventDefault(); var t0=at(b.dataset.rmdoc); if(t0&&t0.a){ syncAll(); t0.a.link=''; t0.a.file=null; render(); persist(); tip('เอาเอกสารออกแล้ว'); } return; }
+  if(!editMode) return;
+  if((b=e.target.closest('[data-addas]'))){ syncAll(); var p=S.people[+b.dataset.addas]; if(p){ p.assigns.push(newAssign()); render(); persist(); tip('มอบหมายโครงการใหม่ให้ '+p.name+' — พิมพ์รายละเอียดได้เลย'); } return; }
+  if((b=e.target.closest('[data-delas]'))){ var t1=at(b.dataset.delas); if(!t1) return; if(!confirm('ลบโครงการนี้ของ '+t1.p.name+' ?')) return; syncAll(); t1.p.assigns.splice(t1.ai,1); render(); persist(); tip('ลบโครงการแล้ว'); return; }
+  if((b=e.target.closest('[data-link]'))){ var t2=at(b.dataset.link); if(!t2||!t2.a) return; var u=prompt('วางลิงก์ URL ของเอกสาร (เว้นว่าง = ลบลิงก์):', t2.a.link||''); if(u===null) return; syncAll(); t2.a.link=u.trim(); if(u.trim()) t2.a.file=null; render(); persist(); tip(u.trim()?'ใส่ลิงก์แล้ว':'ลบลิงก์แล้ว'); return; }
+  if((b=e.target.closest('[data-file]'))){ fileTarget=b.dataset.file; fileInput.click(); return; }
+  if((b=e.target.closest('.tag[data-tg]'))){ var pp=(''+b.dataset.tg).split('.'); var t3=at(pp[0]+'.'+pp[1]); if(!t3||!t3.a) return; syncAll(); var m=pp[2]; if(!Array.isArray(t3.a.means)) t3.a.means=[]; var ix=t3.a.means.indexOf(m); if(ix>=0) t3.a.means.splice(ix,1); else t3.a.means.push(m); render(); persist(); return; }
+  if((b=e.target.closest('.st[data-st]'))){ var t4=at(b.dataset.st); if(!t4||!t4.a) return; syncAll(); t4.a.st=(t4.a.st==='s0')?'s1':(t4.a.st==='s1'?'s2':'s0'); render(); persist(); return; }
+});
+document.getElementById('bAddPerson').addEventListener('click',function(){
+  if(!editMode){ tip('เปิด “✎ แก้ไข” ก่อน'); return; }
+  var nm=prompt('ชื่อ-สกุล พนักงานใหม่:'); if(!nm||!nm.trim()) return;
+  var lv=prompt('ระดับ (เช่น 7B / 8A / 9A):','7B')||'7B';
+  var cp=prompt('บริษัท:','PEM')||'PEM';
+  var un=prompt('หน่วยงาน:','ไม่ระบุหน่วยงาน')||'ไม่ระบุหน่วยงาน';
+  syncAll(); S.people.push({id:'new'+Date.now(),name:nm.trim(),pos:'',lvl:lv.trim(),comp:cp.trim(),unit:un.trim(),assigns:[]});
+  S.people.sort(function(a,b){ if(a.comp!==b.comp) return a.comp<b.comp?-1:1; if(a.unit!==b.unit) return a.unit<b.unit?-1:1; return lvOrd(a.lvl)-lvOrd(b.lvl); });
+  filtersInit=false; render(); persist(); tip('เพิ่มพนักงานแล้ว');
+});
+
+/* ---------- font size ---------- */
+function setFs(v){ S.fs=Math.round(Math.min(1.6,Math.max(.8,v))*100)/100; tbl.style.setProperty('--tfs',S.fs); persist(); tip('ขนาดตัวอักษร '+Math.round(S.fs*100)+'%'); }
+document.getElementById('fsUp').addEventListener('click',function(){ setFs((S.fs||1)+.1); });
+document.getElementById('fsDn').addEventListener('click',function(){ setFs((S.fs||1)-.1); });
+
+/* ---------- undo / redo ---------- */
+function loadState(json){ restoring=true; S=JSON.parse(json); render(); persistRaw(); restoring=false; updateUndo(); }
+function undo(){ if(hi>0){ hi--; loadState(hist[hi]); tip('ย้อนกลับแล้ว'); } else tip('ไม่มีให้ย้อน'); }
+function redo(){ if(hi<hist.length-1){ hi++; loadState(hist[hi]); tip('ทำซ้ำแล้ว'); } else tip('ไม่มีให้ทำซ้ำ'); }
+document.getElementById('bUndo').addEventListener('click',undo);
+document.getElementById('bRedo').addEventListener('click',redo);
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&(e.key==='z'||e.key==='Z')){ e.preventDefault(); e.shiftKey?redo():undo(); }
+  else if((e.ctrlKey||e.metaKey)&&(e.key==='y'||e.key==='Y')){ e.preventDefault(); redo(); }
+});
+
+/* ---------- edit toggle ---------- */
+document.getElementById('bEdit').addEventListener('click',function(){
+  syncAll(); editMode=!editMode; this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
+  render(); tip(editMode?'แก้ไข/มอบหมายได้':'ล็อกแล้ว (โหมดอ่าน)');
+});
+
+/* ---------- JSON save / open ---------- */
+document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Business_Plan_Execution.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
+var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json'; fo.style.display='none'; document.body.appendChild(fo);
+document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
+fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.people)) throw 0; S=o; if(!S.fs)S.fs=1; S.people.forEach(function(p){ if(!Array.isArray(p.assigns)) p.assigns=[]; }); filtersInit=false; render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
+document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* ---------- token ---------- */
+var tokPanel=document.getElementById('tokPanel'), tokInput=document.getElementById('tokInput'), tokState=document.getElementById('tokState');
+function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
+function refreshTok(){ var t=tokGet(); tokState.textContent=t?('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')'):'○ ยังไม่มี token'; tokState.style.color=t?'var(--green)':'#B0392B'; }
+function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTok(); setTimeout(function(){tokInput.focus();},30); }
+document.getElementById('bTok').addEventListener('click',function(){ tokPanel.style.display==='block'?(tokPanel.style.display='none'):openTok(); });
+document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+document.getElementById('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){ tip('เก็บไม่ได้'); } tokInput.value=''; });
+document.getElementById('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+
+/* ---------- save to web (Git Data API) ---------- */
+function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+function parseDataURL(d){ var m=/^data:([^;]*);base64,(.*)$/.exec(d||''); if(!m) return null; return {mime:m[1]||'application/octet-stream', b64:m[2]}; }
+function extOf(name,mime){ var m=/\.([A-Za-z0-9]{1,6})$/.exec(name||''); if(m) return m[1].toLowerCase(); if(/pdf/.test(mime))return'pdf'; if(/png/.test(mime))return'png'; if(/jpe?g/.test(mime))return'jpg'; if(/wordprocessingml/.test(mime))return'docx'; if(/presentationml/.test(mime))return'pptx'; if(/spreadsheetml/.test(mime))return'xlsx'; return 'bin'; }
+async function sha1hex(b64){ try{ var bin=atob(b64), bytes=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i); var buf=await crypto.subtle.digest('SHA-1',bytes); return Array.from(new Uint8Array(buf)).map(function(x){return('0'+x.toString(16)).slice(-2)}).join('').slice(0,20);}catch(e){ var h=5381; for(var k=0;k<b64.length;k++)h=((h<<5)+h+b64.charCodeAt(k))>>>0; return h.toString(16);} }
+var DATA_RE=/<!--PLAN_DATA_START-->[\s\S]*?<!--PLAN_DATA_END-->/;
+function dataBlock(json){ return '<!--PLAN_DATA_START-->\n<script id="plan-data" type="application/json">'+json+'<\/script>\n<!--PLAN_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=document.getElementById('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  syncAll(); var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo, orig=[];
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'}; var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); } return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+      throw new Error(label+' ('+res.status+(res.status===401?' — token ไม่ถูกต้อง':(res.status===403?' — token ไม่มีสิทธิ์':''))+') '+m); } return res; }
+  try{
+    var fileEntries=[], seen={}, moved=0, carriers=[];
+    S.people.forEach(function(p){ p.assigns.forEach(function(a){ if(a.file&&a.file.data) carriers.push(a); }); });
+    for(var i=0;i<carriers.length;i++){ var a=carriers[i];
+      var pd=parseDataURL(a.file.data); if(!pd) continue;
+      btn.textContent='⏳ อัปไฟล์แนบ '+(moved+1)+'…';
+      var hash=await sha1hex(pd.b64), ext=extOf(a.file.name,pd.mime), path=FILE_DIR+hash+'.'+ext;
+      if(!seen[path]){ var fb=await gh('POST',base+'/git/blobs',{content:pd.b64,encoding:'base64'}); await must(fb,'อัปไฟล์ไม่สำเร็จ'); var fbj=await fb.json(); fileEntries.push({path:path,mode:'100644',type:'blob',sha:fbj.sha}); seen[path]=1; }
+      orig.push({a:a,file:a.file}); a.file={name:a.file.name,path:path}; moved++;
+    }
+    btn.textContent='⏳ กำลังบันทึก…';
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw'); await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'}); await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha, tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}].concat(fileEntries)}); await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'Business Plan Execution update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว'+(moved?(' · อัป '+moved+' ไฟล์แนบ'):'')+' — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; orig.forEach(function(o){ o.a.file=o.file; }); tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+document.getElementById('bPublish').addEventListener('click',publish);
+
+/* init */
+render(); recordHistory(); updateUndo();
+tip('มอบหมายโครงการ: กด “＋ มอบหมายโครงการ” ที่รายชื่อ · คลิกแท็ก Means เพื่อเปิด/ปิด · คลิกสถานะเพื่อเปลี่ยน · กด “บันทึกขึ้นเว็บ” เพื่อ live');
+})();
+</script>
+</body>
+</html>
