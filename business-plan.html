@@ -51,7 +51,7 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .filters label.ck{display:inline-flex;gap:5px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 10px;cursor:pointer}
 /* table */
 .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 18px rgba(30,58,95,.07);background:#fff}
-table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1760px;font-size:12.5px}
+table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1820px;font-size:12.5px}
 thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:11.5px;
   padding:7px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:sticky;top:0;z-index:5}
 thead th.oi{background:#0a5b8c}
@@ -146,7 +146,7 @@ body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
     <select id="fComp"><option value="">บริษัท: ทั้งหมด</option></select>
     <select id="fUnit"><option value="">หน่วยงาน: ทั้งหมด</option></select>
     <select id="fLvl"><option value="">ระดับ: ทั้งหมด</option></select>
-    <select id="fMeans"><option value="">Means: ทั้งหมด</option><option>STEM</option><option>IT</option><option>AI</option><option>Automation</option></select>
+    <select id="fMeans"><option value="">Resources: ทั้งหมด</option><option>STEM</option><option>IT</option><option>AI</option><option>Automation</option></select>
     <label class="ck"><input type="checkbox" id="fUn"> เฉพาะที่ยังไม่ได้มอบหมาย</label>
     <input type="search" id="fQ" placeholder="🔍 ค้นหาชื่อ / หน่วยงาน / โครงการ">
   </div>
@@ -185,6 +185,15 @@ if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
 ['fs','title','sub'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
 if(!Array.isArray(S.people)) S.people=sd.people;
 S.people.forEach(function(p){ if(!Array.isArray(p.assigns)) p.assigns=[]; });
+/* migrate: means เดิมเป็นแท็ก (array) → ย้ายไปช่อง Resources (res) แล้วให้ means เป็นข้อความพิมพ์ */
+function migrateAssigns(){
+  S.people.forEach(function(p){ p.assigns.forEach(function(a){
+    if(Array.isArray(a.means)){ if(!Array.isArray(a.res)) a.res=a.means; a.means=''; }
+    if(!Array.isArray(a.res)) a.res=[];
+    if(typeof a.means!=='string') a.means='';
+  }); });
+}
+migrateAssigns();
 if(!S.fs) S.fs=1;
 
 var editMode=true;
@@ -207,14 +216,14 @@ function personMatches(p){
   if(F.unit && p.unit!==F.unit) return false;
   if(F.lvl && p.lvl!==F.lvl) return false;
   if(F.un && p.assigns.length>0) return false;
-  if(F.means){ var ok=p.assigns.some(function(a){ return (a.means||[]).indexOf(F.means)>=0; }); if(!ok) return false; }
+  if(F.means){ var ok=p.assigns.some(function(a){ return (a.res||[]).indexOf(F.means)>=0; }); if(!ok) return false; }
   if(F.q){ var q=F.q.toLowerCase(); var blob=(p.name+' '+p.pos+' '+p.unit+' '+p.assigns.map(function(a){return (a.bp||'')+' '+(a.ap||'');}).join(' ')).toLowerCase(); if(blob.indexOf(q)<0) return false; }
   return true;
 }
 function lvCls(l){ return 'l'+((''+l).charAt(0)); }
 
 /* ---------- render ---------- */
-var NCOLS=11;
+var NCOLS=12;
 function docChip(a,pi,ai){
   var href=hrefOf(a); if(!href) return '';
   var isFile=!a.link&&a.file, name=isFile?(a.file.name||'เอกสาร'):'เปิดลิงก์';
@@ -222,10 +231,10 @@ function docChip(a,pi,ai){
   return '<a class="doc" href="'+esc(href)+'"'+attr+'>📄 '+esc(name.length>20?name.slice(0,18)+'…':name)+
     (editMode?'<span class="rm" data-rmdoc="'+pi+'.'+ai+'" title="เอาออก">✕</span>':'')+'</a>';
 }
-function meansTags(a,pi,ai){
+function resTags(a,pi,ai){
   var out='';
   MEANS.forEach(function(m){
-    var on=(a.means||[]).indexOf(m)>=0;
+    var on=(a.res||[]).indexOf(m)>=0;
     if(!on && !editMode) return;
     out+='<span class="tag '+(on?('t-'+m):'off')+'" data-tg="'+pi+'.'+ai+'.'+m+'">'+m+'</span>';
   });
@@ -242,11 +251,12 @@ function render(){
   renderDash(); renderFilterOptions();
   var ce=editMode?'true':'false';
   var idxs=[]; S.people.forEach(function(p,i){ if(personMatches(p)) idxs.push(i); });
-  var h='<colgroup><col style="width:230px"><col style="width:170px"><col style="width:210px"><col style="width:170px"><col style="width:120px">'+
-    '<col style="width:140px"><col style="width:140px"><col style="width:140px"><col style="width:170px"><col style="width:110px"><col style="width:86px"></colgroup>';
+  var h='<colgroup><col style="width:230px"><col style="width:165px"><col style="width:200px"><col style="width:160px"><col style="width:150px"><col style="width:118px">'+
+    '<col style="width:135px"><col style="width:135px"><col style="width:135px"><col style="width:165px"><col style="width:110px"><col style="width:86px"></colgroup>';
   h+='<thead><tr><th>พนักงาน (ระดับ 7–9)</th><th>Business Plan<br><span style="font-weight:400;font-size:9.5px">โครงการจากแผนระยะที่ 2</span></th>'+
      '<th>Action Plan<br><span style="font-weight:400;font-size:9.5px">รวม Technical &amp; Operation</span></th><th>Ways</th>'+
-     '<th>Means<br><span style="font-weight:400;font-size:9.5px">Developer</span></th>'+
+     '<th>Means<br><span style="font-weight:400;font-size:9.5px">Developer (พิมพ์ระบุ)</span></th>'+
+     '<th>Resources ที่ต้องการ<br><span style="font-weight:400;font-size:9.5px">STEM · IT · AI · Automation</span></th>'+
      '<th class="oi">Output</th><th class="oi">Outcome</th><th class="oi">Impact</th>'+
      '<th>Individual KPI</th><th>สถานะ</th><th class="ctrl">จัดการ</th></tr></thead><tbody>';
   var lastComp=null, lastUnit=null;
@@ -271,7 +281,8 @@ function render(){
         '<td class="bp-c" data-f="bp" contenteditable="'+ce+'">'+esc(a.bp)+'</td>'+
         '<td data-f="ap" contenteditable="'+ce+'">'+esc(a.ap)+'</td>'+
         '<td data-f="ways" contenteditable="'+ce+'">'+esc(a.ways)+'</td>'+
-        '<td>'+meansTags(a,pi,ai)+'</td>'+
+        '<td data-f="means" contenteditable="'+ce+'">'+esc(a.means)+'</td>'+
+        '<td>'+resTags(a,pi,ai)+'</td>'+
         '<td class="out-c" data-f="out" contenteditable="'+ce+'">'+esc(a.out)+'</td>'+
         '<td class="oc-c" data-f="outc" contenteditable="'+ce+'">'+esc(a.outc)+'</td>'+
         '<td class="im-c" data-f="imp" contenteditable="'+ce+'">'+esc(a.imp)+'</td>'+
@@ -336,7 +347,7 @@ tbl.addEventListener('input',function(e){
 });
 
 /* ---------- actions ---------- */
-function newAssign(){ return {bp:'',ap:'',ways:'',means:[],out:'',outc:'',imp:'',kpi:'',st:'s0',link:'',file:null}; }
+function newAssign(){ return {bp:'',ap:'',ways:'',means:'',res:[],out:'',outc:'',imp:'',kpi:'',st:'s0',link:'',file:null}; }
 function at(str){ var p=(''+str).split('.'); var per=S.people[+p[0]]; if(!per) return null; return {pi:+p[0],ai:+p[1],p:per,a:per.assigns[+p[1]]}; }
 var fileTarget=null;
 var fileInput=document.createElement('input'); fileInput.type='file'; fileInput.style.display='none'; document.body.appendChild(fileInput);
@@ -353,7 +364,7 @@ tbl.addEventListener('click',function(e){
   if((b=e.target.closest('[data-delas]'))){ var t1=at(b.dataset.delas); if(!t1) return; if(!confirm('ลบโครงการนี้ของ '+t1.p.name+' ?')) return; syncAll(); t1.p.assigns.splice(t1.ai,1); render(); persist(); tip('ลบโครงการแล้ว'); return; }
   if((b=e.target.closest('[data-link]'))){ var t2=at(b.dataset.link); if(!t2||!t2.a) return; var u=prompt('วางลิงก์ URL ของเอกสาร (เว้นว่าง = ลบลิงก์):', t2.a.link||''); if(u===null) return; syncAll(); t2.a.link=u.trim(); if(u.trim()) t2.a.file=null; render(); persist(); tip(u.trim()?'ใส่ลิงก์แล้ว':'ลบลิงก์แล้ว'); return; }
   if((b=e.target.closest('[data-file]'))){ fileTarget=b.dataset.file; fileInput.click(); return; }
-  if((b=e.target.closest('.tag[data-tg]'))){ var pp=(''+b.dataset.tg).split('.'); var t3=at(pp[0]+'.'+pp[1]); if(!t3||!t3.a) return; syncAll(); var m=pp[2]; if(!Array.isArray(t3.a.means)) t3.a.means=[]; var ix=t3.a.means.indexOf(m); if(ix>=0) t3.a.means.splice(ix,1); else t3.a.means.push(m); render(); persist(); return; }
+  if((b=e.target.closest('.tag[data-tg]'))){ var pp=(''+b.dataset.tg).split('.'); var t3=at(pp[0]+'.'+pp[1]); if(!t3||!t3.a) return; syncAll(); var m=pp[2]; if(!Array.isArray(t3.a.res)) t3.a.res=[]; var ix=t3.a.res.indexOf(m); if(ix>=0) t3.a.res.splice(ix,1); else t3.a.res.push(m); render(); persist(); return; }
   if((b=e.target.closest('.st[data-st]'))){ var t4=at(b.dataset.st); if(!t4||!t4.a) return; syncAll(); t4.a.st=(t4.a.st==='s0')?'s1':(t4.a.st==='s1'?'s2':'s0'); render(); persist(); return; }
 });
 document.getElementById('bAddPerson').addEventListener('click',function(){
@@ -393,7 +404,7 @@ document.getElementById('bEdit').addEventListener('click',function(){
 document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Business_Plan_Execution.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
 var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json'; fo.style.display='none'; document.body.appendChild(fo);
 document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
-fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.people)) throw 0; S=o; if(!S.fs)S.fs=1; S.people.forEach(function(p){ if(!Array.isArray(p.assigns)) p.assigns=[]; }); filtersInit=false; render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
+fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.people)) throw 0; S=o; if(!S.fs)S.fs=1; S.people.forEach(function(p){ if(!Array.isArray(p.assigns)) p.assigns=[]; }); migrateAssigns(); filtersInit=false; render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
 document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
 
 /* ---------- token ---------- */
@@ -452,7 +463,7 @@ document.getElementById('bPublish').addEventListener('click',publish);
 
 /* init */
 render(); recordHistory(); updateUndo();
-tip('มอบหมายโครงการ: กด “＋ มอบหมายโครงการ” ที่รายชื่อ · คลิกแท็ก Means เพื่อเปิด/ปิด · คลิกสถานะเพื่อเปลี่ยน · กด “บันทึกขึ้นเว็บ” เพื่อ live');
+tip('มอบหมายโครงการ: กด “＋ มอบหมายโครงการ” ที่รายชื่อ · พิมพ์ Means (Developer) ได้เลย · คลิกแท็ก Resources เพื่อเปิด/ปิด · คลิกสถานะเพื่อเปลี่ยน · กด “บันทึกขึ้นเว็บ” เพื่อ live');
 })();
 </script>
 </body>
