@@ -121,6 +121,28 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .ratio{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:12px;padding:11px 15px;background:#F0F8F1;border:1px solid #CBE7CF;border-radius:11px}
 .ratio .rv{font-family:'Inter';font-size:22px;font-weight:800;color:var(--green)}
 .ratio .rl{font-size:12px;color:#41566E;line-height:1.5}
+/* extended analysis */
+.mini{width:100%;border-collapse:collapse;font-size:12.5px}
+.mini th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;padding:6px 9px;text-align:left;border:1px solid #14496e}
+.mini th.n,.mini td.n{text-align:right;width:78px;font-variant-numeric:tabular-nums}
+.mini td{border:1px solid var(--line);padding:6px 9px;line-height:1.5}
+.mini tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+.mini tr:hover td{background:#F7FBFE}.mini tr.sum:hover td{background:#EAF3FA}
+.mini td.g{font-weight:700;color:var(--blue2)}
+.mini td.neg{color:#C0392B;font-weight:800}.mini td.pos{color:var(--green);font-weight:800}
+.pill{display:inline-block;font-family:'Inter';font-size:10px;font-weight:800;padding:2px 8px;border-radius:11px}
+.pill.ok{background:#E3F3E4;color:var(--green)}.pill.no{background:#FDECEA;color:#C0392B}
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:11px;padding:11px 15px;margin:10px 0;font-size:13px;line-height:1.65;color:#6b4a12}
+.privacy{font-size:11px;color:#8FA3B8;margin-top:8px;font-style:italic}
+.trk{display:flex;flex-wrap:wrap;gap:10px}
+.trk .t{flex:1;min-width:250px;border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:#F8FBFE;position:relative;overflow:hidden}
+.trk .t:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.trk .t.a:before{background:#E8820E}.trk .t.b:before{background:#5B9BD5}.trk .t.c:before{background:#70AD47}.trk .t.d:before{background:#7B4FC9}
+.trk .tn{font-family:'Inter';font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8FA3B8}
+.trk .tt{font-weight:800;font-size:13.5px;color:var(--blue2);margin:2px 0 4px}
+.trk .tv{font-family:'Inter';font-size:22px;font-weight:800;color:var(--ink)}
+.trk .tv small{font-size:11.5px;font-weight:600;color:var(--mute);margin-left:5px}
+.trk .td{font-size:11.5px;color:#41566E;line-height:1.55;margin-top:5px}
 /* note */
 .note{font-size:14px;line-height:1.75;color:#26384d;white-space:normal}
 .note ul{margin:6px 0;padding-left:22px}
@@ -141,7 +163,7 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 <body class="edit">
 
 <!--WFP_DATA_START-->
-<script id="wfp-data" type="application/json">{"savedAt":1788421569957,"title":"Workforce Planning — เป้าหมาย 700 คน ปี 2571","sub":"โจทย์ Human Capital: Workforce Planning และ Performance Management — ปรับกำลังคนสู่ 700 คน ภายในปี 2571 พร้อมเพิ่มยอดขายเป็น 6,000 ล้านบาท ที่ GP 30% · ข้อมูลพนักงาน ณ 1 ก.ย. 2569 (821 คน)","roadmap":{"cuts":[{"g":"Production / Factory floor","now":250,"d":72,"why":"Factory 4.0 ที่ PEM (209 คน) — automate สายประกอบ/พ่นสี/ตัดพับ, ลดกะที่ 2, ไม่ทดแทนคนลาออก"},{"g":"Warehouse / Logistics","now":66,"d":22,"why":"ERP + WMS · barcode/RFID · auto-replenishment · ลดงานนับสต๊อก/คีย์ข้อมูลซ้ำ"},{"g":"Finance / Accounting","now":53,"d":16,"why":"ERP ใหม่: AP/AR/GL อัตโนมัติ, closing เร็วขึ้น, e-Tax/e-Receipt"},{"g":"QA / QC / Calibration","now":54,"d":10,"why":"Inline inspection + machine vision แทนการสุ่มตรวจด้วยคน"},{"g":"Procurement / Vendor","now":24,"d":7,"why":"e-Procurement + Vendor Portal + auto PR/PO ตาม MRP"},{"g":"Maintenance / Service","now":52,"d":6,"why":"Predictive Maintenance ลดงาน breakdown ที่ไม่ได้วางแผน"},{"g":"Admin · งานสนับสนุนอื่น","now":145,"d":33,"why":"Shared Service + Employee Self-Service + Digital Workflow (ลดงานเอกสาร)"}],"hires":[{"r":"Factory 4.0 / OT Automation Engineer","n":8,"w":"PLC · SCADA · MES · Robotics — หัวใจของ Factory 4.0 ที่ PEM"},{"r":"ERP Functional / Technical Consultant","n":6,"w":"FI · CO · MM · PP · SD — คุมระบบใหม่เองได้ ไม่ผูกกับ vendor"},{"r":"Data Engineer / Data Analyst","n":6,"w":"Data & Intelligence Capital — ต่อยอด PCC Console และ Sale Forecast"},{"r":"Solution Architect / Platform Developer","n":6,"w":"พัฒนา 6 RST Platform (Tendering · Omni · TCS · Recurring · PPA)"},{"r":"AI / ML Engineer (Agentic AI)","n":5,"w":"AI Optimization · Predictive Maintenance · Proposal อัตโนมัติ"},{"r":"Recurring & TCS Service Specialist","n":8,"w":"ขายและส่งมอบรายได้ต่อเนื่อง — ตัวสร้าง GP 30% โดยตรง"},{"r":"Digital Twin / Simulation Engineer","n":3,"w":"บริการ Digital Twin ให้ลูกค้า (1 ใน 20 Recurring Services)"},{"r":"Cybersecurity / OT Security","n":3,"w":"ดูแลความปลอดภัยระบบที่ติดตั้งให้ลูกค้าและโรงงาน"}],"phases":[{"n":"Phase 1","t":"Design & Control","y":"2569 Q4 – 2570 H1","hc":796,"out":37,"inn":12,"a":"ERP Blueprint · ออกแบบสาย Factory 4.0 · ตั้ง Backfill Committee (ลาออกต้องขออนุมัติก่อนรับแทน) · เริ่ม Reskill รุ่นที่ 1"},{"n":"Phase 2","t":"ERP Go-live + Line Automation","y":"2570","hc":746,"out":70,"inn":20,"a":"ERP ขึ้นระบบจริง · Factory 4.0 สายที่ 1–2 ที่ PEM · ย้ายคนจากงานซ้ำซ้อนไปงาน Recurring/TCS"},{"n":"Phase 3","t":"Scale & Optimize","y":"2571","hc":700,"out":59,"inn":13,"a":"ขยาย Automation ทุกสาย · ปิดงานคีย์ข้อมูลซ้ำทั้งหมด · Recurring Service เต็มกำลัง · ปิดที่ 700 คน"}]},"note":"\u003cul>\u003cli>\u003cb>กำลังหลักคือ Gen Y (515 คน · 63%)\u003c/b> อายุเฉลี่ยองค์กร 38.4 ปี อายุงานเฉลี่ย 11.3 ปี — เป็นช่วงวัยที่พร้อมรับการ Upskill/Reskill ไปสู่งาน Platform · Digital · AI ตามแผนระยะที่ 2–3\u003c/li>\u003cli>\u003cb>การเกษียณธรรมชาติแทบช่วยไม่ได้ในกรอบเวลานี้\u003c/b> — ถึงสิ้นปี 2571 มีพนักงานเกษียณเพียง \u003cb>6 คน\u003c/b> (คลื่นใหญ่จริงอยู่ปี 2575–2576 ปีละ 16–20 คน) ดังนั้น ~95% ของส่วนต่าง 121 คน ต้องมาจาก \u003cb>ลาออกแล้วไม่ทดแทน\u003c/b> + โยกย้ายภายใน + ERP/Factory 4.0 ไม่ใช่การรอเกษียณ\u003c/li>\u003cli>\u003cb>กลุ่มปฏิบัติการ (ระดับ 1–4) มี 398 คน (48%)\u003c/b> — เป็นพื้นที่หลักของ Factory 4.0 / Automation: ผลิตภาพต่อคนต้องเพิ่มจากการลงทุนเครื่องจักรและระบบ มากกว่าการเพิ่มคน\u003c/li>\u003cli>\u003cb>Productivity เป้าหมาย 8.57 ลบ./คน/ปี\u003c/b> (6,000mb ÷ 700 คน) — GP 30% เท่ากับ GP ต่อหัว ~2.57 ลบ./คน ซึ่งต้องยกระดับผ่าน 6 RST Platform โดยเฉพาะ Recurring และ TCS\u003c/li>\u003cli>\u003cb>ผู้สืบทอดตำแหน่งบริหาร\u003c/b> — ระดับ 10–13 มี 13 คน และระดับ 7C–9A มี 121 คน ควรทำ Succession Plan ควบคู่ Individual Performance Management ในหน้า Business Plan 7–9\u003c/li>\u003c/ul>"}</script>
+<script id="wfp-data" type="application/json">{"savedAt":1788500000000,"title":"Workforce Planning — เป้าหมาย 700 คน ปี 2571","sub":"โจทย์ Human Capital: Workforce Planning และ Performance Management — ปรับกำลังคนสู่ 700 คน ภายในปี 2571 พร้อมเพิ่มยอดขายเป็น 6,000 ล้านบาท ที่ GP 30% · ข้อมูลพนักงาน ณ 1 ก.ย. 2569 (821 คน)","roadmap":{"cuts":[{"g":"Production / Factory floor","now":250,"d":72,"why":"Factory 4.0 ที่ PEM (209 คน) — automate สายประกอบ/พ่นสี/ตัดพับ, ลดกะที่ 2, ไม่ทดแทนคนลาออก"},{"g":"Warehouse / Logistics","now":66,"d":22,"why":"ERP + WMS · barcode/RFID · auto-replenishment · ลดงานนับสต๊อก/คีย์ข้อมูลซ้ำ"},{"g":"Finance / Accounting","now":53,"d":16,"why":"ERP ใหม่: AP/AR/GL อัตโนมัติ, closing เร็วขึ้น, e-Tax/e-Receipt"},{"g":"QA / QC / Calibration","now":54,"d":10,"why":"Inline inspection + machine vision แทนการสุ่มตรวจด้วยคน"},{"g":"Procurement / Vendor","now":24,"d":7,"why":"e-Procurement + Vendor Portal + auto PR/PO ตาม MRP"},{"g":"Maintenance / Service","now":52,"d":6,"why":"Predictive Maintenance ลดงาน breakdown ที่ไม่ได้วางแผน"},{"g":"Admin · งานสนับสนุนอื่น","now":145,"d":33,"why":"Shared Service + Employee Self-Service + Digital Workflow (ลดงานเอกสาร)"}],"hires":[{"r":"Factory 4.0 / OT Automation Engineer","n":8,"w":"PLC · SCADA · MES · Robotics — หัวใจของ Factory 4.0 ที่ PEM"},{"r":"ERP Functional / Technical Consultant","n":6,"w":"FI · CO · MM · PP · SD — คุมระบบใหม่เองได้ ไม่ผูกกับ vendor"},{"r":"Data Engineer / Data Analyst","n":6,"w":"Data & Intelligence Capital — ต่อยอด PCC Console และ Sale Forecast"},{"r":"Solution Architect / Platform Developer","n":6,"w":"พัฒนา 6 RST Platform (Tendering · Omni · TCS · Recurring · PPA)"},{"r":"AI / ML Engineer (Agentic AI)","n":5,"w":"AI Optimization · Predictive Maintenance · Proposal อัตโนมัติ"},{"r":"Recurring & TCS Service Specialist","n":8,"w":"ขายและส่งมอบรายได้ต่อเนื่อง — ตัวสร้าง GP 30% โดยตรง"},{"r":"Digital Twin / Simulation Engineer","n":3,"w":"บริการ Digital Twin ให้ลูกค้า (1 ใน 20 Recurring Services)"},{"r":"Cybersecurity / OT Security","n":3,"w":"ดูแลความปลอดภัยระบบที่ติดตั้งให้ลูกค้าและโรงงาน"}],"phases":[{"n":"Phase 1","t":"Design & Control","y":"2569 Q4 – 2570 H1","hc":796,"out":37,"inn":12,"a":"ERP Blueprint · ออกแบบสาย Factory 4.0 · ตั้ง Backfill Committee (ลาออกต้องขออนุมัติก่อนรับแทน) · เริ่ม Reskill รุ่นที่ 1"},{"n":"Phase 2","t":"ERP Go-live + Line Automation","y":"2570","hc":746,"out":70,"inn":20,"a":"ERP ขึ้นระบบจริง · Factory 4.0 สายที่ 1–2 ที่ PEM · ย้ายคนจากงานซ้ำซ้อนไปงาน Recurring/TCS"},{"n":"Phase 3","t":"Scale & Optimize","y":"2571","hc":700,"out":59,"inn":13,"a":"ขยาย Automation ทุกสาย · ปิดงานคีย์ข้อมูลซ้ำทั้งหมด · Recurring Service เต็มกำลัง · ปิดที่ 700 คน"}]},"note":"\u003cul>\u003cli>\u003cb>กำลังหลักคือ Gen Y (515 คน · 63%)\u003c/b> อายุเฉลี่ยองค์กร 38.4 ปี อายุงานเฉลี่ย 11.3 ปี — เป็นช่วงวัยที่พร้อมรับการ Upskill/Reskill ไปสู่งาน Platform · Digital · AI ตามแผนระยะที่ 2–3\u003c/li>\u003cli>\u003cb>เกษียณ 42 คน แต่ใช้ลดหัวได้จริงแค่ 27 คน\u003c/b> — อีก 15 ตำแหน่งเป็นระดับจัดการ/ผู้บริหาร (7C–13) ที่ต้องมีผู้สืบทอด ปล่อยว่างไม่ได้ ⇒ ต้องเร่ง Succession Plan 15 ตำแหน่งภายใน 2 ปี ควบคู่กับแผนลดคน\u003c/li>\u003cli>\u003cb>คานงัดที่ยังไม่ได้ใช้: Span of Control 1 : 2.7\u003c/b> — หัวหน้า 220 คน ต่อพนักงาน 601 คน แคบกว่าเกณฑ์ปกติ (1:5–1:8) มาก โดยเฉพาะ PSP · PDE (1:1.8) และ PCC (1:0.8) การควบรวมหน่วยงานให้ได้ 1:3.5 ลดได้ 48 ตำแหน่ง \u003cb>เกือบครึ่งของส่วนต่าง โดยไม่แตะสายการผลิต\u003c/b>\u003c/li>\u003cli>\u003cb>ผลด้านต้นทุน:\u003c/b> ลด 121 ตำแหน่งพร้อมรับสายดิจิทัล 45 คน ประหยัดค่าจ้างพื้นฐานสุทธิ ~38.33 ล้านบาท/ปี (ยังไม่รวมสวัสดิการที่ปกติ +30–40%) ใช้เป็นฐานคำนวณ Payback ของ ERP + Factory 4.0 ได้\u003c/li>\u003cli>\u003cb>Reskill คือเงื่อนไขที่ทำให้แผนนี้ไม่ใช่การเลิกจ้าง\u003c/b> — กลุ่มปฏิบัติการ 398 คน มีวุฒิ ปวช./ปวส. เพียง 175 คนที่ Reskill เป็น Automation Technician ได้จริง อีก 172 คน (ม.6 และต่ำกว่า) ต้องใช้เส้นทาง Multi-skill Operator แทน — ต้องแยก 2 เส้นทาง ไม่ใช่หลักสูตรเดียว\u003c/li>\u003cli>\u003cb>กลุ่มปฏิบัติการ (ระดับ 1–4) มี 398 คน (48%)\u003c/b> — เป็นพื้นที่หลักของ Factory 4.0 / Automation: ผลิตภาพต่อคนต้องเพิ่มจากการลงทุนเครื่องจักรและระบบ มากกว่าการเพิ่มคน\u003c/li>\u003cli>\u003cb>Productivity เป้าหมาย 8.57 ลบ./คน/ปี\u003c/b> (6,000mb ÷ 700 คน) — GP 30% เท่ากับ GP ต่อหัว ~2.57 ลบ./คน ซึ่งต้องยกระดับผ่าน 6 RST Platform โดยเฉพาะ Recurring และ TCS\u003c/li>\u003c/ul>"}</script>
 <!--WFP_DATA_END-->
 
 <div class="bar">
@@ -211,6 +233,48 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
   </div>
 
   <div class="card">
+    <h2>ตำแหน่งที่จะเกษียณ ปี 2569–2571</h2>
+    <div class="cap" id="retCap"></div>
+    <div class="warnbox" id="retWarn"></div>
+    <div class="split">
+      <div><h3>แยกตามระดับ — ทดแทนหรือไม่ทดแทน</h3><table class="mini" id="tRetBand"></table></div>
+      <div><h3>แยกตามสายงาน · บริษัท (ไม่ระบุรายบุคคล)</h3><table class="mini" id="tRetUnit"></table></div>
+    </div>
+    <div class="privacy">* แสดงเป็นจำนวนตำแหน่งตามระดับ/สายงาน/บริษัท ไม่ระบุชื่อหรือรหัสพนักงาน</div>
+  </div>
+
+  <div class="card">
+    <h2>ผลด้านต้นทุนค่าจ้าง (ภาพรวม)</h2>
+    <div class="cap" id="costCap"></div>
+    <div class="split">
+      <div><h3>ค่าจ้างเฉลี่ยรายกลุ่มระดับ</h3><table class="mini" id="tSal"></table>
+        <div class="privacy">* ค่าเฉลี่ยรายกลุ่ม (กลุ่มละ ≥ 80 คน) · รวมระดับ 7C–13 เป็นกลุ่มเดียวเพื่อไม่ให้ระบุตัวตนได้ · ไม่แสดงข้อมูลรายบุคคล</div>
+      </div>
+      <div><h3>ประมาณการผลกระทบต่อค่าจ้าง / เดือน</h3><table class="mini" id="tCost"></table>
+        <div class="privacy">* คำนวณจากค่าเฉลี่ยรายกลุ่ม × จำนวนตำแหน่ง เป็นเงินเดือนพื้นฐานเท่านั้น (ยังไม่รวมสวัสดิการ/OT/ประกันสังคม ซึ่งปกติ +30–40%)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Span of Control — คานงัดที่ยังไม่ได้ใช้</h2>
+    <div class="cap" id="spanCap"></div>
+    <div class="split">
+      <div><h3>อัตราส่วนหัวหน้า : พนักงาน รายบริษัท</h3><table class="mini" id="tSpan"></table></div>
+      <div><h3>ถ้าขยาย Span จะลดชั้นบริหารได้เท่าไร</h3><table class="mini" id="tSpanScen"></table>
+        <div class="warnbox" id="spanNote"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reskill / Upskill Roadmap — พัฒนาคนภายใน</h2>
+    <div class="cap" id="rsCap"></div>
+    <div class="trk" id="tracks"></div>
+    <table class="mini" id="tRs" style="margin-top:14px"></table>
+  </div>
+
+  <div class="card">
     <h2>บทวิเคราะห์สำหรับผู้บริหาร</h2>
     <div class="cap">แก้ไขข้อความได้ · กด “บันทึกขึ้นเว็บ” เพื่อเผยแพร่</div>
     <div class="note" id="note" contenteditable="true"></div>
@@ -224,6 +288,7 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 "use strict";
 var LSK='pcc_wfp_v1';
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'workforce-planning.html'};
+var X={"salBand": [{"k": "ปฏิบัติการ 1–4", "n": 383, "avg": 24485}, {"k": "วิชาชีพ 5B–6C", "n": 196, "avg": 33505}, {"k": "จัดการ 6B–6A", "n": 86, "avg": 46940}, {"k": "จัดการ / ผู้บริหาร 7C–13", "n": 133, "avg": 84830}], "salCat": [{"k": "Production", "n": 237, "avg": 30606}, {"k": "Warehouse / Logistics", "n": 63, "avg": 29292}, {"k": "QA / QC", "n": 52, "avg": 33404}, {"k": "Maintenance / Service", "n": 52, "avg": 38229}, {"k": "Engineering", "n": 59, "avg": 39216}, {"k": "Sales / Channel", "n": 51, "avg": 47272}, {"k": "Procurement", "n": 23, "avg": 32503}, {"k": "Finance / Accounting", "n": 52, "avg": 52726}, {"k": "HR / Admin", "n": 18, "avg": 40282}, {"k": "Digital / IT", "n": 65, "avg": 49598}, {"k": "อื่น ๆ", "n": 126, "avg": 49818}], "payroll": 31263970, "salCovered": 798, "N": 821, "cost": {"cutRows": [{"k": "Production", "n": 72, "avg": 30606, "m": 2203632}, {"k": "Warehouse / Logistics", "n": 22, "avg": 29292, "m": 644424}, {"k": "Finance / Accounting", "n": 16, "avg": 52726, "m": 843616}, {"k": "QA / QC", "n": 10, "avg": 33404, "m": 334040}, {"k": "Procurement", "n": 7, "avg": 32503, "m": 227521}, {"k": "Maintenance / Service", "n": 6, "avg": 38229, "m": 229374}, {"k": "HR / Admin", "n": 33, "avg": 40282, "m": 1329306}], "save": 5811913, "hireRows": [{"k": "สายดิจิทัล / AI / Automation", "n": 37, "avg": 59518, "m": 2202166}, {"k": "Recurring & TCS Specialist", "n": 8, "avg": 51999, "m": 415992}], "cost": 2618158, "net": 3193755, "digPrem": 19, "salPrem": 10}, "span": {"mgr": 220, "staff": 601, "cur": 2.7, "byComp": [{"comp": "PEM", "mgr": 85, "staff": 324, "span": 3.8, "tot": 409}, {"comp": "PSP", "mgr": 75, "staff": 137, "span": 1.8, "tot": 212}, {"comp": "SBP", "mgr": 10, "staff": 54, "span": 5.4, "tot": 64}, {"comp": "PDE", "mgr": 16, "staff": 28, "span": 1.8, "tot": 44}, {"comp": "PCC", "mgr": 25, "staff": 19, "span": 0.8, "tot": 44}, {"comp": "PEMC", "mgr": 1, "staff": 20, "span": 20.0, "tot": 21}], "scen": [{"t": 3.0, "need": 200, "cut": 20}, {"t": 3.5, "need": 172, "cut": 48}, {"t": 4.0, "need": 150, "cut": 70}]}, "ret": {"byYear": {"2026": 12, "2027": 16, "2028": 14}, "byBand": {"จัดการ/ผจก. 7C–9A": 11, "ปฏิบัติการ 1–4": 24, "วิชาชีพ 5B–6C": 2, "ผู้บริหาร 10–13": 4, "จัดการ 6B–6A": 1}, "table": [{"band": "ปฏิบัติการ 1–4", "cat": "Production", "comp": "PEM", "n": 15}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Finance / Accounting", "comp": "PSP", "n": 2}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Finance / Accounting", "comp": "PEM", "n": 2}, {"band": "ปฏิบัติการ 1–4", "cat": "Engineering", "comp": "PSP", "n": 2}, {"band": "ปฏิบัติการ 1–4", "cat": "อื่น ๆ", "comp": "PEM", "n": 2}, {"band": "ปฏิบัติการ 1–4", "cat": "Procurement", "comp": "PCC", "n": 2}, {"band": "ผู้บริหาร 10–13", "cat": "อื่น ๆ", "comp": "PCC", "n": 2}, {"band": "จัดการ 6B–6A", "cat": "Finance / Accounting", "comp": "PEM", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Digital / IT", "comp": "PDE", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Digital / IT", "comp": "PSP", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Warehouse / Logistics", "comp": "PEM", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Sales / Channel", "comp": "PEM", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Digital / IT", "comp": "PEM", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "Maintenance / Service", "comp": "PCC", "n": 1}, {"band": "จัดการ/ผจก. 7C–9A", "cat": "อื่น ๆ", "comp": "SBP", "n": 1}, {"band": "ปฏิบัติการ 1–4", "cat": "Production", "comp": "PSP", "n": 1}, {"band": "ปฏิบัติการ 1–4", "cat": "QA / QC", "comp": "PSP", "n": 1}, {"band": "ปฏิบัติการ 1–4", "cat": "QA / QC", "comp": "PEM", "n": 1}, {"band": "ผู้บริหาร 10–13", "cat": "Digital / IT", "comp": "PSP", "n": 1}, {"band": "ผู้บริหาร 10–13", "cat": "อื่น ๆ", "comp": "PEM", "n": 1}, {"band": "วิชาชีพ 5B–6C", "cat": "Procurement", "comp": "PSP", "n": 1}, {"band": "วิชาชีพ 5B–6C", "cat": "อื่น ๆ", "comp": "PSP", "n": 1}], "noRep": 27, "succ": 15, "tot": 42}, "edu": {"A": 175, "B": 172, "C": 188, "D": 207, "bands": [{"k": "ปฏิบัติการ 1–4", "tot": 398, "e": {"ไม่ระบุ": 33, "ม.6 / ต่ำกว่า": 172, "ปวส.": 101, "ปวช.": 74, "ปริญญาตรี": 18}}, {"k": "วิชาชีพ 5B–6C", "tot": 203, "e": {"ไม่ระบุ": 14, "ปริญญาตรี": 154, "ปวส.": 26, "ปริญญาโท+": 8, "ปวช.": 1}}, {"k": "จัดการ 6B–6A", "tot": 86, "e": {"ปริญญาโท+": 7, "ปริญญาตรี": 72, "ปวส.": 1, "ไม่ระบุ": 6}}, {"k": "จัดการ/ผจก. 7C–9A", "tot": 121, "e": {"ปริญญาโท+": 23, "ปริญญาตรี": 94, "ปวส.": 1, "ไม่ระบุ": 3}}, {"k": "ผู้บริหาร 10–13", "tot": 13, "e": {"ปริญญาตรี": 8, "ปริญญาโท+": 5}}]}};
 var D={"asof": "1 ก.ย. 2569", "total": 821, "skipped": 0, "bands": [{"key": "g14", "label": "กลุ่มปฏิบัติการ", "sub": "ระดับ 1–4", "total": 398}, {"key": "g56", "label": "กลุ่มวิชาชีพ", "sub": "ระดับ 5B–6C", "total": 203}, {"key": "g66", "label": "กลุ่มจัดการ/ชำนาญการ", "sub": "ระดับ 6B–6A", "total": 86}, {"key": "g79", "label": "กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ", "sub": "ระดับ 7C–9A", "total": 121}, {"key": "g1013", "label": "กลุ่มผู้บริหาร/ผู้บริหารโครงการ", "sub": "ระดับ 10–13", "total": 13}], "dims": {"sy": {"title": "Service Year Group", "buckets": ["0-3 ปี", "4-5 ปี", "6-10 ปี", "11-15 ปี", "มากกว่า 15 ปี"], "colors": ["#6DBE5B", "#3D6BC6", "#ED7D31", "#FFC000", "#3D6B33"]}, "gen": {"title": "Generation Group", "buckets": ["Baby Boomer", "Gen X", "Gen Y", "Gen Z"], "colors": ["#5B9BD5", "#ED7D31", "#A6A6A6", "#FFC000"]}, "rt": {"title": "Retire Group", "buckets": ["อีก ≤3 ปี", "4-5 ปี", "6-10 ปี", "มากกว่า 10 ปี"], "colors": ["#ED7D31", "#FFC000", "#70AD47", "#843C0C"]}}, "mat": {"sy": {"g14": {"0-3 ปี": 48, "มากกว่า 15 ปี": 125, "11-15 ปี": 54, "6-10 ปี": 131, "4-5 ปี": 40}, "g56": {"0-3 ปี": 60, "6-10 ปี": 75, "4-5 ปี": 36, "11-15 ปี": 14, "มากกว่า 15 ปี": 18}, "g66": {"0-3 ปี": 8, "6-10 ปี": 35, "มากกว่า 15 ปี": 17, "4-5 ปี": 6, "11-15 ปี": 20}, "g79": {"0-3 ปี": 5, "มากกว่า 15 ปี": 52, "11-15 ปี": 35, "4-5 ปี": 3, "6-10 ปี": 26}, "g1013": {"มากกว่า 15 ปี": 8, "6-10 ปี": 3, "0-3 ปี": 2}}, "gen": {"g14": {"Gen Z": 49, "Gen Y": 231, "Gen X": 118}, "g56": {"Gen Z": 56, "Gen Y": 129, "Gen X": 18}, "g66": {"Gen Y": 70, "Gen Z": 5, "Gen X": 11}, "g79": {"Gen Y": 84, "Gen X": 34, "Gen Z": 2, "Baby Boomer": 1}, "g1013": {"Gen X": 10, "Gen Y": 1, "Baby Boomer": 2}}, "rt": {"g14": {"มากกว่า 10 ปี": 296, "6-10 ปี": 63, "อีก ≤3 ปี": 24, "4-5 ปี": 15}, "g56": {"มากกว่า 10 ปี": 190, "6-10 ปี": 8, "อีก ≤3 ปี": 2, "4-5 ปี": 3}, "g66": {"มากกว่า 10 ปี": 78, "6-10 ปี": 6, "อีก ≤3 ปี": 1, "4-5 ปี": 1}, "g79": {"มากกว่า 10 ปี": 92, "6-10 ปี": 12, "อีก ≤3 ปี": 11, "4-5 ปี": 6}, "g1013": {"6-10 ปี": 5, "มากกว่า 10 ปี": 3, "อีก ≤3 ปี": 4, "4-5 ปี": 1}}}, "tot": {"sy": {"0-3 ปี": 123, "มากกว่า 15 ปี": 220, "11-15 ปี": 123, "6-10 ปี": 270, "4-5 ปี": 85}, "gen": {"Gen Z": 112, "Gen Y": 515, "Gen X": 191, "Baby Boomer": 3}, "rt": {"มากกว่า 10 ปี": 659, "6-10 ปี": 94, "อีก ≤3 ปี": 42, "4-5 ปี": 26}}, "sex": {"F": 286, "M": 535}, "comp": {"PEM": 409, "PSP": 212, "SBP": 64, "PDE": 44, "PCC": 44, "PEMC": 21, "PCE": 10, "PSL": 8, "PPP": 5, "CI": 4}, "edu": {"ปริญญาตรี": 346, "มัธยมศึกษาปีที่ 6": 123, "ประกาศนียบัตรวิชาชีพชั้นสูง": 83, "ประกาศนียบัตรวิชาชีพ": 66, "ปริญญาโท": 42, "ประกาศณียบัตรวิชาชีพชั้นสูง": 39, "มัธยมศึกษาปีที่ 3": 35, "ประกาศณียบัตรวิชาชีพ": 9}, "avgAge": 38.4, "avgSY": 11.3, "retire3": 42, "retire5": 68, "retire2571": 42, "retireByYear": {"2026": 12, "2027": 16, "2028": 14, "2029": 12, "2030": 14, "2031": 8, "2032": 19, "2033": 22}};
 
 /* ---------- editable state (title/sub/note) ---------- */
@@ -231,6 +296,12 @@ function seed(){ return {
   savedAt:0,
   title:'Workforce Planning — เป้าหมาย 700 คน ปี 2571',
   sub:'โจทย์ Human Capital: Workforce Planning และ Performance Management — ปรับกำลังคนสู่ 700 คน ภายในปี 2571 พร้อมเพิ่มยอดขายเป็น 6,000 ล้านบาท ที่ GP 30% · ข้อมูลพนักงาน ณ '+D.asof+' ('+D.total+' คน)',
+  reskill:[
+    {k:'A',t:'Automation Technician',pool:175,tgt:60,mo:6,d:'กลุ่ม ปวช./ปวส. ในสายปฏิบัติการ — PLC · SCADA · Robotics เบื้องต้น · เดินและดูแลไลน์ Factory 4.0',fill:'เติมตำแหน่ง OT Automation ได้ 4 จาก 8'},
+    {k:'B',t:'Multi-skill Operator & Quality',pool:172,tgt:80,mo:3,d:'กลุ่มวุฒิ ม.6 และต่ำกว่า — คุมเครื่องหลายสถานี · ตรวจคุณภาพด้วยระบบ vision · ลดคนต่อไลน์',fill:'รองรับการลดกำลังคนต่อไลน์โดยไม่เลิกจ้าง'},
+    {k:'C',t:'ERP Key User & Data Analyst',pool:188,tgt:45,mo:4,d:'กลุ่มวิชาชีพ 5B–6C (ป.ตรีขึ้นไป) — เจ้าของกระบวนการใน ERP ใหม่ · วิเคราะห์ข้อมูลด้วย Power BI/SQL',fill:'เติมตำแหน่ง ERP Consultant + Data Analyst ได้ 6 จาก 12'},
+    {k:'D',t:'Digital Leadership & Succession',pool:207,tgt:30,mo:9,d:'กลุ่มจัดการ 6B–9A — บริหารงานบนแพลตฟอร์มดิจิทัล · เตรียมสืบทอด 15 ตำแหน่งบริหารที่จะเกษียณ',fill:'ปิดช่องว่างผู้สืบทอด 15 ตำแหน่ง'}
+  ],
   roadmap:{
     cuts:[
       {g:'Production / Factory floor',now:250,d:72,why:'Factory 4.0 ที่ PEM (209 คน) — automate สายประกอบ/พ่นสี/ตัดพับ, ลดกะที่ 2, ไม่ทดแทนคนลาออก'},
@@ -259,7 +330,7 @@ function seed(){ return {
   },
   note:'<ul>'+
    '<li><b>กำลังหลักคือ Gen Y ('+D.tot.gen['Gen Y']+' คน · '+Math.round(D.tot.gen['Gen Y']*100/D.total)+'%)</b> อายุเฉลี่ยองค์กร '+D.avgAge+' ปี อายุงานเฉลี่ย '+D.avgSY+' ปี — เป็นช่วงวัยที่พร้อมรับการ Upskill/Reskill ไปสู่งาน Platform · Digital · AI ตามแผนระยะที่ 2–3</li>'+
-   '<li><b>การเกษียณช่วยได้ราว 1 ใน 3</b> — ปี 2569–2571 มีพนักงานเกษียณครบ 60 ปี <b>'+D.retire2571+' คน</b> (12 + 16 + 14) คิดเป็น ~'+Math.round(D.retire2571*100/(D.total-700))+'% ของส่วนต่าง '+(D.total-700)+' คน และยังเกษียณต่อเนื่องอีก '+(D.retire5-D.retire2571)+' คนใน 2 ปีถัดมา — ถ้า<b>ไม่ทดแทนตำแหน่งที่เกษียณ</b> จะได้ผลทันทีโดยไม่กระทบพนักงานปัจจุบัน ส่วนที่เหลืออีก '+((D.total-700)-D.retire2571)+' คน มาจากลาออกแล้วไม่ทดแทน + โยกย้ายภายใน + ERP/Factory 4.0</li>'+
+   '<li><b>เกษียณ '+D.retire2571+' คน แต่ใช้ลดหัวได้จริงแค่ '+X.ret.noRep+' คน</b> — อีก '+X.ret.succ+' ตำแหน่งเป็นระดับจัดการ/ผู้บริหาร (7C–13) ที่ต้องมีผู้สืบทอด ปล่อยว่างไม่ได้ ⇒ ต้องเร่ง Succession Plan '+X.ret.succ+' ตำแหน่งภายใน 2 ปี ควบคู่กับแผนลดคน</li>'+'<li><b>คานงัดที่ยังไม่ได้ใช้: Span of Control 1 : '+X.span.cur+'</b> — หัวหน้า '+X.span.mgr+' คน ต่อพนักงาน '+X.span.staff+' คน แคบกว่าเกณฑ์ปกติ (1:5–1:8) มาก โดยเฉพาะ PSP · PDE (1:1.8) และ PCC (1:0.8) การควบรวมหน่วยงานให้ได้ 1:3.5 ลดได้ '+X.span.scen[1].cut+' ตำแหน่ง <b>เกือบครึ่งของส่วนต่าง โดยไม่แตะสายการผลิต</b></li>'+'<li><b>ผลด้านต้นทุน:</b> ลด 121 ตำแหน่งพร้อมรับสายดิจิทัล 45 คน ประหยัดค่าจ้างพื้นฐานสุทธิ ~'+mb(X.cost.net*12)+' ล้านบาท/ปี (ยังไม่รวมสวัสดิการที่ปกติ +30–40%) ใช้เป็นฐานคำนวณ Payback ของ ERP + Factory 4.0 ได้</li>'+'<li><b>Reskill คือเงื่อนไขที่ทำให้แผนนี้ไม่ใช่การเลิกจ้าง</b> — กลุ่มปฏิบัติการ 398 คน มีวุฒิ ปวช./ปวส. เพียง '+X.edu.A+' คนที่ Reskill เป็น Automation Technician ได้จริง อีก '+X.edu.B+' คน (ม.6 และต่ำกว่า) ต้องใช้เส้นทาง Multi-skill Operator แทน — ต้องแยก 2 เส้นทาง ไม่ใช่หลักสูตรเดียว</li>'+
    '<li><b>กลุ่มปฏิบัติการ (ระดับ 1–4) มี '+D.bands[0].total+' คน ('+Math.round(D.bands[0].total*100/D.total)+'%)</b> — เป็นพื้นที่หลักของ Factory 4.0 / Automation: ผลิตภาพต่อคนต้องเพิ่มจากการลงทุนเครื่องจักรและระบบ มากกว่าการเพิ่มคน</li>'+
    '<li><b>Productivity เป้าหมาย 8.57 ลบ./คน/ปี</b> (6,000mb ÷ 700 คน) — GP 30% เท่ากับ GP ต่อหัว ~2.57 ลบ./คน ซึ่งต้องยกระดับผ่าน 6 RST Platform โดยเฉพาะ Recurring และ TCS</li>'+
    '<li><b>ผู้สืบทอดตำแหน่งบริหาร</b> — ระดับ 10–13 มี '+D.bands[4].total+' คน และระดับ 7C–9A มี '+D.bands[3].total+' คน ควรทำ Succession Plan ควบคู่ Individual Performance Management ในหน้า Business Plan 7–9</li>'+
@@ -271,7 +342,7 @@ var S=null;
 try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.title&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
 if(!S) S=(FD&&FD.title)?FD:seed();
 if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
-var sd=seed(); ['title','sub','note','roadmap'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+var sd=seed(); ['title','sub','note','roadmap','reskill'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
 
 var editMode=true, saveT=null;
 var tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
@@ -415,13 +486,13 @@ function legend(dimKey){
 
 /* ---------- bridge ---------- */
 (function(){
-  var r5=(D.retire2571!==undefined?D.retire2571:D.retire5), rest=GAP-r5;
+  var r5=X.ret.noRep, rest=GAP-r5;
   document.getElementById('bridge').innerHTML=
     '<div class="bstep"><div class="v">'+num(D.total)+'</div><div class="l">กำลังคนปัจจุบัน ('+D.asof+')</div></div>'+
     '<div class="barrow">→</div>'+
-    '<div class="bstep"><div class="v red">−'+r5+'</div><div class="l">เกษียณครบ 60 ปี ปี 2569–2571 (12+16+14) — ไม่ทดแทน</div></div>'+
+    '<div class="bstep"><div class="v red">−'+r5+'</div><div class="l">เกษียณ '+X.ret.tot+' คน — ที่<b>ไม่ทดแทนได้จริง</b> (ไม่ใช่ระดับบริหาร)</div></div>'+
     '<div class="barrow">→</div>'+
-    '<div class="bstep"><div class="v red">−'+rest+'</div><div class="l">ลาออกแล้ว<b>ไม่ทดแทน</b> + โยกย้ายภายใน + ERP/Factory 4.0 แทนงานซ้ำซ้อน (~65% ของส่วนต่าง)</div></div>'+
+    '<div class="bstep"><div class="v red">−'+rest+'</div><div class="l">ลาออกไม่ทดแทน + <b>ลดชั้นบริหาร (Span 1:3.5 = −48)</b> + ERP/Factory 4.0 แทนงานซ้ำซ้อน</div></div>'+
     '<div class="barrow">→</div>'+
     '<div class="bstep" style="background:#EAF5EC;border-color:#CBE7CF"><div class="v green">700</div><div class="l">เป้าหมายปี 2571 · Productivity 8.57 ลบ./คน · GP/คน ~2.57 ลบ.</div></div>';
 })();
@@ -504,6 +575,96 @@ function rmInput(e){
   S.roadmap=RM; schedulePersist();
 }
 renderRoadmap();
+
+/* ---------- extended analysis ---------- */
+function baht(n){ return (Math.round(n)).toLocaleString('en-US'); }
+function mb(n){ return (n/1000000).toFixed(2); }
+(function(){
+  var R=X.ret;
+  document.getElementById('retCap').textContent=
+    'พนักงานที่ครบ 60 ปี ในช่วง 2569–2571 รวม '+R.tot+' คน (2569: '+R.byYear['2026']+' · 2570: '+R.byYear['2027']+' · 2571: '+R.byYear['2028']+') — แต่ไม่ใช่ทุกตำแหน่งที่ปล่อยว่างได้';
+  document.getElementById('retWarn').innerHTML=
+    '<b>ข้อควรระวัง:</b> ใน '+R.tot+' ตำแหน่ง มี <b>'+R.succ+' ตำแหน่งเป็นระดับจัดการ/ผู้บริหาร (7C–13)</b> ซึ่งต้องมีผู้สืบทอด ไม่สามารถปล่อยว่างได้ '+
+    'ดังนั้น <b>“เกษียณแล้วไม่ทดแทน” ที่ทำได้จริงคือ '+R.noRep+' ตำแหน่ง</b> ไม่ใช่ '+R.tot+' — ภาระที่ต้องบริหารเองจึงเป็น '+((D.total-700)-R.noRep)+' คน และต้องเร่ง Succession Plan '+R.succ+' ตำแหน่งภายใน 2 ปี';
+  var BO=['ปฏิบัติการ 1–4','วิชาชีพ 5B–6C','จัดการ 6B–6A','จัดการ/ผจก. 7C–9A','ผู้บริหาร 10–13'];
+  var h='<tr><th>ระดับ</th><th class="n">คน</th><th>แนวทาง</th></tr>';
+  BO.forEach(function(k){
+    var v=R.byBand[k]||0; if(!v) return;
+    var mgmt=(k==='จัดการ/ผจก. 7C–9A'||k==='ผู้บริหาร 10–13');
+    h+='<tr><td class="g">'+k+'</td><td class="n">'+v+'</td><td>'+
+      (mgmt?'<span class="pill no">ต้องมีผู้สืบทอด</span> เตรียม Successor ล่วงหน้า':'<span class="pill ok">ไม่ทดแทน</span> ปล่อยว่าง / ให้ระบบทดแทน')+'</td></tr>';
+  });
+  h+='<tr class="sum"><td>รวม</td><td class="n">'+R.tot+'</td><td>ไม่ทดแทน '+R.noRep+' · ต้องสืบทอด '+R.succ+'</td></tr>';
+  document.getElementById('tRetBand').innerHTML=h;
+  var h2='<tr><th>สายงาน</th><th>บริษัท</th><th class="n">ตำแหน่ง</th></tr>';
+  R.table.slice(0,14).forEach(function(r){
+    h2+='<tr><td class="g">'+esc(r.cat)+'</td><td>'+esc(r.comp)+'</td><td class="n">'+r.n+'</td></tr>';
+  });
+  document.getElementById('tRetUnit').innerHTML=h2;
+})();
+
+(function(){
+  var C=X.cost;
+  document.getElementById('costCap').textContent=
+    'ค่าจ้างพื้นฐานรวมปัจจุบัน ~'+mb(X.payroll)+' ล้านบาท/เดือน (~'+mb(X.payroll*12)+' ล้านบาท/ปี) จากข้อมูล '+X.salCovered+' จาก '+X.N+' คน';
+  var h='<tr><th>กลุ่มระดับ</th><th class="n">คน</th><th class="n">เฉลี่ย/เดือน</th></tr>';
+  X.salBand.forEach(function(b){ h+='<tr><td class="g">'+esc(b.k)+'</td><td class="n">'+b.n+'</td><td class="n">'+baht(b.avg)+'</td></tr>'; });
+  h+='<tr class="sum"><td>รวมค่าจ้างทั้งองค์กร</td><td class="n">'+X.salCovered+'</td><td class="n">'+baht(X.payroll)+'</td></tr>';
+  document.getElementById('tSal').innerHTML=h;
+  var h2='<tr><th>รายการ</th><th class="n">ตำแหน่ง</th><th class="n">เฉลี่ย</th><th class="n">บาท/เดือน</th></tr>';
+  C.cutRows.forEach(function(r){ h2+='<tr><td>ลด — '+esc(r.k)+'</td><td class="n neg">−'+r.n+'</td><td class="n">'+baht(r.avg)+'</td><td class="n neg">−'+baht(r.m)+'</td></tr>'; });
+  C.hireRows.forEach(function(r){ h2+='<tr><td>รับเพิ่ม — '+esc(r.k)+' <span style="color:#8FA3B8">(+'+(r.k.indexOf('ดิจิทัล')>=0?C.digPrem:C.salPrem)+'% market)</span></td><td class="n pos">+'+r.n+'</td><td class="n">'+baht(r.avg)+'</td><td class="n pos">+'+baht(r.m)+'</td></tr>'; });
+  h2+='<tr class="sum"><td>ประหยัดสุทธิ</td><td class="n">−121</td><td class="n"></td><td class="n pos">'+baht(C.net)+'</td></tr>';
+  h2+='<tr class="sum"><td>ประหยัดสุทธิต่อปี</td><td class="n"></td><td class="n"></td><td class="n pos">~'+mb(C.net*12)+' ลบ.</td></tr>';
+  document.getElementById('tCost').innerHTML=h2;
+})();
+
+(function(){
+  var S2=X.span;
+  document.getElementById('spanCap').textContent=
+    'ปัจจุบันหัวหน้า/ผู้บริหาร '+S2.mgr+' คน ต่อพนักงาน '+S2.staff+' คน = 1 : '+S2.cur+' ซึ่งแคบกว่าเกณฑ์ทั่วไป (1:5–1:8) มาก — เป็นแหล่งลดตำแหน่งที่ไม่กระทบสายการผลิต';
+  var h='<tr><th>บริษัท</th><th class="n">หัวหน้า</th><th class="n">พนักงาน</th><th class="n">Span</th></tr>';
+  S2.byComp.forEach(function(c){
+    var flag=(c.span!==null&&c.span<2.5);
+    h+='<tr><td class="g">'+esc(c.comp)+'</td><td class="n">'+c.mgr+'</td><td class="n">'+c.staff+'</td><td class="n'+(flag?' neg':'')+'">1 : '+(c.span===null?'—':c.span)+'</td></tr>';
+  });
+  h+='<tr class="sum"><td>รวมทั้งกลุ่ม</td><td class="n">'+S2.mgr+'</td><td class="n">'+S2.staff+'</td><td class="n">1 : '+S2.cur+'</td></tr>';
+  document.getElementById('tSpan').innerHTML=h;
+  var h2='<tr><th>เป้า Span</th><th class="n">หัวหน้าที่ควรมี</th><th class="n">ลดได้</th></tr>';
+  S2.scen.forEach(function(s){ h2+='<tr><td class="g">1 : '+s.t.toFixed(1)+'</td><td class="n">'+s.need+'</td><td class="n neg">−'+s.cut+'</td></tr>'; });
+  document.getElementById('tSpanScen').innerHTML=h2;
+  var low=S2.byComp.filter(function(c){return c.span!==null&&c.span<2.5;}).map(function(c){return c.comp+' (1:'+c.span+')';});
+  document.getElementById('spanNote').innerHTML=
+    '<b>จุดที่ควรดูก่อน:</b> '+low.join(' · ')+' — โครงสร้างแบนผิดปกติ มีหัวหน้าเกือบเท่าจำนวนลูกทีม '+
+    'การควบรวมหน่วยงานให้ Span เป็น 1:3.5 ลดได้ '+S2.scen[1].cut+' ตำแหน่ง ซึ่ง<b>เกือบครึ่งของส่วนต่าง 121 คน โดยไม่ต้องแตะสายการผลิตเลย</b>';
+})();
+
+(function(){
+  var RS=S.reskill, tot=RS.reduce(function(a,c){return a+(+c.tgt||0);},0);
+  document.getElementById('rsCap').textContent=
+    'พัฒนาคนภายใน '+tot+' คน ใน 4 เส้นทาง — เพื่อให้การลดกำลังคนเกิดจากการ "ย้ายคนไปงานที่มีมูลค่าสูงกว่า" ไม่ใช่การเลิกจ้าง และลดการรับจากภายนอก';
+  var ce=editMode?'true':'false', h='';
+  RS.forEach(function(t){
+    h+='<div class="t '+t.k.toLowerCase()+'"><div class="tn">Track '+esc(t.k)+' · '+t.mo+' เดือน</div>'+
+      '<div class="tt" data-rs="'+t.k+'" data-f="t" contenteditable="'+ce+'">'+esc(t.t)+'</div>'+
+      '<div class="tv"><span data-rs="'+t.k+'" data-f="tgt" contenteditable="'+ce+'">'+t.tgt+'</span> คน<small>จากกลุ่มเป้าหมาย '+t.pool+' คน</small></div>'+
+      '<div class="td" data-rs="'+t.k+'" data-f="d" contenteditable="'+ce+'">'+esc(t.d)+'</div></div>';
+  });
+  document.getElementById('tracks').innerHTML=h;
+  var h2='<tr><th>Track</th><th class="n">กลุ่มเป้าหมาย</th><th class="n">พัฒนา</th><th class="n">ระยะเวลา</th><th>ผลต่อแผนกำลังคน</th></tr>';
+  RS.forEach(function(t){
+    h2+='<tr><td class="g">'+esc(t.k)+' · '+esc(t.t)+'</td><td class="n">'+t.pool+'</td><td class="n pos">'+t.tgt+'</td><td class="n">'+t.mo+' เดือน</td><td>'+esc(t.fill)+'</td></tr>';
+  });
+  h2+='<tr class="sum"><td>รวม</td><td class="n"></td><td class="n pos">'+tot+'</td><td class="n"></td><td>เติมตำแหน่งใหม่จากภายใน 10 จาก 45 · ลดการรับภายนอกและลดผลกระทบต่อพนักงานเดิม</td></tr>';
+  document.getElementById('tRs').innerHTML=h2;
+  document.getElementById('tracks').addEventListener('input',function(e){
+    var el=e.target.closest('[data-rs]'); if(!el) return;
+    var t=RS.filter(function(x){return x.k===el.dataset.rs;})[0]; if(!t) return;
+    var f=el.dataset.f, v=el.innerText.trim();
+    t[f]=(f==='tgt')?(parseInt(v.replace(/[^0-9]/g,''),10)||0):v;
+    S.reskill=RS; schedulePersist();
+  });
+})();
 
 /* ---------- edit toggle ---------- */
 document.getElementById('bEdit').addEventListener('click',function(){
