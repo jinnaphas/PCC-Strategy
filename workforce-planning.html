@@ -58,15 +58,18 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .card h2{font-size:16px;font-weight:800;color:var(--blue2);margin-bottom:3px}
 .card .cap{font-size:11.5px;color:var(--mute);margin-bottom:12px}
 /* pyramid area */
-.pyra{display:flex;gap:0;align-items:flex-end;overflow-x:auto;padding-bottom:4px}
-.rows{flex:none;width:315px;display:flex;flex-direction:column;justify-content:flex-end}
-.rowlbl{height:54px;display:flex;align-items:center;gap:10px;padding:0 10px;border-bottom:1px solid #fff;color:var(--ink)}
+.pyra{overflow-x:auto;padding-bottom:4px}
+.pywrap{position:relative;display:flex;align-items:flex-start;min-width:1420px}
+.bands{position:absolute;left:0;right:0;top:30px;z-index:0}
+.bandrow{height:56px;border-bottom:2px solid #fff}
+.rows{flex:none;width:320px;position:relative;z-index:1;padding-top:30px}
+.rowlbl{height:56px;display:flex;align-items:center;gap:10px;padding:0 10px;color:var(--ink)}
 .rowlbl .tt{font-family:'Inter';font-size:19px;font-weight:800;color:var(--blue2);width:52px;text-align:right;flex:none}
-.rowlbl .lb{font-size:11px;line-height:1.35}
+.rowlbl .lb{font-size:11px;line-height:1.32}
 .rowlbl .lb b{display:block;font-size:11.5px}
-.pycol{flex:1;min-width:330px;display:flex;flex-direction:column;align-items:center}
-.pycol h3{font-family:'Inter','Sarabun';font-size:14.5px;font-weight:800;color:var(--ink);margin:0 0 4px}
-.leg{display:flex;flex-direction:column;gap:3px;margin-top:10px;font-size:11.5px;align-self:center}
+.pycol{flex:1;min-width:352px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.pycol h3{font-family:'Inter','Sarabun';font-size:14.5px;font-weight:800;color:var(--ink);margin:0;height:30px;line-height:26px}
+.leg{display:flex;flex-direction:column;gap:3px;margin-top:12px;font-size:11.5px;align-self:center}
 .leg .li{display:flex;gap:7px;align-items:center}
 .leg .sw{width:13px;height:13px;border-radius:3px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
 /* gender + company */
@@ -238,13 +241,13 @@ function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&25
   return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
 function pyramidSVG(dimKey){
   var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();  /* top = ผู้บริหาร */
-  var W=330,H=270,PADT=8,cx=W/2,rows=bandsTop.length,rh=(H-PADT)/rows;
-  var defs='',body='',uid=dimKey;
-  /* soft shadow + right face for 3D depth */
-  body+='<ellipse cx="'+cx+'" cy="'+(H+4)+'" rx="'+(W/2-6)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
+  var RH=56, rows=bandsTop.length, H=RH*rows, W=352, cx=W/2;
+  var defs='',segs='',labels='',uid=dimKey;
+  segs+='<ellipse cx="'+cx+'" cy="'+(H+5)+'" rx="'+(W/2-10)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
+  function hwAt(y){ return (y/H)*(W/2-4)+2; }
   bandsTop.forEach(function(b,i){
-    var y0=PADT+i*rh, y1=PADT+(i+1)*rh-1.5;
-    var hw0=((y0-PADT)/(H-PADT))*(W/2-2)+3, hw1=((y1-PADT)/(H-PADT))*(W/2-2)+3;
+    var y0=i*RH, y1=(i+1)*RH-2;
+    var hw0=hwAt(y0), hw1=hwAt(y1), hwMid=hwAt((y0+y1)/2);
     var clip='clip_'+uid+'_'+i;
     defs+='<clipPath id="'+clip+'"><polygon points="'+(cx-hw0)+','+y0+' '+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx-hw1)+','+y1+'"/></clipPath>';
     var counts=D.mat[dimKey][b.key]||{}, total=0;
@@ -261,21 +264,23 @@ function pyramidSVG(dimKey){
           '<stop offset="0" stop-color="'+shade(dim.colors[j],1.18)+'"/>'+
           '<stop offset="1" stop-color="'+shade(dim.colors[j],0.88)+'"/></linearGradient>';
         g+='<rect x="'+x+'" y="'+y0+'" width="'+w+'" height="'+(y1-y0)+'" fill="url(#'+gid+')"/>';
-        if(w>=15){
+        /* label — วาดนอก clip เพื่อไม่ให้ตัวเลขถูกตัด และ clamp ให้อยู่ในสามเหลี่ยม */
+        var fs = w>=30?11.5 : w>=18?10 : w>=11?8.5 : w>=7.5?7.5 : 0;
+        if(fs){
+          var tx=x+w/2, pad=Math.max(7,fs*0.75);
+          tx=Math.max(cx-hwMid+pad, Math.min(cx+hwMid-pad, tx));
           var tc=lum(dim.colors[j])>150?'#3b3b3b':'#fff';
-          g+='<text x="'+(x+w/2)+'" y="'+((y0+y1)/2+4)+'" text-anchor="middle" font-family="Inter,Sarabun" font-size="'+(w>=24?11:9)+'" font-weight="700" fill="'+tc+'">'+v+'</text>';
+          labels+='<text x="'+tx+'" y="'+((y0+y1)/2+fs*0.36)+'" text-anchor="middle" font-family="Inter,Sarabun" font-size="'+fs+'" font-weight="700" fill="'+tc+'">'+v+'</text>';
         }
         acc+=v;
       });
     }
     g+='</g>';
-    /* right-side darker sliver for 3D */
     g+='<polygon points="'+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx+hw1-6)+','+y1+' '+(cx+hw0-4)+','+y0+'" fill="rgba(0,0,0,.10)"/>';
-    body+=g;
+    segs+=g;
   });
-  /* apex highlight */
-  body+='<polygon points="'+cx+','+PADT+' '+(cx-8)+','+(PADT+16)+' '+(cx+8)+','+(PADT+16)+'" fill="rgba(255,255,255,.35)"/>';
-  return '<svg width="'+W+'" height="'+(H+14)+'" viewBox="0 0 '+W+' '+(H+14)+'"><defs>'+defs+'</defs>'+body+'</svg>';
+  segs+='<polygon points="'+cx+',0 '+(cx-7)+',14 '+(cx+7)+',14" fill="rgba(255,255,255,.35)"/>';
+  return '<svg width="'+W+'" height="'+(H+14)+'" viewBox="0 0 '+W+' '+(H+14)+'"><defs>'+defs+'</defs>'+segs+labels+'</svg>';
 }
 function legend(dimKey){
   var dim=D.dims[dimKey], h='<div class="leg">';
@@ -286,14 +291,19 @@ function legend(dimKey){
 }
 (function(){
   var bandsTop=D.bands.slice().reverse();
-  var h='<div class="rows">';
+  var h='<div class="pywrap">';
+  h+='<div class="bands">';
+  bandsTop.forEach(function(b,i){ h+='<div class="bandrow" style="background:'+ROWCOLORS[i]+'"></div>'; });
+  h+='</div>';
+  h+='<div class="rows">';
   bandsTop.forEach(function(b,i){
-    h+='<div class="rowlbl" style="background:'+ROWCOLORS[i]+'"><span class="tt">'+num(b.total)+'</span><span class="lb"><b>'+esc(b.label)+'</b>'+esc(b.sub)+'</span></div>';
+    h+='<div class="rowlbl"><span class="tt">'+num(b.total)+'</span><span class="lb"><b>'+esc(b.label)+'</b>'+esc(b.sub)+'</span></div>';
   });
-  h+='<div style="height:14px"></div></div>';
+  h+='</div>';
   ['sy','gen','rt'].forEach(function(k){
     h+='<div class="pycol"><h3>'+esc(D.dims[k].title)+'</h3>'+pyramidSVG(k)+legend(k)+'</div>';
   });
+  h+='</div>';
   document.getElementById('pyra').innerHTML=h;
 })();
 
