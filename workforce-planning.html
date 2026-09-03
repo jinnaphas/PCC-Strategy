@@ -60,9 +60,9 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 /* pyramid area */
 .pyra{overflow-x:auto;padding-bottom:4px}
 .pywrap{position:relative;display:flex;align-items:flex-start;min-width:1420px}
-.bands{position:absolute;left:0;right:0;top:30px;z-index:0}
+.bands{position:absolute;left:0;right:0;top:50px;z-index:0}
 .bandrow{height:56px;border-bottom:2px solid #fff}
-.rows{flex:none;width:320px;position:relative;z-index:1;padding-top:30px}
+.rows{flex:none;width:320px;position:relative;z-index:1;padding-top:50px}
 .rowlbl{height:56px;display:flex;align-items:center;gap:10px;padding:0 10px;color:var(--ink)}
 .rowlbl .tt{font-family:'Inter';font-size:19px;font-weight:800;color:var(--blue2);width:52px;text-align:right;flex:none}
 .rowlbl .lb{font-size:11px;line-height:1.32}
@@ -312,47 +312,63 @@ function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&25
   r=Math.min(255,Math.max(0,Math.round(r*f))); g=Math.min(255,Math.max(0,Math.round(g*f))); b=Math.min(255,Math.max(0,Math.round(b*f)));
   return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
 function pyramidSVG(dimKey){
-  var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();  /* top = ผู้บริหาร */
-  var RH=56, rows=bandsTop.length, H=RH*rows, W=352, cx=W/2;
-  var defs='',segs='',labels='',uid=dimKey;
-  segs+='<ellipse cx="'+cx+'" cy="'+(H+5)+'" rx="'+(W/2-10)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
-  function hwAt(y){ return (y/H)*(W/2-4)+2; }
+  var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();
+  var RH=56, rows=bandsTop.length, H=RH*rows;      /* พื้นที่แถบ */
+  var APEX=20;                                      /* ยอดแหลมประดับเหนือแถบแรก */
+  var W=352, cx=W/2, HW0=27, HWmax=W/2-6;           /* ครึ่งความกว้าง: บนสุด -> ล่างสุด */
+  function hw(y){ return HW0+(y/H)*(HWmax-HW0); }
+  var defs='',body='',labels='',uid=dimKey;
+  body+='<ellipse cx="'+cx+'" cy="'+(APEX+H+6)+'" rx="'+(HWmax-6)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
+
   bandsTop.forEach(function(b,i){
-    var y0=i*RH, y1=(i+1)*RH-2;
-    var hw0=hwAt(y0), hw1=hwAt(y1), hwMid=hwAt((y0+y1)/2);
-    var clip='clip_'+uid+'_'+i;
-    defs+='<clipPath id="'+clip+'"><polygon points="'+(cx-hw0)+','+y0+' '+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx-hw1)+','+y1+'"/></clipPath>';
-    var counts=D.mat[dimKey][b.key]||{}, total=0;
-    dim.buckets.forEach(function(bk){ total+=counts[bk]||0; });
-    var g='<g clip-path="url(#'+clip+')">';
-    if(total<=0){ g+='<rect x="'+(cx-hw1)+'" y="'+y0+'" width="'+(hw1*2)+'" height="'+(y1-y0)+'" fill="#E7EDF4"/>'; }
-    else{
-      var acc=0, wRef=hw1*2, x0=cx-hw1;
-      dim.buckets.forEach(function(bk,j){
-        var v=counts[bk]||0; if(!v) return;
-        var w=v/total*wRef, x=x0+acc/total*wRef;
-        var gid='g_'+uid+'_'+i+'_'+j;
-        defs+='<linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1">'+
-          '<stop offset="0" stop-color="'+shade(dim.colors[j],1.18)+'"/>'+
-          '<stop offset="1" stop-color="'+shade(dim.colors[j],0.88)+'"/></linearGradient>';
-        g+='<rect x="'+x+'" y="'+y0+'" width="'+w+'" height="'+(y1-y0)+'" fill="url(#'+gid+')"/>';
-        /* label — วาดนอก clip เพื่อไม่ให้ตัวเลขถูกตัด และ clamp ให้อยู่ในสามเหลี่ยม */
-        var fs = w>=30?11.5 : w>=18?10 : w>=11?8.5 : w>=7.5?7.5 : 0;
-        if(fs){
-          var tx=x+w/2, pad=Math.max(7,fs*0.75);
-          tx=Math.max(cx-hwMid+pad, Math.min(cx+hwMid-pad, tx));
-          var tc=lum(dim.colors[j])>150?'#3b3b3b':'#fff';
-          labels+='<text x="'+tx+'" y="'+((y0+y1)/2+fs*0.36)+'" text-anchor="middle" font-family="Inter,Sarabun" font-size="'+fs+'" font-weight="700" fill="'+tc+'">'+v+'</text>';
-        }
-        acc+=v;
-      });
+    var y0=i*RH, y1=(i+1)*RH-2, ym=(y0+y1)/2;
+    var hw0=hw(y0), hw1=hw(y1), hwm=hw(ym);
+    var Y0=y0+APEX, Y1=y1+APEX;
+    var counts=D.mat[dimKey][b.key]||{};
+    var items=[];
+    dim.buckets.forEach(function(bk,j){ var v=counts[bk]||0; if(v>0) items.push({v:v,j:j}); });
+    if(!items.length){
+      body+='<polygon points="'+(cx-hw0)+','+Y0+' '+(cx+hw0)+','+Y0+' '+(cx+hw1)+','+Y1+' '+(cx-hw1)+','+Y1+'" fill="#E7EDF4"/>';
+      return;
     }
-    g+='</g>';
-    g+='<polygon points="'+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx+hw1-6)+','+y1+' '+(cx+hw0-4)+','+y0+'" fill="rgba(0,0,0,.10)"/>';
-    segs+=g;
+    /* จัดสรรความกว้าง: ทุกช่องได้ขั้นต่ำพอใส่ตัวเลข ที่เหลือแบ่งตามสัดส่วนจริง */
+    var availMid=hwm*2, totalV=0;
+    items.forEach(function(it){ totalV+=it.v; });
+    var mins=items.map(function(it){ return (String(it.v).length*6.2+7)/availMid; });
+    var sumMin=mins.reduce(function(a,c){return a+c;},0), fr;
+    if(sumMin>=1){ fr=mins.map(function(m){ return m/sumMin; }); }
+    else { var rest=1-sumMin; fr=items.map(function(it,k){ return mins[k]+rest*(it.v/totalV); }); }
+
+    var acc=0;
+    items.forEach(function(it,k){
+      var c0=acc, c1=acc+fr[k]; acc=c1;
+      var col=dim.colors[it.j], gid='g_'+uid+'_'+i+'_'+k;
+      defs+='<linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0" stop-color="'+shade(col,1.18)+'"/>'+
+        '<stop offset="1" stop-color="'+shade(col,0.88)+'"/></linearGradient>';
+      var tL=cx-hw0+c0*hw0*2, tR=cx-hw0+c1*hw0*2;
+      var bL=cx-hw1+c0*hw1*2, bR=cx-hw1+c1*hw1*2;
+      body+='<polygon points="'+tL+','+Y0+' '+tR+','+Y0+' '+bR+','+Y1+' '+bL+','+Y1+'" fill="url(#'+gid+')"/>';
+      /* ตัวเลขกลางช่อง วัดจากความกว้างจริงที่กึ่งกลางแถว */
+      var mL=cx-hwm+c0*hwm*2, mR=cx-hwm+c1*hwm*2, wMid=mR-mL;
+      var dg=String(it.v).length;
+      var fs=Math.min(11.5, Math.max(6.2,(wMid-3)/(dg*0.63)));
+      var tc=lum(col)>150?'#3b3b3b':'#fff';
+      labels+='<text x="'+((mL+mR)/2)+'" y="'+(Y0+(Y1-Y0)/2+fs*0.36)+'" text-anchor="middle" '+
+        'font-family="Inter,Sarabun" font-size="'+fs.toFixed(1)+'" font-weight="700" fill="'+tc+'">'+it.v+'</text>';
+    });
+    /* ไฮไลต์ขอบขวาให้ดูมีมิติ */
+    body+='<polygon points="'+(cx+hw0)+','+Y0+' '+(cx+hw1)+','+Y1+' '+(cx+hw1-6)+','+Y1+' '+(cx+hw0-5)+','+Y0+'" fill="rgba(0,0,0,.10)"/>';
+    body+='<line x1="'+(cx-hw1)+'" y1="'+Y1+'" x2="'+(cx+hw1)+'" y2="'+Y1+'" stroke="#fff" stroke-width="2"/>';
   });
-  segs+='<polygon points="'+cx+',0 '+(cx-7)+',14 '+(cx+7)+',14" fill="rgba(255,255,255,.35)"/>';
-  return '<svg width="'+W+'" height="'+(H+14)+'" viewBox="0 0 '+W+' '+(H+14)+'"><defs>'+defs+'</defs>'+segs+labels+'</svg>';
+
+  /* ยอดแหลม: ใช้สีของช่องที่ใหญ่ที่สุดในแถวบนสุด */
+  var top0=D.mat[dimKey][bandsTop[0].key]||{}, bestC=dim.colors[0], bestV=-1;
+  dim.buckets.forEach(function(bk,j){ var v=top0[bk]||0; if(v>bestV){ bestV=v; bestC=dim.colors[j]; } });
+  body+='<polygon points="'+cx+',0 '+(cx-HW0)+','+APEX+' '+(cx+HW0)+','+APEX+'" fill="'+shade(bestC,1.05)+'"/>';
+  body+='<polygon points="'+cx+',0 '+(cx+HW0)+','+APEX+' '+(cx+HW0-5)+','+APEX+'" fill="rgba(0,0,0,.10)"/>';
+
+  return '<svg width="'+W+'" height="'+(APEX+H+16)+'" viewBox="0 0 '+W+' '+(APEX+H+16)+'"><defs>'+defs+'</defs>'+body+labels+'</svg>';
 }
 function legend(dimKey){
   var dim=D.dims[dimKey], h='<div class="leg">';
