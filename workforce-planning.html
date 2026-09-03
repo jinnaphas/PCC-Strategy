@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Workforce Planning Executive Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EEF3F8;--card:#FFFFFF;--ink:#1E3A5F;--mute:#5A6E88;--line:#D3DEEA;
+  --blue:#0077B6;--blue2:#005A8E;--orange:#F7941D;--green:#2E7D32;--hi:#F5B301}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 700px at 50% -10%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:'Inter','Sarabun',sans-serif;margin:0}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 14px;background:rgba(238,243,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.sep{width:1px;height:22px;background:var(--line);margin:0 3px}
+button{font-family:'Inter','Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
+button:hover{border-color:var(--blue);color:var(--blue)}
+button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.5;cursor:default}
+a.back{font-family:'Inter';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+  text-decoration:none;color:#41566E;border:1px solid var(--line);padding:6px 9px;border-radius:6px}
+a.back:hover{border-color:var(--blue);color:var(--blue)}
+#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto;transition:color .25s}
+#autosave.hit{color:var(--green)}
+.tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
+  padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
+.tip.show{opacity:.96}
+.wrap{max-width:1560px;margin:0 auto;padding:20px 16px 100px}
+.hero{background:linear-gradient(120deg,#0B3552,var(--blue2) 55%,#1A7FB8);color:#fff;border-radius:18px;
+  padding:22px 28px;box-shadow:0 10px 30px rgba(0,90,142,.28);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-50px;top:-60px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hero .kd{font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:27px;font-weight:800;margin:3px 0 5px;letter-spacing:-.01em}
+.hero .sub{font-size:13.5px;opacity:.93;line-height:1.55;max-width:900px}
+.hero .tg{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hero .tg .t{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:8px 15px}
+.hero .tg .t b{font-family:'Inter';font-size:19px;display:block}
+.hero .tg .t span{font-size:11px;opacity:.85}
+.hero [contenteditable="true"]{outline:none;border-radius:5px}
+.hero [contenteditable="true"]:focus{background:rgba(255,255,255,.16);box-shadow:0 0 0 2px rgba(255,255,255,.5)}
+.kpis{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}
+.kpi{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 15px;box-shadow:0 2px 10px rgba(30,58,95,.05)}
+.kpi .v{font-family:'Inter';font-size:22px;font-weight:800;color:var(--blue2)}
+.kpi .v.red{color:#C0392B}.kpi .v.green{color:var(--green)}
+.kpi .l{font-size:11.5px;color:var(--mute);margin-top:1px;line-height:1.4}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:14px 0;box-shadow:0 3px 16px rgba(30,58,95,.06)}
+.card h2{font-size:16px;font-weight:800;color:var(--blue2);margin-bottom:3px}
+.card .cap{font-size:11.5px;color:var(--mute);margin-bottom:12px}
+/* pyramid area */
+.pyra{display:flex;gap:0;align-items:flex-end;overflow-x:auto;padding-bottom:4px}
+.rows{flex:none;width:315px;display:flex;flex-direction:column;justify-content:flex-end}
+.rowlbl{height:54px;display:flex;align-items:center;gap:10px;padding:0 10px;border-bottom:1px solid #fff;color:var(--ink)}
+.rowlbl .tt{font-family:'Inter';font-size:19px;font-weight:800;color:var(--blue2);width:52px;text-align:right;flex:none}
+.rowlbl .lb{font-size:11px;line-height:1.35}
+.rowlbl .lb b{display:block;font-size:11.5px}
+.pycol{flex:1;min-width:330px;display:flex;flex-direction:column;align-items:center}
+.pycol h3{font-family:'Inter','Sarabun';font-size:14.5px;font-weight:800;color:var(--ink);margin:0 0 4px}
+.leg{display:flex;flex-direction:column;gap:3px;margin-top:10px;font-size:11.5px;align-self:center}
+.leg .li{display:flex;gap:7px;align-items:center}
+.leg .sw{width:13px;height:13px;border-radius:3px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+/* gender + company */
+.duo{display:flex;flex-wrap:wrap;gap:14px}
+.duo .card{flex:1;min-width:330px;margin:0}
+.gen{display:flex;align-items:center;gap:18px}
+.gen .fig{font-size:64px;line-height:1}
+.gbar{flex:1}
+.gbar .g{height:30px;border-radius:8px;display:flex;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.gbar .g .m{background:#38A5DC}.gbar .g .f{background:#F06AA7}
+.gbar .lg{display:flex;justify-content:space-between;font-size:12.5px;margin-top:7px;font-weight:700}
+.cbar{height:34px;border-radius:9px;display:flex;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.cbar div{display:flex;align-items:center;justify-content:center;font-family:'Inter';font-size:10.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden}
+.cleg{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:9px;font-size:11.5px}
+.cleg .li{display:flex;gap:5px;align-items:center}
+.cleg .sw{width:11px;height:11px;border-radius:3px}
+/* bridge */
+.bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.bstep{flex:1;min-width:145px;border-radius:12px;padding:11px 14px;border:1px solid var(--line);background:#F8FBFE;position:relative}
+.bstep .v{font-family:'Inter';font-size:21px;font-weight:800;color:var(--blue2)}
+.bstep .v.red{color:#C0392B}.bstep .v.green{color:var(--green)}
+.bstep .l{font-size:11px;color:var(--mute);line-height:1.45;margin-top:2px}
+.barrow{align-self:center;font-size:19px;color:#9AACBE;flex:none}
+/* note */
+.note{font-size:14px;line-height:1.75;color:#26384d;white-space:normal}
+.note ul{margin:6px 0;padding-left:22px}
+.note li{margin-bottom:6px}
+[contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
+#tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+.tp-row{display:flex;gap:6px;margin-top:9px}
+#tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+@media print{.bar,.tip,#tokPanel{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
+ .card,.kpi{box-shadow:none;break-inside:avoid}@page{size:A3 landscape;margin:9mm}}
+</style>
+</head>
+<body class="edit">
+
+<!--WFP_DATA_START-->
+<script id="wfp-data" type="application/json">{"savedAt":0}</script>
+<!--WFP_DATA_END-->
+
+<div class="bar">
+  <div class="brand"><b>Workforce Planning</b><span>Executive Summary · Human Capital</span></div>
+  <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
+  <a class="back" href="business-plan.html">📊 Business Plan 7–9</a>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
+  <div class="sep"></div>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel">
+  <h4>GitHub Token (PAT)</h4>
+  <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้าอื่น · ต้องมีสิทธิ์ <b>repo / contents write</b></p>
+  <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
+  <div class="tp-row"><button id="tokSave" class="pub">บันทึก token</button><button id="tokClear">ลบ token</button><button id="tokClose">ปิด</button></div>
+  <div id="tokState"></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">Human Capital · Executive Summary</div>
+    <h1 id="hTitle" contenteditable="true"></h1>
+    <div class="sub" id="hSub" contenteditable="true"></div>
+    <div class="tg" id="targets"></div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>โครงสร้างกำลังคน (Workforce Pyramid)</h2>
+    <div class="cap" id="pyCap"></div>
+    <div class="pyra" id="pyra"></div>
+  </div>
+
+  <div class="duo">
+    <div class="card"><h2>Employee Gender</h2><div class="cap">สัดส่วนชาย–หญิงของพนักงานทั้งหมด</div><div class="gen" id="gender"></div></div>
+    <div class="card"><h2>กำลังคนรายบริษัท</h2><div class="cap">การกระจายพนักงานใน 10 บริษัท</div><div id="compBar"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>เส้นทางสู่เป้าหมาย 700 คน (ปี 2571)</h2>
+    <div class="cap">Bridge จากกำลังคนปัจจุบัน → เป้าหมาย พร้อมกลไกหลักในการบริหารส่วนต่าง</div>
+    <div class="bridge" id="bridge"></div>
+  </div>
+
+  <div class="card">
+    <h2>บทวิเคราะห์สำหรับผู้บริหาร</h2>
+    <div class="cap">แก้ไขข้อความได้ · กด “บันทึกขึ้นเว็บ” เพื่อเผยแพร่</div>
+    <div class="note" id="note" contenteditable="true"></div>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+var LSK='pcc_wfp_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'workforce-planning.html'};
+var D={"asof": "1 ก.ย. 2569", "total": 821, "skipped": 0, "bands": [{"key": "g14", "label": "กลุ่มปฏิบัติการ", "sub": "ระดับ 1–4", "total": 398}, {"key": "g56", "label": "กลุ่มวิชาชีพ", "sub": "ระดับ 5B–6C", "total": 203}, {"key": "g66", "label": "กลุ่มจัดการ/ชำนาญการ", "sub": "ระดับ 6B–6A", "total": 86}, {"key": "g79", "label": "กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ", "sub": "ระดับ 7C–9A", "total": 121}, {"key": "g1013", "label": "กลุ่มผู้บริหาร/ผู้บริหารโครงการ", "sub": "ระดับ 10–13", "total": 13}], "dims": {"sy": {"title": "Service Year Group", "buckets": ["0-3 ปี", "4-5 ปี", "6-10 ปี", "11-15 ปี", "มากกว่า 15 ปี"], "colors": ["#6DBE5B", "#3D6BC6", "#ED7D31", "#FFC000", "#3D6B33"]}, "gen": {"title": "Generation Group", "buckets": ["Baby Boomer", "Gen X", "Gen Y", "Gen Z"], "colors": ["#5B9BD5", "#ED7D31", "#A6A6A6", "#FFC000"]}, "rt": {"title": "Retire Group", "buckets": ["อีก ≤3 ปี", "4-5 ปี", "6-10 ปี", "มากกว่า 10 ปี"], "colors": ["#ED7D31", "#FFC000", "#70AD47", "#843C0C"]}}, "mat": {"sy": {"g14": {"0-3 ปี": 48, "มากกว่า 15 ปี": 125, "11-15 ปี": 54, "6-10 ปี": 131, "4-5 ปี": 40}, "g56": {"0-3 ปี": 60, "6-10 ปี": 75, "4-5 ปี": 36, "11-15 ปี": 14, "มากกว่า 15 ปี": 18}, "g66": {"0-3 ปี": 8, "6-10 ปี": 35, "มากกว่า 15 ปี": 17, "4-5 ปี": 6, "11-15 ปี": 20}, "g79": {"0-3 ปี": 5, "มากกว่า 15 ปี": 52, "11-15 ปี": 35, "4-5 ปี": 3, "6-10 ปี": 26}, "g1013": {"มากกว่า 15 ปี": 8, "6-10 ปี": 3, "0-3 ปี": 2}}, "gen": {"g14": {"Gen Z": 49, "Gen Y": 231, "Gen X": 118}, "g56": {"Gen Z": 56, "Gen Y": 129, "Gen X": 18}, "g66": {"Gen Y": 70, "Gen Z": 5, "Gen X": 11}, "g79": {"Gen Y": 84, "Gen X": 34, "Gen Z": 2, "Baby Boomer": 1}, "g1013": {"Gen X": 10, "Gen Y": 1, "Baby Boomer": 2}}, "rt": {"g14": {"มากกว่า 10 ปี": 347, "6-10 ปี": 39, "4-5 ปี": 7, "อีก ≤3 ปี": 5}, "g56": {"มากกว่า 10 ปี": 194, "6-10 ปี": 6, "อีก ≤3 ปี": 1, "4-5 ปี": 2}, "g66": {"มากกว่า 10 ปี": 82, "6-10 ปี": 4}, "g79": {"มากกว่า 10 ปี": 95, "อีก ≤3 ปี": 8, "6-10 ปี": 16, "4-5 ปี": 2}, "g1013": {"6-10 ปี": 5, "มากกว่า 10 ปี": 5, "อีก ≤3 ปี": 2, "4-5 ปี": 1}}}, "tot": {"sy": {"0-3 ปี": 123, "มากกว่า 15 ปี": 220, "11-15 ปี": 123, "6-10 ปี": 270, "4-5 ปี": 85}, "gen": {"Gen Z": 112, "Gen Y": 515, "Gen X": 191, "Baby Boomer": 3}, "rt": {"มากกว่า 10 ปี": 723, "อีก ≤3 ปี": 16, "6-10 ปี": 70, "4-5 ปี": 12}}, "sex": {"F": 286, "M": 535}, "comp": {"PEM": 409, "PSP": 212, "SBP": 64, "PDE": 44, "PCC": 44, "PEMC": 21, "PCE": 10, "PSL": 8, "PPP": 5, "CI": 4}, "edu": {"ปริญญาตรี": 346, "มัธยมศึกษาปีที่ 6": 123, "ประกาศนียบัตรวิชาชีพชั้นสูง": 83, "ประกาศนียบัตรวิชาชีพ": 66, "ปริญญาโท": 42, "ประกาศณียบัตรวิชาชีพชั้นสูง": 39, "มัธยมศึกษาปีที่ 3": 35, "ประกาศณียบัตรวิชาชีพ": 9}, "avgAge": 38.4, "avgSY": 11.3, "retire3": 16, "retire5": 28};
+
+/* ---------- editable state (title/sub/note) ---------- */
+function seed(){ return {
+  savedAt:0,
+  title:'Workforce Planning — เป้าหมาย 700 คน ปี 2571',
+  sub:'โจทย์ Human Capital: Workforce Planning และ Performance Management — ปรับกำลังคนสู่ 700 คน ภายในปี 2571 พร้อมเพิ่มยอดขายเป็น 6,000 ล้านบาท ที่ GP 30% · ข้อมูลพนักงาน ณ '+D.asof+' ('+D.total+' คน)',
+  note:'<ul>'+
+   '<li><b>กำลังหลักคือ Gen Y ('+D.tot.gen['Gen Y']+' คน · '+Math.round(D.tot.gen['Gen Y']*100/D.total)+'%)</b> อายุเฉลี่ยองค์กร '+D.avgAge+' ปี อายุงานเฉลี่ย '+D.avgSY+' ปี — เป็นช่วงวัยที่พร้อมรับการ Upskill/Reskill ไปสู่งาน Platform · Digital · AI ตามแผนระยะที่ 2–3</li>'+
+   '<li><b>การเกษียณธรรมชาติช่วยได้จำกัด</b> — เกษียณภายใน 5 ปีมีเพียง '+D.retire5+' คน (คิดเป็น ~'+Math.round(D.retire5*100/(D.total-700))+'% ของส่วนต่าง '+(D.total-700)+' คน) ส่วนที่เหลือต้องบริหารผ่านอัตราลาออกปกติแบบไม่ทดแทน การโยกย้ายภายใน และ Automation</li>'+
+   '<li><b>กลุ่มปฏิบัติการ (ระดับ 1–4) มี '+D.bands[0].total+' คน ('+Math.round(D.bands[0].total*100/D.total)+'%)</b> — เป็นพื้นที่หลักของ Factory 4.0 / Automation: ผลิตภาพต่อคนต้องเพิ่มจากการลงทุนเครื่องจักรและระบบ มากกว่าการเพิ่มคน</li>'+
+   '<li><b>Productivity เป้าหมาย 8.57 ลบ./คน/ปี</b> (6,000mb ÷ 700 คน) — GP 30% เท่ากับ GP ต่อหัว ~2.57 ลบ./คน ซึ่งต้องยกระดับผ่าน 6 RST Platform โดยเฉพาะ Recurring และ TCS</li>'+
+   '<li><b>ผู้สืบทอดตำแหน่งบริหาร</b> — ระดับ 10–13 มี '+D.bands[4].total+' คน และระดับ 7C–9A มี '+D.bands[3].total+' คน ควรทำ Succession Plan ควบคู่ Individual Performance Management ในหน้า Business Plan 7–9</li>'+
+  '</ul>'
+};}
+function fileData(){ try{ var el=document.getElementById('wfp-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.title&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=(FD&&FD.title)?FD:seed();
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+var sd=seed(); ['title','sub','note'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+
+var editMode=true, saveT=null;
+var tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
+function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2600); }
+function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450); }catch(e){} }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persistRaw,500); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function num(n){ return (n||0).toLocaleString('en-US'); }
+
+/* ---------- static render ---------- */
+document.getElementById('hTitle').textContent=S.title;
+document.getElementById('hSub').textContent=S.sub;
+document.getElementById('note').innerHTML=S.note;
+document.getElementById('hTitle').addEventListener('input',function(){ S.title=this.innerText; schedulePersist(); });
+document.getElementById('hSub').addEventListener('input',function(){ S.sub=this.innerText; schedulePersist(); });
+document.getElementById('note').addEventListener('input',function(){ S.note=this.innerHTML; schedulePersist(); });
+
+var GAP=D.total-700;
+document.getElementById('targets').innerHTML=
+  '<div class="t"><b>700 คน</b><span>เป้ากำลังคน ปี 2571</span></div>'+
+  '<div class="t"><b>6,000 ลบ.</b><span>เป้ายอดขาย</span></div>'+
+  '<div class="t"><b>GP 30%</b><span>≈ 1,800 ลบ.</span></div>'+
+  '<div class="t"><b>8.57 ลบ./คน</b><span>Productivity เป้าหมาย</span></div>'+
+  '<div class="t"><b>'+num(D.total)+' คน</b><span>ปัจจุบัน ('+D.asof+')</span></div>';
+document.getElementById('kpis').innerHTML=
+  '<div class="kpi"><div class="v">'+num(D.total)+'</div><div class="l">พนักงานปัจจุบัน (คน)</div></div>'+
+  '<div class="kpi"><div class="v red">−'+GAP+'</div><div class="l">ต้องปรับลดสู่ 700 คน (−'+(GAP*100/D.total).toFixed(1)+'%)</div></div>'+
+  '<div class="kpi"><div class="v">'+D.avgAge+'</div><div class="l">อายุเฉลี่ย (ปี)</div></div>'+
+  '<div class="kpi"><div class="v">'+D.avgSY+'</div><div class="l">อายุงานเฉลี่ย (ปี)</div></div>'+
+  '<div class="kpi"><div class="v">'+D.retire5+'</div><div class="l">เกษียณภายใน 5 ปี (คน)</div></div>'+
+  '<div class="kpi"><div class="v green">'+Math.round(D.tot.gen['Gen Y']*100/D.total)+'%</div><div class="l">สัดส่วน Gen Y ('+num(D.tot.gen['Gen Y'])+' คน)</div></div>';
+document.getElementById('pyCap').textContent='แบ่ง 5 กลุ่มพนักงานตามระดับ × Service Year · Generation · Retire — ข้อมูล ณ '+D.asof+' รวม '+num(D.total)+' คน';
+
+/* ---------- pyramids ---------- */
+var ROWCOLORS=['#BDD7EE','#C9DDF0','#D6E5F4','#E2EDF8','#EEF5FC']; /* top→bottom */
+function lum(hex){ var c=parseInt(hex.slice(1),16); return (0.299*((c>>16)&255)+0.587*((c>>8)&255)+0.114*(c&255)); }
+function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
+  r=Math.min(255,Math.max(0,Math.round(r*f))); g=Math.min(255,Math.max(0,Math.round(g*f))); b=Math.min(255,Math.max(0,Math.round(b*f)));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+function pyramidSVG(dimKey){
+  var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();  /* top = ผู้บริหาร */
+  var W=330,H=270,PADT=8,cx=W/2,rows=bandsTop.length,rh=(H-PADT)/rows;
+  var defs='',body='',uid=dimKey;
+  /* soft shadow + right face for 3D depth */
+  body+='<ellipse cx="'+cx+'" cy="'+(H+4)+'" rx="'+(W/2-6)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
+  bandsTop.forEach(function(b,i){
+    var y0=PADT+i*rh, y1=PADT+(i+1)*rh-1.5;
+    var hw0=((y0-PADT)/(H-PADT))*(W/2-2)+3, hw1=((y1-PADT)/(H-PADT))*(W/2-2)+3;
+    var clip='clip_'+uid+'_'+i;
+    defs+='<clipPath id="'+clip+'"><polygon points="'+(cx-hw0)+','+y0+' '+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx-hw1)+','+y1+'"/></clipPath>';
+    var counts=D.mat[dimKey][b.key]||{}, total=0;
+    dim.buckets.forEach(function(bk){ total+=counts[bk]||0; });
+    var g='<g clip-path="url(#'+clip+')">';
+    if(total<=0){ g+='<rect x="'+(cx-hw1)+'" y="'+y0+'" width="'+(hw1*2)+'" height="'+(y1-y0)+'" fill="#E7EDF4"/>'; }
+    else{
+      var acc=0, wRef=hw1*2, x0=cx-hw1;
+      dim.buckets.forEach(function(bk,j){
+        var v=counts[bk]||0; if(!v) return;
+        var w=v/total*wRef, x=x0+acc/total*wRef;
+        var gid='g_'+uid+'_'+i+'_'+j;
+        defs+='<linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1">'+
+          '<stop offset="0" stop-color="'+shade(dim.colors[j],1.18)+'"/>'+
+          '<stop offset="1" stop-color="'+shade(dim.colors[j],0.88)+'"/></linearGradient>';
+        g+='<rect x="'+x+'" y="'+y0+'" width="'+w+'" height="'+(y1-y0)+'" fill="url(#'+gid+')"/>';
+        if(w>=15){
+          var tc=lum(dim.colors[j])>150?'#3b3b3b':'#fff';
+          g+='<text x="'+(x+w/2)+'" y="'+((y0+y1)/2+4)+'" text-anchor="middle" font-family="Inter,Sarabun" font-size="'+(w>=24?11:9)+'" font-weight="700" fill="'+tc+'">'+v+'</text>';
+        }
+        acc+=v;
+      });
+    }
+    g+='</g>';
+    /* right-side darker sliver for 3D */
+    g+='<polygon points="'+(cx+hw0)+','+y0+' '+(cx+hw1)+','+y1+' '+(cx+hw1-6)+','+y1+' '+(cx+hw0-4)+','+y0+'" fill="rgba(0,0,0,.10)"/>';
+    body+=g;
+  });
+  /* apex highlight */
+  body+='<polygon points="'+cx+','+PADT+' '+(cx-8)+','+(PADT+16)+' '+(cx+8)+','+(PADT+16)+'" fill="rgba(255,255,255,.35)"/>';
+  return '<svg width="'+W+'" height="'+(H+14)+'" viewBox="0 0 '+W+' '+(H+14)+'"><defs>'+defs+'</defs>'+body+'</svg>';
+}
+function legend(dimKey){
+  var dim=D.dims[dimKey], h='<div class="leg">';
+  dim.buckets.forEach(function(bk,j){
+    h+='<div class="li"><span class="sw" style="background:'+dim.colors[j]+'"></span>'+esc(bk)+' ('+num(D.tot[dimKey][bk]||0)+' คน)</div>';
+  });
+  return h+'</div>';
+}
+(function(){
+  var bandsTop=D.bands.slice().reverse();
+  var h='<div class="rows">';
+  bandsTop.forEach(function(b,i){
+    h+='<div class="rowlbl" style="background:'+ROWCOLORS[i]+'"><span class="tt">'+num(b.total)+'</span><span class="lb"><b>'+esc(b.label)+'</b>'+esc(b.sub)+'</span></div>';
+  });
+  h+='<div style="height:14px"></div></div>';
+  ['sy','gen','rt'].forEach(function(k){
+    h+='<div class="pycol"><h3>'+esc(D.dims[k].title)+'</h3>'+pyramidSVG(k)+legend(k)+'</div>';
+  });
+  document.getElementById('pyra').innerHTML=h;
+})();
+
+/* ---------- gender + companies ---------- */
+(function(){
+  var m=D.sex.M||0,f=D.sex.F||0,t=m+f;
+  document.getElementById('gender').innerHTML=
+    '<div class="fig">🧍‍♂️🧍‍♀️</div><div class="gbar">'+
+    '<div class="g"><div class="m" style="width:'+(m*100/t)+'%"></div><div class="f" style="width:'+(f*100/t)+'%"></div></div>'+
+    '<div class="lg"><span style="color:#1F86BC">♂ ชาย '+(m*100/t).toFixed(1)+'% · '+num(m)+' คน</span>'+
+    '<span style="color:#D24E8C">♀ หญิง '+(f*100/t).toFixed(1)+'% · '+num(f)+' คน</span></div></div>';
+  var COLS=['#005A8E','#0077B6','#2AA0D6','#3E8A2E','#70AD47','#F7941D','#E8820E','#B4650A','#7B4FC9','#5A6E88'];
+  var keys=Object.keys(D.comp), bar='',lg='';
+  keys.forEach(function(k,i){
+    var v=D.comp[k], pct=v*100/D.total;
+    bar+='<div style="width:'+pct+'%;background:'+COLS[i%COLS.length]+'" title="'+k+' '+v+' คน">'+(pct>6?(k+' '+v):'')+'</div>';
+    lg+='<div class="li"><span class="sw" style="background:'+COLS[i%COLS.length]+'"></span>'+esc(k)+' '+num(v)+'</div>';
+  });
+  document.getElementById('compBar').innerHTML='<div class="cbar">'+bar+'</div><div class="cleg">'+lg+'</div>';
+})();
+
+/* ---------- bridge ---------- */
+(function(){
+  var r5=D.retire5, rest=GAP-r5;
+  document.getElementById('bridge').innerHTML=
+    '<div class="bstep"><div class="v">'+num(D.total)+'</div><div class="l">กำลังคนปัจจุบัน ('+D.asof+')</div></div>'+
+    '<div class="barrow">→</div>'+
+    '<div class="bstep"><div class="v red">−'+r5+'</div><div class="l">เกษียณอายุภายในปี 2571 (ไม่ทดแทนตำแหน่ง)</div></div>'+
+    '<div class="barrow">→</div>'+
+    '<div class="bstep"><div class="v red">−'+rest+'</div><div class="l">อัตราลาออกปกติแบบไม่ทดแทน + โยกย้ายภายใน + Automation (กลุ่มปฏิบัติการ '+num(D.bands[0].total)+' คน คือพื้นที่หลัก)</div></div>'+
+    '<div class="barrow">→</div>'+
+    '<div class="bstep" style="background:#EAF5EC;border-color:#CBE7CF"><div class="v green">700</div><div class="l">เป้าหมายปี 2571 · Productivity 8.57 ลบ./คน · GP/คน ~2.57 ลบ.</div></div>';
+})();
+
+/* ---------- edit toggle ---------- */
+document.getElementById('bEdit').addEventListener('click',function(){
+  editMode=!editMode; this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
+  ['hTitle','hSub','note'].forEach(function(id){ document.getElementById(id).setAttribute('contenteditable',editMode?'true':'false'); });
+  tip(editMode?'แก้ไขหัวเรื่อง/บทวิเคราะห์ได้':'ล็อกแล้ว');
+});
+document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* ---------- token ---------- */
+var tokPanel=document.getElementById('tokPanel'), tokInput=document.getElementById('tokInput'), tokState=document.getElementById('tokState');
+function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
+function refreshTok(){ var t=tokGet(); tokState.textContent=t?('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')'):'○ ยังไม่มี token'; tokState.style.color=t?'var(--green)':'#B0392B'; }
+function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTok(); setTimeout(function(){tokInput.focus();},30); }
+document.getElementById('bTok').addEventListener('click',function(){ tokPanel.style.display==='block'?(tokPanel.style.display='none'):openTok(); });
+document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+document.getElementById('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){ tip('เก็บไม่ได้'); } tokInput.value=''; });
+document.getElementById('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+
+/* ---------- save to web ---------- */
+function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--WFP_DATA_START-->[\s\S]*?<!--WFP_DATA_END-->/;
+function dataBlock(json){ return '<!--WFP_DATA_START-->\n<script id="wfp-data" type="application/json">'+json+'<\/script>\n<!--WFP_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=document.getElementById('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'}; var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); } return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+      throw new Error(label+' ('+res.status+(res.status===401?' — token ไม่ถูกต้อง':(res.status===403?' — token ไม่มีสิทธิ์':''))+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw'); await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'}); await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha, tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}); await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'Workforce Planning update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+document.getElementById('bPublish').addEventListener('click',publish);
+
+tip('พีระมิดคำนวณจากไฟล์พนักงาน '+num(D.total)+' คน · แก้บทวิเคราะห์ได้ แล้วกด “บันทึกขึ้นเว็บ”');
+})();
+</script>
+</body>
+</html>
