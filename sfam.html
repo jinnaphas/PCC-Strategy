@@ -18,8 +18,8 @@ h1,h2{font-family:'Inter','Sarabun',sans-serif;margin:0}
 .bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
   padding:8px 14px;background:rgba(240,244,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
-.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
-.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.brand b{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
 .sep{width:1px;height:22px;background:var(--line);margin:0 3px}
 button{font-family:'Inter','Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
   background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
@@ -28,10 +28,10 @@ button.on{background:var(--blue);border-color:var(--blue);color:#fff}
 button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
 button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
 button:disabled{opacity:.5;cursor:default}
-a.back{font-family:'Inter';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+a.back{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
   text-decoration:none;color:#41566E;border:1px solid var(--line);padding:6px 9px;border-radius:6px}
 a.back:hover{border-color:var(--blue);color:var(--blue)}
-#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto}
+#autosave{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto}
 #autosave.hit{color:var(--green)}
 .tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
   padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
@@ -40,7 +40,7 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .hero{background:linear-gradient(120deg,#0B3552,var(--blue2) 55%,#1A7FB8);color:#fff;border-radius:18px;
   padding:20px 26px;box-shadow:0 10px 30px rgba(0,90,142,.28);position:relative;overflow:hidden}
 .hero:before{content:"";position:absolute;right:-50px;top:-60px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.07)}
-.hero .kd{font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.hero .kd{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
 .hero h1{font-size:25px;font-weight:800;margin:3px 0 5px}
 .hero .sub{font-size:13.5px;opacity:.93;line-height:1.55;max-width:900px}
 .hero [contenteditable="true"]{outline:none;border-radius:5px}
@@ -49,32 +49,42 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .card h2{font-size:16px;font-weight:800;color:var(--blue2)}
 .card .cap{font-size:12px;color:var(--mute);margin:2px 0 10px;line-height:1.55}
 .figwrap{overflow-x:auto;text-align:center}
-.figcap{text-align:center;font-family:'Inter','Sarabun';font-size:12.5px;font-weight:700;color:#41566E;margin-top:6px}
-.glegend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:12px;font-size:12px}
+#fig svg{display:block;width:100%;height:auto;min-width:880px;margin:0 auto}
+.figcap{text-align:center;font-family:'Inter','Sarabun',sans-serif;font-size:12.5px;font-weight:700;color:#41566E;margin:0 0 8px}
+.glegend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin:0 0 10px;font-size:12px}
 .glegend .li{display:inline-flex;align-items:center;gap:6px}
 .glegend .sw{width:14px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
-/* domain cubes */
-.dom{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
-.dom .cube{flex:none}
-.dom .body{flex:1;min-width:340px}
-.dom .dt{font-family:'Inter','Sarabun';font-size:17px;font-weight:800;margin:0 0 1px}
+/* เวที: ภาพใหญ่ + การ์ด Domain + เส้นเชื่อม */
+#stage{position:relative}
+#links{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:14}
+/* domain cubes — เรียงแนวนอน 3 คอลัมน์ */
+#domains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch;margin:16px 0 0}
+#domains .card{margin:0;border-top:4px solid var(--line);padding-top:13px}
+.card h2 .gno{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;
+  color:#fff;font-size:11px;font-weight:800;margin-right:7px;vertical-align:-3px;font-family:'Inter',sans-serif}
+.dom{display:block}
+.dom .cube{display:flex;justify-content:center;margin:2px 0 9px}
+.dom .cube svg{width:100%;max-width:252px;height:auto}
+.dom .body{min-width:0}
+.dom .dt{font-family:'Inter','Sarabun',sans-serif;font-size:17px;font-weight:800;margin:0 0 1px}
 .dom .ds{font-size:12.5px;color:var(--mute);margin-bottom:9px}
 .dom .txt{font-size:13.5px;line-height:1.75;color:#26384d;border:1px dashed transparent;border-radius:9px;padding:4px 2px;min-height:60px}
 body.edit .dom .txt{border-color:#DCE7F1}
 body.edit .dom .txt:hover{background:#FFFDF6}
 .dom .txt ul,.dom .txt ol{margin:5px 0;padding-left:22px}
 .dom .txt li{margin-bottom:5px}
-.dom .txt h4{font-family:'Inter','Sarabun';font-size:13.5px;margin:10px 0 3px;color:var(--blue2)}
+.dom .txt h4{font-family:'Inter','Sarabun',sans-serif;font-size:13.5px;margin:10px 0 3px;color:var(--blue2)}
 .dom .ph{color:#A9B8C7;font-style:italic;font-size:12.5px;margin:2px 0 6px}
 [contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
 #tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
   border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
-#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel h4{font-family:'Inter',sans-serif;font-weight:800;font-size:14px;margin:0 0 5px}
 #tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
 #tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
-#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',ui-monospace,monospace;font-size:12px;background:#F8FBFE}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+@media(max-width:1080px){#domains{grid-template-columns:1fr}#links{display:none}}
 @media print{.bar,.tip,#tokPanel{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
   .card{box-shadow:none;break-inside:avoid}@page{size:A3 portrait;margin:10mm}}
 </style>
@@ -114,15 +124,18 @@ body.edit .dom .txt:hover{background:#FFFDF6}
     <div class="sub" id="hSub" contenteditable="true"></div>
   </div>
 
-  <div class="card">
-    <h2>Smart Farming Architecture Model</h2>
-    <div class="cap">แกน <b>Layers</b> (6 ชั้น interoperability) × <b>Domains</b> (พื้นที่/กิจกรรม) × <b>Zones</b> (ระดับการควบคุมจาก Physical Objects ถึง Connected World)</div>
-    <div class="figwrap"><div id="fig"></div></div>
-    <div class="figcap">The Smart Farming Architecture Model with interoperability layers</div>
-    <div class="glegend" id="glegend"></div>
-  </div>
+  <div id="stage">
+    <div class="card">
+      <h2>Smart Farming Architecture Model</h2>
+      <div class="cap">แกน <b>Layers</b> (6 ชั้น interoperability) × <b>Domains</b> (พื้นที่/กิจกรรม) × <b>Zones</b> (ระดับการควบคุมจาก Physical Objects ถึง Connected World)</div>
+      <div class="figcap">The Smart Farming Architecture Model with interoperability layers</div>
+      <div class="glegend" id="glegend"></div>
+      <div class="figwrap"><div id="fig"></div></div>
+    </div>
 
-  <div id="domains"></div>
+    <div id="domains"></div>
+    <svg id="links" aria-hidden="true"></svg>
+  </div>
 </div>
 
 <div class="tip" id="tip"></div>
@@ -247,12 +260,16 @@ function figure(){
     out+=axText(m[0]-uZ[0]*o, m[1]-uZ[1]*o+4, angD, 'middle', 12.5, col, '700', DOMAINS[d2], 12);
   }
   /* วงเล็บกลุ่ม Domain (สีตาม Cube) */
-  GROUPS.forEach(function(g){
+  GROUPS.forEach(function(g,gi){
     var ob=88, a=P(g.cols[0]+0.06,0,0), b=P(g.cols[g.cols.length-1]+0.94,0,0);
     var ax=a[0]-uZ[0]*ob, ay=a[1]-uZ[1]*ob, bx=b[0]-uZ[0]*ob, by=b[1]-uZ[1]*ob;
     out+='<line x1="'+ax.toFixed(1)+'" y1="'+ay.toFixed(1)+'" x2="'+bx.toFixed(1)+'" y2="'+by.toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>';
     [[ax,ay],[bx,by]].forEach(function(p){
       out+='<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+'" x2="'+(p[0]+uZ[0]*9).toFixed(1)+'" y2="'+(p[1]+uZ[1]*9).toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>'; });
+    /* จุดยึดเส้นเชื่อมไปยังการ์ด Domain ด้านล่าง */
+    var mx=(ax+bx)/2, my=(ay+by)/2;
+    out+='<circle class="ganch" data-gi="'+gi+'" cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6.5" fill="'+g.color+'" stroke="#fff" stroke-width="2.2"/>';
+    out+='<text x="'+mx.toFixed(1)+'" y="'+(my+3.6).toFixed(1)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff">'+(gi+1)+'</text>';
   });
   /* ลูกศรแกน Domains */
   var oa=126, dA=P(-0.05,0,0), dB=P(nD+0.05,0,0);
@@ -303,8 +320,9 @@ function render(){
   var ce=editMode?'true':'false';
   document.getElementById('domains').innerHTML=GROUPS.map(function(g,i){
     var d=S.domains[i];
-    return '<div class="card"><h2 style="color:'+g.color+'">Domain '+(i+1)+' — Cube</h2>'+
-      '<div class="cap">ทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer (ไม่แยก Layer / Zone) สำหรับลงรายละเอียด Business Model Flow</div>'+
+    return '<div class="card" data-gi="'+i+'" style="border-top-color:'+g.color+'"><h2 style="color:'+g.color+'">'+
+      '<span class="gno" style="background:'+g.color+'">'+(i+1)+'</span>Domain '+(i+1)+' — Cube</h2>'+
+      '<div class="cap">ทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer (ไม่แยก Layer / Zone)</div>'+
       '<div class="dom"><div class="cube">'+cube(g.color)+'</div><div class="body">'+
       '<div class="dt" style="color:'+g.color+'" data-di="'+i+'" data-f="name" contenteditable="'+ce+'">'+esc(d.name)+'</div>'+
       '<div class="ds" data-di="'+i+'" data-f="sub" contenteditable="'+ce+'">'+esc(d.sub)+'</div>'+
@@ -312,6 +330,7 @@ function render(){
       '<div class="txt" data-di="'+i+'" data-f="body" contenteditable="'+ce+'">'+d.body+'</div>'+
       '</div></div></div>';
   }).join('');
+  if(typeof relink==='function') relink();
 }
 document.getElementById('hTitle').addEventListener('input',function(){ S.title=this.innerText; schedulePersist(); });
 document.getElementById('hSub').addEventListener('input',function(){ S.sub=this.innerText; schedulePersist(); });
@@ -389,8 +408,44 @@ async function publish(){
 }
 document.getElementById('bPublish').addEventListener('click',publish);
 
+/* ---------- เส้นเชื่อม: จาก Domain ในภาพใหญ่ → การ์ด Cube ด้านล่าง ---------- */
+function drawLinks(){
+  var svg=document.getElementById('links'), stage=document.getElementById('stage');
+  if(!svg||!stage) return;
+  if(getComputedStyle(svg).display==='none'){ svg.innerHTML=''; return; }
+  var sr=stage.getBoundingClientRect();
+  svg.setAttribute('width',sr.width); svg.setAttribute('height',sr.height);
+  svg.setAttribute('viewBox','0 0 '+sr.width+' '+sr.height);
+  var cards=document.querySelectorAll('#domains .card'), out='';
+  GROUPS.forEach(function(g,i){
+    var an=document.querySelector('#fig .ganch[data-gi="'+i+'"]'), cd=cards[i];
+    if(!an||!cd) return;
+    var ar=an.getBoundingClientRect(), cr=cd.getBoundingClientRect();
+    if(!ar.width||!cr.width) return;
+    var sx=ar.left+ar.width/2-sr.left, sy=ar.top+ar.height/2-sr.top;
+    var ex=cr.left+cr.width/2-sr.left, ey=cr.top-sr.top;
+    if(ey-sy<40) return;                       /* การ์ดไม่ได้อยู่ใต้ภาพ (จอแคบ) → ไม่ลากเส้น */
+    var m=ey-sy;
+    out+='<path d="M'+sx.toFixed(1)+','+sy.toFixed(1)+' C'+sx.toFixed(1)+','+(sy+m*0.58).toFixed(1)+' '+
+         ex.toFixed(1)+','+(ey-m*0.5).toFixed(1)+' '+ex.toFixed(1)+','+(ey-2).toFixed(1)+'" fill="none" stroke="'+g.color+
+         '" stroke-width="2.4" stroke-dasharray="8 5" stroke-linecap="round" opacity=".92"/>';
+    out+='<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="4" fill="'+g.color+'"/>';
+    out+='<path d="M'+(ex-6.5).toFixed(1)+','+(ey-10).toFixed(1)+' L'+ex.toFixed(1)+','+(ey-1).toFixed(1)+' L'+(ex+6.5).toFixed(1)+','+(ey-10).toFixed(1)+
+         '" fill="none" stroke="'+g.color+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>';
+  });
+  svg.innerHTML=out;
+}
+var linkT=null;
+function relink(){ clearTimeout(linkT); linkT=setTimeout(function(){ requestAnimationFrame(drawLinks); },60); }
+window.addEventListener('resize',relink);
+window.addEventListener('beforeprint',drawLinks);
+document.querySelector('.figwrap').addEventListener('scroll',relink);
+if(window.ResizeObserver){ new ResizeObserver(relink).observe(document.getElementById('stage')); }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(relink);
+
 render();
-tip('แผนภาพ SFAM · Domain Cube 3 ก้อนพร้อมให้ลงรายละเอียด Business Model Flow — แก้ไขได้แล้วกด “บันทึกขึ้นเว็บ”');
+relink();
+tip('แผนภาพ SFAM · Domain Cube 3 ก้อนเรียงแนวนอน มีเส้นเชื่อมจาก Domain ในภาพใหญ่ — แก้ไขได้แล้วกด “บันทึกขึ้นเว็บ”');
 })();
 </script>
 </body>
