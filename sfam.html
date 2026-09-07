@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Smart Farming Architecture Model (SFAM)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F0F4F8;--card:#FFFFFF;--ink:#1E3A5F;--mute:#5A6E88;--line:#D3DEEA;
+  --blue:#0077B6;--blue2:#005A8E;--orange:#F7941D;--green:#2E7D32;--hi:#F5B301}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 700px at 50% -10%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:'Inter','Sarabun',sans-serif;margin:0}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 14px;background:rgba(240,244,248,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.sep{width:1px;height:22px;background:var(--line);margin:0 3px}
+button{font-family:'Inter','Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
+button:hover{border-color:var(--blue);color:var(--blue)}
+button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.5;cursor:default}
+a.back{font-family:'Inter';font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;
+  text-decoration:none;color:#41566E;border:1px solid var(--line);padding:6px 9px;border-radius:6px}
+a.back:hover{border-color:var(--blue);color:var(--blue)}
+#autosave{font-family:'Inter';font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B7C4D2;margin-left:auto}
+#autosave.hit{color:var(--green)}
+.tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
+  padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
+.tip.show{opacity:.96}
+.wrap{max-width:1320px;margin:0 auto;padding:20px 16px 100px}
+.hero{background:linear-gradient(120deg,#0B3552,var(--blue2) 55%,#1A7FB8);color:#fff;border-radius:18px;
+  padding:20px 26px;box-shadow:0 10px 30px rgba(0,90,142,.28);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-50px;top:-60px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.07)}
+.hero .kd{font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:25px;font-weight:800;margin:3px 0 5px}
+.hero .sub{font-size:13.5px;opacity:.93;line-height:1.55;max-width:900px}
+.hero [contenteditable="true"]{outline:none;border-radius:5px}
+.hero [contenteditable="true"]:focus{background:rgba(255,255,255,.16);box-shadow:0 0 0 2px rgba(255,255,255,.5)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:14px 0;box-shadow:0 3px 16px rgba(30,58,95,.06)}
+.card h2{font-size:16px;font-weight:800;color:var(--blue2)}
+.card .cap{font-size:12px;color:var(--mute);margin:2px 0 10px;line-height:1.55}
+.figwrap{overflow-x:auto;text-align:center}
+.figcap{text-align:center;font-family:'Inter','Sarabun';font-size:12.5px;font-weight:700;color:#41566E;margin-top:6px}
+.glegend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:12px;font-size:12px}
+.glegend .li{display:inline-flex;align-items:center;gap:6px}
+.glegend .sw{width:14px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+/* domain cubes */
+.dom{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.dom .cube{flex:none}
+.dom .body{flex:1;min-width:340px}
+.dom .dt{font-family:'Inter','Sarabun';font-size:17px;font-weight:800;margin:0 0 1px}
+.dom .ds{font-size:12.5px;color:var(--mute);margin-bottom:9px}
+.dom .txt{font-size:13.5px;line-height:1.75;color:#26384d;border:1px dashed transparent;border-radius:9px;padding:4px 2px;min-height:60px}
+body.edit .dom .txt{border-color:#DCE7F1}
+body.edit .dom .txt:hover{background:#FFFDF6}
+.dom .txt ul,.dom .txt ol{margin:5px 0;padding-left:22px}
+.dom .txt li{margin-bottom:5px}
+.dom .txt h4{font-family:'Inter','Sarabun';font-size:13.5px;margin:10px 0 3px;color:var(--blue2)}
+.dom .ph{color:#A9B8C7;font-style:italic;font-size:12.5px;margin:2px 0 6px}
+[contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
+#tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+.tp-row{display:flex;gap:6px;margin-top:9px}
+#tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+@media print{.bar,.tip,#tokPanel{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
+  .card{box-shadow:none;break-inside:avoid}@page{size:A3 portrait;margin:10mm}}
+</style>
+</head>
+<body class="edit">
+
+<!--SFAM_DATA_START-->
+<script id="sfam-data" type="application/json">{"savedAt":0}</script>
+<!--SFAM_DATA_END-->
+
+<div class="bar">
+  <div class="brand"><b>SFAM</b><span>Smart Farming Architecture Model</span></div>
+  <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
+  <div class="sep"></div>
+  <button id="bPNG" title="บันทึกแผนภาพเป็น PNG">🖼 PNG</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel">
+  <h4>GitHub Token (PAT)</h4>
+  <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้าอื่น</p>
+  <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
+  <div class="tp-row"><button id="tokSave" class="pub">บันทึก token</button><button id="tokClear">ลบ token</button><button id="tokClose">ปิด</button></div>
+  <div id="tokState"></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">Digital Architecture Model · SFAM</div>
+    <h1 id="hTitle" contenteditable="true"></h1>
+    <div class="sub" id="hSub" contenteditable="true"></div>
+  </div>
+
+  <div class="card">
+    <h2>Smart Farming Architecture Model</h2>
+    <div class="cap">แกน <b>Layers</b> (6 ชั้น interoperability) × <b>Domains</b> (พื้นที่/กิจกรรม) × <b>Zones</b> (ระดับการควบคุมจาก Physical Objects ถึง Connected World)</div>
+    <div class="figwrap"><div id="fig"></div></div>
+    <div class="figcap">The Smart Farming Architecture Model with interoperability layers</div>
+    <div class="glegend" id="glegend"></div>
+  </div>
+
+  <div id="domains"></div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+"use strict";
+var LSK='pcc_sfam_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'sfam.html'};
+
+/* ---------- model ---------- */
+var LAYERS=[  /* บนสุด -> ล่างสุด */
+  {k:'Business Layer',    c:'#E8686E', s:'#D2434B'},
+  {k:'Function Layer',    c:'#F2B24C', s:'#DE9526'},
+  {k:'Information Layer', c:'#5FB07A', s:'#3F8F5A'},
+  {k:'Communication Layer',c:'#49AEA6', s:'#2E8F88'},
+  {k:'Integration Layer', c:'#5B95D8', s:'#3A73B8'},
+  {k:'Asset Layer',       c:'#B9C2CB', s:'#8E9AA6'}
+];
+var DOMAINS=['Cultivation Area','Livestock','Storage','Processing','Distribution'];
+var DICON=['🚜','🐄','🛢️','🏭','🚚'];
+var ZONES=['Physical Objects','Sensing & Actuation','Production Control','Operation Execution','Management Information','Connected World'];
+/* 3 กลุ่ม Domain ที่ดึงออกมาเป็น Cube */
+var GROUPS=[
+  {id:'g1',cols:[0],   color:'#4E9A5A', name:'Cultivation Area', sub:'Land Development'},
+  {id:'g2',cols:[1],   color:'#C98A2E', name:'Livestock',        sub:'Bamboo Plant Development'},
+  {id:'g3',cols:[2,3,4],color:'#2F7FBF',name:'Process & Distribution', sub:'Products'}
+];
+
+function seed(){ return {
+  savedAt:0,
+  title:'Smart Farming Architecture Model (SFAM)',
+  sub:'แบบจำลองสถาปัตยกรรมอ้างอิงสำหรับ Smart Farming — ใช้เป็นโครงในการออกแบบ Business Model Flow ราย Domain ของ PCC · ดึง Domain ออกมาเป็น Cube แยก เพื่อลงรายละเอียดทั้งคอลัมน์ (ไม่แยก Layer / Zone)',
+  domains:GROUPS.map(function(g){ return {id:g.id,name:g.name,sub:g.sub,
+    body:'<h4>Value Proposition</h4><ul><li></li></ul>'+
+      '<h4>Key Activities / Process Flow</h4><ol><li></li></ol>'+
+      '<h4>Revenue Stream</h4><ul><li></li></ul>'}; })
+};}
+
+/* ---------- state ---------- */
+function fileData(){ try{ var el=document.getElementById('sfam-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.title&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=(FD&&FD.title)?FD:seed();
+var sd=seed();
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+['title','sub'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
+if(!Array.isArray(S.domains)) S.domains=sd.domains;
+GROUPS.forEach(function(g,i){ if(!S.domains[i]) S.domains[i]=sd.domains[i]; });
+
+var editMode=true, saveT=null;
+var tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
+function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2600); }
+function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450); }catch(e){} }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persistRaw,500); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
+  r=Math.min(255,Math.round(r*f)); g=Math.min(255,Math.round(g*f)); b=Math.min(255,Math.round(b*f));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+
+/* ---------- main isometric figure ---------- */
+var DX=86, DY=31, ZX=74, ZY=-42, LH=88, OX=252, OY=742;
+var FW=1352, FH=1046;
+function P(d,z,L){ return [OX+d*DX+z*ZX, OY+d*DY+z*ZY-L*LH]; }
+function poly(pts){ return pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' '); }
+/* ข้อความตามแนวแกน — ตัดเป็น 2 บรรทัดถ้ายาว เพื่อไม่ให้ทับกัน */
+function axText(x,y,ang,anchor,size,fill,weight,str,maxc){
+  maxc=maxc||13; var w=String(str).split(' '), lines=[], cur='';
+  w.forEach(function(t){ if(!cur) cur=t; else if((cur+' '+t).length<=maxc) cur+=' '+t; else { lines.push(cur); cur=t; } });
+  if(cur) lines.push(cur);
+  var t='<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+anchor+'" font-family="Inter,Sarabun,sans-serif" font-size="'+size+'"'+
+        ' font-weight="'+weight+'" fill="'+fill+'" transform="rotate('+ang.toFixed(1)+' '+x.toFixed(1)+' '+y.toFixed(1)+')">';
+  lines.forEach(function(ln,i){ t+='<tspan x="'+x.toFixed(1)+'" dy="'+(i?size+1.5:0)+'">'+esc(ln)+'</tspan>'; });
+  return t+'</text>';
+}
+function figure(){
+  var nD=DOMAINS.length, nZ=ZONES.length, out='';
+  /* หน่วยเวกเตอร์ของสองแกน — ใช้จัดตำแหน่งป้ายให้พ้นระนาบ */
+  var lD=Math.hypot(DX,DY), uD=[DX/lD,DY/lD];          /* ทิศ Domains */
+  var lZ=Math.hypot(ZX,ZY), uZ=[ZX/lZ,ZY/lZ];          /* ทิศ Zones */
+  var angD=Math.atan2(DY,DX)*180/Math.PI, angZ=Math.atan2(ZY,ZX)*180/Math.PI;
+  /* ชั้นล่างสุดวาดก่อน เพื่อให้ชั้นบนทับ */
+  for(var Li=LAYERS.length-1; Li>=0; Li--){
+    var L=LAYERS.length-1-Li;                 /* 0 = Asset (ล่าง) */
+    var lay=LAYERS[Li];
+    var g='<g>';
+    g+='<polygon points="'+poly([P(0,0,L),P(nD,0,L),P(nD,nZ,L),P(0,nZ,L)])+'" fill="'+lay.c+'" fill-opacity="'+(L===0?0.44:0.22)+'"/>';
+    for(var d=0; d<=nD; d++) g+='<line x1="'+P(d,0,L)[0].toFixed(1)+'" y1="'+P(d,0,L)[1].toFixed(1)+'" x2="'+P(d,nZ,L)[0].toFixed(1)+'" y2="'+P(d,nZ,L)[1].toFixed(1)+'" stroke="'+lay.s+'" stroke-width="1" stroke-opacity=".7"/>';
+    for(var z=0; z<=nZ; z++) g+='<line x1="'+P(0,z,L)[0].toFixed(1)+'" y1="'+P(0,z,L)[1].toFixed(1)+'" x2="'+P(nD,z,L)[0].toFixed(1)+'" y2="'+P(nD,z,L)[1].toFixed(1)+'" stroke="'+lay.s+'" stroke-width="1" stroke-opacity=".7"/>';
+    g+='<polygon points="'+poly([P(0,0,L),P(nD,0,L),P(nD,nZ,L),P(0,nZ,L)])+'" fill="none" stroke="'+lay.s+'" stroke-width="1.9"/>';
+    if(L===0){
+      /* ไอคอนสินทรัพย์กระจายบนชั้น Asset */
+      var spots=[[0.5,0.75],[1.5,0.75],[2.5,0.75],[3.5,0.75],[4.5,0.75]];
+      for(var di=0; di<nD; di++){
+        var c1=P(spots[di][0],spots[di][1],L);
+        g+='<text x="'+c1[0].toFixed(1)+'" y="'+(c1[1]+8).toFixed(1)+'" text-anchor="middle" font-size="26">'+DICON[di]+'</text>';
+      }
+      /* จุดอุปกรณ์ย่อย (sensors) */
+      var dots=[[0.8,2.1],[1.9,1.6],[3.1,2.4],[4.2,1.9],[2.4,3.1],[0.6,3.6],[3.8,3.4]];
+      dots.forEach(function(s){ var p=P(s[0],s[1],0);
+        g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.4" fill="#6B7A88" opacity=".55"/>'; });
+    }
+    if(L===1){
+      /* แถบเชื่อมโยง (integration bars) */
+      var bars=[['#5FB07A',0.4,1.5],['#5B95D8',1.6,2.6],['#8E6BC8',2.6,3.4],['#49AEA6',3.6,4.3],['#E8A33D',1.1,5.0]];
+      bars.forEach(function(b){
+        var a=P(b[1],b[2],1), q=P(b[1]+0.9,b[2],1);
+        g+='<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'" stroke="'+b[0]+'" stroke-width="9" stroke-linecap="round" opacity=".9"/>';
+      });
+    }
+    /* ป้ายชื่อชั้น ด้านซ้าย + สวอตช์สี */
+    var lp=P(0,0,L);
+    g+='<rect x="'+(lp[0]-32).toFixed(1)+'" y="'+(lp[1]-8).toFixed(1)+'" width="11" height="11" rx="2.5" fill="'+lay.c+'" stroke="'+lay.s+'" stroke-width="1"/>';
+    g+='<text x="'+(lp[0]-40).toFixed(1)+'" y="'+(lp[1]+2).toFixed(1)+'" text-anchor="end" font-family="Inter,Sarabun,sans-serif" font-size="14.5" font-weight="600" fill="#25384d">'+lay.k+'</text>';
+    out+=g+'</g>';
+  }
+  /* ---- แกน Domains (ขอบล่างซ้าย) ---- */
+  for(var d2=0; d2<nD; d2++){
+    var m=P(d2+0.5,0,0), col=(GROUPS.filter(function(g){return g.cols.indexOf(d2)>=0;})[0]||{}).color||'#41566E';
+    var o=32;                                            /* เลื่อนออกนอกระนาบตามแนว -Zones */
+    out+=axText(m[0]-uZ[0]*o, m[1]-uZ[1]*o+4, angD, 'middle', 12.5, col, '700', DOMAINS[d2], 12);
+  }
+  /* วงเล็บกลุ่ม Domain (สีตาม Cube) */
+  GROUPS.forEach(function(g){
+    var ob=88, a=P(g.cols[0]+0.06,0,0), b=P(g.cols[g.cols.length-1]+0.94,0,0);
+    var ax=a[0]-uZ[0]*ob, ay=a[1]-uZ[1]*ob, bx=b[0]-uZ[0]*ob, by=b[1]-uZ[1]*ob;
+    out+='<line x1="'+ax.toFixed(1)+'" y1="'+ay.toFixed(1)+'" x2="'+bx.toFixed(1)+'" y2="'+by.toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>';
+    [[ax,ay],[bx,by]].forEach(function(p){
+      out+='<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+'" x2="'+(p[0]+uZ[0]*9).toFixed(1)+'" y2="'+(p[1]+uZ[1]*9).toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>'; });
+  });
+  /* ลูกศรแกน Domains */
+  var oa=126, dA=P(-0.05,0,0), dB=P(nD+0.05,0,0);
+  out+='<line x1="'+(dA[0]-uZ[0]*oa).toFixed(1)+'" y1="'+(dA[1]-uZ[1]*oa).toFixed(1)+'" x2="'+(dB[0]-uZ[0]*oa).toFixed(1)+'" y2="'+(dB[1]-uZ[1]*oa).toFixed(1)+'" stroke="#41566E" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#arS)"/>';
+  var dM=P(nD/2,0,0), om=152;
+  out+=axText(dM[0]-uZ[0]*om, dM[1]-uZ[1]*om+5, angD, 'middle', 17, '#25384d', '700', 'Domains', 20);
+  /* ---- แกน Zones (ขอบล่างขวา) ---- */
+  for(var z2=0; z2<nZ; z2++){
+    var mz=P(nD,z2+0.5,0), oz=26;
+    out+=axText(mz[0]+uD[0]*oz, mz[1]+uD[1]*oz+4, angZ, 'start', 11.5, '#41566E', '600', ZONES[z2], 12);
+  }
+  var oz2=112, zA=P(nD,-0.05,0), zB=P(nD,nZ+0.05,0);
+  out+='<line x1="'+(zA[0]+uD[0]*oz2).toFixed(1)+'" y1="'+(zA[1]+uD[1]*oz2).toFixed(1)+'" x2="'+(zB[0]+uD[0]*oz2).toFixed(1)+'" y2="'+(zB[1]+uD[1]*oz2).toFixed(1)+'" stroke="#41566E" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#arS)"/>';
+  var zM=P(nD,nZ/2,0), om2=136;
+  out+=axText(zM[0]+uD[0]*om2, zM[1]+uD[1]*om2+5, angZ, 'middle', 17, '#25384d', '700', 'Zones', 20);
+  var defs='<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#41566E"/></marker>'+
+    '<marker id="arS" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M9,1 L0,5 L9,9 z" fill="#41566E"/></marker></defs>';
+  return '<svg id="sfamSvg" width="'+FW+'" height="'+FH+'" viewBox="0 0 '+FW+' '+FH+'" xmlns="http://www.w3.org/2000/svg"><rect width="'+FW+'" height="'+FH+'" fill="#fff"/>'+defs+out+'</svg>';
+}
+
+/* ---------- domain cube ---------- */
+function cube(color){
+  var W=64,H=36,BH=27,n=LAYERS.length,Hh=n*BH, cx=96, cy0=30, out='';
+  /* หน้าบน */
+  out+='<polygon points="'+poly([[cx-W,cy0],[cx,cy0-H],[cx+W,cy0],[cx,cy0+H]])+'" fill="'+shade(color,1.25)+'" stroke="'+shade(color,.8)+'" stroke-width="1.4"/>';
+  for(var i=0;i<n;i++){
+    var y=cy0+i*BH, y2=cy0+(i+1)*BH, L=LAYERS[i];
+    /* หน้าซ้าย */
+    out+='<polygon points="'+poly([[cx-W,y],[cx,y+H],[cx,y2+H],[cx-W,y2]])+'" fill="'+L.c+'" fill-opacity=".92" stroke="'+L.s+'" stroke-width=".9"/>';
+    /* หน้าขวา (เข้มกว่า) */
+    out+='<polygon points="'+poly([[cx+W,y],[cx,y+H],[cx,y2+H],[cx+W,y2]])+'" fill="'+shade(L.c,.78)+'" fill-opacity=".92" stroke="'+L.s+'" stroke-width=".9"/>';
+    /* ป้ายชั้น */
+    out+='<text x="'+(cx+W+12)+'" y="'+(y+H*0.5+BH*0.62)+'" font-family="Inter,Sarabun,sans-serif" font-size="10.5" font-weight="600" fill="#41566E">'+L.k.replace(' Layer','')+'</text>';
+  }
+  out+='<polygon points="'+poly([[cx-W,cy0],[cx,cy0+H],[cx,cy0+H+Hh],[cx-W,cy0+Hh]])+'" fill="none" stroke="'+shade(color,.7)+'" stroke-width="1.6"/>';
+  out+='<polygon points="'+poly([[cx+W,cy0],[cx,cy0+H],[cx,cy0+H+Hh],[cx+W,cy0+Hh]])+'" fill="none" stroke="'+shade(color,.7)+'" stroke-width="1.6"/>';
+  return '<svg width="252" height="'+(cy0+H+Hh+16)+'" viewBox="0 0 252 '+(cy0+H+Hh+16)+'">'+out+'</svg>';
+}
+
+/* ---------- render ---------- */
+function render(){
+  document.getElementById('hTitle').textContent=S.title||'';
+  document.getElementById('hSub').textContent=S.sub||'';
+  document.getElementById('fig').innerHTML=figure();
+  document.getElementById('glegend').innerHTML=GROUPS.map(function(g,i){
+    return '<span class="li"><span class="sw" style="background:'+g.color+'"></span><b>'+esc(S.domains[i].name)+'</b> · '+esc(S.domains[i].sub)+'</span>';
+  }).join('');
+  var ce=editMode?'true':'false';
+  document.getElementById('domains').innerHTML=GROUPS.map(function(g,i){
+    var d=S.domains[i];
+    return '<div class="card"><h2 style="color:'+g.color+'">Domain '+(i+1)+' — Cube</h2>'+
+      '<div class="cap">ทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer (ไม่แยก Layer / Zone) สำหรับลงรายละเอียด Business Model Flow</div>'+
+      '<div class="dom"><div class="cube">'+cube(g.color)+'</div><div class="body">'+
+      '<div class="dt" style="color:'+g.color+'" data-di="'+i+'" data-f="name" contenteditable="'+ce+'">'+esc(d.name)+'</div>'+
+      '<div class="ds" data-di="'+i+'" data-f="sub" contenteditable="'+ce+'">'+esc(d.sub)+'</div>'+
+      '<div class="ph">พิมพ์ Business Model Flow ของ Domain นี้ — ครอบคลุมทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer</div>'+
+      '<div class="txt" data-di="'+i+'" data-f="body" contenteditable="'+ce+'">'+d.body+'</div>'+
+      '</div></div></div>';
+  }).join('');
+}
+document.getElementById('hTitle').addEventListener('input',function(){ S.title=this.innerText; schedulePersist(); });
+document.getElementById('hSub').addEventListener('input',function(){ S.sub=this.innerText; schedulePersist(); });
+document.getElementById('domains').addEventListener('input',function(e){
+  var el=e.target.closest('[data-di]'); if(!el) return;
+  var d=S.domains[+el.dataset.di]; if(!d) return;
+  d[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
+  schedulePersist();
+});
+function syncAll(){
+  S.title=document.getElementById('hTitle').innerText;
+  S.sub=document.getElementById('hSub').innerText;
+  document.querySelectorAll('#domains [data-di]').forEach(function(el){
+    var d=S.domains[+el.dataset.di]; if(!d) return;
+    d[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
+  });
+}
+document.getElementById('bEdit').addEventListener('click',function(){
+  syncAll(); editMode=!editMode; this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
+  ['hTitle','hSub'].forEach(function(id){ document.getElementById(id).setAttribute('contenteditable',editMode?'true':'false'); });
+  render(); tip(editMode?'แก้ไขได้':'ล็อกแล้ว');
+});
+document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
+document.getElementById('bPNG').addEventListener('click',function(){
+  var svg=document.getElementById('sfamSvg'); if(!svg){ tip('ไม่พบแผนภาพ'); return; }
+  var data=new XMLSerializer().serializeToString(svg);
+  var img=new Image();
+  img.onload=function(){
+    var cv=document.createElement('canvas'); cv.width=FW*2; cv.height=FH*2;
+    var ctx=cv.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.drawImage(img,0,0,cv.width,cv.height);
+    try{ var a=document.createElement('a'); a.href=cv.toDataURL('image/png'); a.download='PCC_SFAM.png'; a.click(); tip('บันทึก PNG แล้ว'); }
+    catch(e){ tip('บันทึกรูปไม่สำเร็จ'); }
+  };
+  img.onerror=function(){ tip('สร้างรูปไม่สำเร็จ'); };
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data);
+});
+
+/* ---------- token + publish ---------- */
+var tokPanel=document.getElementById('tokPanel'), tokInput=document.getElementById('tokInput'), tokState=document.getElementById('tokState');
+function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
+function refreshTok(){ var t=tokGet(); tokState.textContent=t?('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')'):'○ ยังไม่มี token'; tokState.style.color=t?'var(--green)':'#B0392B'; }
+function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTok(); setTimeout(function(){tokInput.focus();},30); }
+document.getElementById('bTok').addEventListener('click',function(){ tokPanel.style.display==='block'?(tokPanel.style.display='none'):openTok(); });
+document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+document.getElementById('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){} tokInput.value=''; });
+document.getElementById('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--SFAM_DATA_START-->[\s\S]*?<!--SFAM_DATA_END-->/;
+function dataBlock(json){ return '<!--SFAM_DATA_START-->\n<script id="sfam-data" type="application/json">'+json+'<\/script>\n<!--SFAM_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=document.getElementById('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  syncAll(); var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'}; var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); } return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+      throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw'); await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'}); await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้'); var ref=await refRes.json(); var headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha, tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}); await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'SFAM update via browser ['+new Date().toISOString().slice(0,16)+']', tree:tree.sha, parents:[headSha]}); await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+document.getElementById('bPublish').addEventListener('click',publish);
+
+render();
+tip('แผนภาพ SFAM · Domain Cube 3 ก้อนพร้อมให้ลงรายละเอียด Business Model Flow — แก้ไขได้แล้วกด “บันทึกขึ้นเว็บ”');
+})();
+</script>
+</body>
+</html>
