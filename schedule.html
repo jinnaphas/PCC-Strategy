@@ -71,8 +71,15 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .it .body{flex:1;padding:13px 15px;min-width:0}
 .it .ti{font-size:calc(15px*var(--sfs,1));font-weight:700;color:var(--ink);line-height:1.35}
 .it .dt{font-size:calc(12.8px*var(--sfs,1));color:var(--mute);margin-top:5px;line-height:1.55;white-space:pre-wrap}
-.it .pr{margin-top:9px;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--green);
+.it .prs{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.it .pr{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--green);
   background:#EAF5EC;border:1px solid #CBE7CF;padding:3px 10px;border-radius:20px;font-weight:600}
+.pr .x,.sb-pr .x{cursor:pointer;opacity:.5;font-weight:800;font-size:11px;font-style:normal}
+.pr .x:hover,.sb-pr .x:hover{opacity:1;color:#C0392B}
+body:not(.edit) .pr .x,body:not(.edit) .sb-pr .x{display:none}
+.pradd{font-size:10.5px;text-transform:none;padding:3px 10px;border-style:dashed;color:var(--green);border-color:#BEDDC4;background:#fff}
+.pradd:hover{background:#EAF5EC;color:var(--green);border-color:var(--green)}
+body:not(.edit) .pradd{display:none}
 .it .acts{flex:none;display:flex;flex-direction:column;gap:3px;padding:10px 8px;background:#FBFDFF;border-left:1px solid #EEF3F8}
 body:not(.edit) .it .acts{display:none}
 .it .acts button{padding:2px 6px;font-size:12px;line-height:17px;text-transform:none;border-color:transparent;background:transparent}
@@ -89,7 +96,10 @@ body:not(.edit) .it .acts{display:none}
 .sub .sb-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);margin-top:7px;flex:none}
 .sub .sb-body{flex:1;min-width:0}
 .sub .sb-ti{font-size:calc(13px*var(--sfs,1));font-weight:600;color:var(--ink);line-height:1.45}
-.sub .sb-pr{margin-left:8px;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--green);font-weight:600;white-space:nowrap}
+.sub .sb-prs{display:inline-flex;flex-wrap:wrap;gap:5px;margin-left:8px;vertical-align:middle}
+.sub .sb-pr{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--green);font-weight:600;
+  white-space:nowrap;background:#EAF5EC;border:1px solid #CBE7CF;padding:1px 8px;border-radius:12px}
+.sub .pradd{font-size:10px;padding:1px 8px}
 .sub .sb-acts{flex:none;display:flex;gap:1px;align-items:center}
 body:not(.edit) .sub .sb-acts{display:none}
 .sub .sb-acts button{padding:1px 5px;font-size:11px;line-height:16px;text-transform:none;border-color:transparent;background:transparent}
@@ -206,6 +216,20 @@ var sd=seed();
 if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
 ['fs','title','sub','date','venue'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
 if(!Array.isArray(S.rows)) S.rows=sd.rows;
+/* migrate: presenter (ข้อความเดียว) -> presenters (หลายคน) */
+function splitPresenters(s){ return String(s||'').split(/\s*[+,]\s*/).map(function(x){return x.trim();}).filter(Boolean); }
+function migratePresenters(){
+  S.rows.forEach(function(r){
+    if(r.kind!=='item') return;
+    if(!Array.isArray(r.presenters)){ r.presenters=splitPresenters(r.presenter); }
+    delete r.presenter;
+    (r.subs||[]).forEach(function(s){
+      if(!Array.isArray(s.presenters)){ s.presenters=splitPresenters(s.presenter); }
+      delete s.presenter;
+    });
+  });
+}
+migratePresenters();
 if(!S.fs) S.fs=1;
 
 var editMode=true;
@@ -230,6 +254,15 @@ function docChip(it,i){
     (editMode?'<span class="rm" data-rm="'+i+'" title="เอาเอกสารออก">✕</span>':'')+'</a>';
 }
 
+function prChips(arr,pre,idx){
+  var ce=editMode?'true':'false', out='';
+  (arr||[]).forEach(function(nm,k){
+    out+='<span class="'+(pre==='sp'?'sb-pr':'pr')+'">👤 <span data-'+pre+'f="'+idx+'.'+k+'" contenteditable="'+ce+'">'+esc(nm)+'</span>'+
+      (editMode?'<i class="x" data-'+pre+'rm="'+idx+'.'+k+'" title="เอาออก">✕</i>':'')+'</span>';
+  });
+  if(editMode) out+='<button class="pradd" data-'+pre+'add="'+idx+'">＋ ผู้บรรยาย</button>';
+  return out;
+}
 function subDocChip(s,i,j){
   var href=hrefOf(s); if(!href) return '';
   var isFile=!s.link && s.file, name=isFile?(s.file.name||'เอกสาร'):'เปิดลิงก์';
@@ -243,7 +276,7 @@ function subsHtml(r,i){
   (r.subs||[]).forEach(function(s,j){
     out+='<div class="sub" data-i="'+i+'" data-j="'+j+'"><span class="sb-dot"></span><div class="sb-body">'+
       '<span class="sb-ti" data-f2="title" contenteditable="'+ce+'">'+esc(s.title)+'</span>'+subDocChip(s,i,j)+
-      ((s.presenter||editMode)?'<span class="sb-pr">👤 <span data-f2="presenter" contenteditable="'+ce+'">'+esc(s.presenter)+'</span></span>':'')+
+      (((s.presenters&&s.presenters.length)||editMode)?'<span class="sb-prs">'+prChips(s.presenters,'sp',i+'.'+j)+'</span>':'')+
       '</div>'+
       (editMode?'<span class="sb-acts">'+
         '<button data-slink="'+i+'.'+j+'" title="ใส่ลิงก์">🔗</button>'+
@@ -283,7 +316,7 @@ function render(){
          '<div class="body">'+
            '<div><span class="ti" data-f="title" contenteditable="'+ce+'">'+esc(r.title)+'</span>'+docChip(r,i)+'</div>'+
            ((r.detail||editMode)?'<div class="dt" data-f="detail" contenteditable="'+ce+'">'+esc(r.detail)+'</div>':'')+
-           ((r.presenter||editMode)?'<div class="pr">👤 <span data-f="presenter" contenteditable="'+ce+'">'+esc(r.presenter)+'</span></div>':'')+
+           (((r.presenters&&r.presenters.length)||editMode)?'<div class="prs">'+prChips(r.presenters,'p',i)+'</div>':'')+
            subsHtml(r,i)+
          '</div>'+
          '<div class="acts">'+
@@ -314,12 +347,26 @@ function syncAll(){
     var host=el.closest('.sub'); if(!host) return; var i=+host.dataset.i, j=+host.dataset.j, f=el.dataset.f2;
     if(S.rows[i]&&S.rows[i].subs&&S.rows[i].subs[j]) S.rows[i].subs[j][f]=el.innerText;
   });
+  agenda.querySelectorAll('[data-pf]').forEach(function(el){
+    var q=el.dataset.pf.split('.'), r=S.rows[+q[0]];
+    if(r&&Array.isArray(r.presenters)) r.presenters[+q[1]]=el.innerText.trim();
+  });
+  agenda.querySelectorAll('[data-spf]').forEach(function(el){
+    var q=el.dataset.spf.split('.'), r=S.rows[+q[0]], s=r&&r.subs&&r.subs[+q[1]];
+    if(s&&Array.isArray(s.presenters)) s.presenters[+q[2]]=el.innerText.trim();
+  });
 }
 
 /* ---- live edit ---- */
 function bindH(id,key){ var el=document.getElementById(id); el.addEventListener('input',function(){ S[key]=this.innerText; schedulePersist(); }); }
 bindH('hTitle','title'); bindH('hSub','sub'); bindH('hDate','date'); bindH('hVenue','venue');
 agenda.addEventListener('input',function(e){
+  var pe=e.target.closest('[data-pf]');
+  if(pe){ var q=pe.dataset.pf.split('.'), r0=S.rows[+q[0]];
+    if(r0&&Array.isArray(r0.presenters)){ r0.presenters[+q[1]]=pe.innerText.trim(); schedulePersist(); } return; }
+  var se=e.target.closest('[data-spf]');
+  if(se){ var q2=se.dataset.spf.split('.'), r1=S.rows[+q2[0]], s1=r1&&r1.subs&&r1.subs[+q2[1]];
+    if(s1&&Array.isArray(s1.presenters)){ s1.presenters[+q2[2]]=se.innerText.trim(); schedulePersist(); } return; }
   var el2=e.target.closest('[data-f2]');
   if(el2){ var sh=el2.closest('.sub'); if(sh){ var si=+sh.dataset.i, sj=+sh.dataset.j, ff=el2.dataset.f2; if(S.rows[si]&&S.rows[si].subs&&S.rows[si].subs[sj]){ S.rows[si].subs[sj][ff]=el2.innerText; schedulePersist(); } } return; }
   var el=e.target.closest('[data-f]'); if(!el) return; var host=el.closest('.it,.ses,.grp,.brk'); if(!host) return;
@@ -341,6 +388,18 @@ agenda.addEventListener('click',function(e){
   if((b=e.target.closest('[data-rm]'))){ e.preventDefault(); var i=+b.dataset.rm; syncAll(); if(S.rows[i]){ S.rows[i].link=''; S.rows[i].file=null; } render(); persist(); tip('เอาเอกสารออกแล้ว'); return; }
   if((b=e.target.closest('[data-srm]'))){ e.preventDefault(); var sr=subAt(b.dataset.srm); if(sr){ syncAll(); sr.s.link=''; sr.s.file=null; render(); persist(); tip('เอาเอกสารออกแล้ว'); } return; }
   if(!editMode) return;
+  if((b=e.target.closest('[data-padd]'))){ var ai0=+b.dataset.padd, r2=S.rows[ai0]; if(!r2) return;
+    var nm=prompt('ชื่อผู้บรรยาย:'); if(nm===null||!nm.trim()) return;
+    syncAll(); if(!Array.isArray(r2.presenters)) r2.presenters=[]; r2.presenters.push(nm.trim());
+    render(); persist(); tip('เพิ่มผู้บรรยาย “'+nm.trim()+'” แล้ว'); return; }
+  if((b=e.target.closest('[data-prm]'))){ var q3=b.dataset.prm.split('.'), r3=S.rows[+q3[0]]; if(!r3||!r3.presenters) return;
+    syncAll(); var gone=r3.presenters.splice(+q3[1],1)[0]; render(); persist(); tip('เอา “'+(gone||'')+'” ออกแล้ว'); return; }
+  if((b=e.target.closest('[data-spadd]'))){ var q4=b.dataset.spadd.split('.'), r4=S.rows[+q4[0]], s4=r4&&r4.subs&&r4.subs[+q4[1]]; if(!s4) return;
+    var nm2=prompt('ชื่อผู้บรรยาย (หัวข้อย่อย):'); if(nm2===null||!nm2.trim()) return;
+    syncAll(); if(!Array.isArray(s4.presenters)) s4.presenters=[]; s4.presenters.push(nm2.trim());
+    render(); persist(); tip('เพิ่มผู้บรรยายแล้ว'); return; }
+  if((b=e.target.closest('[data-sprm]'))){ var q5=b.dataset.sprm.split('.'), r5=S.rows[+q5[0]], s5=r5&&r5.subs&&r5.subs[+q5[1]]; if(!s5||!s5.presenters) return;
+    syncAll(); s5.presenters.splice(+q5[2],1); render(); persist(); tip('เอาผู้บรรยายออกแล้ว'); return; }
   if((b=e.target.closest('[data-addsub]'))){ var ai=+b.dataset.addsub; syncAll(); if(!Array.isArray(S.rows[ai].subs)) S.rows[ai].subs=[]; S.rows[ai].subs.push(newSub()); render(); persist(); tip('เพิ่มหัวข้อย่อยแล้ว'); return; }
   if((b=e.target.closest('[data-slink]'))){ var sl=subAt(b.dataset.slink); if(!sl) return; var u=prompt('วางลิงก์ URL ของเอกสาร (เว้นว่าง = ลบลิงก์):', sl.s.link||''); if(u===null) return; syncAll(); sl.s.link=u.trim(); if(u.trim()) sl.s.file=null; render(); persist(); tip(u.trim()?'ใส่ลิงก์แล้ว':'ลบลิงก์แล้ว'); return; }
   if((b=e.target.closest('[data-sfile]'))){ var sf=subAt(b.dataset.sfile); if(sf){ fileTarget={i:sf.i,j:sf.j}; fileInput.click(); } return; }
@@ -354,8 +413,8 @@ agenda.addEventListener('click',function(e){
 });
 function moveRow(i,dir){ var j=i+dir; if(j<0||j>=S.rows.length) return; syncAll(); var t=S.rows[i]; S.rows[i]=S.rows[j]; S.rows[j]=t; render(); persist(); }
 function moveSub(i,j,dir){ var r=S.rows[i]; if(!r||!r.subs) return; var k=j+dir; if(k<0||k>=r.subs.length) return; syncAll(); var t=r.subs[j]; r.subs[j]=r.subs[k]; r.subs[k]=t; render(); persist(); }
-function newSub(){ return {title:'หัวข้อย่อยใหม่', presenter:'', link:'', file:null}; }
-function newItem(){ return {kind:'item', no:'', time:'', title:'หัวข้อใหม่', detail:'', presenter:'', link:'', file:null, subs:[]}; }
+function newSub(){ return {title:'หัวข้อย่อยใหม่', presenters:[], link:'', file:null}; }
+function newItem(){ return {kind:'item', no:'', time:'', title:'หัวข้อใหม่', detail:'', presenters:[], link:'', file:null, subs:[]}; }
 function addAtEnd(row){ syncAll(); S.rows.push(row); render(); persist(); }
 document.getElementById('addItem').addEventListener('click',function(){ addAtEnd(newItem()); tip('เพิ่มหัวข้อแล้ว'); });
 document.getElementById('addItem2').addEventListener('click',function(){ addAtEnd(newItem()); });
@@ -390,7 +449,7 @@ document.getElementById('bEdit').addEventListener('click',function(){
 document.getElementById('bSave').addEventListener('click',function(){ syncAll(); var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='PCC_Precise_Day_Schedule.json'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},1000); tip('บันทึกไฟล์แล้ว'); });
 var fo=document.createElement('input'); fo.type='file'; fo.accept='application/json,.json'; fo.style.display='none'; document.body.appendChild(fo);
 document.getElementById('bOpen').addEventListener('click',function(){ fo.click(); });
-fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.rows)) throw 0; S=o; if(!S.fs)S.fs=1; render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
+fo.addEventListener('change',function(){ var f=fo.files[0]; if(!f) return; var fr=new FileReader(); fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.rows)) throw 0; S=o; if(!S.fs)S.fs=1; migratePresenters(); render(); persist(); tip('เปิดไฟล์แล้ว'); }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } fo.value=''; }; fr.readAsText(f); });
 document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
 
 /* ---- token ---- */
