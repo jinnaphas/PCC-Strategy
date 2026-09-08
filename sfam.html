@@ -36,13 +36,26 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
   padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
 .tip.show{opacity:.96}
-.wrap{max-width:1320px;margin:0 auto;padding:20px 16px 100px}
+
+/* ---------- แถบจัดรูปแบบตัวอักษร ---------- */
+#fmt{display:none;position:sticky;top:41px;z-index:49;flex-wrap:wrap;gap:5px;align-items:center;
+  padding:6px 14px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(30,58,95,.06)}
+body.edit #fmt{display:flex}
+#fmt button{padding:4px 8px;font-size:11.5px;text-transform:none;letter-spacing:0;min-width:28px}
+#fmt .lb{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B8;margin:0 2px 0 6px}
+#fmt select{font-family:'Inter','Sarabun',sans-serif;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:#fff;color:#41566E}
+.sws{display:flex;gap:3px}
+.sws i{width:17px;height:17px;border-radius:4px;cursor:pointer;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.sws i:hover{transform:scale(1.15)}
+#fmt input[type=color]{width:26px;height:24px;padding:0;border:1px solid var(--line);border-radius:5px;background:#fff;cursor:pointer}
+
+.wrap{max-width:1360px;margin:0 auto;padding:20px 16px 100px}
 .hero{background:linear-gradient(120deg,#0B3552,var(--blue2) 55%,#1A7FB8);color:#fff;border-radius:18px;
   padding:20px 26px;box-shadow:0 10px 30px rgba(0,90,142,.28);position:relative;overflow:hidden}
 .hero:before{content:"";position:absolute;right:-50px;top:-60px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.07)}
 .hero .kd{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
 .hero h1{font-size:25px;font-weight:800;margin:3px 0 5px}
-.hero .sub{font-size:13.5px;opacity:.93;line-height:1.55;max-width:900px}
+.hero .sub{font-size:13.5px;opacity:.93;line-height:1.55;max-width:980px}
 .hero [contenteditable="true"]{outline:none;border-radius:5px}
 .hero [contenteditable="true"]:focus{background:rgba(255,255,255,.16);box-shadow:0 0 0 2px rgba(255,255,255,.5)}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:14px 0;box-shadow:0 3px 16px rgba(30,58,95,.06)}
@@ -54,45 +67,81 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .glegend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin:0 0 10px;font-size:12px}
 .glegend .li{display:inline-flex;align-items:center;gap:6px}
 .glegend .sw{width:14px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
-/* เวที: ภาพใหญ่ + การ์ด Domain + เส้นเชื่อม */
-#stage{position:relative}
+
+/* ---------- เวที: ภาพใหญ่ + การ์ด Domain + เส้นเชื่อม ---------- */
+#stage{position:relative;padding-bottom:56px}
 #links{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:14}
-/* domain cubes — เรียงแนวนอน 3 คอลัมน์ */
-#domains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch;margin:16px 0 0}
-#domains .card{margin:0;border-top:4px solid var(--line);padding-top:13px}
+#links .clink{pointer-events:none}
+body.linking #links .clink{pointer-events:stroke;cursor:pointer}
+#domains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start;
+  grid-auto-flow:row dense;margin:16px 0 0}
+#domains .card{margin:0;border-top:4px solid var(--line);padding-top:13px;position:relative;display:flex;flex-direction:column}
+#domains .card.wide{grid-column:1/-1}
+#domains .card.wide .dom{display:flex;gap:22px;align-items:flex-start}
+#domains .card.wide .dom .cube{flex:none;width:252px;margin-top:0}
+#domains .card.wide .dom .body{flex:1}
+#domains .card.linksrc{box-shadow:0 0 0 3px var(--hi),0 3px 16px rgba(30,58,95,.06)}
+body.linking #domains .card{cursor:crosshair}
 .card h2 .gno{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;
   color:#fff;font-size:11px;font-weight:800;margin-right:7px;vertical-align:-3px;font-family:'Inter',sans-serif}
+.chead{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chead h2{flex:1;min-width:120px}
+.ctools{display:flex;gap:4px}
+.ctools button{padding:3px 7px;font-size:11px;text-transform:none;letter-spacing:0}
+body:not(.edit) .ctools .edonly{display:none}
+.colpick{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 8px}
+.colpick .cchip{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;cursor:pointer;
+  color:#7C8DA1;background:#fff;font-family:'Inter','Sarabun',sans-serif;user-select:none}
+.colpick .cchip.on{color:#fff}
+.colpick .lb{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9BAABB;align-self:center;margin-right:2px}
+body:not(.edit) .colpick{display:none}
 .dom{display:block}
 .dom .cube{display:flex;justify-content:center;margin:2px 0 9px}
 .dom .cube svg{width:100%;max-width:252px;height:auto}
 .dom .body{min-width:0}
 .dom .dt{font-family:'Inter','Sarabun',sans-serif;font-size:17px;font-weight:800;margin:0 0 1px}
 .dom .ds{font-size:12.5px;color:var(--mute);margin-bottom:9px}
-.dom .txt{font-size:13.5px;line-height:1.75;color:#26384d;border:1px dashed transparent;border-radius:9px;padding:4px 2px;min-height:60px}
+.dom .txt{font-size:13.5px;line-height:1.75;color:#26384d;border:1px dashed transparent;border-radius:9px;padding:4px 4px;min-height:60px;overflow-x:auto}
 body.edit .dom .txt{border-color:#DCE7F1}
 body.edit .dom .txt:hover{background:#FFFDF6}
 .dom .txt ul,.dom .txt ol{margin:5px 0;padding-left:22px}
 .dom .txt li{margin-bottom:5px}
-.dom .txt h4{font-family:'Inter','Sarabun',sans-serif;font-size:13.5px;margin:10px 0 3px;color:var(--blue2)}
+.dom .txt h4{font-family:'Inter','Sarabun',sans-serif;font-size:13.5px;margin:12px 0 4px;color:var(--blue2);
+  border-bottom:1px solid #E6EEF6;padding-bottom:3px}
+.dom .txt table{border-collapse:collapse;width:100%;min-width:560px;font-size:11.5px;margin:6px 0 4px;line-height:1.5}
+.dom .txt th,.dom .txt td{border:1px solid #DCE7F1;padding:4px 7px;text-align:left;vertical-align:top}
+.dom .txt th{background:#EEF5FB;color:var(--blue2);font-weight:700;font-size:11px}
+.dom .txt tr:nth-child(even) td{background:#FAFCFE}
 .dom .ph{color:#A9B8C7;font-style:italic;font-size:12.5px;margin:2px 0 6px}
 [contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
-#tokPanel{display:none;position:fixed;top:56px;right:14px;z-index:120;width:314px;background:#fff;border:1px solid var(--line);
-  border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
-#tokPanel h4{font-family:'Inter',sans-serif;font-weight:800;font-size:14px;margin:0 0 5px}
+
+/* ---------- แผงแก้ป้ายในแผนภาพ ---------- */
+#labPanel,#tokPanel{display:none;position:fixed;z-index:120;background:#fff;border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel{top:56px;right:14px;width:314px;padding:15px 16px}
+#labPanel{top:56px;right:14px;width:412px;max-height:calc(100vh - 84px);overflow:auto;padding:15px 16px}
+#labPanel h4,#tokPanel h4{font-family:'Inter',sans-serif;font-weight:800;font-size:14px;margin:0 0 5px}
+#labPanel h5{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:#8FA3B8;margin:14px 0 6px}
 #tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
 #tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#labPanel .rw{display:flex;gap:5px;align-items:center;margin-bottom:5px}
+#labPanel input[type=text]{flex:1;min-width:0;padding:5px 8px;border:1px solid var(--line);border-radius:6px;
+  font-family:'Sarabun','Inter',sans-serif;font-size:12px;background:#F8FBFE;color:var(--ink)}
+#labPanel input.ico{flex:none;width:38px;text-align:center}
+#labPanel input[type=color]{flex:none;width:30px;height:27px;padding:0;border:1px solid var(--line);border-radius:5px;background:#fff;cursor:pointer}
+#labPanel .rw button{flex:none;padding:4px 7px;font-size:11px;text-transform:none}
 #tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',ui-monospace,monospace;font-size:12px;background:#F8FBFE}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
-@media(max-width:1080px){#domains{grid-template-columns:1fr}#links{display:none}}
-@media print{.bar,.tip,#tokPanel{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
-  .card{box-shadow:none;break-inside:avoid}@page{size:A3 portrait;margin:10mm}}
+@media(max-width:1120px){#domains{grid-template-columns:1fr}#domains .card.wide{grid-column:auto}#links{display:none}}
+@media print{.bar,#fmt,.tip,#tokPanel,#labPanel,.ctools,.colpick{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
+  .card{box-shadow:none;break-inside:avoid}@page{size:A3 landscape;margin:10mm}}
 </style>
 </head>
 <body class="edit">
-
 <!--SFAM_DATA_START-->
-<script id="sfam-data" type="application/json">{"savedAt":1788830545555,"title":"Smart Farming Architecture Model (SFAM)","sub":"แบบจำลองสถาปัตยกรรมอ้างอิงสำหรับ Smart Farming — ใช้เป็นโครงในการออกแบบ Business Model Flow ราย Domain ของ PCC · ดึง Domain ออกมาเป็น Cube แยก เพื่อลงรายละเอียดทั้งคอลัมน์ (ไม่แยก Layer / Zone)","domains":[{"id":"g1","name":"Cultivation Area","sub":"Land Development","body":"\u003ch4>PCC\u003cbr>\u003c/h4>\u003ch4>1. PCC ลงทุนที่ดิน 1,000 ไร่\u003c/h4>\u003ch4>2. PCC ให้ PPP เช่า โดยคิดค่าเช่า ไร่ละ 1,000 บาท ต่อปีต่อไร่\u003c/h4>\u003cdiv>\u003cbr>\u003c/div>"},{"id":"g2","name":"Livestock","sub":"Bamboo Plant Development","body":"\u003ch4>Value Proposition\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>\u003ch4>Key Activities / Process Flow\u003c/h4>\u003col>\u003cli>\u003c/li>\u003c/ol>\u003ch4>Revenue Stream\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>"},{"id":"g3","name":"Process & Distribution","sub":"Products","body":"\u003ch4>Value Proposition\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>\u003ch4>Key Activities / Process Flow\u003c/h4>\u003col>\u003cli>\u003c/li>\u003c/ol>\u003ch4>Revenue Stream\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>"}]}</script>
+<script id="sfam-data" type="application/json">{"savedAt":1788845000000,"title":"Smart Farming Architecture Model (SFAM)","sub":"แบบจำลองสถาปัตยกรรมอ้างอิงสำหรับ Smart Farming — ใช้เป็นโครงในการออกแบบ Business Model Flow ราย Domain ของ PCC · ดึง Domain ออกมาเป็น Cube แยก เพื่อลงรายละเอียดทั้งคอลัมน์ (ไม่แยก Layer / Zone)","figTitle":"Smart Farming Architecture Model","figCap":"แกน Layers (6 ชั้น interoperability) × Domains (พื้นที่/กิจกรรม) × Zones (ระดับการควบคุมจาก Physical Objects ถึง Connected World)","figNote":"The Smart Farming Architecture Model with interoperability layers","axisD":"Domains","axisZ":"Zones","layers":[{"k":"Business Layer","c":"#E8686E","s":"#D2434B"},{"k":"Function Layer","c":"#F2B24C","s":"#DE9526"},{"k":"Information Layer","c":"#5FB07A","s":"#3F8F5A"},{"k":"Communication Layer","c":"#49AEA6","s":"#2E8F88"},{"k":"Integration Layer","c":"#5B95D8","s":"#3A73B8"},{"k":"Asset Layer","c":"#B9C2CB","s":"#8E9AA6"}],"zones":["Physical Objects","Sensing & Actuation","Production Control","Operation Execution","Management Information","Connected World"],"cols":[{"name":"Cultivation Area","icon":"🚜"},{"name":"Livestock","icon":"🐄"},{"name":"Storage","icon":"🛢️"},{"name":"Processing","icon":"🏭"},{"name":"Distribution","icon":"🚚"}],"cards":[{"id":"g1","head":"Domain 1 — Cube","name":"Cultivation Area","sub":"Land Development","color":"#4E9A5A","cols":[0],"span":1,"body":"\u003ch4>PCC\u003cbr>\u003c/h4>\u003ch4>1. PCC ลงทุนที่ดิน 1,000 ไร่\u003c/h4>\u003ch4>2. PCC ให้ PPP เช่า โดยคิดค่าเช่า ไร่ละ 1,000 บาท ต่อปีต่อไร่\u003c/h4>\u003cdiv>\u003cbr>\u003c/div>"},{"id":"g2","head":"Domain 2 — Cube","name":"Livestock","sub":"Bamboo Plant Development","color":"#C98A2E","cols":[1],"span":1,"body":"\u003ch4>Value Proposition\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>\u003ch4>Key Activities / Process Flow\u003c/h4>\u003col>\u003cli>\u003c/li>\u003c/ol>\u003ch4>Revenue Stream\u003c/h4>\u003cul>\u003cli>\u003c/li>\u003c/ul>"},{"id":"g3","head":"Domain 3 — Cube","name":"Process & Distribution","sub":"Products","color":"#2F7FBF","cols":[2,3,4],"span":1,"body":"\u003ch4>Value Proposition\u003c/h4>\u003cul>\u003cli>เปลี่ยน \u003cb>ไผ่ 1 ตัน\u003c/b> ให้เป็นผลิตภัณฑ์ที่ \u003cb>“จ่ายค่าไผ่ไหว” สูงที่สุด\u003c/b> — คัดพอร์ตด้วยตัวชี้วัดเดียวคือ \u003cb>ราคาไผ่สดสูงสุดที่จ่ายไหว (Max Affordable Bamboo Price)\u003c/b> ไม่ใช่ “รายได้ต่อตันไผ่” ซึ่งทำให้ธุรกิจที่ต้นทุนแปรรูปสูงดูดีเกินจริง\u003c/li>\u003cli>ฐานเปรียบเทียบทุกตัวเลข: ไผ่สด \u003cb>750 บาท/ตัน\u003c/b> (ความชื้น 50%) · 1 USD = 33.40 บาท · ข้อมูลตลาดปี 2024–2025 (รายงาน 7 มิติ ฉบับกันยายน 2569)\u003c/li>\u003cli>แบ่งความรับผิดชอบชัดเจน — \u003cb style=\"color:#2F7FBF\">PSL\u003c/b> = สายวัสดุมูลค่าสูง (Pulp, Pellet) · \u003cb style=\"color:#C98A2E\">PPP\u003c/b> = สายพลังงานและคาร์บอนจากไผ่ (Biomass Power, Biochar &amp; AC, 2G Ethanol)\u003c/li>\u003c/ul>\u003ch4>Product Portfolio — 5 ผลิตภัณฑ์จากไผ่\u003c/h4>\u003ctable>\u003cthead>\u003ctr>\u003cth style=\"width:17%\">ผลิตภัณฑ์\u003c/th>\u003cth style=\"width:7%\">เจ้าของ\u003c/th>\u003cth style=\"width:19%\">ราคาขาย\u003c/th>\u003cth style=\"width:17%\">ต้นทุนเงินสด\u003c/th>\u003cth style=\"width:16%\">จ่ายค่าไผ่ไหว\u003cbr>(บาท/ตันไผ่สด)\u003c/th>\u003cth style=\"width:11%\">CAGR\u003c/th>\u003cth style=\"width:13%\">คำตัดสิน\u003c/th>\u003c/tr>\u003c/thead>\u003ctbody>\u003ctr>\u003ctd>\u003cb>1. Bamboo Chemical Pulp\u003c/b>\u003cbr>\u003cspan style=\"color:#5A6E88\">เยื่อกระดาษฟอกขาว\u003c/span>\u003c/td>\u003ctd>\u003cb style=\"color:#2F7FBF\">PSL\u003c/b>\u003c/td>\u003ctd>20,500–24,500 บาท/ตันเยื่อ\u003cbr>\u003cspan style=\"color:#5A6E88\">BHK ~668 / NBSK ~758 USD/ตัน\u003c/span>\u003c/td>\u003ctd>12,000–15,900\u003c/td>\u003ctd>\u003cb style=\"color:#2E7D32\">2,300–4,000\u003c/b>\u003cbr>\u003cspan style=\"color:#5A6E88\">Headroom &gt; 3 เท่า\u003c/span>\u003c/td>\u003ctd>เยื่อไผ่โลก\u003cbr>\u003cb>10–14%\u003c/b>\u003c/td>\u003ctd>\u003cb style=\"color:#2E7D32\">✅ แกนหลัก\u003c/b>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>\u003cb>2. Bamboo Pellet\u003c/b>\u003cbr>\u003cspan style=\"color:#5A6E88\">White / Torrefied\u003c/span>\u003c/td>\u003ctd>\u003cb style=\"color:#2F7FBF\">PSL\u003c/b>\u003c/td>\u003ctd>White 3,700–5,500\u003cbr>Torrefied 5,000–6,500\u003c/td>\u003ctd>White 3,140–3,780\u003cbr>Torrefied 3,840–4,640\u003c/td>\u003ctd>White 700–2,000\u003cbr>Torrefied 880–1,750\u003c/td>\u003ctd>โลก 5–8%\u003cbr>Torrefied 10–12%\u003c/td>\u003ctd>\u003cb style=\"color:#B5892B\">⚠️ ใช้เศษเหลือ\u003c/b>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>\u003cb>3. Biomass Power 10 MW\u003c/b>\u003c/td>\u003ctd>\u003cb style=\"color:#C98A2E\">PPP\u003c/b>\u003c/td>\u003ctd>FiT จริง 2.7972 บาท/หน่วย\u003cbr>\u003cspan style=\"color:#5A6E88\">เพดาน 4.2636 (ต้องชนะประมูล)\u003c/span>\u003c/td>\u003ctd>LCOE 2.87–3.37 บาท/kWh\u003c/td>\u003ctd>\u003cb style=\"color:#D2434B\">430–710\u003c/b>\u003cbr>\u003cspan style=\"color:#5A6E88\">ต่ำกว่าราคาซื้อ 750\u003c/span>\u003c/td>\u003ctd>ไทย 1–3%\u003c/td>\u003ctd>\u003cb style=\"color:#D2434B\">❌ อย่าซื้อไผ่ตรง\u003c/b>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>\u003cb>4. Biochar &amp; Activated Carbon\u003c/b>\u003c/td>\u003ctd>\u003cb style=\"color:#C98A2E\">PPP\u003c/b>\u003c/td>\u003ctd>Biochar 12,000–18,000\u003cbr>+ เครดิต 9,200–13,600\u003cbr>AC 45,000–65,000\u003c/td>\u003ctd>Biochar 7,250–9,225\u003cbr>AC 24,875–32,500\u003c/td>\u003ctd>\u003cb style=\"color:#2E7D32\">Biochar+เครดิต 2,300–4,600\u003c/b>\u003cbr>AC 1,380–3,180\u003c/td>\u003ctd>Biochar 14–18%\u003cbr>AC 4–6.5%\u003c/td>\u003ctd>\u003cb style=\"color:#2E7D32\">✅ ROI สูง\u003cbr>CAPEX ต่ำ\u003c/b>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>\u003cb>5. 2G Cellulosic Ethanol\u003c/b>\u003c/td>\u003ctd>\u003cb style=\"color:#C98A2E\">PPP\u003c/b>\u003c/td>\u003ctd>ไทย 25–29 บาท/ลิตร\u003cbr>SAF/RED III 40–55\u003c/td>\u003ctd>27–43 บาท/ลิตร\u003c/td>\u003ctd>ไทย \u003cb style=\"color:#D2434B\">ติดลบ\u003c/b>\u003cbr>SAF 770–3,220\u003c/td>\u003ctd>ไทย 0–2%\u003cbr>SAF สูงมาก\u003c/td>\u003ctd>\u003cb style=\"color:#D2434B\">❌ รอ offtake\u003c/b>\u003c/td>\u003c/tr>\u003c/tbody>\u003c/table>\u003cp style=\"font-size:11.5px;color:#5A6E88;margin:4px 0 0\">อ้างอิง: รายงานวิเคราะห์เชิงลึก 7 มิติ ฉบับที่ 1–5 (ปรับปรุง ก.ย. 2569) · เบนซิน 95 หน้าโรงกลั่น 24.03 บาท/ลิตร (26 ส.ค. 2569) · ดัชนี CORCCHAR ของ Puro.earth 125–145 USD/ตัน CO₂\u003c/p>\u003ch4>Key Activities / Process Flow — ลำดับการจัดสรรไผ่ (Cascade)\u003c/h4>\u003col>\u003cli>\u003cb>ไผ่ลำคุณภาพดี → โรงเยื่อ (PSL) ก่อนเสมอ\u003c/b> — จ่ายไหว 2,300–4,000 บาท/ตัน เทียบราคาซื้อจริง 750 จึงมีระยะปลอดภัยกว่า 3 เท่า และขึ้นราคารับซื้อให้เกษตรกรได้โดยโครงการยังอยู่รอด\u003c/li>\u003cli>\u003cb>ปลายไผ่ ใบ กิ่ง เปลือก ขี้เลื่อย → สายอัดเม็ด (PSL)\u003c/b> — ห้ามซื้อไผ่ลำมาอัดเม็ด เพราะถ้าราคาไผ่ขยับเกิน 1,100–1,200 บาท/ตัน เม็ดขาวจะแข่งไม่ได้ในทุกสถานการณ์ราคา\u003c/li>\u003cli>\u003cb>Black Liquor + เศษเหลือ → Captive Power (PPP)\u003c/b> — ผลิตไอน้ำและไฟใช้เองในโรงเยื่อ/โรงอัดเม็ด ลดต้นทุนพลังงานได้เกิน 50% เทียบค่าไฟอุตสาหกรรม 4.0–4.5 บาท/หน่วย ซึ่งสูงกว่า FiT 2.80 อย่างมีนัยสำคัญ\u003c/li>\u003cli>\u003cb>ไผ่ส่วนเกิน / นอกสเปกเยื่อ → Biochar (PPP)\u003c/b> พร้อมขึ้นทะเบียนคาร์บอนเครดิต — ต้องตรวจคุณสมบัติวัตถุดิบกับผู้ออกมาตรฐาน (Puro.earth / EBC) \u003cu>ก่อน\u003c/u> ลงทุน เพราะไผ่ที่ปลูกเพื่อการนี้โดยเฉพาะอาจถูกตั้งคำถามเรื่อง eligibility\u003c/li>\u003cli>\u003cb>Activated Carbon (PPP) เฉพาะเกรดพรีเมียม\u003c/b> — PFAS, เภสัชกรรม, อาหารและเครื่องดื่ม เท่านั้น อย่าแข่งเกรดทั่วไปกับ AC จากถ่านหินของจีนที่ครองตลาดโลก 42–43% และต้นทุนต่ำกว่ามาก\u003c/li>\u003cli>\u003cb>2G Ethanol พักไว้ที่ขั้น Feasibility\u003c/b> — เดินต่อเมื่อมีสัญญาขายล่วงหน้า SAF / เชื้อเพลิงขั้นสูงในยุโรปและผ่านการรับรองแล้วเท่านั้น (CAPEX 3,500–5,500 ล้านบาท ที่ 50 ล้านลิตร/ปี)\u003c/li>\u003c/ol>\u003ch4>Responsible — การแบ่งงานระหว่างบริษัท\u003c/h4>\u003ctable>\u003cthead>\u003ctr>\u003cth style=\"width:12%\">บริษัท\u003c/th>\u003cth style=\"width:30%\">ผลิตภัณฑ์ที่รับผิดชอบ\u003c/th>\u003cth style=\"width:29%\">บทบาทในสายคุณค่า\u003c/th>\u003cth style=\"width:29%\">ตัวชี้วัดหลัก\u003c/th>\u003c/tr>\u003c/thead>\u003ctbody>\u003ctr>\u003ctd>\u003cb style=\"color:#2F7FBF\">PSL\u003c/b>\u003c/td>\u003ctd>Bamboo Pulp · White Pellet · Torrefied Pellet\u003c/td>\u003ctd>แปรรูปไผ่เป็นวัสดุมูลค่าสูง — เป็นผู้รับซื้อไผ่หลักและเป็นผู้กำหนดราคาไผ่ในพื้นที่\u003c/td>\u003ctd>ราคาไผ่ที่จ่ายไหว · กำไรขั้นต้น/ตันเยื่อ · สัดส่วนเศษเหลือที่แปลงเป็นเม็ด\u003c/td>\u003c/tr>\u003ctr>\u003ctd>\u003cb style=\"color:#C98A2E\">PPP\u003c/b>\u003c/td>\u003ctd>Biomass Power (Captive/Direct PPA) · Biochar &amp; Activated Carbon · 2G Ethanol\u003c/td>\u003ctd>แปลงพลังงานและคาร์บอนจากไผ่และของเสีย — ลดต้นทุนพลังงานให้ PSL และสร้างรายได้คาร์บอน\u003c/td>\u003ctd>บาท/หน่วยที่ประหยัดได้ · ตัน CO₂e ที่ขายได้ · กำไรขั้นต้น/ตันไบโอชาร์\u003c/td>\u003c/tr>\u003c/tbody>\u003c/table>\u003cp style=\"font-size:11.5px;color:#5A6E88;margin:4px 0 0\">\u003cb>ข้อสังเกตที่ต้องตัดสินใจ:\u003c/b> ถ่านกัมมันต์ (Activated Carbon) เป็น “วัสดุมูลค่าสูง” มากกว่า “พลังงาน” — ที่วางไว้ใต้ PPP เพราะใช้สายการผลิตไพโรไลซิสร่วมกับไบโอชาร์ หากต้องการจัดตามลักษณะผลิตภัณฑ์ ควรย้ายไปอยู่กับ PSL\u003c/p>\u003ch4>Ways &amp; Means — ตลาดปลายทางที่เข้าถึงได้จริง\u003c/h4>\u003cul>\u003cli>\u003cb>Pulp:\u003c/b> จีนเป็นตลาดหลัก (นำเข้าเยื่อ 27.94 ล้านตันในปี 2025, +7.02%) · เกาหลีใต้เป็นตลาดรองที่แทบไม่ผลิตเยื่อเองเลย · ปลายทางที่ใหญ่ที่สุดคือทิชชูและผลิตภัณฑ์สุขอนามัย (&gt;70% ของเยื่อไผ่ฟอกขาว) และบรรจุภัณฑ์สัมผัสอาหารที่โตเร็วที่สุดเพราะไผ่ผ่านเกณฑ์ EUDR ได้ง่ายกว่า\u003c/li>\u003cli>\u003cb>Pellet:\u003c/b> ญี่ปุ่น (นำเข้ากว่า 6 ล้านตัน/ปี, ETS ภาคบังคับเริ่ม เม.ย. 2026) คือตลาดหลัก — \u003cb>ไม่ใช่จีน\u003c/b> ซึ่งห้ามนำเข้าเม็ดไม้เพื่อการเผาไหม้มาตั้งแต่ปี 2017 · เกาหลีใต้เป็นโอกาสระยะสั้น 3–5 ปีเท่านั้น เพราะประกาศลดการอุดหนุนชีวมวลเมื่อ 18 ธ.ค. 2024\u003c/li>\u003cli>\u003cb>Power:\u003c/b> เลี่ยงตลาด PPA/VSPP ที่ปิดและถูกกำหนดโควตา ไปที่ Captive Power, ขายไอน้ำให้โรงงานข้างเคียง และ Direct PPA / UGT ที่รองรับความต้องการไฟสีเขียวของศูนย์ข้อมูลและบริษัทข้ามชาติ\u003c/li>\u003cli>\u003cb>Biochar &amp; AC:\u003c/b> ไบโอชาร์ส่งมอบการกำจัดคาร์บอนถาวรถึง 84% ของทั้งโลก (89.4% ของปริมาณส่งมอบไตรมาส 2 ปี 2025) · AC ปลายทางใหญ่สุดคือบำบัดน้ำ 45.6% ของตลาด และกลุ่มที่โตเร็วสุดคือฟอกอากาศที่ CAGR 9.4%\u003c/li>\u003cli>\u003cb>2G Ethanol:\u003c/b> ตลาดที่ให้มูลค่าจริงคือเชื้อเพลิงขั้นสูงในยุโรป (วัตถุดิบลิกโนเซลลูโลสเข้าเกณฑ์ RED III ภาคผนวก IX ส่วน A ได้สิทธินับสองเท่า) และการขายเอทานอลให้ผู้ผลิต SAF ผ่านเส้นทาง Alcohol-to-Jet — ไม่ใช่แก๊สโซฮอล์ในประเทศ\u003c/li>\u003c/ul>\u003ch4>Key Risks\u003c/h4>\u003cul>\u003cli>\u003cb>คาร์บอนเครดิตคือตัวชี้ขาดของไบโอชาร์\u003c/b> — มูลค่าเครดิต 9,200–13,600 บาท/ตันไบโอชาร์ ใกล้เคียงหรือมากกว่าตัวไบโอชาร์เอง ถ้าขายเครดิตไม่ได้ ความสามารถในการจ่ายค่าไผ่ตกจาก 2,300–4,600 เหลือ 1,030–2,440 บาท/ตัน\u003c/li>\u003cli>\u003cb>โรงไฟฟ้าแย่งวัตถุดิบกับโรงเยื่อไม่ได้เลย\u003c/b> — จ่ายไหว 430–710 เทียบ 2,300–4,000 บาท/ตัน ถ้าอยู่พื้นที่เดียวกัน แผนปลูกไผ่ป้อนโรงไฟฟ้าโดยเฉพาะจึงมีความเสี่ยงสูง\u003c/li>\u003cli>\u003cb>White Pellet ขอบล่างยังเสี่ยงขาดทุน\u003c/b> — กรณีเลวร้าย −80 บาท/ตัน หากราคาส่งออกตกลงสู่ระดับตลาดเกาหลีใต้ในภาวะกดดัน (เคยลงไปถึง 110 USD/ตัน)\u003c/li>\u003cli>\u003cb>ตลาดกระดาษกราฟิกหดตัว\u003c/b> — ยุโรปลดลง 7.2% ปี 2025 · ญี่ปุ่นหดตัว ~5.7% จึงไม่ควรวางกระดาษพิมพ์เขียนเป็นตลาดหลัก\u003c/li>\u003cli>\u003cb>เมียนมาไม่ใช่ตลาด แต่เป็นแหล่งวัตถุดิบสำรอง\u003c/b> — ทรัพยากรไผ่ใหญ่อันดับ 3 ของโลก ใช้เพียง ~38% ของโควตาตัดฟัน แต่ความเสี่ยงการเมืองและการชำระเงินสูงมาก\u003c/li>\u003c/ul>\u003ch4>Output / Outcome / Impact\u003c/h4>\u003cul>\u003cli>\u003cb>Output:\u003c/b> พอร์ตผลิตภัณฑ์ 5 รายการพร้อมเจ้าของงานและลำดับการจัดสรรไผ่ที่ตัดสินใจได้จริง\u003c/li>\u003cli>\u003cb>Outcome:\u003c/b> ทุกตันไผ่ถูกส่งเข้าเส้นทางที่จ่ายค่าไผ่ได้สูงสุดก่อน — เศษเหลือถูกใช้ต่อจนหมด ไม่มีสายผลิตภัณฑ์ใดแย่งวัตถุดิบกันเอง\u003c/li>\u003cli>\u003cb>Impact:\u003c/b> ราคารับซื้อไผ่ที่ยั่งยืนสำหรับเกษตรกร (มี headroom ขึ้นราคาได้จริง) + รายได้คาร์บอนที่ตรวจสอบได้ + ต้นทุนพลังงานของกลุ่มลดลงเกิน 50%\u003c/li>\u003c/ul>\u003ch4>Next Decision Gates\u003c/h4>\u003col>\u003cli>ยืนยัน \u003cb>eligibility ของไผ่ปลูก\u003c/b> กับผู้ออกมาตรฐานคาร์บอน ก่อนอนุมัติงบไบโอชาร์\u003c/li>\u003cli>ล็อก \u003cb>สัญญาระยะยาวกับผู้ซื้อเม็ดญี่ปุ่น\u003c/b> ให้ได้ก่อนขยายกำลังอัดเม็ด (ช่วงราคาบน 145–165 USD/ตัน FOB)\u003c/li>\u003cli>ตัดสินใจย้าย \u003cb>Activated Carbon\u003c/b> ไป PSL หรือคงไว้ที่ PPP\u003c/li>\u003cli>ตั้งเกณฑ์ \u003cb>Go/No-Go ของ 2G Ethanol\u003c/b> = มี offtake SAF ที่รับรองแล้ว ≥ 60% ของกำลังผลิต\u003c/li>\u003c/ol>"}],"links":[]}</script>
 <!--SFAM_DATA_END-->
 
 <div class="bar">
@@ -100,6 +149,10 @@ body.edit .dom .txt:hover{background:#FFFDF6}
   <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
   <div class="sep"></div>
   <button id="bEdit" class="on">✎ แก้ไข</button>
+  <button id="bLab" title="แก้ป้ายชื่อและสีในแผนภาพ">🏷 ป้ายในแผนภาพ</button>
+  <div class="sep"></div>
+  <button id="bAdd" title="เพิ่มการ์ด Domain">＋ Domain Card</button>
+  <button id="bLink" title="ลากเส้นความเชื่อมโยงระหว่างการ์ด">🔗 เชื่อมการ์ด</button>
   <div class="sep"></div>
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
   <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
@@ -109,12 +162,56 @@ body.edit .dom .txt:hover{background:#FFFDF6}
   <span id="autosave">● บันทึกอัตโนมัติ</span>
 </div>
 
+<div id="fmt">
+  <span class="lb">อักษร</span>
+  <button data-cmd="bold" title="ตัวหนา"><b>B</b></button>
+  <button data-cmd="italic" title="ตัวเอียง"><i>I</i></button>
+  <button data-cmd="underline" title="ขีดเส้นใต้"><u>U</u></button>
+  <button data-cmd="strikeThrough" title="ขีดฆ่า"><s>S</s></button>
+  <span class="lb">ขนาด</span>
+  <select id="fSize">
+    <option value="">ขนาด…</option>
+    <option value="11px">11 เล็กมาก</option>
+    <option value="12px">12 เล็ก</option>
+    <option value="13.5px">13.5 ปกติ</option>
+    <option value="15px">15 ใหญ่</option>
+    <option value="17px">17 ใหญ่มาก</option>
+    <option value="20px">20 หัวข้อ</option>
+    <option value="26px">26 หัวข้อใหญ่</option>
+  </select>
+  <span class="lb">สี</span>
+  <span class="sws" id="swFore"></span>
+  <input type="color" id="cFore" value="#0077B6" title="เลือกสีอักษรเอง">
+  <span class="lb">ไฮไลต์</span>
+  <span class="sws" id="swBack"></span>
+  <span class="lb">ย่อหน้า</span>
+  <button data-cmd="insertUnorderedList" title="รายการหัวข้อ">• ▤</button>
+  <button data-cmd="insertOrderedList" title="รายการตัวเลข">1. ▤</button>
+  <button data-cmd="justifyLeft" title="ชิดซ้าย">⇤</button>
+  <button data-cmd="justifyCenter" title="กึ่งกลาง">≡</button>
+  <button data-cmd="justifyRight" title="ชิดขวา">⇥</button>
+  <button data-blk="h4" title="หัวข้อย่อย">H</button>
+  <div class="sep"></div>
+  <button data-cmd="removeFormat" title="ล้างรูปแบบ">⟲ ล้างรูปแบบ</button>
+</div>
+
 <div id="tokPanel">
   <h4>GitHub Token (PAT)</h4>
   <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บในเบราว์เซอร์นี้ (<code>pcc_gh_tok</code>) · ตัวเดียวกับหน้าอื่น</p>
   <input id="tokInput" type="password" placeholder="ghp_xxxxxxxx" autocomplete="off" spellcheck="false">
   <div class="tp-row"><button id="tokSave" class="pub">บันทึก token</button><button id="tokClear">ลบ token</button><button id="tokClose">ปิด</button></div>
   <div id="tokState"></div>
+</div>
+
+<div id="labPanel">
+  <h4>ป้ายชื่อและสีในแผนภาพ</h4>
+  <h5>Layers (ชั้น · บนลงล่าง)</h5><div id="lpLayers"></div>
+  <h5>Domains (คอลัมน์ในแผนภาพ)</h5><div id="lpCols"></div>
+  <div class="rw"><button id="lpAddCol">＋ เพิ่มคอลัมน์</button></div>
+  <h5>Zones (ระดับการควบคุม)</h5><div id="lpZones"></div>
+  <div class="rw"><button id="lpAddZone">＋ เพิ่ม Zone</button></div>
+  <h5>ชื่อแกน</h5><div id="lpAxis"></div>
+  <div class="rw" style="margin-top:12px"><button id="lpClose">ปิด</button></div>
 </div>
 
 <div class="wrap">
@@ -126,9 +223,9 @@ body.edit .dom .txt:hover{background:#FFFDF6}
 
   <div id="stage">
     <div class="card">
-      <h2>Smart Farming Architecture Model</h2>
-      <div class="cap">แกน <b>Layers</b> (6 ชั้น interoperability) × <b>Domains</b> (พื้นที่/กิจกรรม) × <b>Zones</b> (ระดับการควบคุมจาก Physical Objects ถึง Connected World)</div>
-      <div class="figcap">The Smart Farming Architecture Model with interoperability layers</div>
+      <h2 id="figTitle" contenteditable="true"></h2>
+      <div class="cap" id="figCap" contenteditable="true"></div>
+      <div class="figcap" id="figNote" contenteditable="true"></div>
       <div class="glegend" id="glegend"></div>
       <div class="figwrap"><div id="fig"></div></div>
     </div>
@@ -139,72 +236,183 @@ body.edit .dom .txt:hover{background:#FFFDF6}
 </div>
 
 <div class="tip" id="tip"></div>
-
 <script>
 (function(){
 "use strict";
 var LSK='pcc_sfam_v1';
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'sfam.html'};
 
-/* ---------- model ---------- */
-var LAYERS=[  /* บนสุด -> ล่างสุด */
-  {k:'Business Layer',    c:'#E8686E', s:'#D2434B'},
-  {k:'Function Layer',    c:'#F2B24C', s:'#DE9526'},
-  {k:'Information Layer', c:'#5FB07A', s:'#3F8F5A'},
+/* ================= model ================= */
+function defLayers(){ return [   /* บนสุด -> ล่างสุด */
+  {k:'Business Layer',     c:'#E8686E', s:'#D2434B'},
+  {k:'Function Layer',     c:'#F2B24C', s:'#DE9526'},
+  {k:'Information Layer',  c:'#5FB07A', s:'#3F8F5A'},
   {k:'Communication Layer',c:'#49AEA6', s:'#2E8F88'},
-  {k:'Integration Layer', c:'#5B95D8', s:'#3A73B8'},
-  {k:'Asset Layer',       c:'#B9C2CB', s:'#8E9AA6'}
-];
-var DOMAINS=['Cultivation Area','Livestock','Storage','Processing','Distribution'];
-var DICON=['🚜','🐄','🛢️','🏭','🚚'];
-var ZONES=['Physical Objects','Sensing & Actuation','Production Control','Operation Execution','Management Information','Connected World'];
-/* 3 กลุ่ม Domain ที่ดึงออกมาเป็น Cube */
-var GROUPS=[
-  {id:'g1',cols:[0],   color:'#4E9A5A', name:'Cultivation Area', sub:'Land Development'},
-  {id:'g2',cols:[1],   color:'#C98A2E', name:'Livestock',        sub:'Bamboo Plant Development'},
-  {id:'g3',cols:[2,3,4],color:'#2F7FBF',name:'Process & Distribution', sub:'Products'}
-];
+  {k:'Integration Layer',  c:'#5B95D8', s:'#3A73B8'},
+  {k:'Asset Layer',        c:'#B9C2CB', s:'#8E9AA6'}
+];}
+function defCols(){ return [
+  {name:'Cultivation Area',icon:'🚜'},{name:'Livestock',icon:'🐄'},
+  {name:'Storage',icon:'🛢️'},{name:'Processing',icon:'🏭'},{name:'Distribution',icon:'🚚'}
+];}
+function defZones(){ return ['Physical Objects','Sensing & Actuation','Production Control',
+  'Operation Execution','Management Information','Connected World']; }
 
-function seed(){ return {
-  savedAt:0,
-  title:'Smart Farming Architecture Model (SFAM)',
-  sub:'แบบจำลองสถาปัตยกรรมอ้างอิงสำหรับ Smart Farming — ใช้เป็นโครงในการออกแบบ Business Model Flow ราย Domain ของ PCC · ดึง Domain ออกมาเป็น Cube แยก เพื่อลงรายละเอียดทั้งคอลัมน์ (ไม่แยก Layer / Zone)',
-  domains:GROUPS.map(function(g){ return {id:g.id,name:g.name,sub:g.sub,
-    body:'<h4>Value Proposition</h4><ul><li></li></ul>'+
-      '<h4>Key Activities / Process Flow</h4><ol><li></li></ol>'+
-      '<h4>Revenue Stream</h4><ul><li></li></ul>'}; })
-};}
+var PALETTE=['#4E9A5A','#C98A2E','#2F7FBF','#8E6BC8','#D2434B','#2E8F88','#B5892B','#5A6E88'];
+function blankBody(){ return '<h4>Value Proposition</h4><ul><li></li></ul>'+
+  '<h4>Key Activities / Process Flow</h4><ol><li></li></ol>'+
+  '<h4>Revenue Stream</h4><ul><li></li></ul>'; }
 
-/* ---------- state ---------- */
+var D3BODY=[
+'<h4>Value Proposition</h4>',
+'<ul>',
+'<li>เปลี่ยน <b>ไผ่ 1 ตัน</b> ให้เป็นผลิตภัณฑ์ที่ <b>“จ่ายค่าไผ่ไหว” สูงที่สุด</b> — คัดพอร์ตด้วยตัวชี้วัดเดียวคือ <b>ราคาไผ่สดสูงสุดที่จ่ายไหว (Max Affordable Bamboo Price)</b> ไม่ใช่ “รายได้ต่อตันไผ่” ซึ่งทำให้ธุรกิจที่ต้นทุนแปรรูปสูงดูดีเกินจริง</li>',
+'<li>ฐานเปรียบเทียบทุกตัวเลข: ไผ่สด <b>750 บาท/ตัน</b> (ความชื้น 50%) · 1 USD = 33.40 บาท · ข้อมูลตลาดปี 2024–2025 (รายงาน 7 มิติ ฉบับกันยายน 2569)</li>',
+'<li>แบ่งความรับผิดชอบชัดเจน — <b style="color:#2F7FBF">PSL</b> = สายวัสดุมูลค่าสูง (Pulp, Pellet) · <b style="color:#C98A2E">PPP</b> = สายพลังงานและคาร์บอนจากไผ่ (Biomass Power, Biochar &amp; AC, 2G Ethanol)</li>',
+'</ul>',
+
+'<h4>Product Portfolio — 5 ผลิตภัณฑ์จากไผ่</h4>',
+'<table><thead><tr><th style="width:17%">ผลิตภัณฑ์</th><th style="width:7%">เจ้าของ</th><th style="width:19%">ราคาขาย</th><th style="width:17%">ต้นทุนเงินสด</th><th style="width:16%">จ่ายค่าไผ่ไหว<br>(บาท/ตันไผ่สด)</th><th style="width:11%">CAGR</th><th style="width:13%">คำตัดสิน</th></tr></thead><tbody>',
+'<tr><td><b>1. Bamboo Chemical Pulp</b><br><span style="color:#5A6E88">เยื่อกระดาษฟอกขาว</span></td><td><b style="color:#2F7FBF">PSL</b></td><td>20,500–24,500 บาท/ตันเยื่อ<br><span style="color:#5A6E88">BHK ~668 / NBSK ~758 USD/ตัน</span></td><td>12,000–15,900</td><td><b style="color:#2E7D32">2,300–4,000</b><br><span style="color:#5A6E88">Headroom &gt; 3 เท่า</span></td><td>เยื่อไผ่โลก<br><b>10–14%</b></td><td><b style="color:#2E7D32">✅ แกนหลัก</b></td></tr>',
+'<tr><td><b>2. Bamboo Pellet</b><br><span style="color:#5A6E88">White / Torrefied</span></td><td><b style="color:#2F7FBF">PSL</b></td><td>White 3,700–5,500<br>Torrefied 5,000–6,500</td><td>White 3,140–3,780<br>Torrefied 3,840–4,640</td><td>White 700–2,000<br>Torrefied 880–1,750</td><td>โลก 5–8%<br>Torrefied 10–12%</td><td><b style="color:#B5892B">⚠️ ใช้เศษเหลือ</b></td></tr>',
+'<tr><td><b>3. Biomass Power 10 MW</b></td><td><b style="color:#C98A2E">PPP</b></td><td>FiT จริง 2.7972 บาท/หน่วย<br><span style="color:#5A6E88">เพดาน 4.2636 (ต้องชนะประมูล)</span></td><td>LCOE 2.87–3.37 บาท/kWh</td><td><b style="color:#D2434B">430–710</b><br><span style="color:#5A6E88">ต่ำกว่าราคาซื้อ 750</span></td><td>ไทย 1–3%</td><td><b style="color:#D2434B">❌ อย่าซื้อไผ่ตรง</b></td></tr>',
+'<tr><td><b>4. Biochar &amp; Activated Carbon</b></td><td><b style="color:#C98A2E">PPP</b></td><td>Biochar 12,000–18,000<br>+ เครดิต 9,200–13,600<br>AC 45,000–65,000</td><td>Biochar 7,250–9,225<br>AC 24,875–32,500</td><td><b style="color:#2E7D32">Biochar+เครดิต 2,300–4,600</b><br>AC 1,380–3,180</td><td>Biochar 14–18%<br>AC 4–6.5%</td><td><b style="color:#2E7D32">✅ ROI สูง<br>CAPEX ต่ำ</b></td></tr>',
+'<tr><td><b>5. 2G Cellulosic Ethanol</b></td><td><b style="color:#C98A2E">PPP</b></td><td>ไทย 25–29 บาท/ลิตร<br>SAF/RED III 40–55</td><td>27–43 บาท/ลิตร</td><td>ไทย <b style="color:#D2434B">ติดลบ</b><br>SAF 770–3,220</td><td>ไทย 0–2%<br>SAF สูงมาก</td><td><b style="color:#D2434B">❌ รอ offtake</b></td></tr>',
+'</tbody></table>',
+'<p style="font-size:11.5px;color:#5A6E88;margin:4px 0 0">อ้างอิง: รายงานวิเคราะห์เชิงลึก 7 มิติ ฉบับที่ 1–5 (ปรับปรุง ก.ย. 2569) · เบนซิน 95 หน้าโรงกลั่น 24.03 บาท/ลิตร (26 ส.ค. 2569) · ดัชนี CORCCHAR ของ Puro.earth 125–145 USD/ตัน CO₂</p>',
+
+'<h4>Key Activities / Process Flow — ลำดับการจัดสรรไผ่ (Cascade)</h4>',
+'<ol>',
+'<li><b>ไผ่ลำคุณภาพดี → โรงเยื่อ (PSL) ก่อนเสมอ</b> — จ่ายไหว 2,300–4,000 บาท/ตัน เทียบราคาซื้อจริง 750 จึงมีระยะปลอดภัยกว่า 3 เท่า และขึ้นราคารับซื้อให้เกษตรกรได้โดยโครงการยังอยู่รอด</li>',
+'<li><b>ปลายไผ่ ใบ กิ่ง เปลือก ขี้เลื่อย → สายอัดเม็ด (PSL)</b> — ห้ามซื้อไผ่ลำมาอัดเม็ด เพราะถ้าราคาไผ่ขยับเกิน 1,100–1,200 บาท/ตัน เม็ดขาวจะแข่งไม่ได้ในทุกสถานการณ์ราคา</li>',
+'<li><b>Black Liquor + เศษเหลือ → Captive Power (PPP)</b> — ผลิตไอน้ำและไฟใช้เองในโรงเยื่อ/โรงอัดเม็ด ลดต้นทุนพลังงานได้เกิน 50% เทียบค่าไฟอุตสาหกรรม 4.0–4.5 บาท/หน่วย ซึ่งสูงกว่า FiT 2.80 อย่างมีนัยสำคัญ</li>',
+'<li><b>ไผ่ส่วนเกิน / นอกสเปกเยื่อ → Biochar (PPP)</b> พร้อมขึ้นทะเบียนคาร์บอนเครดิต — ต้องตรวจคุณสมบัติวัตถุดิบกับผู้ออกมาตรฐาน (Puro.earth / EBC) <u>ก่อน</u> ลงทุน เพราะไผ่ที่ปลูกเพื่อการนี้โดยเฉพาะอาจถูกตั้งคำถามเรื่อง eligibility</li>',
+'<li><b>Activated Carbon (PPP) เฉพาะเกรดพรีเมียม</b> — PFAS, เภสัชกรรม, อาหารและเครื่องดื่ม เท่านั้น อย่าแข่งเกรดทั่วไปกับ AC จากถ่านหินของจีนที่ครองตลาดโลก 42–43% และต้นทุนต่ำกว่ามาก</li>',
+'<li><b>2G Ethanol พักไว้ที่ขั้น Feasibility</b> — เดินต่อเมื่อมีสัญญาขายล่วงหน้า SAF / เชื้อเพลิงขั้นสูงในยุโรปและผ่านการรับรองแล้วเท่านั้น (CAPEX 3,500–5,500 ล้านบาท ที่ 50 ล้านลิตร/ปี)</li>',
+'</ol>',
+
+'<h4>Responsible — การแบ่งงานระหว่างบริษัท</h4>',
+'<table><thead><tr><th style="width:12%">บริษัท</th><th style="width:30%">ผลิตภัณฑ์ที่รับผิดชอบ</th><th style="width:29%">บทบาทในสายคุณค่า</th><th style="width:29%">ตัวชี้วัดหลัก</th></tr></thead><tbody>',
+'<tr><td><b style="color:#2F7FBF">PSL</b></td><td>Bamboo Pulp · White Pellet · Torrefied Pellet</td><td>แปรรูปไผ่เป็นวัสดุมูลค่าสูง — เป็นผู้รับซื้อไผ่หลักและเป็นผู้กำหนดราคาไผ่ในพื้นที่</td><td>ราคาไผ่ที่จ่ายไหว · กำไรขั้นต้น/ตันเยื่อ · สัดส่วนเศษเหลือที่แปลงเป็นเม็ด</td></tr>',
+'<tr><td><b style="color:#C98A2E">PPP</b></td><td>Biomass Power (Captive/Direct PPA) · Biochar &amp; Activated Carbon · 2G Ethanol</td><td>แปลงพลังงานและคาร์บอนจากไผ่และของเสีย — ลดต้นทุนพลังงานให้ PSL และสร้างรายได้คาร์บอน</td><td>บาท/หน่วยที่ประหยัดได้ · ตัน CO₂e ที่ขายได้ · กำไรขั้นต้น/ตันไบโอชาร์</td></tr>',
+'</tbody></table>',
+'<p style="font-size:11.5px;color:#5A6E88;margin:4px 0 0"><b>ข้อสังเกตที่ต้องตัดสินใจ:</b> ถ่านกัมมันต์ (Activated Carbon) เป็น “วัสดุมูลค่าสูง” มากกว่า “พลังงาน” — ที่วางไว้ใต้ PPP เพราะใช้สายการผลิตไพโรไลซิสร่วมกับไบโอชาร์ หากต้องการจัดตามลักษณะผลิตภัณฑ์ ควรย้ายไปอยู่กับ PSL</p>',
+
+'<h4>Ways &amp; Means — ตลาดปลายทางที่เข้าถึงได้จริง</h4>',
+'<ul>',
+'<li><b>Pulp:</b> จีนเป็นตลาดหลัก (นำเข้าเยื่อ 27.94 ล้านตันในปี 2025, +7.02%) · เกาหลีใต้เป็นตลาดรองที่แทบไม่ผลิตเยื่อเองเลย · ปลายทางที่ใหญ่ที่สุดคือทิชชูและผลิตภัณฑ์สุขอนามัย (&gt;70% ของเยื่อไผ่ฟอกขาว) และบรรจุภัณฑ์สัมผัสอาหารที่โตเร็วที่สุดเพราะไผ่ผ่านเกณฑ์ EUDR ได้ง่ายกว่า</li>',
+'<li><b>Pellet:</b> ญี่ปุ่น (นำเข้ากว่า 6 ล้านตัน/ปี, ETS ภาคบังคับเริ่ม เม.ย. 2026) คือตลาดหลัก — <b>ไม่ใช่จีน</b> ซึ่งห้ามนำเข้าเม็ดไม้เพื่อการเผาไหม้มาตั้งแต่ปี 2017 · เกาหลีใต้เป็นโอกาสระยะสั้น 3–5 ปีเท่านั้น เพราะประกาศลดการอุดหนุนชีวมวลเมื่อ 18 ธ.ค. 2024</li>',
+'<li><b>Power:</b> เลี่ยงตลาด PPA/VSPP ที่ปิดและถูกกำหนดโควตา ไปที่ Captive Power, ขายไอน้ำให้โรงงานข้างเคียง และ Direct PPA / UGT ที่รองรับความต้องการไฟสีเขียวของศูนย์ข้อมูลและบริษัทข้ามชาติ</li>',
+'<li><b>Biochar &amp; AC:</b> ไบโอชาร์ส่งมอบการกำจัดคาร์บอนถาวรถึง 84% ของทั้งโลก (89.4% ของปริมาณส่งมอบไตรมาส 2 ปี 2025) · AC ปลายทางใหญ่สุดคือบำบัดน้ำ 45.6% ของตลาด และกลุ่มที่โตเร็วสุดคือฟอกอากาศที่ CAGR 9.4%</li>',
+'<li><b>2G Ethanol:</b> ตลาดที่ให้มูลค่าจริงคือเชื้อเพลิงขั้นสูงในยุโรป (วัตถุดิบลิกโนเซลลูโลสเข้าเกณฑ์ RED III ภาคผนวก IX ส่วน A ได้สิทธินับสองเท่า) และการขายเอทานอลให้ผู้ผลิต SAF ผ่านเส้นทาง Alcohol-to-Jet — ไม่ใช่แก๊สโซฮอล์ในประเทศ</li>',
+'</ul>',
+
+'<h4>Key Risks</h4>',
+'<ul>',
+'<li><b>คาร์บอนเครดิตคือตัวชี้ขาดของไบโอชาร์</b> — มูลค่าเครดิต 9,200–13,600 บาท/ตันไบโอชาร์ ใกล้เคียงหรือมากกว่าตัวไบโอชาร์เอง ถ้าขายเครดิตไม่ได้ ความสามารถในการจ่ายค่าไผ่ตกจาก 2,300–4,600 เหลือ 1,030–2,440 บาท/ตัน</li>',
+'<li><b>โรงไฟฟ้าแย่งวัตถุดิบกับโรงเยื่อไม่ได้เลย</b> — จ่ายไหว 430–710 เทียบ 2,300–4,000 บาท/ตัน ถ้าอยู่พื้นที่เดียวกัน แผนปลูกไผ่ป้อนโรงไฟฟ้าโดยเฉพาะจึงมีความเสี่ยงสูง</li>',
+'<li><b>White Pellet ขอบล่างยังเสี่ยงขาดทุน</b> — กรณีเลวร้าย −80 บาท/ตัน หากราคาส่งออกตกลงสู่ระดับตลาดเกาหลีใต้ในภาวะกดดัน (เคยลงไปถึง 110 USD/ตัน)</li>',
+'<li><b>ตลาดกระดาษกราฟิกหดตัว</b> — ยุโรปลดลง 7.2% ปี 2025 · ญี่ปุ่นหดตัว ~5.7% จึงไม่ควรวางกระดาษพิมพ์เขียนเป็นตลาดหลัก</li>',
+'<li><b>เมียนมาไม่ใช่ตลาด แต่เป็นแหล่งวัตถุดิบสำรอง</b> — ทรัพยากรไผ่ใหญ่อันดับ 3 ของโลก ใช้เพียง ~38% ของโควตาตัดฟัน แต่ความเสี่ยงการเมืองและการชำระเงินสูงมาก</li>',
+'</ul>',
+
+'<h4>Output / Outcome / Impact</h4>',
+'<ul>',
+'<li><b>Output:</b> พอร์ตผลิตภัณฑ์ 5 รายการพร้อมเจ้าของงานและลำดับการจัดสรรไผ่ที่ตัดสินใจได้จริง</li>',
+'<li><b>Outcome:</b> ทุกตันไผ่ถูกส่งเข้าเส้นทางที่จ่ายค่าไผ่ได้สูงสุดก่อน — เศษเหลือถูกใช้ต่อจนหมด ไม่มีสายผลิตภัณฑ์ใดแย่งวัตถุดิบกันเอง</li>',
+'<li><b>Impact:</b> ราคารับซื้อไผ่ที่ยั่งยืนสำหรับเกษตรกร (มี headroom ขึ้นราคาได้จริง) + รายได้คาร์บอนที่ตรวจสอบได้ + ต้นทุนพลังงานของกลุ่มลดลงเกิน 50%</li>',
+'</ul>',
+
+'<h4>Next Decision Gates</h4>',
+'<ol>',
+'<li>ยืนยัน <b>eligibility ของไผ่ปลูก</b> กับผู้ออกมาตรฐานคาร์บอน ก่อนอนุมัติงบไบโอชาร์</li>',
+'<li>ล็อก <b>สัญญาระยะยาวกับผู้ซื้อเม็ดญี่ปุ่น</b> ให้ได้ก่อนขยายกำลังอัดเม็ด (ช่วงราคาบน 145–165 USD/ตัน FOB)</li>',
+'<li>ตัดสินใจย้าย <b>Activated Carbon</b> ไป PSL หรือคงไว้ที่ PPP</li>',
+'<li>ตั้งเกณฑ์ <b>Go/No-Go ของ 2G Ethanol</b> = มี offtake SAF ที่รับรองแล้ว ≥ 60% ของกำลังผลิต</li>',
+'</ol>'
+].join('');
+
+function seed(){
+  var cols=defCols();
+  return {
+    savedAt:0,
+    title:'Smart Farming Architecture Model (SFAM)',
+    sub:'แบบจำลองสถาปัตยกรรมอ้างอิงสำหรับ Smart Farming — ใช้เป็นโครงในการออกแบบ Business Model Flow ราย Domain ของ PCC · ดึง Domain ออกมาเป็น Cube แยก เพื่อลงรายละเอียดทั้งคอลัมน์ (ไม่แยก Layer / Zone)',
+    figTitle:'Smart Farming Architecture Model',
+    figCap:'แกน Layers (6 ชั้น interoperability) × Domains (พื้นที่/กิจกรรม) × Zones (ระดับการควบคุมจาก Physical Objects ถึง Connected World)',
+    figNote:'The Smart Farming Architecture Model with interoperability layers',
+    layers:defLayers(), cols:cols, zones:defZones(),
+    axisD:'Domains', axisZ:'Zones',
+    cards:[
+      {id:'g1',head:'Domain 1 — Cube',name:'Cultivation Area',sub:'Land Development',color:'#4E9A5A',cols:[0],span:1,body:blankBody()},
+      {id:'g2',head:'Domain 2 — Cube',name:'Livestock',sub:'Bamboo Plant Development',color:'#C98A2E',cols:[1],span:1,body:blankBody()},
+      {id:'g3',head:'Domain 3 — Cube',name:'Process & Distribution',sub:'Products · PSL (Pulp, Pellet) · PPP (Energy from Bamboo)',color:'#2F7FBF',cols:[2,3,4],span:1,body:D3BODY}
+    ],
+    links:[]
+  };
+}
+
+/* ================= state ================= */
 function fileData(){ try{ var el=document.getElementById('sfam-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
 var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
 var S=null;
 try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.title&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
 if(!S) S=(FD&&FD.title)?FD:seed();
 var sd=seed();
-if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
-['title','sub'].forEach(function(k){ if(S[k]===undefined) S[k]=sd[k]; });
-if(!Array.isArray(S.domains)) S.domains=sd.domains;
-GROUPS.forEach(function(g,i){ if(!S.domains[i]) S.domains[i]=sd.domains[i]; });
 
-var editMode=true, saveT=null;
+/* ---- migration: โครงเดิม (S.domains + GROUPS คงที่) -> โครงใหม่ (S.cards + S.cols) ---- */
+(function migrate(){
+  if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+  ['title','sub','figTitle','figCap','figNote','axisD','axisZ'].forEach(function(k){ if(!S[k]) S[k]=sd[k]; });
+  if(!Array.isArray(S.layers)||!S.layers.length) S.layers=sd.layers;
+  if(!Array.isArray(S.zones)||!S.zones.length) S.zones=sd.zones;
+  if(!Array.isArray(S.cols)||!S.cols.length) S.cols=sd.cols;
+  S.cols=S.cols.map(function(c){ return (typeof c==='string')?{name:c,icon:''}:{name:c.name||'',icon:c.icon||''}; });
+  if(!Array.isArray(S.cards)){
+    var old=Array.isArray(S.domains)?S.domains:[];
+    var blank=blankBody().replace(/<[^>]*>/g,'').replace(/\s+/g,'');
+    function hasContent(h){ var t=String(h||'').replace(/<[^>]*>/g,'').replace(/\s+/g,''); return !!t && t!==blank; }
+    S.cards=sd.cards.map(function(d,i){
+      var o=old[i]||{};
+      return {id:d.id,head:d.head,name:o.name||d.name,sub:o.sub||d.sub,color:d.color,
+              cols:d.cols.slice(),span:1, body:hasContent(o.body)?o.body:d.body};
+    });
+  }
+  delete S.domains;
+  S.cards=S.cards.map(function(c,i){
+    return {id:c.id||('c'+Date.now()+i), head:c.head||('Domain '+(i+1)+' — Cube'),
+      name:c.name||'', sub:c.sub||'', color:c.color||PALETTE[i%PALETTE.length],
+      cols:Array.isArray(c.cols)?c.cols.filter(function(k){return k>=0&&k<S.cols.length;}):[],
+      span:(c.span===3?3:1), body:c.body||blankBody()};
+  });
+  if(!Array.isArray(S.links)) S.links=[];
+})();
+
+var editMode=true, linkMode=false, linkSrc=null, saveT=null;
 var tipEl=document.getElementById('tip'), saveEl=document.getElementById('autosave');
-function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2600); }
+function tip(m){ tipEl.textContent=m; tipEl.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){tipEl.classList.remove('show')},2800); }
 function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); saveEl.classList.add('hit'); setTimeout(function(){saveEl.classList.remove('hit')},450); }catch(e){} }
 function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persistRaw,500); }
 function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
+function shade(hex,f){ var c=parseInt(String(hex).slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
   r=Math.min(255,Math.round(r*f)); g=Math.min(255,Math.round(g*f)); b=Math.min(255,Math.round(b*f));
   return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
 
-/* ---------- main isometric figure ---------- */
-var DX=86, DY=31, ZX=74, ZY=-42, LH=88, OX=252, OY=742;
-var FW=1352, FH=1046;
+/* ================= แผนภาพไอโซเมตริก ================= */
+var DX=86, DY=31, ZX=74, ZY=-42, LH=88;
+var ML=212, MR=214, MT=42, MB=196;
+var OX=ML, OY=MT, FW=1300, FH=1085;
+function calcGeom(){
+  var nD=S.cols.length, nZ=S.zones.length, nL=S.layers.length;
+  OX=ML; OY=MT + nZ*Math.abs(ZY) + (nL-1)*LH;
+  FW=ML + nD*DX + nZ*ZX + MR;
+  FH=OY + nD*DY + MB;
+}
 function P(d,z,L){ return [OX+d*DX+z*ZX, OY+d*DY+z*ZY-L*LH]; }
 function poly(pts){ return pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' '); }
-/* ข้อความตามแนวแกน — ตัดเป็น 2 บรรทัดถ้ายาว เพื่อไม่ให้ทับกัน */
+/* ข้อความตามแนวแกน — ตัดเป็นหลายบรรทัดถ้ายาว เพื่อไม่ให้ทับกัน */
 function axText(x,y,ang,anchor,size,fill,weight,str,maxc){
-  maxc=maxc||13; var w=String(str).split(' '), lines=[], cur='';
+  maxc=maxc||13; var w=String(str||'').split(' '), lines=[], cur='';
   w.forEach(function(t){ if(!cur) cur=t; else if((cur+' '+t).length<=maxc) cur+=' '+t; else { lines.push(cur); cur=t; } });
   if(cur) lines.push(cur);
   var t='<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" text-anchor="'+anchor+'" font-family="Inter,Sarabun,sans-serif" font-size="'+size+'"'+
@@ -212,150 +420,405 @@ function axText(x,y,ang,anchor,size,fill,weight,str,maxc){
   lines.forEach(function(ln,i){ t+='<tspan x="'+x.toFixed(1)+'" dy="'+(i?size+1.5:0)+'">'+esc(ln)+'</tspan>'; });
   return t+'</text>';
 }
+/* กลุ่มคอลัมน์ของแต่ละการ์ด (ใช้วาดวงเล็บ + จุดยึดเส้นเชื่อม) */
+function cardSpan(c){
+  var ks=(c.cols||[]).filter(function(k){return k>=0&&k<S.cols.length;});
+  if(!ks.length) return null;
+  return {a:Math.min.apply(null,ks), b:Math.max.apply(null,ks)};
+}
 function figure(){
-  var nD=DOMAINS.length, nZ=ZONES.length, out='';
-  /* หน่วยเวกเตอร์ของสองแกน — ใช้จัดตำแหน่งป้ายให้พ้นระนาบ */
-  var lD=Math.hypot(DX,DY), uD=[DX/lD,DY/lD];          /* ทิศ Domains */
-  var lZ=Math.hypot(ZX,ZY), uZ=[ZX/lZ,ZY/lZ];          /* ทิศ Zones */
+  calcGeom();
+  var nD=S.cols.length, nZ=S.zones.length, nL=S.layers.length, out='';
+  var lD=Math.hypot(DX,DY), uD=[DX/lD,DY/lD];
+  var lZ=Math.hypot(ZX,ZY), uZ=[ZX/lZ,ZY/lZ];
   var angD=Math.atan2(DY,DX)*180/Math.PI, angZ=Math.atan2(ZY,ZX)*180/Math.PI;
-  /* ชั้นล่างสุดวาดก่อน เพื่อให้ชั้นบนทับ */
-  for(var Li=LAYERS.length-1; Li>=0; Li--){
-    var L=LAYERS.length-1-Li;                 /* 0 = Asset (ล่าง) */
-    var lay=LAYERS[Li];
-    var g='<g>';
+  for(var Li=nL-1; Li>=0; Li--){
+    var L=nL-1-Li, lay=S.layers[Li], g='<g>';
     g+='<polygon points="'+poly([P(0,0,L),P(nD,0,L),P(nD,nZ,L),P(0,nZ,L)])+'" fill="'+lay.c+'" fill-opacity="'+(L===0?0.44:0.22)+'"/>';
     for(var d=0; d<=nD; d++) g+='<line x1="'+P(d,0,L)[0].toFixed(1)+'" y1="'+P(d,0,L)[1].toFixed(1)+'" x2="'+P(d,nZ,L)[0].toFixed(1)+'" y2="'+P(d,nZ,L)[1].toFixed(1)+'" stroke="'+lay.s+'" stroke-width="1" stroke-opacity=".7"/>';
     for(var z=0; z<=nZ; z++) g+='<line x1="'+P(0,z,L)[0].toFixed(1)+'" y1="'+P(0,z,L)[1].toFixed(1)+'" x2="'+P(nD,z,L)[0].toFixed(1)+'" y2="'+P(nD,z,L)[1].toFixed(1)+'" stroke="'+lay.s+'" stroke-width="1" stroke-opacity=".7"/>';
     g+='<polygon points="'+poly([P(0,0,L),P(nD,0,L),P(nD,nZ,L),P(0,nZ,L)])+'" fill="none" stroke="'+lay.s+'" stroke-width="1.9"/>';
     if(L===0){
-      /* ไอคอนสินทรัพย์กระจายบนชั้น Asset */
-      var spots=[[0.5,0.75],[1.5,0.75],[2.5,0.75],[3.5,0.75],[4.5,0.75]];
       for(var di=0; di<nD; di++){
-        var c1=P(spots[di][0],spots[di][1],L);
-        g+='<text x="'+c1[0].toFixed(1)+'" y="'+(c1[1]+8).toFixed(1)+'" text-anchor="middle" font-size="26">'+DICON[di]+'</text>';
+        var ic=S.cols[di].icon||''; if(!ic) continue;
+        var c1=P(di+0.5,0.75,L);
+        g+='<text x="'+c1[0].toFixed(1)+'" y="'+(c1[1]+8).toFixed(1)+'" text-anchor="middle" font-size="26">'+esc(ic)+'</text>';
       }
-      /* จุดอุปกรณ์ย่อย (sensors) */
       var dots=[[0.8,2.1],[1.9,1.6],[3.1,2.4],[4.2,1.9],[2.4,3.1],[0.6,3.6],[3.8,3.4]];
-      dots.forEach(function(s){ var p=P(s[0],s[1],0);
+      dots.forEach(function(sp){ if(sp[0]>nD-0.2||sp[1]>nZ-0.2) return; var p=P(sp[0],sp[1],0);
         g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.4" fill="#6B7A88" opacity=".55"/>'; });
     }
     if(L===1){
-      /* แถบเชื่อมโยง (integration bars) */
       var bars=[['#5FB07A',0.4,1.5],['#5B95D8',1.6,2.6],['#8E6BC8',2.6,3.4],['#49AEA6',3.6,4.3],['#E8A33D',1.1,5.0]];
-      bars.forEach(function(b){
+      bars.forEach(function(b){ if(b[1]+0.9>nD||b[2]>nZ) return;
         var a=P(b[1],b[2],1), q=P(b[1]+0.9,b[2],1);
         g+='<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'" stroke="'+b[0]+'" stroke-width="9" stroke-linecap="round" opacity=".9"/>';
       });
     }
-    /* ป้ายชื่อชั้น ด้านซ้าย + สวอตช์สี */
     var lp=P(0,0,L);
     g+='<rect x="'+(lp[0]-32).toFixed(1)+'" y="'+(lp[1]-8).toFixed(1)+'" width="11" height="11" rx="2.5" fill="'+lay.c+'" stroke="'+lay.s+'" stroke-width="1"/>';
-    g+='<text x="'+(lp[0]-40).toFixed(1)+'" y="'+(lp[1]+2).toFixed(1)+'" text-anchor="end" font-family="Inter,Sarabun,sans-serif" font-size="14.5" font-weight="600" fill="#25384d">'+lay.k+'</text>';
+    g+='<text x="'+(lp[0]-40).toFixed(1)+'" y="'+(lp[1]+2).toFixed(1)+'" text-anchor="end" font-family="Inter,Sarabun,sans-serif" font-size="14.5" font-weight="600" fill="#25384d">'+esc(lay.k)+'</text>';
     out+=g+'</g>';
   }
-  /* ---- แกน Domains (ขอบล่างซ้าย) ---- */
+  /* ---- แกน Domains ---- */
   for(var d2=0; d2<nD; d2++){
-    var m=P(d2+0.5,0,0), col=(GROUPS.filter(function(g){return g.cols.indexOf(d2)>=0;})[0]||{}).color||'#41566E';
-    var o=32;                                            /* เลื่อนออกนอกระนาบตามแนว -Zones */
-    out+=axText(m[0]-uZ[0]*o, m[1]-uZ[1]*o+4, angD, 'middle', 12.5, col, '700', DOMAINS[d2], 12);
+    var m=P(d2+0.5,0,0), own=null;
+    S.cards.forEach(function(c){ if((c.cols||[]).indexOf(d2)>=0 && !own) own=c; });
+    out+=axText(m[0]-uZ[0]*32, m[1]-uZ[1]*32+4, angD, 'middle', 12.5, own?own.color:'#41566E', '700', S.cols[d2].name, 12);
   }
-  /* วงเล็บกลุ่ม Domain (สีตาม Cube) */
-  GROUPS.forEach(function(g,gi){
-    var ob=88, a=P(g.cols[0]+0.06,0,0), b=P(g.cols[g.cols.length-1]+0.94,0,0);
+  /* วงเล็บกลุ่มของแต่ละการ์ด + จุดยึดเส้นเชื่อม */
+  S.cards.forEach(function(c,ci){
+    var sp=cardSpan(c); if(!sp) return;
+    var ob=88, a=P(sp.a+0.06,0,0), b=P(sp.b+0.94,0,0);
     var ax=a[0]-uZ[0]*ob, ay=a[1]-uZ[1]*ob, bx=b[0]-uZ[0]*ob, by=b[1]-uZ[1]*ob;
-    out+='<line x1="'+ax.toFixed(1)+'" y1="'+ay.toFixed(1)+'" x2="'+bx.toFixed(1)+'" y2="'+by.toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>';
+    out+='<line x1="'+ax.toFixed(1)+'" y1="'+ay.toFixed(1)+'" x2="'+bx.toFixed(1)+'" y2="'+by.toFixed(1)+'" stroke="'+c.color+'" stroke-width="3.4" stroke-linecap="round"/>';
     [[ax,ay],[bx,by]].forEach(function(p){
-      out+='<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+'" x2="'+(p[0]+uZ[0]*9).toFixed(1)+'" y2="'+(p[1]+uZ[1]*9).toFixed(1)+'" stroke="'+g.color+'" stroke-width="3.4" stroke-linecap="round"/>'; });
-    /* จุดยึดเส้นเชื่อมไปยังการ์ด Domain ด้านล่าง */
+      out+='<line x1="'+p[0].toFixed(1)+'" y1="'+p[1].toFixed(1)+'" x2="'+(p[0]+uZ[0]*9).toFixed(1)+'" y2="'+(p[1]+uZ[1]*9).toFixed(1)+'" stroke="'+c.color+'" stroke-width="3.4" stroke-linecap="round"/>'; });
     var mx=(ax+bx)/2, my=(ay+by)/2;
-    out+='<circle class="ganch" data-gi="'+gi+'" cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6.5" fill="'+g.color+'" stroke="#fff" stroke-width="2.2"/>';
-    out+='<text x="'+mx.toFixed(1)+'" y="'+(my+3.6).toFixed(1)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff">'+(gi+1)+'</text>';
+    out+='<circle class="ganch" data-gi="'+ci+'" cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6.5" fill="'+c.color+'" stroke="#fff" stroke-width="2.2"/>';
+    out+='<text x="'+mx.toFixed(1)+'" y="'+(my+3.6).toFixed(1)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#fff">'+(ci+1)+'</text>';
   });
-  /* ลูกศรแกน Domains */
   var oa=126, dA=P(-0.05,0,0), dB=P(nD+0.05,0,0);
   out+='<line x1="'+(dA[0]-uZ[0]*oa).toFixed(1)+'" y1="'+(dA[1]-uZ[1]*oa).toFixed(1)+'" x2="'+(dB[0]-uZ[0]*oa).toFixed(1)+'" y2="'+(dB[1]-uZ[1]*oa).toFixed(1)+'" stroke="#41566E" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#arS)"/>';
-  var dM=P(nD/2,0,0), om=152;
-  out+=axText(dM[0]-uZ[0]*om, dM[1]-uZ[1]*om+5, angD, 'middle', 17, '#25384d', '700', 'Domains', 20);
-  /* ---- แกน Zones (ขอบล่างขวา) ---- */
+  var dM=P(nD/2,0,0);
+  out+=axText(dM[0]-uZ[0]*152, dM[1]-uZ[1]*152+5, angD, 'middle', 17, '#25384d', '700', S.axisD, 20);
+  /* ---- แกน Zones ---- */
   for(var z2=0; z2<nZ; z2++){
-    var mz=P(nD,z2+0.5,0), oz=26;
-    out+=axText(mz[0]+uD[0]*oz, mz[1]+uD[1]*oz+4, angZ, 'start', 11.5, '#41566E', '600', ZONES[z2], 12);
+    var mz=P(nD,z2+0.5,0);
+    out+=axText(mz[0]+uD[0]*26, mz[1]+uD[1]*26+4, angZ, 'start', 11.5, '#41566E', '600', S.zones[z2], 12);
   }
-  var oz2=112, zA=P(nD,-0.05,0), zB=P(nD,nZ+0.05,0);
-  out+='<line x1="'+(zA[0]+uD[0]*oz2).toFixed(1)+'" y1="'+(zA[1]+uD[1]*oz2).toFixed(1)+'" x2="'+(zB[0]+uD[0]*oz2).toFixed(1)+'" y2="'+(zB[1]+uD[1]*oz2).toFixed(1)+'" stroke="#41566E" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#arS)"/>';
-  var zM=P(nD,nZ/2,0), om2=136;
-  out+=axText(zM[0]+uD[0]*om2, zM[1]+uD[1]*om2+5, angZ, 'middle', 17, '#25384d', '700', 'Zones', 20);
+  var zA=P(nD,-0.05,0), zB=P(nD,nZ+0.05,0);
+  out+='<line x1="'+(zA[0]+uD[0]*112).toFixed(1)+'" y1="'+(zA[1]+uD[1]*112).toFixed(1)+'" x2="'+(zB[0]+uD[0]*112).toFixed(1)+'" y2="'+(zB[1]+uD[1]*112).toFixed(1)+'" stroke="#41566E" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#arS)"/>';
+  var zM=P(nD,nZ/2,0);
+  out+=axText(zM[0]+uD[0]*136, zM[1]+uD[1]*136+5, angZ, 'middle', 17, '#25384d', '700', S.axisZ, 20);
   var defs='<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#41566E"/></marker>'+
     '<marker id="arS" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M9,1 L0,5 L9,9 z" fill="#41566E"/></marker></defs>';
   return '<svg id="sfamSvg" width="'+FW+'" height="'+FH+'" viewBox="0 0 '+FW+' '+FH+'" xmlns="http://www.w3.org/2000/svg"><rect width="'+FW+'" height="'+FH+'" fill="#fff"/>'+defs+out+'</svg>';
 }
 
-/* ---------- domain cube ---------- */
+/* ================= Cube ประจำการ์ด ================= */
 function cube(color){
-  var W=64,H=36,BH=27,n=LAYERS.length,Hh=n*BH, cx=96, cy0=30, out='';
-  /* หน้าบน */
+  var W=64,H=36,BH=27,n=S.layers.length,Hh=n*BH, cx=96, cy0=30, out='';
   out+='<polygon points="'+poly([[cx-W,cy0],[cx,cy0-H],[cx+W,cy0],[cx,cy0+H]])+'" fill="'+shade(color,1.25)+'" stroke="'+shade(color,.8)+'" stroke-width="1.4"/>';
   for(var i=0;i<n;i++){
-    var y=cy0+i*BH, y2=cy0+(i+1)*BH, L=LAYERS[i];
-    /* หน้าซ้าย */
+    var y=cy0+i*BH, y2=cy0+(i+1)*BH, L=S.layers[i];
     out+='<polygon points="'+poly([[cx-W,y],[cx,y+H],[cx,y2+H],[cx-W,y2]])+'" fill="'+L.c+'" fill-opacity=".92" stroke="'+L.s+'" stroke-width=".9"/>';
-    /* หน้าขวา (เข้มกว่า) */
     out+='<polygon points="'+poly([[cx+W,y],[cx,y+H],[cx,y2+H],[cx+W,y2]])+'" fill="'+shade(L.c,.78)+'" fill-opacity=".92" stroke="'+L.s+'" stroke-width=".9"/>';
-    /* ป้ายชั้น */
-    out+='<text x="'+(cx+W+12)+'" y="'+(y+H*0.5+BH*0.62)+'" font-family="Inter,Sarabun,sans-serif" font-size="10.5" font-weight="600" fill="#41566E">'+L.k.replace(' Layer','')+'</text>';
+    out+='<text x="'+(cx+W+12)+'" y="'+(y+H*0.5+BH*0.62)+'" font-family="Inter,Sarabun,sans-serif" font-size="10.5" font-weight="600" fill="#41566E">'+esc(String(L.k).replace(' Layer',''))+'</text>';
   }
   out+='<polygon points="'+poly([[cx-W,cy0],[cx,cy0+H],[cx,cy0+H+Hh],[cx-W,cy0+Hh]])+'" fill="none" stroke="'+shade(color,.7)+'" stroke-width="1.6"/>';
   out+='<polygon points="'+poly([[cx+W,cy0],[cx,cy0+H],[cx,cy0+H+Hh],[cx+W,cy0+Hh]])+'" fill="none" stroke="'+shade(color,.7)+'" stroke-width="1.6"/>';
   return '<svg width="252" height="'+(cy0+H+Hh+16)+'" viewBox="0 0 252 '+(cy0+H+Hh+16)+'">'+out+'</svg>';
 }
 
-/* ---------- render ---------- */
+/* ================= render ================= */
+var $=function(id){ return document.getElementById(id); };
 function render(){
-  document.getElementById('hTitle').textContent=S.title||'';
-  document.getElementById('hSub').textContent=S.sub||'';
-  document.getElementById('fig').innerHTML=figure();
-  document.getElementById('glegend').innerHTML=GROUPS.map(function(g,i){
-    return '<span class="li"><span class="sw" style="background:'+g.color+'"></span><b>'+esc(S.domains[i].name)+'</b> · '+esc(S.domains[i].sub)+'</span>';
-  }).join('');
   var ce=editMode?'true':'false';
-  document.getElementById('domains').innerHTML=GROUPS.map(function(g,i){
-    var d=S.domains[i];
-    return '<div class="card" data-gi="'+i+'" style="border-top-color:'+g.color+'"><h2 style="color:'+g.color+'">'+
-      '<span class="gno" style="background:'+g.color+'">'+(i+1)+'</span>Domain '+(i+1)+' — Cube</h2>'+
-      '<div class="cap">ทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer (ไม่แยก Layer / Zone)</div>'+
-      '<div class="dom"><div class="cube">'+cube(g.color)+'</div><div class="body">'+
-      '<div class="dt" style="color:'+g.color+'" data-di="'+i+'" data-f="name" contenteditable="'+ce+'">'+esc(d.name)+'</div>'+
-      '<div class="ds" data-di="'+i+'" data-f="sub" contenteditable="'+ce+'">'+esc(d.sub)+'</div>'+
-      '<div class="ph">พิมพ์ Business Model Flow ของ Domain นี้ — ครอบคลุมทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer</div>'+
-      '<div class="txt" data-di="'+i+'" data-f="body" contenteditable="'+ce+'">'+d.body+'</div>'+
+  $('hTitle').textContent=S.title||'';
+  $('hSub').textContent=S.sub||'';
+  $('figTitle').textContent=S.figTitle||'';
+  $('figCap').textContent=S.figCap||'';
+  $('figNote').textContent=S.figNote||'';
+  ['hTitle','hSub','figTitle','figCap','figNote'].forEach(function(id){ $(id).setAttribute('contenteditable',ce); });
+  $('fig').innerHTML=figure();
+  $('glegend').innerHTML=S.cards.map(function(c,i){
+    return '<span class="li"><span class="sw" style="background:'+c.color+'"></span><b>'+esc(c.name)+'</b>'+(c.sub?' · '+esc(c.sub):'')+'</span>';
+  }).join('');
+  $('domains').innerHTML=S.cards.map(function(c,i){
+    var chips=S.cols.map(function(col,k){
+      var on=(c.cols||[]).indexOf(k)>=0;
+      return '<span class="cchip'+(on?' on':'')+'" data-ci="'+i+'" data-col="'+k+'"'+(on?' style="background:'+c.color+';border-color:'+c.color+'"':'')+'>'+esc(col.name)+'</span>';
+    }).join('');
+    return '<div class="card'+(c.span===3?' wide':'')+'" data-ci="'+i+'" style="border-top-color:'+c.color+'">'+
+      '<div class="chead"><h2 style="color:'+c.color+'"><span class="gno" style="background:'+c.color+'">'+(i+1)+'</span>'+
+        '<span data-ci="'+i+'" data-f="head" contenteditable="'+ce+'">'+esc(c.head)+'</span></h2>'+
+        '<div class="ctools">'+
+          '<button data-act="span" data-ci="'+i+'" title="ขยายเต็มแถว / ย่อกลับ">'+(c.span===3?'⤡':'⤢')+'</button>'+
+          '<button class="edonly" data-act="color" data-ci="'+i+'" title="เปลี่ยนสีการ์ด" style="color:'+c.color+'">🎨</button>'+
+          '<button class="edonly" data-act="del" data-ci="'+i+'" title="ลบการ์ดนี้">🗑</button>'+
+        '</div></div>'+
+      '<div class="colpick"><span class="lb">เชื่อมกับคอลัมน์</span>'+chips+'</div>'+
+      '<div class="dom"><div class="cube">'+cube(c.color)+'</div><div class="body">'+
+        '<div class="dt" style="color:'+c.color+'" data-ci="'+i+'" data-f="name" contenteditable="'+ce+'">'+esc(c.name)+'</div>'+
+        '<div class="ds" data-ci="'+i+'" data-f="sub" contenteditable="'+ce+'">'+esc(c.sub)+'</div>'+
+        '<div class="ph">พิมพ์ Business Model Flow ของ Domain นี้ — ครอบคลุมทั้งคอลัมน์ตั้งแต่ Asset Layer ถึง Business Layer</div>'+
+        '<div class="txt" data-ci="'+i+'" data-f="body" contenteditable="'+ce+'">'+c.body+'</div>'+
       '</div></div></div>';
   }).join('');
-  if(typeof relink==='function') relink();
+  relink();
 }
-document.getElementById('hTitle').addEventListener('input',function(){ S.title=this.innerText; schedulePersist(); });
-document.getElementById('hSub').addEventListener('input',function(){ S.sub=this.innerText; schedulePersist(); });
-document.getElementById('domains').addEventListener('input',function(e){
-  var el=e.target.closest('[data-di]'); if(!el) return;
-  var d=S.domains[+el.dataset.di]; if(!d) return;
-  d[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
-  schedulePersist();
-});
+
+/* ---- เก็บค่าจากหน้าจอกลับเข้า state ---- */
 function syncAll(){
-  S.title=document.getElementById('hTitle').innerText;
-  S.sub=document.getElementById('hSub').innerText;
-  document.querySelectorAll('#domains [data-di]').forEach(function(el){
-    var d=S.domains[+el.dataset.di]; if(!d) return;
-    d[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
+  S.title=$('hTitle').innerText; S.sub=$('hSub').innerText;
+  S.figTitle=$('figTitle').innerText; S.figCap=$('figCap').innerText; S.figNote=$('figNote').innerText;
+  document.querySelectorAll('#domains [data-f]').forEach(function(el){
+    var c=S.cards[+el.dataset.ci]; if(!c) return;
+    c[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
   });
 }
-document.getElementById('bEdit').addEventListener('click',function(){
-  syncAll(); editMode=!editMode; this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
-  ['hTitle','hSub'].forEach(function(id){ document.getElementById(id).setAttribute('contenteditable',editMode?'true':'false'); });
-  render(); tip(editMode?'แก้ไขได้':'ล็อกแล้ว');
+['hTitle','hSub','figTitle','figCap','figNote'].forEach(function(id){
+  $(id).addEventListener('input',function(){ S[id==='hTitle'?'title':id==='hSub'?'sub':id]=this.innerText; schedulePersist(); });
 });
-document.getElementById('bPrint').addEventListener('click',function(){ window.print(); });
-document.getElementById('bPNG').addEventListener('click',function(){
-  var svg=document.getElementById('sfamSvg'); if(!svg){ tip('ไม่พบแผนภาพ'); return; }
+$('domains').addEventListener('input',function(e){
+  var el=e.target.closest('[data-f]'); if(!el) return;
+  var c=S.cards[+el.dataset.ci]; if(!c) return;
+  c[el.dataset.f]=(el.dataset.f==='body')?el.innerHTML:el.innerText;
+  schedulePersist();
+});
+
+/* ---- ปุ่มบนการ์ด + ชิปเลือกคอลัมน์ + โหมดเชื่อมการ์ด ---- */
+$('domains').addEventListener('click',function(e){
+  var chip=e.target.closest('.cchip');
+  if(chip && editMode){
+    var c=S.cards[+chip.dataset.ci], k=+chip.dataset.col;
+    var ix=c.cols.indexOf(k);
+    if(ix>=0) c.cols.splice(ix,1); else { c.cols.push(k); c.cols.sort(function(a,b){return a-b;}); }
+    syncAll(); persistRaw(); render(); return;
+  }
+  var btn=e.target.closest('.ctools button');
+  if(btn){
+    var i=+btn.dataset.ci, cd=S.cards[i], act=btn.dataset.act;
+    if(act==='span'){ cd.span=(cd.span===3?1:3); syncAll(); persistRaw(); render(); return; }
+    if(act==='color'){
+      var nv=prompt('สีของการ์ด "'+cd.name+'" (เช่น #2F7FBF)', cd.color);
+      if(nv && /^#[0-9a-fA-F]{6}$/.test(nv.trim())){ cd.color=nv.trim(); syncAll(); persistRaw(); render(); }
+      else if(nv) tip('รูปแบบสีไม่ถูกต้อง — ต้องเป็น #RRGGBB');
+      return;
+    }
+    if(act==='del'){
+      if(S.cards.length<=1){ tip('ต้องเหลืออย่างน้อย 1 การ์ด'); return; }
+      if(!confirm('ลบการ์ด "'+cd.name+'" ?')) return;
+      syncAll();
+      var rid=cd.id;
+      S.cards.splice(i,1);
+      S.links=S.links.filter(function(l){ return l.a!==rid && l.b!==rid; });
+      persistRaw(); render(); tip('ลบการ์ดแล้ว'); return;
+    }
+  }
+  if(linkMode){
+    var card=e.target.closest('#domains .card'); if(!card) return;
+    e.preventDefault();
+    var ci=+card.dataset.ci, id=S.cards[ci].id;
+    if(linkSrc===null){ linkSrc=id; render(); document.querySelector('#domains .card[data-ci="'+ci+'"]').classList.add('linksrc');
+      tip('เลือกต้นทาง: '+S.cards[ci].name+' — คลิกการ์ดปลายทาง'); return; }
+    if(linkSrc===id){ linkSrc=null; render(); tip('ยกเลิกการเลือก'); return; }
+    var dup=S.links.some(function(l){ return (l.a===linkSrc&&l.b===id)||(l.a===id&&l.b===linkSrc); });
+    if(dup){ tip('มีเส้นเชื่อมคู่นี้อยู่แล้ว'); linkSrc=null; render(); return; }
+    var lb=prompt('ข้อความบนเส้นเชื่อม (เว้นว่างได้)','');
+    if(lb===null){ linkSrc=null; render(); return; }
+    S.links.push({a:linkSrc,b:id,label:lb.trim()});
+    linkSrc=null; syncAll(); persistRaw(); render(); tip('เพิ่มเส้นเชื่อมแล้ว');
+  }
+});
+
+/* ================= เส้นเชื่อม (overlay) ================= */
+function cardEl(i){ return document.querySelector('#domains .card[data-ci="'+i+'"]'); }
+function drawLinks(){
+  var svg=$('links'), stage=$('stage'); if(!svg||!stage) return;
+  if(getComputedStyle(svg).display==='none'){ svg.innerHTML=''; return; }
+  var sr=stage.getBoundingClientRect();
+  svg.setAttribute('width',sr.width); svg.setAttribute('height',sr.height);
+  svg.setAttribute('viewBox','0 0 '+sr.width+' '+sr.height);
+  var out='';
+  /* แถวบนสุดของการ์ด — เส้นจากภาพใหญ่จะลากเฉพาะการ์ดแถวนี้ ไม่งั้นจะพาดทับการ์ดอื่น */
+  var topY=Infinity;
+  S.cards.forEach(function(c,i){ var el=cardEl(i); if(el) topY=Math.min(topY,el.getBoundingClientRect().top); });
+  /* 1) แผนภาพใหญ่ -> การ์ด */
+  S.cards.forEach(function(c,i){
+    var an=document.querySelector('#fig .ganch[data-gi="'+i+'"]'), cd=cardEl(i);
+    if(!an||!cd) return;
+    var ar=an.getBoundingClientRect(), cr=cd.getBoundingClientRect();
+    if(!ar.width||!cr.width) return;
+    if(cr.top-topY>8) return;   /* การ์ดแถวล่าง: ใช้หมายเลข ①②③ จับคู่แทน */
+    var sx=ar.left+ar.width/2-sr.left, sy=ar.top+ar.height/2-sr.top;
+    var ex=cr.left+cr.width/2-sr.left, ey=cr.top-sr.top;
+    if(ey-sy<40) return;
+    var m=ey-sy;
+    out+='<path d="M'+sx.toFixed(1)+','+sy.toFixed(1)+' C'+sx.toFixed(1)+','+(sy+m*0.58).toFixed(1)+' '+
+         ex.toFixed(1)+','+(ey-m*0.5).toFixed(1)+' '+ex.toFixed(1)+','+(ey-2).toFixed(1)+'" fill="none" stroke="'+c.color+
+         '" stroke-width="2.4" stroke-dasharray="8 5" stroke-linecap="round" opacity=".92"/>';
+    out+='<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="4" fill="'+c.color+'"/>';
+    out+='<path d="M'+(ex-6.5).toFixed(1)+','+(ey-10).toFixed(1)+' L'+ex.toFixed(1)+','+(ey-1).toFixed(1)+' L'+(ex+6.5).toFixed(1)+','+(ey-10).toFixed(1)+
+         '" fill="none" stroke="'+c.color+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>';
+  });
+  /* 2) การ์ด -> การ์ด (ความเชื่อมโยงที่ผู้ใช้ลากเอง) */
+  S.links.forEach(function(l,li){
+    var ia=-1, ib=-1;
+    S.cards.forEach(function(c,i){ if(c.id===l.a) ia=i; if(c.id===l.b) ib=i; });
+    if(ia<0||ib<0) return;
+    var A=cardEl(ia), B=cardEl(ib); if(!A||!B) return;
+    var ra=A.getBoundingClientRect(), rb=B.getBoundingClientRect();
+    if(!ra.width||!rb.width) return;
+    var col=S.cards[ia].color;
+    var ax=ra.left+ra.width/2-sr.left, bx=rb.left+rb.width/2-sr.left;
+    var ay=ra.bottom-sr.top, by=rb.bottom-sr.top;
+    var base=Math.max(ay,by)+30, dip=base+Math.min(26,Math.abs(bx-ax)/8);
+    out+='<path class="clink" data-li="'+li+'" d="M'+ax.toFixed(1)+','+ay.toFixed(1)+
+         ' C'+ax.toFixed(1)+','+dip.toFixed(1)+' '+bx.toFixed(1)+','+dip.toFixed(1)+' '+bx.toFixed(1)+','+(by+4).toFixed(1)+
+         '" fill="none" stroke="'+col+'" stroke-width="2.6" stroke-linecap="round" opacity=".95" marker-end="url(#lar-'+li+')"/>';
+    out+='<defs><marker id="lar-'+li+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">'+
+         '<path d="M0,1 L9,5 L0,9 z" fill="'+col+'"/></marker></defs>';
+    if(l.label){
+      var mx=(ax+bx)/2, my=base+14, w=l.label.length*6.6+14;
+      out+='<rect x="'+(mx-w/2).toFixed(1)+'" y="'+(my-11).toFixed(1)+'" width="'+w.toFixed(1)+'" height="17" rx="8" fill="#fff" stroke="'+col+'" stroke-width="1.2"/>';
+      out+='<text x="'+mx.toFixed(1)+'" y="'+(my+1.5).toFixed(1)+'" text-anchor="middle" font-family="Inter,Sarabun,sans-serif" font-size="10.5" font-weight="700" fill="'+col+'">'+esc(l.label)+'</text>';
+    }
+  });
+  svg.innerHTML=out;
+}
+$('links').addEventListener('click',function(e){
+  if(!linkMode) return;
+  var p=e.target.closest('.clink'); if(!p) return;
+  var li=+p.dataset.li, l=S.links[li]; if(!l) return;
+  var nv=prompt('ข้อความบนเส้น (เว้นว่างแล้วกดตกลง = ลบเส้นนี้)', l.label||'');
+  if(nv===null) return;
+  if(!nv.trim()){ S.links.splice(li,1); tip('ลบเส้นเชื่อมแล้ว'); } else { l.label=nv.trim(); }
+  persistRaw(); render();
+});
+var linkT=null;
+function relink(){ clearTimeout(linkT); linkT=setTimeout(function(){ requestAnimationFrame(drawLinks); },60); }
+window.addEventListener('resize',relink);
+window.addEventListener('beforeprint',drawLinks);
+window.addEventListener('load',relink);
+if(window.ResizeObserver){ new ResizeObserver(relink).observe($('stage')); }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(relink);
+
+/* ================= แถบจัดรูปแบบตัวอักษร ================= */
+var FORE=['#1E3A5F','#0077B6','#005A8E','#2E7D32','#C0392B','#B5892B','#7B4FA8','#5A6E88','#FFFFFF'];
+var BACK=['#FFF3B0','#D6F5D6','#FFD9D9','#DCE9FA','#EFE0FA','#FFE4C7','transparent'];
+function swatches(box,list,fn){
+  box.innerHTML=list.map(function(c){
+    var bg=(c==='transparent')?'repeating-linear-gradient(45deg,#eee 0 4px,#fff 4px 8px)':c;
+    return '<i data-c="'+c+'" style="background:'+bg+'"></i>';
+  }).join('');
+  box.addEventListener('mousedown',function(e){ e.preventDefault(); });
+  box.addEventListener('click',function(e){ var t=e.target.closest('i'); if(t) fn(t.dataset.c); });
+}
+function inEditable(){
+  var s=window.getSelection(); if(!s||!s.rangeCount) return null;
+  var n=s.getRangeAt(0).commonAncestorContainer;
+  if(n.nodeType===3) n=n.parentNode;
+  return n.closest ? n.closest('[contenteditable="true"]') : null;
+}
+function afterCmd(){ syncAll(); schedulePersist(); relink(); }
+function cmd(c,v){
+  if(!inEditable()){ tip('เลือกข้อความที่ต้องการจัดรูปแบบก่อน'); return; }
+  try{ document.execCommand('styleWithCSS',false,true); }catch(e){}
+  try{ document.execCommand(c,false,v||null); }catch(e){}
+  afterCmd();
+}
+/* ขนาดตัวอักษร: ครอบ selection ด้วย span เอง เพื่อให้ได้ px จริง ไม่ใช่ค่า 1–7 */
+function applySize(px){
+  var host=inEditable(); if(!host){ tip('เลือกข้อความก่อน แล้วค่อยเลือกขนาด'); return; }
+  var sel=window.getSelection(); if(sel.isCollapsed){ tip('ลากคลุมข้อความที่ต้องการก่อน'); return; }
+  var r=sel.getRangeAt(0);
+  try{
+    var sp=document.createElement('span'); sp.style.fontSize=px;
+    sp.appendChild(r.extractContents()); r.insertNode(sp);
+    sp.querySelectorAll('span').forEach(function(x){ if(x.style.fontSize) x.style.fontSize=''; });
+    var nr=document.createRange(); nr.selectNodeContents(sp); sel.removeAllRanges(); sel.addRange(nr);
+  }catch(e){ tip('เลือกข้อความที่อยู่ในย่อหน้าเดียวกัน'); return; }
+  afterCmd();
+}
+$('fmt').addEventListener('mousedown',function(e){ if(e.target.closest('button,select,.sws')) e.preventDefault(); });
+$('fmt').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.cmd) cmd(b.dataset.cmd);
+  else if(b.dataset.blk) cmd('formatBlock','<'+b.dataset.blk+'>');
+});
+$('fSize').addEventListener('change',function(){ if(this.value) applySize(this.value); this.value=''; });
+swatches($('swFore'),FORE,function(c){ cmd('foreColor',c); });
+swatches($('swBack'),BACK,function(c){ cmd('hiliteColor',c==='transparent'?'transparent':c); });
+$('cFore').addEventListener('input',function(){ cmd('foreColor',this.value); });
+$('cFore').addEventListener('mousedown',function(e){ e.stopPropagation(); });
+
+/* ================= แผงแก้ป้ายในแผนภาพ ================= */
+function txtRow(val,ph,onIn,extra){
+  var i=document.createElement('input'); i.type='text'; i.value=val||''; i.placeholder=ph||'';
+  if(extra) i.className=extra;
+  i.addEventListener('input',function(){ onIn(i.value); });
+  return i;
+}
+function buildLab(){
+  var L=$('lpLayers'); L.innerHTML='';
+  S.layers.forEach(function(ly,i){
+    var rw=document.createElement('div'); rw.className='rw';
+    rw.appendChild(txtRow(ly.k,'ชื่อชั้น',function(v){ ly.k=v; softFig(); }));
+    var col=document.createElement('input'); col.type='color'; col.value=ly.c;
+    col.addEventListener('input',function(){ ly.c=col.value; ly.s=shade(col.value,.78); softFig(); });
+    rw.appendChild(col); L.appendChild(rw);
+  });
+  var C=$('lpCols'); C.innerHTML='';
+  S.cols.forEach(function(cl,i){
+    var rw=document.createElement('div'); rw.className='rw';
+    rw.appendChild(txtRow(cl.icon,'ไอ',function(v){ cl.icon=v; softFig(); },'ico'));
+    rw.appendChild(txtRow(cl.name,'ชื่อคอลัมน์',function(v){ cl.name=v; softFig(); softCards(); }));
+    var del=document.createElement('button'); del.textContent='🗑';
+    del.addEventListener('click',function(){
+      if(S.cols.length<=1){ tip('ต้องเหลืออย่างน้อย 1 คอลัมน์'); return; }
+      S.cols.splice(i,1);
+      S.cards.forEach(function(c){ c.cols=c.cols.filter(function(k){return k!==i;}).map(function(k){return k>i?k-1:k;}); });
+      persistRaw(); render(); buildLab();
+    });
+    rw.appendChild(del); C.appendChild(rw);
+  });
+  var Z=$('lpZones'); Z.innerHTML='';
+  S.zones.forEach(function(zn,i){
+    var rw=document.createElement('div'); rw.className='rw';
+    rw.appendChild(txtRow(zn,'ชื่อ Zone',function(v){ S.zones[i]=v; softFig(); }));
+    var del=document.createElement('button'); del.textContent='🗑';
+    del.addEventListener('click',function(){
+      if(S.zones.length<=1){ tip('ต้องเหลืออย่างน้อย 1 Zone'); return; }
+      S.zones.splice(i,1); persistRaw(); render(); buildLab();
+    });
+    rw.appendChild(del); Z.appendChild(rw);
+  });
+  var A=$('lpAxis'); A.innerHTML='';
+  [['axisD','ชื่อแกน Domains'],['axisZ','ชื่อแกน Zones']].forEach(function(p){
+    var rw=document.createElement('div'); rw.className='rw';
+    rw.appendChild(txtRow(S[p[0]],p[1],function(v){ S[p[0]]=v; softFig(); }));
+    A.appendChild(rw);
+  });
+}
+function softFig(){ $('fig').innerHTML=figure(); schedulePersist(); relink(); }
+function softCards(){ render(); }
+$('lpAddCol').addEventListener('click',function(){ S.cols.push({name:'New Domain',icon:'📦'}); persistRaw(); render(); buildLab(); });
+$('lpAddZone').addEventListener('click',function(){ S.zones.push('New Zone'); persistRaw(); render(); buildLab(); });
+$('lpClose').addEventListener('click',function(){ $('labPanel').style.display='none'; $('bLab').classList.remove('on'); });
+$('bLab').addEventListener('click',function(){
+  var p=$('labPanel'), open=p.style.display!=='block';
+  if(open){ buildLab(); p.style.display='block'; $('tokPanel').style.display='none'; }
+  else p.style.display='none';
+  this.classList.toggle('on',open);
+});
+
+/* ================= ปุ่มบนแถบเครื่องมือ ================= */
+$('bEdit').addEventListener('click',function(){
+  syncAll(); editMode=!editMode;
+  this.classList.toggle('on',editMode); document.body.classList.toggle('edit',editMode);
+  if(!editMode && linkMode){ linkMode=false; linkSrc=null; document.body.classList.remove('linking'); $('bLink').classList.remove('on'); }
+  render(); tip(editMode?'แก้ไขได้ — ลากคลุมข้อความแล้วใช้แถบด้านบนปรับสี/ขนาด':'ล็อกแล้ว');
+});
+$('bAdd').addEventListener('click',function(){
+  syncAll();
+  var n=S.cards.length;
+  S.cards.push({id:'c'+Date.now(), head:'Domain '+(n+1)+' — Cube', name:'New Domain', sub:'',
+    color:PALETTE[n%PALETTE.length], cols:[], span:1, body:blankBody()});
+  persistRaw(); render();
+  tip('เพิ่มการ์ดแล้ว — เลือก “เชื่อมกับคอลัมน์” เพื่อให้เส้นเชื่อมวิ่งจากแผนภาพลงมา');
+  var el=cardEl(S.cards.length-1); if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+});
+$('bLink').addEventListener('click',function(){
+  linkMode=!linkMode; linkSrc=null;
+  this.classList.toggle('on',linkMode); document.body.classList.toggle('linking',linkMode);
+  render();
+  tip(linkMode?'โหมดเชื่อมการ์ด — คลิกการ์ดต้นทาง แล้วคลิกการ์ดปลายทาง (คลิกที่เส้นเพื่อแก้/ลบ)':'ออกจากโหมดเชื่อมการ์ด');
+});
+$('bPrint').addEventListener('click',function(){ window.print(); });
+$('bPNG').addEventListener('click',function(){
+  var svg=$('sfamSvg'); if(!svg){ tip('ไม่พบแผนภาพ'); return; }
   var data=new XMLSerializer().serializeToString(svg);
   var img=new Image();
   img.onload=function(){
@@ -368,16 +831,17 @@ document.getElementById('bPNG').addEventListener('click',function(){
   img.onerror=function(){ tip('สร้างรูปไม่สำเร็จ'); };
   img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data);
 });
+document.querySelector('.figwrap').addEventListener('scroll',relink);
 
-/* ---------- token + publish ---------- */
-var tokPanel=document.getElementById('tokPanel'), tokInput=document.getElementById('tokInput'), tokState=document.getElementById('tokState');
-function tokGet(){ try{ return (localStorage.getItem('pcc_gh_tok')||'').trim(); }catch(e){ return ''; } }
-function refreshTok(){ var t=tokGet(); tokState.textContent=t?('● มี token แล้ว ('+t.slice(0,4)+'…'+t.slice(-3)+')'):'○ ยังไม่มี token'; tokState.style.color=t?'var(--green)':'#B0392B'; }
-function openTok(){ tokPanel.style.display='block'; tokInput.value=''; refreshTok(); setTimeout(function(){tokInput.focus();},30); }
-document.getElementById('bTok').addEventListener('click',function(){ tokPanel.style.display==='block'?(tokPanel.style.display='none'):openTok(); });
-document.getElementById('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
-document.getElementById('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){} tokInput.value=''; });
-document.getElementById('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+/* ================= GitHub token + บันทึกขึ้นเว็บ ================= */
+var tokPanel=$('tokPanel'), tokInput=$('tokInput');
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+function refreshTok(){ var t=tokGet(); $('tokState').textContent=t?('มี token แล้ว · ลงท้าย …'+t.slice(-4)):'ยังไม่มี token ในเบราว์เซอร์นี้'; }
+function openTok(){ tokPanel.style.display='block'; $('labPanel').style.display='none'; $('bLab').classList.remove('on'); refreshTok(); }
+$('bTok').addEventListener('click',function(){ tokPanel.style.display=(tokPanel.style.display==='block')?'none':'block'; refreshTok(); });
+$('tokClose').addEventListener('click',function(){ tokPanel.style.display='none'; });
+$('tokSave').addEventListener('click',function(){ var v=(tokInput.value||'').trim(); if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; } try{ localStorage.setItem('pcc_gh_tok',v); refreshTok(); tip('เก็บ token แล้ว'); }catch(e){} tokInput.value=''; });
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
 function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024; for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin=''; for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
 var DATA_RE=/<!--SFAM_DATA_START-->[\s\S]*?<!--SFAM_DATA_END-->/;
 function dataBlock(json){ return '<!--SFAM_DATA_START-->\n<script id="sfam-data" type="application/json">'+json+'<\/script>\n<!--SFAM_DATA_END-->'; }
@@ -385,7 +849,7 @@ var publishing=false;
 async function publish(){
   if(publishing) return;
   var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
-  publishing=true; var btn=document.getElementById('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
   syncAll(); var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
   var base='/repos/'+GH.owner+'/'+GH.repo;
   function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'}; var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); } return fetch(GH.api+p,o); }
@@ -406,46 +870,11 @@ async function publish(){
   }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
   finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
 }
-document.getElementById('bPublish').addEventListener('click',publish);
-
-/* ---------- เส้นเชื่อม: จาก Domain ในภาพใหญ่ → การ์ด Cube ด้านล่าง ---------- */
-function drawLinks(){
-  var svg=document.getElementById('links'), stage=document.getElementById('stage');
-  if(!svg||!stage) return;
-  if(getComputedStyle(svg).display==='none'){ svg.innerHTML=''; return; }
-  var sr=stage.getBoundingClientRect();
-  svg.setAttribute('width',sr.width); svg.setAttribute('height',sr.height);
-  svg.setAttribute('viewBox','0 0 '+sr.width+' '+sr.height);
-  var cards=document.querySelectorAll('#domains .card'), out='';
-  GROUPS.forEach(function(g,i){
-    var an=document.querySelector('#fig .ganch[data-gi="'+i+'"]'), cd=cards[i];
-    if(!an||!cd) return;
-    var ar=an.getBoundingClientRect(), cr=cd.getBoundingClientRect();
-    if(!ar.width||!cr.width) return;
-    var sx=ar.left+ar.width/2-sr.left, sy=ar.top+ar.height/2-sr.top;
-    var ex=cr.left+cr.width/2-sr.left, ey=cr.top-sr.top;
-    if(ey-sy<40) return;                       /* การ์ดไม่ได้อยู่ใต้ภาพ (จอแคบ) → ไม่ลากเส้น */
-    var m=ey-sy;
-    out+='<path d="M'+sx.toFixed(1)+','+sy.toFixed(1)+' C'+sx.toFixed(1)+','+(sy+m*0.58).toFixed(1)+' '+
-         ex.toFixed(1)+','+(ey-m*0.5).toFixed(1)+' '+ex.toFixed(1)+','+(ey-2).toFixed(1)+'" fill="none" stroke="'+g.color+
-         '" stroke-width="2.4" stroke-dasharray="8 5" stroke-linecap="round" opacity=".92"/>';
-    out+='<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="4" fill="'+g.color+'"/>';
-    out+='<path d="M'+(ex-6.5).toFixed(1)+','+(ey-10).toFixed(1)+' L'+ex.toFixed(1)+','+(ey-1).toFixed(1)+' L'+(ex+6.5).toFixed(1)+','+(ey-10).toFixed(1)+
-         '" fill="none" stroke="'+g.color+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>';
-  });
-  svg.innerHTML=out;
-}
-var linkT=null;
-function relink(){ clearTimeout(linkT); linkT=setTimeout(function(){ requestAnimationFrame(drawLinks); },60); }
-window.addEventListener('resize',relink);
-window.addEventListener('beforeprint',drawLinks);
-document.querySelector('.figwrap').addEventListener('scroll',relink);
-if(window.ResizeObserver){ new ResizeObserver(relink).observe(document.getElementById('stage')); }
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(relink);
+$('bPublish').addEventListener('click',publish);
 
 render();
 relink();
-tip('แผนภาพ SFAM · Domain Cube 3 ก้อนเรียงแนวนอน มีเส้นเชื่อมจาก Domain ในภาพใหญ่ — แก้ไขได้แล้วกด “บันทึกขึ้นเว็บ”');
+tip('แก้ไขข้อความได้ทุกจุด · ลากคลุมแล้วปรับสี/ขนาดจากแถบด้านบน · ＋ Domain Card เพิ่มการ์ด · 🔗 เชื่อมการ์ด ลากเส้นความเชื่อมโยง');
 })();
 </script>
 </body>
