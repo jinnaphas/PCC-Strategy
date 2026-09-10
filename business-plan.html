@@ -37,7 +37,10 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .tip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;
   padding:8px 16px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 6px 22px rgba(30,58,95,.25)}
 .tip.show{opacity:.96}
-.wrap{max-width:1900px;margin:0 auto;padding:18px 16px 90px}
+html,body{height:100%}
+body{display:flex;flex-direction:column;overflow:hidden}
+.wrap{max-width:1900px;width:100%;margin:0 auto;padding:18px 16px 14px;
+  flex:1;min-height:0;display:flex;flex-direction:column}
 .hd-title{font-size:22px;font-weight:800;color:var(--blue2);margin:0 0 2px}
 .hd-sub{font-size:12.5px;color:var(--mute);margin:0 0 12px;line-height:1.5}
 /* summary + filters */
@@ -50,10 +53,17 @@ a.back:hover{border-color:var(--blue);color:var(--blue)}
 .filters select,.filters input[type=search]{font-family:'Sarabun';font-size:12.5px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
 .filters label.ck{display:inline-flex;gap:5px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 10px;cursor:pointer}
 /* table */
-.tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 18px rgba(30,58,95,.07);background:#fff}
+.tbl-scroll{flex:1;min-height:0;overflow:auto;border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 3px 18px rgba(30,58,95,.07);background:#fff}
 table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1820px;font-size:12.5px}
 thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:11.5px;
   padding:7px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:sticky;top:0;z-index:5}
+/* ตรึงคอลัมน์รายชื่อพนักงาน + ช่องมุมซ้ายบน */
+thead th:first-child{left:0;z-index:7}
+td.person{position:sticky;left:0;z-index:3;
+  box-shadow:1px 0 0 0 var(--line),6px 0 10px -6px rgba(30,58,95,.28)}
+/* ป้ายกลุ่มบริษัท/หน่วยงาน: ตรึงเฉพาะข้อความให้เห็นตอนเลื่อนขวา */
+.gh{position:sticky;left:12px;display:inline-block}
 thead th.oi{background:#0a5b8c}
 tbody td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;white-space:pre-wrap;line-height:1.5;
   color:#26384d;font-size:calc(12.5px * var(--tfs,1));overflow-wrap:anywhere}
@@ -100,8 +110,11 @@ body.edit tbody td[contenteditable]:hover{background:#FFFBEF}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
 @media print{.bar,.tip,#tokPanel,.filters,td.ctrl,th.ctrl,.doc .rm{display:none!important}
-  body{background:#fff}.wrap{max-width:none;padding:0}.tbl-scroll{overflow:visible;border:none;box-shadow:none}
-  table{min-width:0;font-size:9.5px}thead th{position:static}@page{size:A3 landscape;margin:8mm}}
+  html,body{height:auto;overflow:visible;display:block}
+  body{background:#fff}.wrap{max-width:none;padding:0;display:block;min-height:0}
+  .tbl-scroll{overflow:visible;border:none;box-shadow:none;flex:none;min-height:0}
+  table{min-width:0;font-size:9.5px}thead th{position:static}
+  td.person{position:static;box-shadow:none}.gh{position:static}@page{size:A3 landscape;margin:8mm}}
 </style>
 </head>
 <body class="edit">
@@ -267,10 +280,10 @@ function render(){
   var lastComp=null, lastUnit=null;
   idxs.forEach(function(pi){
     var p=S.people[pi];
-    if(p.comp!==lastComp){ h+='<tr class="comp-h"><td colspan="'+NCOLS+'">🏢 '+esc(p.comp)+'</td></tr>'; lastComp=p.comp; lastUnit=null; }
+    if(p.comp!==lastComp){ h+='<tr class="comp-h"><td colspan="'+NCOLS+'"><span class="gh">🏢 '+esc(p.comp)+'</span></td></tr>'; lastComp=p.comp; lastUnit=null; }
     if(p.unit!==lastUnit){
       var cnt=idxs.filter(function(k){ return S.people[k].comp===p.comp && S.people[k].unit===p.unit; }).length;
-      h+='<tr class="unit-h"><td colspan="'+NCOLS+'">'+esc(p.unit)+' <span class="cnt">· '+cnt+' คน</span></td></tr>'; lastUnit=p.unit;
+      h+='<tr class="unit-h"><td colspan="'+NCOLS+'"><span class="gh">'+esc(p.unit)+' <span class="cnt">· '+cnt+' คน</span></span></td></tr>'; lastUnit=p.unit;
     }
     var n=Math.max(1,p.assigns.length);
     var pcell='<td class="person" rowspan="'+n+'"><div class="nm">'+esc(p.name)+'</div><div class="ps">'+esc(p.pos)+'</div>'+
