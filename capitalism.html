@@ -193,12 +193,67 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
 #tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',ui-monospace,monospace;font-size:12px;background:#F8FBFE}
 .tp-row{display:flex;gap:6px;margin-top:9px}
 #tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+
+/* ---------- ขัดเกลาโหมดปกติ ---------- */
+#scrollbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--ind),var(--plat),var(--eco));transition:width .1s linear}
+#secnav{position:sticky;top:41px;z-index:58;display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+  padding:8px 22px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body.edit #secnav{top:76px}
+#secnav a{font-family:'Inter','Sarabun',sans-serif;font-size:11.5px;font-weight:700;text-decoration:none;color:#5A6E88;
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 13px;transition:.15s;white-space:nowrap}
+#secnav a:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+#secnav a.act{background:var(--navy);border-color:var(--navy);color:#fff}
+.sech .n{background:linear-gradient(135deg,var(--navy),#1B4E86);box-shadow:0 3px 10px rgba(11,36,71,.28)}
+.sec{scroll-margin-top:130px;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.sec.inview,body.pres .sec,body.noanim .sec{opacity:1;transform:none}
+.stage,.opt,.ph,.shift,.tk{transition:transform .18s ease,box-shadow .18s ease}
+.stage:hover,.opt:hover,.ph:hover,.shift:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(30,58,95,.13)}
+
+/* ---------- โหมดนำเสนอ ---------- */
+#pres{display:none;position:fixed;inset:0;z-index:300;background:radial-gradient(1200px 700px at 50% 0%,#12345C 0%,#08182C 62%,#050F1C 100%);
+  color:#fff;flex-direction:column}
+body.pres{overflow:hidden}
+body.pres #pres{display:flex}
+body.pres .bar,body.pres #fmt,body.pres #secnav,body.pres .wrap,body.pres #scrollbar{display:none!important}
+#presTop{display:flex;align-items:center;gap:12px;padding:14px 26px 10px}
+#presTop .pt{font-family:'Inter','Sarabun',sans-serif;font-size:15px;font-weight:800;letter-spacing:.01em}
+#presTop .pn{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(255,255,255,.14);border-radius:999px;padding:4px 11px}
+#presTop .sp{flex:1}
+#presTop button{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
+#presTop button:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);color:#fff}
+#presStage{flex:1;min-height:0;display:flex;justify-content:center;padding:0 28px;overflow:hidden}
+#presInner{width:1500px;transform-origin:top center;transition:transform .18s ease}
+#presInner .sec{margin-top:0}
+#presInner .hero{box-shadow:0 22px 60px rgba(0,0,0,.45)}
+#presInner .sech h2{color:#fff}
+#presInner .sech .cap{color:rgba(255,255,255,.72)}
+#presInner .sech .n{background:linear-gradient(135deg,#fff,#D5E3F2);color:var(--navy)}
+[data-step]{transition:opacity .38s ease,transform .38s ease,filter .38s ease}
+body.pres [data-step].pdim{opacity:.10;filter:saturate(.2)}
+body.pres .stage[data-step].pdim,body.pres .shift[data-step].pdim,body.pres .opt[data-step].pdim,
+body.pres .ph[data-step].pdim,body.pres .tk[data-step].pdim,body.pres .nbox[data-step].pdim{opacity:.12;transform:translateY(10px) scale(.985)}
+#presBot{padding:10px 26px 18px}
+#presBar{height:4px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}
+#presFill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,#5AA9E6,#4CB87A);transition:width .28s ease}
+#presNav{display:flex;align-items:center;gap:14px;margin-top:11px}
+#presNav button.nv{width:40px;height:40px;padding:0;border-radius:50%;font-size:19px;line-height:1;
+  background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff}
+#presNav button.nv:hover{background:rgba(255,255,255,.24);color:#fff;border-color:rgba(255,255,255,.42)}
+#presNav button.nv:disabled{opacity:.3}
+#presDots{flex:1;display:flex;gap:7px;justify-content:center;align-items:center}
+#presDots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.26);cursor:pointer;transition:.18s;display:block}
+#presDots i:hover{background:rgba(255,255,255,.55);transform:scale(1.25)}
+#presDots i.on{background:#fff;width:26px;border-radius:5px}
+#presHint{font-family:'Inter','Sarabun',sans-serif;font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.02em;white-space:nowrap}
+#presHint kbd{background:rgba(255,255,255,.14);border-radius:4px;padding:1px 6px;font-family:'Inter',sans-serif;font-size:10.5px;margin:0 1px}
 @media(max-width:1180px){.stages{grid-template-columns:1fr;gap:12px}.arrowcell{transform:rotate(90deg);height:26px}}
-@media print{.bar,#fmt,.tip,#tokPanel{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
+@media print{.bar,#fmt,.tip,#tokPanel,#secnav,#scrollbar,#pres{display:none!important}.sec{opacity:1!important;transform:none!important}body{background:#fff}.wrap{max-width:none;padding:0}
   .card,.stage,.opt,.ph,.shift{box-shadow:none;break-inside:avoid}@page{size:A3 landscape;margin:9mm}}
 </style>
 </head>
-<body class="edit">
+<body>
 <!--CAP_DATA_START-->
 <script id="cap-data" type="application/json">{"savedAt":0}</script>
 <!--CAP_DATA_END-->
@@ -237,6 +292,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
   <button id="bTok" title="ตั้งค่า GitHub token">⚙️</button>
   <div class="sep"></div>
+  <button id="bPres" title="โหมดนำเสนอทีละขั้น (P)">🎬 นำเสนอ</button>
   <button id="bPrint">พิมพ์ / PDF</button>
   <span id="autosave">● บันทึกอัตโนมัติ</span>
 </div>
@@ -263,6 +319,31 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   <div id="tokState"></div>
 </div>
 
+<div id="scrollbar"></div>
+<div id="secnav">
+  <a href="#sec1">1 · 3 ยุค</a><a href="#sec2">2 · อะไรเปลี่ยน</a><a href="#sec3">3 · จุดเปลี่ยน</a>
+  <a href="#sec4">4 · 2 ทางเลือก</a><a href="#sec5">5 · แผน 3 ระยะ</a><a href="#sec6">6 · สรุป</a>
+</div>
+
+<div id="pres">
+  <div id="presTop">
+    <span class="pn" id="presNum">1 / 7</span><span class="pt" id="presTitle"></span>
+    <span class="sp"></span>
+    <button id="presFs" title="เต็มจอ (F)">⛶ เต็มจอ</button>
+    <button id="presX">✕ ออก · Esc</button>
+  </div>
+  <div id="presStage"><div id="presInner"></div></div>
+  <div id="presBot">
+    <div id="presBar"><div id="presFill"></div></div>
+    <div id="presNav">
+      <button class="nv" id="presPrev" title="ก่อนหน้า">‹</button>
+      <div id="presDots"></div>
+      <span id="presHint"><kbd>→</kbd><kbd>Space</kbd> ถัดไป · <kbd>←</kbd> ย้อน · <kbd>F</kbd> เต็มจอ · <kbd>Esc</kbd> ออก</span>
+      <button class="nv" id="presNext" title="ถัดไป">›</button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <div class="hero">
     <div class="kd">Evolution of Capitalism · PCC Transformation</div>
@@ -272,7 +353,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 1 ยุคทั้งสาม ========== -->
-  <div class="sec">
+  <div class="sec" id="sec1">
     <div class="sech"><span class="n">1</span><h2 data-k="s1h" contenteditable="true">การเดินทาง 3 ยุค</h2><span class="cap" data-k="s1c" contenteditable="true">คำถามเดียวที่เปลี่ยนไปทุกยุค — “อะไรคือสินทรัพย์ที่ทำเงินให้เรา?”</span></div>
     <div class="stages">
       <div class="stage st-ind">
@@ -328,7 +409,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 2 ตารางเทียบ ========== -->
-  <div class="sec">
+  <div class="sec" id="sec2">
     <div class="sech"><span class="n">2</span><h2 data-k="s2h" contenteditable="true">อะไรเปลี่ยนบ้าง</h2><span class="cap" data-k="s2c" contenteditable="true">อ่านแนวนอนทีละบรรทัด จะเห็นว่ากติกาการแข่งขันเปลี่ยนไปทั้งหมด</span></div>
     <table class="cmp"><thead><tr>
       <th style="width:15%">หัวข้อ</th>
@@ -368,7 +449,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 3 จุดเปลี่ยน 2 ครั้ง ========== -->
-  <div class="sec">
+  <div class="sec" id="sec3">
     <div class="sech"><span class="n">3</span><h2 data-k="s3h" contenteditable="true">จุดเปลี่ยน 2 ครั้งที่ต้องข้ามให้ได้</h2><span class="cap" data-k="s3c" contenteditable="true">แต่ละครั้งไม่ใช่แค่ทำของเดิมให้ดีขึ้น แต่ต้องเปลี่ยนวิธีคิดเรื่องรายได้</span></div>
     <div class="shifts">
       <div class="shift" style="border-top-color:var(--plat)">
@@ -411,7 +492,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 4 ทางเลือกเชิงกลยุทธ์ ========== -->
-  <div class="sec">
+  <div class="sec" id="sec4">
     <div class="sech"><span class="n">4</span><h2 data-k="s4h" contenteditable="true">PCC มี 2 ทางเลือก</h2><span class="cap" data-k="s4c" contenteditable="true">ไม่ใช่ทางเลือกที่ต้องเลือกอย่างใดอย่างหนึ่ง — ทางที่ 1 เป็นบันไดขั้นแรกของทางที่ 2</span></div>
     <div class="opts">
       <div class="opt">
@@ -455,7 +536,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 5 Roadmap ========== -->
-  <div class="sec">
+  <div class="sec" id="sec5">
     <div class="sech"><span class="n">5</span><h2 data-k="s5h" contenteditable="true">แผน 3 ระยะ · 2026 – 2035</h2><span class="cap" data-k="s5c" contenteditable="true">แต่ละระยะมีเป้าหมายเดียวที่ชัด และมีตัวชี้วัดที่บอกได้ว่าข้ามไปแล้วจริงหรือยัง</span></div>
     <div class="rm">
       <div class="ph ph1">
@@ -504,7 +585,7 @@ body.edit [contenteditable="true"]:hover{background:rgba(245,179,1,.12);border-r
   </div>
 
   <!-- ========== 6 สรุปสำหรับผู้ฟัง ========== -->
-  <div class="sec">
+  <div class="sec" id="sec6">
     <div class="sech"><span class="n">6</span><h2 data-k="s6h" contenteditable="true">ถ้าจำได้แค่ 4 ข้อ</h2><span class="cap" data-k="s6c" contenteditable="true">สรุปสำหรับปิดการนำเสนอ</span></div>
     <div class="now">
       <h3 data-k="n0" contenteditable="true"><svg class="ic"><use href="#i-globe"/></svg> จากบริษัทที่ขายสินค้าและระบบ สู่ผู้จัดวางระบบนิเวศโครงสร้างพื้นฐานอัจฉริยะ</h3>
@@ -632,8 +713,124 @@ async function publish(){
 }
 $('bPublish').addEventListener('click',publish);
 
-applyTxt(); setEditable();
-tip('หน้า Evolution of Capitalism — แก้ข้อความได้ทุกจุด แล้วกด “บันทึกขึ้นเว็บ”');
+
+/* ================= แถบเลื่อน + เมนูส่วน + ค่อย ๆ ปรากฏ ================= */
+var SECS=[].slice.call(document.querySelectorAll('.sec'));
+var NAVA=[].slice.call(document.querySelectorAll('#secnav a'));
+function onScroll(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  $('scrollbar').style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  var best=-1, bt=1e9;
+  SECS.forEach(function(el,i){ var t=Math.abs(el.getBoundingClientRect().top-150); if(t<bt){bt=t;best=i;} });
+  NAVA.forEach(function(a,i){ a.classList.toggle('act', i===best); });
+}
+window.addEventListener('scroll',onScroll,{passive:true}); window.addEventListener('resize',onScroll);
+if(window.IntersectionObserver){
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('inview'); io.unobserve(e.target);} }); },{rootMargin:'-40px 0px -80px 0px'});
+  SECS.forEach(function(el){ io.observe(el); });
+} else document.body.classList.add('noanim');
+NAVA.forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault();
+  var t=document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }); });
+
+/* ================= โหมดนำเสนอทีละขั้น ================= */
+function stepify(){
+  document.querySelectorAll('.stages .stage').forEach(function(el,i){ el.dataset.step=i+1; });
+  document.querySelectorAll('.stages .arrowcell').forEach(function(el,i){ el.dataset.step=i+2; });
+  var t=document.querySelector('.cmp');
+  if(t){
+    t.querySelectorAll('thead th').forEach(function(th,i){ if(i>0) th.dataset.step=i; });
+    t.querySelectorAll('tbody tr').forEach(function(tr){ [].slice.call(tr.cells).forEach(function(td,i){ if(i>0) td.dataset.step=i; }); });
+  }
+  document.querySelectorAll('.shifts .shift').forEach(function(el,i){ el.dataset.step=i+1; });
+  document.querySelectorAll('.opts .opt').forEach(function(el,i){ el.dataset.step=i+1; });
+  document.querySelectorAll('.take .tk').forEach(function(el){ el.dataset.step=3; });
+  document.querySelectorAll('.rm .ph').forEach(function(el,i){ el.dataset.step=i+1; });
+  document.querySelectorAll('.now .nbox').forEach(function(el,i){ el.dataset.step=i+1; });
+}
+stepify();
+var SLIDES=[document.querySelector('.hero')].concat(SECS);
+var TITLES=['ภาพรวม','1 · การเดินทาง 3 ยุค','2 · อะไรเปลี่ยนบ้าง','3 · จุดเปลี่ยน 2 ครั้ง','4 · PCC มี 2 ทางเลือก','5 · แผน 3 ระยะ','6 · ถ้าจำได้แค่ 4 ข้อ'];
+var HOMES=SLIDES.map(function(el){ return {p:el.parentNode, n:el.nextSibling}; });
+var MAXSTEP=SLIDES.map(function(el){
+  var m=0; el.querySelectorAll('[data-step]').forEach(function(x){ m=Math.max(m,+x.dataset.step||0); }); return m; });
+var cur=-1, step=0;
+function fitPres(){
+  var inner=$('presInner'), stage=$('presStage'); if(!inner.firstChild) return;
+  inner.style.transform='none';
+  var sw=stage.clientWidth-8, sh=stage.clientHeight-10;
+  var cw=inner.scrollWidth||1, ch=inner.scrollHeight||1;
+  var sc=Math.min(1.45, sw/cw, sh/ch);
+  inner.style.transform='scale('+sc.toFixed(3)+')';
+}
+function paintSteps(){
+  var el=SLIDES[cur]; if(!el) return;
+  el.querySelectorAll('[data-step]').forEach(function(x){ x.classList.toggle('pdim', (+x.dataset.step)>step); });
+}
+function paintNav(){
+  $('presNum').textContent=(cur+1)+' / '+SLIDES.length;
+  $('presTitle').textContent=TITLES[cur]||'';
+  var tot=SLIDES.reduce(function(a,_,i){ return a+1+MAXSTEP[i]; },0);
+  var done=0; for(var i=0;i<cur;i++) done+=1+MAXSTEP[i]; done+=1+step;
+  $('presFill').style.width=(done/tot*100)+'%';
+  $('presDots').innerHTML=SLIDES.map(function(_,i){ return '<i data-i="'+i+'"'+(i===cur?' class="on"':'')+'></i>'; }).join('');
+  $('presPrev').disabled=(cur===0&&step===0);
+  $('presNext').disabled=(cur===SLIDES.length-1&&step>=MAXSTEP[cur]);
+}
+function goSlide(i,st){
+  if(i<0||i>=SLIDES.length) return;
+  if(cur>=0){ var h=HOMES[cur]; h.p.insertBefore(SLIDES[cur], h.n);
+    SLIDES[cur].querySelectorAll('[data-step]').forEach(function(x){ x.classList.remove('pdim'); }); }
+  cur=i; step=(st===undefined)?0:Math.max(0,Math.min(st,MAXSTEP[i]));
+  $('presInner').innerHTML=''; $('presInner').appendChild(SLIDES[cur]);
+  paintSteps(); paintNav(); requestAnimationFrame(fitPres);
+}
+function nextStep(){ if(step<MAXSTEP[cur]){ step++; paintSteps(); paintNav(); requestAnimationFrame(fitPres); }
+  else if(cur<SLIDES.length-1) goSlide(cur+1,0); }
+function prevStep(){ if(step>0){ step--; paintSteps(); paintNav(); requestAnimationFrame(fitPres); }
+  else if(cur>0) goSlide(cur-1, MAXSTEP[cur-1]); }
+function presOn(){
+  if(editMode){ editMode=false; $('bEdit').classList.remove('on'); document.body.classList.remove('edit'); setEditable(); }
+  document.body.classList.add('pres'); $('bPres').classList.add('on'); goSlide(0,0);
+}
+function presOff(){
+  if(cur>=0){ var h=HOMES[cur]; h.p.insertBefore(SLIDES[cur], h.n);
+    SLIDES[cur].querySelectorAll('[data-step]').forEach(function(x){ x.classList.remove('pdim'); }); cur=-1; }
+  $('presInner').innerHTML='';
+  document.body.classList.remove('pres'); $('bPres').classList.remove('on');
+  if(document.fullscreenElement) document.exitFullscreen().catch(function(){});
+  onScroll();
+}
+$('bPres').addEventListener('click',function(){ document.body.classList.contains('pres')?presOff():presOn(); });
+$('presX').addEventListener('click',presOff);
+$('presNext').addEventListener('click',nextStep);
+$('presPrev').addEventListener('click',prevStep);
+$('presFs').addEventListener('click',function(){
+  if(document.fullscreenElement) document.exitFullscreen().catch(function(){});
+  else document.documentElement.requestFullscreen().catch(function(){ tip('เบราว์เซอร์ไม่อนุญาตเต็มจอ'); });
+});
+$('presDots').addEventListener('click',function(e){ var d=e.target.closest('i'); if(d) goSlide(+d.dataset.i,0); });
+$('presStage').addEventListener('click',function(e){
+  if(e.target.closest('a,button,input,select')) return;
+  (e.clientX < window.innerWidth*0.28) ? prevStep() : nextStep();
+});
+window.addEventListener('resize',function(){ if(document.body.classList.contains('pres')) requestAnimationFrame(fitPres); });
+document.addEventListener('fullscreenchange',function(){ if(document.body.classList.contains('pres')) setTimeout(fitPres,120); });
+document.addEventListener('keydown',function(e){
+  var P=document.body.classList.contains('pres');
+  if(!P){ if((e.key==='p'||e.key==='P')&&!inEditable()&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)) presOn(); return; }
+  if(e.key==='Escape'){ presOff(); return; }
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); nextStep(); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prevStep(); }
+  else if(e.key==='ArrowDown'){ e.preventDefault(); goSlide(cur+1,0); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); goSlide(cur-1,0); }
+  else if(e.key==='Home'){ goSlide(0,0); }
+  else if(e.key==='End'){ goSlide(SLIDES.length-1,MAXSTEP[SLIDES.length-1]); }
+  else if(e.key==='f'||e.key==='F'){ $('presFs').click(); }
+  else if(/^[1-9]$/.test(e.key)){ goSlide(+e.key-1,0); }
+});
+
+applyTxt(); setEditable(); onScroll();
+tip('แก้ข้อความได้ทุกจุด · กด 🎬 นำเสนอ หรือปุ่ม P เพื่อเข้าโหมดนำเสนอทีละขั้น');
 })();
 </script>
 </body>
