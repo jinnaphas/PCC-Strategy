@@ -223,13 +223,15 @@ body.pres .bar,body.pres #fmt,body.pres #secnav,body.pres .wrap,body.pres #scrol
 #presTop .sp{flex:1}
 #presTop button{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
 #presTop button:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);color:#fff}
-#presStage{flex:1;min-height:0;display:flex;justify-content:center;padding:0 28px;overflow:hidden}
-#presInner{width:1500px;transform-origin:top center;transition:transform .18s ease}
+#presStage{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;padding:0 28px;overflow:hidden}
+#presInner{width:1500px;flex:0 0 auto;margin:auto;color:var(--ink);transform-origin:center center;transition:transform .18s ease}
 #presInner .sec{margin-top:0}
 #presInner .hero{box-shadow:0 22px 60px rgba(0,0,0,.45)}
 #presInner .sech h2{color:#fff}
 #presInner .sech .cap{color:rgba(255,255,255,.72)}
 #presInner .sech .n{background:linear-gradient(135deg,#fff,#D5E3F2);color:var(--navy)}
+#presInner:not(.narrow) .stages{grid-template-columns:1fr 34px 1fr 34px 1fr;gap:0}
+#presInner:not(.narrow) .arrowcell{transform:none;height:auto}
 [data-step]{transition:opacity .38s ease,transform .38s ease,filter .38s ease}
 body.pres [data-step].pdim{opacity:.10;filter:saturate(.2)}
 body.pres .stage[data-step].pdim,body.pres .shift[data-step].pdim,body.pres .opt[data-step].pdim,
@@ -754,13 +756,23 @@ var HOMES=SLIDES.map(function(el){ return {p:el.parentNode, n:el.nextSibling}; }
 var MAXSTEP=SLIDES.map(function(el){
   var m=0; el.querySelectorAll('[data-step]').forEach(function(x){ m=Math.max(m,+x.dataset.step||0); }); return m; });
 var cur=-1, step=0;
+var PRES_W=[1500,1360,1240,1120,1000,880];
 function fitPres(){
   var inner=$('presInner'), stage=$('presStage'); if(!inner.firstChild) return;
   inner.style.transform='none';
   var sw=stage.clientWidth-8, sh=stage.clientHeight-10;
-  var cw=inner.scrollWidth||1, ch=inner.scrollHeight||1;
-  var sc=Math.min(1.45, sw/cw, sh/ch);
-  inner.style.transform='scale('+sc.toFixed(3)+')';
+  var best=null;
+  // ลองหลายความกว้าง แล้วเลือกอันที่ขยายได้ใหญ่สุด (ต้องดีกว่าอันที่กว้างกว่าเกิน 3% ถึงจะเปลี่ยน)
+  PRES_W.forEach(function(w){
+    inner.style.width=w+'px';
+    inner.classList.toggle('narrow', w<1180);
+    var cw=inner.scrollWidth||1, ch=inner.scrollHeight||1;
+    var sc=Math.min(1.6, sw/cw, sh/ch);
+    if(!best||sc>best.sc*1.03) best={sc:sc,w:w};
+  });
+  inner.style.width=best.w+'px';
+  inner.classList.toggle('narrow', best.w<1180);
+  inner.style.transform='scale('+best.sc.toFixed(3)+')';
 }
 function paintSteps(){
   var el=SLIDES[cur]; if(!el) return;
@@ -784,9 +796,10 @@ function goSlide(i,st){
   $('presInner').innerHTML=''; $('presInner').appendChild(SLIDES[cur]);
   paintSteps(); paintNav(); requestAnimationFrame(fitPres);
 }
-function nextStep(){ if(step<MAXSTEP[cur]){ step++; paintSteps(); paintNav(); requestAnimationFrame(fitPres); }
+// การเผยทีละขั้นเปลี่ยนแค่ opacity/transform จึงไม่กระทบ layout ไม่ต้อง fit ใหม่
+function nextStep(){ if(step<MAXSTEP[cur]){ step++; paintSteps(); paintNav(); }
   else if(cur<SLIDES.length-1) goSlide(cur+1,0); }
-function prevStep(){ if(step>0){ step--; paintSteps(); paintNav(); requestAnimationFrame(fitPres); }
+function prevStep(){ if(step>0){ step--; paintSteps(); paintNav(); }
   else if(cur>0) goSlide(cur-1, MAXSTEP[cur-1]); }
 function presOn(){
   if(editMode){ editMode=false; $('bEdit').classList.remove('on'); document.body.classList.remove('edit'); setEditable(); }
