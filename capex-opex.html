@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCC — Capex &amp; Opex Governance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F0F4F8;--card:#FFFFFF;--ink:#1E3A5F;--mute:#5A6E88;--line:#D3DEEA;
+  --blue:#0077B6;--blue2:#005A8E;--navy:#0B2447;--orange:#C2690A;--green:#2E7D32;--red:#B0392B;--hi:#F5B301;
+  --cap:#0077B6;--opx:#C2690A}
+*{box-sizing:border-box}
+/* .pane/.dash ตั้ง display เอง ซึ่งชนะกฎ [hidden] ของเบราว์เซอร์ ต้องบังคับทับ */
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;height:100%}
+body{background:radial-gradient(1100px 620px at 50% -12%,#FFFFFF 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-family:'Sarabun','Inter','Noto Sans Thai',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;overflow:hidden}
+h1,h2,h3{font-family:'Inter','Sarabun',sans-serif;margin:0}
+
+/* ---------- toolbar ---------- */
+.bar{flex:none;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 14px;
+  background:rgba(240,244,248,.96);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1;margin-right:4px}
+.brand b{font-family:'Inter';font-size:13px;font-weight:800;color:var(--blue2)}
+.brand span{font-family:'Inter';font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FA3B8}
+.sep{width:1px;height:22px;background:var(--line);margin:0 3px}
+.lbl{font-family:'Inter';font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93A6BA}
+button{font-family:'Inter','Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  background:#fff;color:#41566E;border:1px solid var(--line);padding:6px 9px;cursor:pointer;border-radius:6px;white-space:nowrap;transition:.14s}
+button:hover{border-color:var(--blue);color:var(--blue)}
+button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+button.pub{background:var(--blue2);border-color:var(--blue2);color:#fff}
+button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
+button:disabled{opacity:.4;cursor:default}
+a.back{font-family:'Inter','Sarabun';font-size:11px;font-weight:700;text-transform:uppercase;text-decoration:none;
+  color:#41566E;border:1px solid var(--line);background:#fff;padding:6px 9px;border-radius:6px}
+a.back:hover{border-color:var(--blue);color:var(--blue)}
+#autosave{margin-left:auto;font-family:'Inter';font-size:10px;color:#9AACBE;white-space:nowrap}
+#autosave.hit{color:var(--green)}
+
+/* ---------- page shell ---------- */
+.wrap{max-width:1980px;width:100%;margin:0 auto;padding:14px 16px 12px;flex:1;min-height:0;display:flex;flex-direction:column}
+.hd-title{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.hd-sub{font-size:12.5px;color:var(--mute);margin:4px 0 0;line-height:1.55}
+
+/* ---------- company tabs ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:5px;margin:11px 0 0}
+.tabs button{font-family:'Inter','Sarabun';font-size:12px;font-weight:800;text-transform:none;letter-spacing:.01em;padding:7px 14px;border-radius:8px}
+.tabs button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabs button.all{font-weight:700}
+.tabs button .cnt{font-weight:600;opacity:.72;font-size:10.5px;margin-left:5px}
+
+/* ---------- kpi strip ---------- */
+.dash{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:11px 0 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 14px;font-size:11.5px;
+  display:flex;flex-direction:column;gap:1px;min-width:104px}
+.stat .k{font-family:'Inter';font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#93A6BA}
+.stat b{font-family:'Inter';font-size:17px;font-weight:800;color:var(--blue2);line-height:1.15}
+.stat.cap b{color:var(--cap)}.stat.opx b{color:var(--opx)}
+.stat .u{font-size:10px;color:var(--mute);font-weight:600}
+.prichips{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:8px}
+.pchip{font-family:'Inter','Sarabun';font-size:11px;font-weight:700;border-radius:13px;padding:3px 11px;border:1px solid}
+.p-rev{background:#E8F4EA;border-color:#BCE0C4;color:#1F6B2C}
+.p-cost{background:#E7F1F9;border-color:#BFD9EE;color:#005A8E}
+.p-fut{background:#F1EBF8;border-color:#DCCCEF;color:#5B34A6}
+.p-man{background:#FBF0E2;border-color:#EFD6AE;color:#96590A}
+.p-na{background:#EEF2F6;border-color:#D8E1EA;color:#6C7F92}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:11px 0 0;font-size:12px}
+.filters select,.filters input[type=search]{font-family:'Sarabun';font-size:12.5px;padding:5px 8px;
+  border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+.filters input[type=search]{min-width:230px}
+
+/* ---------- table panes ---------- */
+#panes{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;margin-top:11px;overflow:hidden}
+.pane{flex:1;min-height:0;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:12px;box-shadow:0 3px 18px rgba(30,58,95,.07);overflow:hidden}
+.pane>h3{flex:none;display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--line);
+  font-size:13px;font-weight:800;letter-spacing:.01em}
+.pane>h3 .badge{font-family:'Inter';font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;border-radius:5px;padding:3px 8px}
+.pane.capex>h3 .badge{background:var(--cap)}
+.pane.opex>h3 .badge{background:var(--opx)}
+.pane>h3 .sum{margin-left:auto;font-family:'Inter';font-size:12px;font-weight:700;color:var(--mute)}
+.pane>h3 .sum b{font-size:14px;color:var(--ink)}
+.scroll{flex:1;min-height:0;overflow:auto}
+table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1180px;font-size:12.5px}
+thead th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun',sans-serif;font-weight:700;font-size:11px;
+  padding:7px 9px;text-align:left;vertical-align:middle;border:1px solid #14496e;position:sticky;top:0;z-index:5}
+.pane.opex thead th{background:#8A4B06;border-color:#6F3C05}
+thead th:first-child{left:0;z-index:7}
+tbody td{border:1px solid var(--line);padding:6px 9px;vertical-align:top;line-height:1.5;
+  color:#26384d;font-size:calc(12.5px * var(--tfs,1));overflow-wrap:anywhere}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:#F5FAFE}
+tbody tr.sel td{background:#EAF3FA}
+td.idc{position:sticky;left:0;z-index:3;background:#F8FBFE;font-family:'Inter';font-weight:800;font-size:11.5px;
+  color:var(--blue2);white-space:nowrap;box-shadow:1px 0 0 0 var(--line),6px 0 10px -6px rgba(30,58,95,.28)}
+tbody tr:hover td.idc,tbody tr.sel td.idc{background:#EAF3FA}
+td.nm{font-weight:700;color:var(--ink)}
+td.amt{text-align:right;font-family:'Inter';font-weight:700;white-space:nowrap}
+td.amt .bt{display:block;font-weight:500;font-size:10px;color:#93A6BA}
+td.ctrl{width:44px;text-align:center;white-space:nowrap}
+td.ctrl button{padding:2px 5px;font-size:11px;border-color:transparent;background:transparent;text-transform:none}
+td.ctrl .del:hover{background:var(--red);color:#fff}
+body:not(.edit) td.ctrl,body:not(.edit) th.ctrl{display:none}
+tr.empty td{text-align:center;color:#8FA3B8;padding:22px 10px;font-size:12.5px;cursor:default}
+tr.empty td button{margin-left:10px;text-transform:none}
+.rk{display:inline-block;font-family:'Inter';font-size:10px;font-weight:800;color:#fff;border-radius:5px;padding:1px 7px}
+.rk.High{background:#B0392B}.rk.Medium{background:#C2690A}.rk.Low{background:#6B7C93}.rk.na{background:#9AACBE}
+.st{display:inline-block;font-size:11px;font-weight:700;border-radius:11px;padding:2px 9px;background:#F1F4F8;color:#6C7F92;white-space:nowrap}
+.st.ok{background:#E3F3E4;color:var(--green)}.st.no{background:#FBE9E7;color:var(--red)}.st.hold{background:#FFF3D6;color:#96590A}
+.yr{display:inline-block;font-family:'Inter';font-size:10.5px;font-weight:700;border-radius:5px;padding:1px 7px;background:#EEF3F8;color:#5A6E88}
+.yr.y2026{background:#FBF0E2;color:#96590A}
+
+/* ---------- group overview ---------- */
+#overview{flex:1;min-height:0;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 3px 18px rgba(30,58,95,.07);padding:0}
+#overview table{min-width:940px}
+#overview td.co{font-family:'Inter';font-weight:800;color:var(--blue2)}
+#overview td.co small{display:block;font-family:'Sarabun';font-weight:400;font-size:10.5px;color:var(--mute);margin-top:1px}
+.barcell{padding:6px 9px!important}
+.bar2{height:9px;border-radius:5px;background:#EEF3F8;overflow:hidden;display:flex;min-width:90px}
+.bar2 i{display:block;height:100%}
+.bar2 i.c{background:var(--cap)}.bar2 i.o{background:var(--opx)}
+tr.tot td{background:#F4F8FC;font-weight:800;border-top:2px solid var(--blue2)}
+
+/* ---------- detail drawer ---------- */
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,94vw);background:#fff;z-index:200;
+  border-left:1px solid var(--line);box-shadow:-16px 0 44px rgba(30,58,95,.22);
+  transform:translateX(102%);transition:transform .22s ease;display:flex;flex-direction:column}
+#drawer.open{transform:none}
+#dvHead{flex:none;padding:14px 18px 11px;border-bottom:1px solid var(--line);background:#F8FBFE}
+#dvHead .top{display:flex;align-items:center;gap:9px}
+#dvHead .kind{font-family:'Inter';font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;border-radius:5px;padding:3px 8px;background:var(--cap)}
+#dvHead .kind.o{background:var(--opx)}
+#dvHead .id{font-family:'Inter';font-size:12.5px;font-weight:800;color:var(--blue2)}
+#dvHead h3{font-size:16px;font-weight:800;margin-top:7px;line-height:1.35}
+#dvBody{flex:1;min-height:0;overflow:auto;padding:4px 18px 24px}
+#dvBody h4{font-family:'Inter','Sarabun';font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:#8FA3B8;margin:17px 0 7px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.fld{display:grid;grid-template-columns:132px 1fr;gap:8px;padding:5px 0;font-size:12.5px;align-items:start}
+.fld>span{color:var(--mute);font-size:11.5px;line-height:1.6}
+.fld>div{line-height:1.6;min-height:20px;overflow-wrap:anywhere}
+.fld>div:empty::before{content:'—';color:#C3CFDB}
+.fld.num>div{font-family:'Inter';font-weight:700;text-align:right}
+.fld.neg>div{color:var(--red)}
+#dvClose{position:absolute;top:12px;right:14px}
+#drawer .hint{font-size:11px;color:#93A6BA;margin-top:14px;line-height:1.6}
+
+/* ---------- token panel + tip ---------- */
+#tokPanel{display:none;position:fixed;top:54px;right:14px;z-index:220;width:320px;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:0 14px 44px rgba(30,58,95,.24)}
+#tokPanel h4{font-family:'Inter';font-weight:800;font-size:14px;margin:0 0 5px}
+#tokPanel p{font-size:11.5px;color:var(--mute);line-height:1.55;margin:0 0 10px}
+#tokPanel code{background:#EEF3F8;padding:1px 5px;border-radius:4px;font-size:11px}
+#tokInput{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-family:'Inter',monospace;font-size:12px;background:#F8FBFE}
+.tp-row{display:flex;gap:6px;margin-top:9px}
+#tokState{font-size:11px;margin-top:8px;color:var(--mute)}
+.tip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(14px);z-index:260;
+  background:var(--navy);color:#fff;font-size:12.5px;padding:10px 18px;border-radius:10px;
+  box-shadow:0 10px 30px rgba(11,36,71,.3);opacity:0;pointer-events:none;transition:.2s;max-width:min(880px,92vw)}
+.tip.show{opacity:1;transform:translateX(-50%)}
+[contenteditable="true"]:focus{outline:2px solid var(--hi);outline-offset:-2px;border-radius:3px}
+body.edit #dvBody .fld>div:hover{background:#FFFBEF;border-radius:4px}
+
+@media print{
+  .bar,.tip,#tokPanel,.filters,.tabs,td.ctrl,th.ctrl,#drawer{display:none!important}
+  html,body{height:auto;overflow:visible;display:block}
+  body{background:#fff}
+  .wrap{max-width:none;padding:0;display:block;min-height:0}
+  #panes{display:block;overflow:visible}
+  .pane{display:block;border:none;box-shadow:none;break-inside:auto}
+  .scroll{overflow:visible}
+  table{min-width:0;font-size:9.5px}
+  thead th{position:static}td.idc{position:static;box-shadow:none}
+  @page{size:A3 landscape;margin:8mm}
+}
+</style>
+</head>
+<body class="edit">
+
+<!--COX_DATA_START-->
+<script id="cox-data" type="application/json">{"savedAt":1789361988130,"fs":1,"title":"แผนการลงทุน Capex & Opex — รายบริษัทในกลุ่ม PCC","sub":"กรอบการบริหารงบประมาณ Capex & Opex (Capex & Opex Governance Framework) · ทุกคำขอต้องระบุกลุ่ม Priority และผลกระทบต่องบการเงินทั้ง 3 งบ (P&L · Balance Sheet · Cash Flow) แยกตามปีที่กระทบ · คลิกแถวเพื่อดูและแก้ไขรายละเอียดครบทุกช่อง","companies":[{"code":"PCC","name":"บริษัท พรีไซซ คอร์ปอเรชั่น จำกัด (มหาชน)"},{"code":"PEM","name":"บริษัท พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง จำกัด"},{"code":"PSP","name":"บริษัท พรีไซซ ซิสเท็ม แอนด์ โปรเจ็ค จำกัด"},{"code":"PDE","name":"บริษัท พรีไซซ ดิจิตอล อีโคโนมี่ จำกัด"},{"code":"PSL","name":""},{"code":"PPP","name":""},{"code":"SBP","name":""},{"code":"PCE","name":""}],"capex":[{"id":"CX-2027-001","name":"Automatic Transformer Observation System (Ratio and winding)","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้อทดแทนของเดิมที่ชำรุด/ใช้ที่ห้องทดสอบหม้อแปลง /ปัจจุบันเครื่องหลักชำรุด 2 เครื้่อง","amt":2300000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-91505.0,"pl2":-153333.0,"pl3":-153333.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.30 ลบ. (TEQ) ตัดค่าเสื่อม 15 ปี เริ่ม 27/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.30 ลบ.","apOwner":"คุณกิตติพงศ์ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM103","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Automatic multiplexer Winding Resistance, Turns Ratio mini ATOS | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 27/5/2027 | Vendor: บ.ฟิตตี้เฮิร์ทช์ Raytech USA | หมายเหตุเดิม: ทดสอบ ratio , winding | [src CAPEX ลำดับ 1]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-002","name":"Triple Frequency 50 kVA Withstand Voltage with PC control","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เพื่อทดแทนของเดิมที่เสื่อมสภาพ และ capacity ไม่เพียงพอ ของเดิม 20 kVA up to 50 kVA และปรับปรุงให้ใช้ PC Control monitor ได้","amt":2500000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-105511.0,"pl2":-250000.0,"pl3":-250000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.50 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 30/07/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.50 ลบ.","apOwner":"คุณวิจิตตรา / คุณศราวุธ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM107","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: YXY-D330S,JELB-2 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/7/2027 | Vendor: บริษัท Jingjiang Sincere Imports & Exports Co.,LTD | หมายเหตุเดิม: อายุการใช้งานเกิน 10 ปี ไม่สามารถ up capacity ได้ | [src CAPEX ลำดับ 2]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-003","name":"Paperless Temperature Recorder","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"บันทึกอุณหภูมิระหว่างทดสอบ Temperature Rise Test ของ CT และ VT — รับรองค่า Thermal Stability","amt":400000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-17419.0,"pl2":-40000.0,"pl3":-40000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.40 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 25/07/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.40 ลบ.","apOwner":"คุณวิจิตตรา / คุณศราวุธ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM107","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: GP10 / Yokogawa Japan | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 25/7/2027 | Vendor: บริษัท โยโกกาวา (ประเทศไทย) จำกัด | หมายเหตุเดิม: ซื้อใหม่เนื่องจากอาจมีการตรวจรับซ้อนกับทางหม้อแปลง เดิมมี 1 เครื่องเสีย 1 เครื่อง | [src CAPEX ลำดับ 3]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-004","name":"เครื่องวัดความหนาสี \nELCOMETER 456 MK-4 DIGITAL COATING THICKNESS \nGAUGE \"FERROUS&NON-FERROUS\" TOP SEPARATE\nPROBE (Bluetooth to PC, Android & IOS devices) C/W","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้อทดแทนของเดิมที่ชำรุด ใช้ที่ไลน์สีฝุ่นรองรับการบันทึกค่าเพื่อใช้ในกระบวนการผลิต ปรับปรุงแทนการจด","amt":140000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-17613.0,"pl2":-28000.0,"pl3":-28000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.14 ลบ. (TEQ) ตัดค่าเสื่อม 5 ปี เริ่ม 15/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.14 ลบ.","apOwner":"คุณกนกวรรณ / ฝ่ายใช้งาน PEM106","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: \"FERROUS&NON-FERROUS\" TOP SEPARATE PROBE (Bluetooth to PC, Android & IOS devices) C/W - FNF1 STRAIGHT PROBE (0-1500microns) | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 15/5/2027 | Vendor: บริษัท ยููนิ โรแยลแพค จำกัด | หมายเหตุเดิม: ฝ่ายแจ้ง ชุดเดิม มีปัญหาบ่อยและส่งไปซ่อม 2 ครั้งไม่คุ้มค่าที่จะส่งซ่อมอีก | [src CAPEX ลำดับ 4]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-005","name":"ปรับปรุงสายการผลิต PEM106 ด้วย IoT System & Equipment for ZTT","dept":"PEM902","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"1. Digital, AI, Automation","why":"เพื่อปรับปรุงสายการผลิตเป็น Digital Realtime Monitoring","amt":1000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-25000.0,"pl2":-100000.0,"pl3":-100000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/10/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน PEM106","owner":"SWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Digitalization) | Spec: IoT System & Equipment for ZTT จำนวน 14 สถานี | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/10/2027 | [src CAPEX ลำดับ 6]","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":600000.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-006","name":"ปรับปรุงสายการผลิต Instrument Transformers + IoT","dept":"PEM902","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"4. Operation system serve Demand Satisfaction","why":"เพื่อปรับปรุงสายการผลิตให้เป็นระบบอัตโนมัติเพื่อลดต้นทุนในกระบวนการผลิต","amt":3700000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-370000.0,"pl2":-370000.0,"pl3":-370000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 3.70 ลบ. (M/C) ตัดค่าเสื่อม 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 3.70 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน PEM107","owner":"CWP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Digitalization) | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 7]","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":2500000.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-007","name":"ปรับปรุงสายการผลิต Switchboard & Switchgear ด้วย IoT System & Equipment for ZTT","dept":"PEM902","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"1. Digital, AI, Automation","why":"เพื่อปรับปรุงสายการผลิตเป็น Digital Realtime Monitoring","amt":1000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-100000.0,"pl2":-100000.0,"pl3":-100000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (M/C) ตัดค่าเสื่อม 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน PEM104","owner":"CWP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Digitalization) | Spec: IoT System & Equipment for ZTT | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 10]","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":600000.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-008","name":"Factory 4.0 RAMI \nซอฟต์แวร์เชื่อมโยงข้อมูลกระบวนการผลิต","dept":"PEM902","pri":"สร้างโอกาสอนาคต (Strategic/Future Growth)","grp":"1. Digital, AI, Automation","why":"เพื่อปรับปรุงสายการผลิตเป็น Digital Realtime Monitoring","amt":3000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-150000.0,"pl2":-300000.0,"pl3":-300000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 3.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 3.00 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน Management","owner":"CDS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | Spec: IoT System & Equipment for ZTT | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 12]","nonReal":"","emerging":"","deliberate":"","revGrowth":1000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-009","name":"Impement ERP Odoo Phase 2 (Factory 4.0 Roadmap)","dept":"PEM400","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"1. Digital, AI, Automation","why":"เพื่อการพัฒนา Enterprise Automation","amt":10000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-500000.0,"pl2":-1000000.0,"pl3":-1000000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 10.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 10.00 ลบ.","apOwner":"ACJ / ฝ่ายใช้งาน Management","owner":"ACJ","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | วิธีคิดค่าเสื่อม: Straight-line (SL) | Vendor: PDE | งบต่อเนื่อง: PEM-2026-004\nPEM-2026-006\nPEM-2026-032 คงเหลือ 3.16 ลบ. | [src CAPEX ลำดับ 13]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":600000.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-010","name":"ICT Infrastucture & Cyber Security (Factory 4.0 Roadmap)","dept":"PEM400","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"1. Digital, AI, Automation","why":"เพื่อพัฒนาระบบ Cyber security","amt":500000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-50000.0,"pl2":-50000.0,"pl3":-50000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (BLF) ตัดค่าเสื่อม 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"ACJ","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 14]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"Medium","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-011","name":"Digital WI Software","dept":"PEM400","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"1. Digital, AI, Automation","why":"เพื่อปรับปรุง WI ให้เป็น Digital","amt":500000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-50000.0,"pl2":-50000.0,"pl3":-50000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"ACJ/RTP / ฝ่ายใช้งาน Management","owner":"RTP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 15]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 7 โครงการ Intellectual Capital Development","year":"2027","comp":"PEM"},{"id":"CX-2027-012","name":"Micro Ohm Meter 10A","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เพื่อใช้กับวัดที่ใช้สำหรับวัดค่าความต้านทานไฟฟ้าที่มีค่าน้อยมาก ๆ (Very Low Resistance) ในระดับไมโครโอห์ม (μΩ) จำเป็นต้องใช้เนื่องจากของเดิมไม่มีและสามารถใช้งานในพื้นที่จำกัดได้ ใช้วัดหน้าสัมผัสของอุปกรณ์สามารถใช้ได้ทุก project ปัจจุบันใช้การยืมจากหน","amt":470000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-27669.0,"pl2":-47000.0,"pl3":-47000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.47 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 30/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.47 ลบ.","apOwner":"คุณรัศมี / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM104","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Raytech Mr jr2 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/5/2027 | Vendor: บริษัท ฟิตตี้เฮริท์ จำกัด | หมายเหตุเดิม: ลงทุนใหม่ ไม่มีใช้งาน | [src CAPEX ลำดับ 17]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-013","name":"True RMS Multimeter Fluke 289+i30 clamp","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เนื่องจากเครื่องเดิมมีอายุมากกว่า 5 ปี ย่านการใช้งาน error และ body เสื่อมสภาพ เพื่อใช้กับวัดที่ทางไฟฟ้า onsite หน้างานของลูกค้า ของเดิมเสื่อมสภาพใช้งานมานาน","amt":60000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-4774.0,"pl2":-6000.0,"pl3":-6000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.06 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 15/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.06 ลบ.","apOwner":"คุณรัศมี / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM104","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Fluke 289+i30 Current | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 15/3/2027 | Vendor: บริษัท อีเลคทรอนิกส์ซอส จำกัด / บริษัท na caltechnologies co. ltd | [src CAPEX ลำดับ 18]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-014","name":"True-RMS AC/DC Clamp Meter Fluke 376 FC","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้ื้อใหม่เนื่องจากไม่มี เพราะต้องใช้งานในการเข้างาน","amt":28000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-1686.0,"pl2":-2800.0,"pl3":-2800.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.03 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 25/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.03 ลบ.","apOwner":"คุณรัศมี / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM104","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Fluke 376 FC True-RMS AC/DC Clamp Meter | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 25/5/2027 | Vendor: บริษัท อีเลคทรอนิกส์ซอส จำกัด / บริษัท NA caltechnologies co. ltd | [src CAPEX ลำดับ 19]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-015","name":"Non-Contact High Voltage Detector","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ครื่องตรวจวัดแรงดันไฟฟ้าแรงสูงแบบไม่สัมผัส ตรวจสอบ แรงดันไฟฟ้าในสายส่งหรืออุปกรณ์ไฟฟ้าแรงสูงหรือไม่ ก่อนการปฏิบัติงาน โดยไม่ต้องสัมผัสถูกตัวนำโดยตรง","amt":40000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-4710.0,"pl2":-8000.0,"pl3":-8000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.04 ลบ. (TEQ) ตัดค่าเสื่อม 5 ปี เริ่ม 30/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.04 ลบ.","apOwner":"คุณรัศมี / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM104","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: SEW300 HP | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/5/2027 | Vendor: บริษัท Plan Market Gold Co.,Ltd. | หมายเหตุเดิม: อุปกรณ์ตรวจสอบแรงดันไฟฟ้า ก่อนเริ่มปฎิบัติงาน | [src CAPEX ลำดับ 20]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-016","name":"Electrical Insulating Mat 1x5 m","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ทำหน้าที่เป็นฉนวนกั้นระหว่างเท้าของผู้ปฏิบัติงานกับพื้นดิน ช่วยหยุดการไหลของกระแสไฟฟ้าผ่านร่างกายหากเกิดไฟรั่ว","amt":35000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-4686.0,"pl2":-7000.0,"pl3":-7000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.04 ลบ. (TEQ) ตัดค่าเสื่อม 5 ปี เริ่ม 30/04/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.04 ลบ.","apOwner":"คุณรัศมี / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM104","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: แผ่นยางฉนวนไฟฟ้า ตาม มาตรฐาน IEC 61111 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/4/2027 | Vendor: บริษัท โพลิเทค อินดัสทรี จำกัด | หมายเหตุเดิม: ใช้ปูบริเวณหน้าตู้สวิตช์บอร์ด, ตู้แผงควบคุมไฟฟ้า ลูกค้า Request ให้มีผ้ายางกันกระแสไฟรั่วในบางงาน จำเป็นต้องจัดเตรียมให้พร้อมตามมาตรฐานความปลอดภัย | [src CAPEX ลำดับ 21]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-017","name":"Turns Ratio Meter 1 Phase","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เพื่อทดแทนของเดิม ทางลูกค้า PEA ให้ขอเสนอแนะค่า error สูง","amt":400000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-11254.0,"pl2":-26667.0,"pl3":-26667.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.40 ลบ. (TEQ) ตัดค่าเสื่อม 15 ปี เริ่ม 30/07/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.40 ลบ.","apOwner":"คุณวิจิตตรา / คุณศราวุธ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM107","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: TR-1P, Raytech USA | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/7/2027 | Vendor: บริษัท ฟิตตี้เฮริท์ จำกัด | หมายเหตุเดิม: ทดแทนของเดิมที่ชำรุด ค่าซ่อมไม่คุ้ม อายุการใช้งานมากกว่า10ปี | [src CAPEX ลำดับ 22]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-018","name":"True RMS Multimeter","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"วัดค่าทางไฟฟ้าทั่วไป (แรงดัน, กระแส, ความต้านทาน) ระหว่างการผลิตและทดสอบ CT, VT, Transformer","amt":40000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-2733.0,"pl2":-4000.0,"pl3":-4000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.04 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 25/04/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.04 ลบ.","apOwner":"คุณวิจิตตรา / คุณศราวุธ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM107","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Fluke 287 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 25/4/2027 | Vendor: บริษัท อีเลคทรอนิกส์ซอส จำกัด | หมายเหตุเดิม: อายุการใช้งานเกิน 15 ปี model เดิมเลิกผลิตไม่มีอะไหล่ทดแทน | [src CAPEX ลำดับ 23]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-019","name":"Solar Car Park","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"5. Investment to Build the Future","why":"","amt":15000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":0.0,"pl2":-600000.0,"pl3":-600000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 15.00 ลบ. (BLD-IMPROVEMENT) ตัดค่าเสื่อม 25 ปี เริ่ม 01/01/2028","fund":"Financing","cf":"เจ้าหนี้สถาบันการเงิน 2027 = 15.00 ลบ. \nดอกเบี้ยจ่าย 2027 = 0.23 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"TCJ","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: Investment to Build the Future | (Capital Investment) | Spec: ปรับปรุงพื้นที่ลานจอดรถพนักงานด้วยการสร้างหลังคา Solar cell | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/01/2028 | หมายเหตุเดิม: รอ K.ณัฐเนตร Update ใบเสนอราคา | [src CAPEX ลำดับ 26]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":2180000.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-020","name":"Opto-Electric Measurement System","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้อทดแทนของเดิมที่่ชำรุด","amt":1000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-50278.0,"pl2":-100000.0,"pl3":-100000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 30/06/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"คุณสุธาทิพย์ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM101","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Opto-Electric Measurement System | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/6/2027 | Vendor: บ.อินโนเวทีฟ สเปช จำกัด | หมายเหตุเดิม: ปรับปรุงเครื่องทดสอบ | [src CAPEX ลำดับ 30]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-021","name":"Electronic Crane Scale พิกัด \u003c10TON","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เครื่องชั่งแขวนทดแทน ตัวเก่าที่ชำรุด1 เครื่อง จุดใช้งาน Final 103 (5Ton)","amt":80000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-12258.0,"pl2":-16000.0,"pl3":-16000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.08 ลบ. (TEQ) ตัดค่าเสื่อม 5 ปี เริ่ม 26/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.08 ลบ.","apOwner":"คุณวรรณภา / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM103","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Electronic Crane scale / DIGI OCS 5TON | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 26/3/2027 | Vendor: บ.ไทยเครื่องชั่ง สาขารังสิต | [src CAPEX ลำดับ 32]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-022","name":"Barometric Pressure/ Humidity / Temperature","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้อทดแทนของเดิมที่ชำรุด 2 เครื่อง /ใช้วัดค่าอุณหภูมิ ความชื้น ความดันบรรยากาศ","amt":50000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-8472.0,"pl2":-16667.0,"pl3":-16667.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.05 ลบ. (TEQ) ตัดค่าเสื่อม 3 ปี เริ่ม 28/06/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.05 ลบ.","apOwner":"คุณกิตติพงศ์ / คุณวรวัฒน์ / ฝ่ายใช้งาน PEM103","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Barometric Pressure/ Humidity / Temperature SD700 EXTECH | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 28/6/2027 | Vendor: บ.NA CAL | หมายเหตุเดิม: ทดแทนของเดิมที่ชำรุดไว้สำหรับวัดอุณหภูมิและความชื้น | [src CAPEX ลำดับ 34]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-023","name":"Digital Transformer Test set , Coil VT HV oil type","dept":"PEM901","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ซื้อทดแทนของเดิมที่ชำรุด/ใช้ที่ห้องทดสอบหม้อแปลง","amt":300000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-22581.0,"pl2":-30000.0,"pl3":-30000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.30 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 31/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.30 ลบ.","apOwner":"คุณศราวุธ / ฝ่ายใช้งาน PEM107","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Hes-1CX , Coil VT HV oil type | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/3/2027 | Vendor: บริษัท Jingjiang Sincere Imports & Exports Co.,LTD | หมายเหตุเดิม: ทดแทนของเก่าที่ชำรุด เดิมมี 1 เครื่องเสีย 1 เครื่อง (ปัจจุบัน ค่าวิ่งขณะยังไม่ทดสอบ เนื่องจากใช้งานมานานและเราทำ STD เอง) | [src CAPEX ลำดับ 35]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-024","name":"Fluke ii500 acoustic imager","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เพิ่่มประสิทธิภาพในงาน AM/PM Maintenance","amt":400000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-33690.0,"pl2":-40000.0,"pl3":-40000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.40 ลบ. (TEQ) ตัดค่าเสื่อม 10 ปี เริ่ม 26/02/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.40 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน Management","owner":"WWD","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: ใช้ในงาน Maintenance เพิ่มประสิทธิภาพในการตรวจสอบจุดรั่วของระบบลม | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 26/02/2027 | [src CAPEX ลำดับ 36]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-025","name":"Overhaul Annealing Furnace 4 Ton (India)","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เพิ่มประสิทธิภาพเครื่องจักร","amt":250000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-14038.0,"pl2":-16667.0,"pl3":-16667.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.25 ลบ. (M/C) ตัดค่าเสื่อม 15 ปี เริ่ม 26/02/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.25 ลบ.","apOwner":"KKS / ฝ่ายใช้งาน Management","owner":"WPM","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Digitalization) | Spec: Overhaul Electric component / temp control system | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 26/02/2027 | [src CAPEX ลำดับ 39]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-026","name":"Rotary vane Vacuum pump 80 (Spare part for all)","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"Spare part for all","amt":300000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-23871.0,"pl2":-30000.0,"pl3":-30000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.30 ลบ. (M/C) ตัดค่าเสื่อม 10 ปี เริ่ม 15/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.30 ลบ.","apOwner":"KKS / ฝ่ายใช้งาน Management","owner":"KKS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: ใช้เป็น Spare part ให้กับ ฝ่ายผลิตทุกฝ่าย | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 15/03/2027 | [src CAPEX ลำดับ 40]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-027","name":"ค่าเช่าซื้อ Notebook ทดแทนของเดิม","dept":"PEM400","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ทดแทนของเสียและเสื่อมจากการใช้งานมากกว่า 5 ปี","amt":2000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-200000.0,"pl2":-400000.0,"pl3":-400000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.00 ลบ. (COM) ตัดค่าเสื่อม 5 ปี เริ่ม 01/01/2027","fund":"Financing","cf":"เจ้าหนี้สถาบันการเงิน 2027 = 2.00 ลบ. \nดอกเบี้ยจ่าย 2027 = 0.03 ลบ.","apOwner":"ACJ/NDL / ฝ่ายใช้งาน Management","owner":"CMP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 41]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-028","name":"ปรับปรุงอาคารคลังสินค้า (อาคาร 4)","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"","amt":10000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-166667.0,"pl2":-333333.0,"pl3":-333333.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 10.00 ลบ. (BLD-IMPROVEMENT) ตัดค่าเสื่อม 30 ปี เริ่ม 01/07/2027","fund":"Financing","cf":"เจ้าหนี้สถาบันการเงิน 2027 = 10.00 ลบ. \nดอกเบี้ยจ่าย 2027 = 0.15 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"KKS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: เพื่อปรับปรุงและพัฒนาอาคาร 4 ซึ่งใช้เป็นคลังเก็บวัตถุดิบ ให้มีประสิทธิภาพและเหมาะสมกับการใช้งานมากขึ้น ทั้งในด้านโครงสร้าง ระบบสาธารณูปโภค ความปลอดภัย และการจัดเก็บวัตถุดิบให้ได้มาตรฐาน เพื่อทดแทนอาคารเดิมที่มีการใช้งานมาเป็นระยะเวลาเกิน 35 ปี | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/07/2027 | งบต่อเนื่อง: PEM-2026-009 คงเหลือ 10.00 ลบ. | [src CAPEX ลำดับ 42]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-029","name":"ระบายความร้อน (อาคาร 1)","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"","amt":650000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-108333.0,"pl2":-130000.0,"pl3":-130000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.65 ลบ. () ตัดค่าเสื่อม 5 ปี เริ่ม 01/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.65 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"KKS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: PEM103 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/03/2027 | [src CAPEX ลำดับ 43]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-030","name":"โครงการก่อสร้างลิฟท์ขนส่ง 3 ชั้น ขนาดรับน้ำหนัก 2 ตัน หลังอาคาร 7","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"","amt":3500000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-233333.0,"pl2":-350000.0,"pl3":-350000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 3.50 ลบ. () ตัดค่าเสื่อม 10 ปี เริ่ม 01/05/2027","fund":"Financing","cf":"เจ้าหนี้สถาบันการเงิน 2027 = 3.50 ลบ. \nดอกเบี้ยจ่าย 2027 = 0.05 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"KKS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/05/2027 | [src CAPEX ลำดับ 46]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-031","name":"เปลี่ยนแอร์คอนดิชั่นเนอร์ ทดแทนตัวเก่าที่เป็น R-22 จำนวน 2 Unit","dept":"PEM902-1","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"","amt":130000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-23833.0,"pl2":-26000.0,"pl3":-26000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.13 ลบ. (FUR) ตัดค่าเสื่อม 5 ปี เริ่ม 01/02/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.13 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"KRP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: อาคาร3 ชั้น1 1 Unit (Capacitor) อาคาร3 ชั้น1 1 Unit (Calibration) | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/02/2027 | [src CAPEX ลำดับ 47]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-032","name":"APG Mold for CT IoT 6-8 gavity / 2 รุ่น","dept":"PEM107","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"4. Operation system serve Demand Satisfaction","why":"ปัจจุบัน PEM ยังไม่มีแม่พิมพ์ APG สำหรับหล่อฉนวนเรซิ่น CT ระบบ IoT (6-8 cavity) ทำให้ไม่สามารถผลิต CT รองรับ Smart Grid/Smart Metering ได้เองในสายการผลิต เสียโอกาสทางการตลาดที่กำลังเติบโตและต้องพึ่งพาการนำเข้า จำเป็นต้องลงทุนแม่พิมพ์เฉพาะทางเพื่อรองร","amt":600000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-35000.0,"pl2":-60000.0,"pl3":-60000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.60 ลบ. (M&D) ตัดค่าเสื่อม 10 ปี เริ่ม 01/06/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.60 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน PEM107","owner":"WRC","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Capital Investment) | Spec: ผลิต APG Mold หล่อ CT ระบบ IoT แรงโน้มถ่วง 6–8 ขนาด / 2 รุ่น — รองรับผลิตภัณฑ์ CT Smart Grid | คาดมีรายได้: Q1/2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/06/2027 | Vendor: ยังไม่ระบุ อยู่ระหว่างสำรวจ/ขอใบเสนอราคาผู้ผลิตแม่พิมพ์ (Mold Maker) | หมายเหตุเดิม: ตัวอย่าง | [src CAPEX ลำดับ 50]","nonReal":"","emerging":"","deliberate":"","revGrowth":800000.0,"costRed":0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-033","name":"เครื่อง Vacuum เตาหล่อเรซิ่น (สำรอง)","dept":"PEM107","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"เครื่อง Vacuum หลักมีอายุการใช้งานนาน หากขัดข้องจะกระทบสายการผลิตหล่อเรซิ่นทั้งหมด จำเป็นต้องมีเครื่องสำรองเพื่อความต่อเนื่องของการผลิตและป้องกันความเสียหายด้านคุณภาพ (Void/Bubble)","amt":200000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-11720.0,"pl2":-20000.0,"pl3":-20000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.20 ลบ. (M/C) ตัดค่าเสื่อม 10 ปี เริ่ม 31/05/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.20 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน PEM107","owner":"WRC","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: หล่อเรซิ่นสูญญากาศ (Vacuum Casting) ชิ้นงาน CT และ VT — ป้องกัน Void/Bubble ในฉนวนเรซิ่น | คาดมีรายได้: Q1/2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/05/2027 | Vendor: ยังไม่ระบุ อยู่ระหว่างสำรวจ/ขอใบเสนอราคาผู้ผลิตเครื่องหล่อเรซิ่น | [src CAPEX ลำดับ 52]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-034","name":"เครื่องควบคุมแรงดันไฟฟ้า และป้องกันสัญญาณรบกวน","dept":"PEM102","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"6. Maintenance or Renovate old building","why":"ใช้เป็นเครื่องกรองไฟฟ้า รักษาระดับแรงดันที่จ่ายให้เครื่องทดสอบผลิตภัณฑ์ของฝ่าย PEM102 ป้องกันไฟกระชาก ไฟตกที่จะเข้าเครื่องทดสอบ ไม่ให้ได้รับความเสียหาย","amt":20000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-3369.0,"pl2":-4000.0,"pl3":-4000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.02 ลบ. (TOL) ตัดค่าเสื่อม 5 ปี เริ่ม 26/02/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.02 ลบ.","apOwner":"TOS / ฝ่ายใช้งาน PEM102","owner":"NDP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 6. Maintenance or Renovate | (Capital Investment) | Spec: Stabilizer SIDITAL SRD212, 2kVA Input : 220 V, +15% to -15%, 50Hz. Sinewave Output : 220 V, +1% to -1%, 50Hz. Sinewave | คาดมีรายได้: 04/02/2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 26/02/2027 | [src CAPEX ลำดับ 58]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-035","name":"Type Test VT with polymer (composite silicone) bushing for 115 kV","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ขยาย Product Scope รองรับงาน 115kV เพื่อตอบสนองแนวทาง MiT","amt":2000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-200000.0,"pl3":-200000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.00 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.00 ลบ.","apOwner":"WSA / ฝ่ายใช้งาน PEM107","owner":"PMA","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: PEA Sub-Station | คาดมีรายได้: 2028 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 64]","nonReal":"","emerging":"","deliberate":"","revGrowth":4500000.0,"costRed":0.0,"rank":"Medium","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-036","name":"Type Test CT with polymer (composite silicone) bushing for 115 kV","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ขยาย Product Scope รองรับงาน 115kV เพื่อตอบสนองแนวทาง MiT","amt":2000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-200000.0,"pl3":-200000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.00 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.00 ลบ.","apOwner":"WSA / ฝ่ายใช้งาน PEM107","owner":"PMA","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: PEA Sub-Station | คาดมีรายได้: 2028 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 65]","nonReal":"","emerging":"","deliberate":"","revGrowth":4500000.0,"costRed":0.0,"rank":"Medium","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-037","name":"Type Test SF6-free 24 kV RMU","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ผ่านการทดสอบ Type Test / Revenue 27 : 18/4.5 MB Revenue 28 : 22.5/5.625 MB Revenue 29 : 27.00/6.75 MB / Prototype Type Test","amt":12750000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-1275000.0,"pl3":-1275000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 12.75 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 12.75 ลบ.","apOwner":"PGS / ฝ่ายใช้งาน PEM102","owner":"PGS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: MEA | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 67]","nonReal":"","emerging":"","deliberate":"","revGrowth":4500000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-038","name":"Smart Pole (ไฟถนนสี่แยก)","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ผ่านการทดสอบ Type Test / Prototype Type Test","amt":900000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-90000.0,"pl3":-90000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.90 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.90 ลบ.","apOwner":"PMA / ฝ่ายใช้งาน PEM104","owner":"TPC","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: อบท. | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 69]","nonReal":"","emerging":"","deliberate":"","revGrowth":2000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-039","name":"Platfform LBS upgrade and preventive/condition base maintenance","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ผ่านการทดสอบ Type Test / Prototype Type Test","amt":500000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-50000.0,"pl3":-50000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.50 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.50 ลบ.","apOwner":"PMA / ฝ่ายใช้งาน PEM102","owner":"PGS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: อบท. | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 70]","nonReal":"","emerging":"","deliberate":"","revGrowth":1000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-040","name":"Re Type Test Distribution Transformer for 3P 50kVA ,100kVA ,160kVA , 250kVA 1P 30kVA System 22kV and 33kV จำนวน 10 รุ่น","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ทดสอบตาม Spec PEA ที่มีการแก้ไขใหม่","amt":5800000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-580000.0,"pl3":-580000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 5.80 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 5.80 ลบ.","apOwner":"PMA / ฝ่ายใช้งาน PEM103","owner":"CCA","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: PEA | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 74]","nonReal":"","emerging":"","deliberate":"","revGrowth":40000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-041","name":"Type Test Distribution Transformer for 1P 50kVA System 19kV and 22kV จำนวน 2 รุ่น","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ทดสอบตาม Spec PEA ที่มีการแก้ไขใหม่","amt":1000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-100000.0,"pl3":-100000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.00 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.00 ลบ.","apOwner":"PMA / ฝ่ายใช้งาน PEM103","owner":"CCA","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: PEA | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 75]","nonReal":"","emerging":"","deliberate":"","revGrowth":10000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-042","name":"Type Test 600 V Current Transformer 3 phase with Meter Box","dept":"PEM900","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"2. New Products, New Customers ,New Business Process Development","why":"ผ่านการทดสอบ Type Test / Prototype Type Test","amt":200000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-20000.0,"pl3":-20000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.20 ลบ. (R&D) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 31/12/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.20 ลบ.","apOwner":"TPC / ฝ่ายใช้งาน PEM104","owner":"TPC","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 2. New Product New Customer | (New Product Development) | Spec: MEA | คาดมีรายได้: 2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 31/12/2027 | [src CAPEX ลำดับ 79]","nonReal":"","emerging":"","deliberate":"","revGrowth":20000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 2 New Product Development","year":"2027","comp":"PEM"},{"id":"CX-2027-043","name":"Platform /Software อื่นๆตามแผนกลยุทธ์/นโยบาย","dept":"PEM400","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"3. Development of Platform and Ecosystem Capitalism","why":"(**พัฒนา Business Generation Platform (กวาด กอง) จาก Existing Product/Customer for PEM + Work assignment)\nพัฒนา Platform /Software อื่นๆ ตามกลยุทธ์ Ex. Business Generation & Demand Satisfaction","amt":5000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-250000.0,"pl2":-500000.0,"pl3":-500000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.00 ลบ.","apOwner":"SSP","owner":"SSP","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: Platform to Ecosystem for BG | (Digitalization) | Spec: Platform /Software อื่นๆ Ex. Business Generation & Demand Satisfaction | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 99]","nonReal":"","emerging":"","deliberate":"","revGrowth":28000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 6 Digital Organization to Agentic Transformation","year":"2027","comp":"PEM"},{"id":"CX-2027-044","name":"ปรับปรุงเครื่องจักรโซน FIBO Welding","dept":"PEM902","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"4. Operation system serve Demand Satisfaction","why":"เพื่อพัฒนาสายการผลิตเป็นระบบอัตโนมัติหรือกึ่งอัตโนมัติ / • ลด C/T การผลิต / Thailand i4.0 Index = 3+","amt":1400000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-105753.0,"pl2":-140000.0,"pl3":-140000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 1.40 ลบ. (M/C) ตัดค่าเสื่อม 10 ปี เริ่ม 30/03/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 1.40 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน PEM106","owner":"CDS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Digitalization) | Spec: พัฒนาจุด FIBO ให้เป็นระบบ Automation | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 30/3/2027 | [src CAPEX ลำดับ 102]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":600000.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-045","name":"Renovate อาคาร 2 เพื่อขยายพื้นที่ไลน์ผลิต","dept":"PEM902-1","pri":"สร้างโอกาสอนาคต (Strategic/Future Growth)","grp":"6. Maintenance or Renovate old building","why":"","amt":30000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":0.0,"pl2":-584699.0,"pl3":-1000000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 30.00 ลบ. (BLD) ตัดค่าเสื่อม 30 ปี เริ่ม 01/06/2028","fund":"Financing","cf":"เจ้าหนี้สถาบันการเงิน 2027 = 30 ลบ. \nดอกเบี้ยจ่าย 2027 = 0.50 ลบ.","apOwner":"(ยังไม่ระบุผู้รับผิดชอบ) / ฝ่ายใช้งาน Management","owner":"KKS","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Capital Investment) | Spec: ปรับปรุงอาคารให้มีสองชั้น และขยายอาคารออกด้านข้าง 6 เมตรเพื่อย้ายไลน์ CT/VT | วิธีคิดค่าเสื่อม: Straight-line (SL) | พร้อมใช้งาน: 01/06/2028 | [src CAPEX ลำดับ 103]","nonReal":"","emerging":"","deliberate":"","revGrowth":9000000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-046","name":"เครื่อง Marking และ Sealing กล่อง LED แบบกึ่งอัตโนมัติ","dept":"PEM101","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"4. Operation system serve Demand Satisfaction","why":"ปัจจุบันกระบวนการ Marking และ Sealing กล่อง LED ยังคงใช้แรงงานคนในหลายขั้นตอน ตั้งแต่การพิมพ์สติกเกอร์ การติดสติกเกอร์บนกล่อง และการซีลปิดกล่อง ส่งผลให้มีการใช้ Man Hour สูง กระบวนการทำงานมีหลายขั้นตอน และมีข้อจำกัดด้าน Capacity โดยเฉพาะในช่วงที่มีปร","amt":100000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-20000.0,"pl2":-20000.0,"pl3":-20000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.10 ลบ. (TOL) ตัดค่าเสื่อม 5 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.10 ลบ.","apOwner":"PDL / ฝ่ายใช้งาน PEM101","owner":"PDL","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Capital Investment) | Spec: เครื่อง Marking และ Sealing สำหรับกล่อง LED สามารถ Marking ข้อมูลลงบนกล่องโดยตรง และซีลปิดกล่องแบบกึ่งอัตโนมัติ รองรับการใช้งานกับกล่อง LED ได้หลากหลายรุ่นและขนาด | คาดมีรายได้: Q1/2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 105]","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"CX-2027-047","name":"ESG Platform","dept":"PEM703","pri":"สร้างโอกาสอนาคต (Strategic/Future Growth)","grp":"1. Digital, AI, Automation","why":"ESG by AI Platform and can develop to be new business under Factory4.0","amt":2000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-100000.0,"pl2":-200000.0,"pl3":-200000.0,"bsLine":"สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 2.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 2.00 ลบ.","apOwner":"ACJ/CWP / ฝ่ายใช้งาน Management","owner":"ARK","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | Spec: IoT System & Equipment for ZTT | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 12]","nonReal":"","emerging":"","deliberate":"","revGrowth":500000.0,"costRed":0.0,"rank":"High","tactical":"Tactical Plan 8 โครงการพัฒนา ESG","year":"2027","comp":"PEM"},{"id":"CX-2027-048","name":"Contingency","dept":"D100","pri":"สร้างโอกาสอนาคต (Strategic/Future Growth)","grp":"6. Maintenance or Renovate old building","why":"สำรองสำหรับฝ่าย Business เช่น เครื่องจักรหรือเครื่องมือเสียที่ไม่สามารถซ่อมได้ และ Support เช่น อาคาร สถานที่ เครื่องใช้สำนักงาน เสียหาย ไม่มีสำรอง และไม่สามารถซ่อมแซมได้","amt":5000000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"SG&A / ค่าเสื่อมราคา","pl1":-250000.0,"pl2":-500000.0,"pl3":-500000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 5.00 ลบ. (S/W) ตัดค่าตัดจำหน่าย 10 ปี เริ่ม 01/07/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 5.00 ลบ.","apOwner":"ฝ่ายใช้งาน Management","owner":"NLR","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 1. Digital AI Automation | (Digitalization) | Spec: IoT System & Equipment for ZTT | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 12]","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"High","tactical":"Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","year":"2027","comp":"PEM"},{"id":"CX-2027-049","name":"โครงการ China Component Sourcing","dept":"PEM200","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"4. Operation system serve Demand Satisfaction","why":"","amt":0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"รออนุมัติ","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"High","tactical":"Tactical Plan 4 ลดต้นทุนสินค้า (CFS) และ %SG&A and Cost Fund Reduction","year":"2027","comp":"PEM"},{"id":"CX-2027-050","name":"Mold for Composite Insulator Supporter","dept":"PEM101","pri":"เพิ่มรายได้ (Revenue Growth)","grp":"4. Operation system serve Demand Satisfaction","why":"ปัจจุบันบริษัทมีแผนเริ่มผลิต Composite Insulator Supporter ซึ่งเป็น New Product จึงมีความจำเป็นต้องจัดทำ Mold สำหรับขึ้นรูปชิ้นงานให้เป็นไปตามแบบและ Specification ที่กำหนด เพื่อรองรับการเริ่มต้นผลิตและส่งมอบสินค้าให้ลูกค้าตามแผน\nการลงทุนใน Mold ดังกล่าวเป็นขั้นตอนสำคัญในการเตรียมความพร้อมด้าน Production Capability และ Capacity สำหรับ New Product หากดำเนินการล่าช้าอาจส่งผลกระทบต่อแผนการเริ่มต้นผลิตจริง\nดังนั้น จึงมีความจำเป็นต้องลงทุน Mold สำหรับ Composite Insulator Supporter เพื่อรองรับการผลิต สร้างความพร้อมในการส่งมอบสินค้า และรองรับการเพิ่มขึ้นของคำสั่งซื้อและโอกาสทางการตลาดในอนาคต","amt":100000.0,"invYear":"2027","span":"หลายปี (Multi-year)","plLine":"ต้นทุนขาย (COGS) / ค่าเสื่อมราคา","pl1":-20000.0,"pl2":-20000.0,"pl3":-20000.0,"bsLine":"สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","bsDetail":"บันทึกสินทรัพย์ 0.10 ลบ. (TOL) ตัดค่าเสื่อม 5 ปี เริ่ม 01/01/2027","fund":"Operating","cf":"จ่ายเงินลงทุน 2027 = 0.10 ลบ.","apOwner":"PDL / ฝ่ายใช้งาน PEM101","owner":"PDL","finOwner":"PPI","status":"รออนุมัติ","note":"Priority: สูง (High) | กลุ่มลงทุน: 4. Production System Development for Demand Satisfaction | (Capital Investment) | Spec: Mold สำหรับขึ้นรูป Composite Insulator Supporter รองรับการผลิตชิ้นส่วนสำหรับ Composite Insulator เพื่อเพิ่มความสามารถในการผลิตและรองรับปริมาณความต้องการของลูกค้า | คาดมีรายได้: Q2/2027 | วิธีคิดค่าเสื่อม: Straight-line (SL) | [src CAPEX ลำดับ 106]","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"High","tactical":"","year":"2027","comp":"PEM"},{"id":"PEM-2026-001","name":"จัดซื้อเครื่องทดสอบ circuit breaker analyzer (OMICRON : CIBANO 500) ทดแทนเครื่องเดิมที่ชำรุด","dept":"PEM102","pri":"ลดรายจ่าย (Cost Efficiency)","grp":"","why":"","amt":166000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"รออนุมัติ","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0.0,"costRed":0.0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-002","name":"Ground Tester \"MEGGER\" DET2/3","dept":"PEM104","pri":"","grp":"","why":"","amt":30687.76,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-004","name":"ค่าพัฒนา ระบบ ERP ODOO (Factory 4.0 Roadmap)","dept":"PEM400","pri":"","grp":"","why":"","amt":546768.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-006","name":"โครงการพัฒนาซอฟต์แวร์ด้านการผลิต เช่น PLM,MPS,APS,MRP,MES,WMS (Factory 4.0 Roadmap)","dept":"PEM400","pri":"","grp":"","why":"","amt":1439900.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-007","name":"ค่าเปลี่ยนอุปกรณ์ Network (Firewall) , ค่าเปลี่ยนอุปกรณ์ Network (Access Point)","dept":"PEM400","pri":"","grp":"","why":"","amt":60708.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-008","name":"ICT Infrastucture & Cyber Security (Factory 4.0 Roadmap)","dept":"PEM400","pri":"","grp":"","why":"","amt":500000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-009","name":"งานก่อสร้างปรับปรุง อาคาร 4 รองรับ Smart Warehouse","dept":"PEM702","pri":"","grp":"","why":"","amt":6438717.4,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"ยกไปปี 27","carryAmt":6438717.4,"comp":"PEM"},{"id":"PEM-2026-010","name":"งานก่อสร้างปรับปรุงโรงอาหารพร้อมระบบ Zero Energy","dept":"PEM702","pri":"","grp":"","why":"","amt":4400000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-011","name":"งานเปลี่ยนตู้ควบคุมไฟฟ้าของอาคาร 1 ( MDB ) ชนิด Out Door เป็น Smart MDB","dept":"PEM702","pri":"","grp":"","why":"","amt":1813084.11,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"ยกไปปี 27","carryAmt":1813084.11,"comp":"PEM"},{"id":"PEM-2026-012","name":"งานก่อสร้าง ปรับปรุงผนังกำแพง แนวป้องกันน้ำท่วม พื้นที่หลังอาคาร 1 (คลองบางสาน)","dept":"PEM702","pri":"","grp":"","why":"","amt":800000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-013","name":"งานติดตั้งระบบระบายความร้อน อาคาร 6","dept":"PEM702","pri":"","grp":"","why":"","amt":650000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-014","name":"งานติดตั้งระบบแจ้งเตือนระบบ fire alarm อาคาร 5 ชั้น 1","dept":"PEM702","pri":"","grp":"","why":"","amt":157050.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-015","name":"งานซ่อมบำรุงแก้ไขปัญหารั่วซึมของน้ำตามผนังด้านหลังอาคาร 3","dept":"PEM702","pri":"","grp":"","why":"","amt":250000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-017","name":"งานซ่อมบำรุงเปลี่ยนบ่อเกรอะชำรุด อาคาร 1","dept":"PEM702","pri":"","grp":"","why":"","amt":22920.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-018","name":"งานซ่อมบำรุงปรับปรุงรางระบายน้ำ พร้อมฝาราง หลังอาคาร 1 เฉพาะที่ชำรุด","dept":"PEM702","pri":"","grp":"","why":"","amt":9650.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-019","name":"โครงการ ESG","dept":"PEM703","pri":"","grp":"","why":"","amt":262000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-020","name":"ห้อง/อาคารเก็บสารเคมี-วัตถุอันตราย","dept":"PEM702","pri":"","grp":"","why":"","amt":1000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"ยกไปปี 27","carryAmt":1000000.0,"comp":"PEM"},{"id":"PEM-2026-021","name":"พัฒนา Unit substation 24kV 500 - 1000 kVA","dept":"PEM900","pri":"","grp":"","why":"","amt":8000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-022","name":"พัฒนา composite bushing จำนวน 4 รุ่น","dept":"PEM900","pri":"","grp":"2. New Product New Customer","why":"","amt":5202367.47,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-024","name":"พัฒนาหม้อแปลง 1000kVA 24kV AMDT Short Circuit","dept":"PEM900","pri":"","grp":"2. New Product New Customer","why":"","amt":2000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-025","name":"พัฒนา HRC fuse สำหรับ MEA","dept":"PEM900","pri":"","grp":"2. New Product New Customer","why":"","amt":800000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-026","name":"พัฒนา FSD สำหรับ MEA","dept":"PEM900","pri":"","grp":"2. New Product New Customer","why":"","amt":800000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-027","name":"Re Type Test VOG-362-P: 33000/sqrt3/110/sqrt3 V 3 phase for LBS","dept":"PEM900","pri":"","grp":"2. New Product New Customer","why":"","amt":96000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-028","name":"FNF1 Straight Probe (0-1500microns) ชุดสายเครื่องวัดความหนาสี","dept":"PEM901","pri":"","grp":"","why":"","amt":3500.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-029","name":"สร้างไลน์ผลิตใหม่สำหรับผลิตภัณฑ์ SLBS,SREC และรองรับผลิตภัณฑ์ GLBS เดิม (Factory 4.0 Roadmap)","dept":"PEM902","pri":"","grp":"","why":"","amt":1430000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-030","name":"ปรับปรุงสายการผลิต Drop out fuse cutout (PEM101) (Factory 4.0 Roadmap)","dept":"PEM902","pri":"","grp":"","why":"","amt":835464.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-031","name":"โครงการพัฒนาระบบอัจฉริยะเพื่อการบริหารและควบคุมพลังงานและสาธารณูปโภค DBTP-EMS (Factory 4.0 Roadmap)","dept":"PEM902","pri":"","grp":"","why":"","amt":2000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-032","name":"Production Monitoring System (Factory 4.0 Roadmap)","dept":"PEM902","pri":"","grp":"","why":"","amt":1172550.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-034","name":"ปรับปรุงระบบ Chain conveyor และ Auto lubricant","dept":"PEM902","pri":"","grp":"","why":"","amt":196824.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-035","name":"ระบบน้ำ RO ไลน์สีฝุ่น เพื่อปรับปรุงคุณภาพไลน์สีฝุ่น","dept":"PEM902","pri":"","grp":"","why":"","amt":700000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-036","name":"ปรับปรุงระบบบำบัดอากาศไลน์ราดสีน้ำมัน+ Wet Scubbler PEM106","dept":"PEM902","pri":"","grp":"","why":"","amt":300000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-037","name":"ปรับปรุงสายการผลิต CT/VT Dry type (PEM103)","dept":"PEM902","pri":"","grp":"","why":"","amt":215000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-038","name":"ปรับปรุงระบบทำลมแห้ง สำหรับไลน์ลมอาคาร 6","dept":"PEM902","pri":"","grp":"","why":"","amt":185420.56,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-039","name":"ปรับปรุง Safety Load limit Overhead Crane ตามข้อกำหนดของ Safety","dept":"PEM902","pri":"","grp":"","why":"","amt":200000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-040","name":"ปรับปรุงเครื่องทดสอบ Circuit Breaker","dept":"PEM902","pri":"","grp":"","why":"","amt":200000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"ยกไปปี 27","carryAmt":200000.0,"comp":"PEM"},{"id":"PEM-2026-041","name":"ปรับปรุงระบบ Exhaust Blower อาคาร 7 Clean room PEM103","dept":"PEM902","pri":"","grp":"","why":"","amt":100000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2026-042","name":"สำรองสำหรับฝ่าย Business เช่น เครื่องจักรหรือเครื่องมือเสียที่ไม่สามารถซ่อมได้ และ Support เช่น อาคาร สถานที่ เครื่องใช้สำนักงาน เสียหาย ไม่มีสำรอง และไม่สามารถซ่อมแซมได้","dept":"PDEM","pri":"","grp":"","why":"","amt":2181397.34,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEMC-2026-001","name":"พัฒนา Surge Arrester","dept":"PEMC","pri":"","grp":"","why":"","amt":12160.7,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEMC-2026-002","name":"รถยนต์ Pick up กระบะ ตอนเดียว","dept":"PEMC","pri":"","grp":"","why":"","amt":1300000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEMC-2026-003","name":"พัฒนา Drop out fuse","dept":"PEMC","pri":"","grp":"","why":"","amt":1000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM101-2024-001","name":"Type test DOF 27kV 12kA polymeric type(MEA)","dept":"PEM101","pri":"","grp":"","why":"","amt":6419.77,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM101-2024-003","name":"Type test Photo switch (PEA)","dept":"PEM101","pri":"","grp":"","why":"","amt":24710.28,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM101-2024-005","name":"Type test LED street light 90W for PEA","dept":"PEM101","pri":"","grp":"","why":"","amt":214503.92,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM104-2024-004","name":"โครงการพัฒนาระบบอัจฉริยะเพื่อการบริหารและควบคุมพลังงานและสาธารณูปโภค DBTP-EMS (Factory 4.0 Roadmap) (Budget ยกมา2024)","dept":"PEM104","pri":"","grp":"","why":"","amt":1574509.02,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM106-2024-006","name":"โครงการ smart manufacturing","dept":"PEM106","pri":"","grp":"","why":"","amt":5461982.71,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM500-2024-003","name":"ปรับปรุงโรงอาหาร (408 ตร.ม./ เริ่มสร้าง ปี 24 คาดว่าจะเสร็จปี 25)","dept":"PEM702","pri":"","grp":"","why":"","amt":13000000.0,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"หมดปี 26","carryAmt":0,"comp":"PEM"},{"id":"PEM-2025-B-009","name":"พัฒนาสินค้า 3P 750kVA 24kV , 750kVA 12/24kV ,1000kVA 12/24kV Platform (MEA) (Spec 232)","dept":"PEM103","pri":"","grp":"","why":"","amt":72304.67,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2025-B-010","name":"พัฒนาสินค้า 3P 750kVA 24kV 1000kVA 24kV  Less Flammable oil (Spec 236 For Unit Sub-Station)","dept":"PEM103","pri":"","grp":"","why":"","amt":324066.9,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2025-B-012","name":"จดทะเบียน มอก. จำนวน 10 รุ่น","dept":"PEM103","pri":"","grp":"","why":"","amt":29198.5,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2025-B-021","name":"พัฒนา Main distribution board (MDB)","dept":"PEM106","pri":"","grp":"","why":"","amt":5772036.54,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"},{"id":"PEM-2025-B-022","name":"Type test 24kV 16 kA Solid RMU 2IN 1CB (400A) with DMS and VT","dept":"PEM102","pri":"","grp":"","why":"","amt":1043843.35,"invYear":"","span":"","plLine":"","pl1":0,"pl2":0,"pl3":0,"bsLine":"","bsDetail":"","fund":"","cf":"","apOwner":"","owner":"","finOwner":"","status":"","note":"","nonReal":"","emerging":"","deliberate":"","revGrowth":0,"costRed":0,"rank":"","tactical":"","year":"2026","carry":"","carryAmt":0,"comp":"PEM"}],"opex":[{"id":"OX-2026-001","name":"ค่าบริการ Cloud Hosting (AWS)","dept":"IT","cc":"IT-OP-001","pri":"จำเป็นต้องมี/ตามกฎหมาย (Mandatory/Compliance/BAU)","why":"รองรับระบบงานหลักที่ใช้งานต่อเนื่อง จำเป็นต่อการดำเนินธุรกิจ","cat":"IT-Software/License","kind":"Recurring-รายปี (Annual)","start":"2026-01-01","end":"2026-12-31","amt":1200000.0,"year":"2026","plLine":"ค่าใช้จ่ายในการบริหาร (SG&A) / IT Expense","pl1":-1200000.0,"plNext":-1200000.0,"bs":"- (ไม่มีผลกระทบ)","cfType":"Operating","cf":"จ่ายค่าบริการรายปี 1.2 ลบ.","vendor":"Amazon Web Services (Thailand)","apOwner":"คุณกิตติ (IT Manager)","finOwner":"คุณวิภา (FP&A)","status":"อนุมัติแล้ว","note":"ต่อสัญญาอัตโนมัติทุกปี เว้นแต่แจ้งยกเลิกล่วงหน้า 60 วัน","comp":"PEM"}],"ref":{"tactical":["Tactical Plan 1 Business Generation & Demand Satisfaction Management","Tactical Plan 2 New Product Development","Tactical Plan 3 Customer & Relationship Development","Tactical Plan 4 ลดต้นทุนสินค้า (CFS) และ %SG&A and Cost Fund Reduction","Tactical Plan 5 โครงการพัฒนา Acquire, Construct and Manage asset","Tactical Plan 6 Digital Organization to Agentic Transformation","Tactical Plan 7 โครงการ Intellectual Capital Development","Tactical Plan 8 โครงการพัฒนา ESG"],"invGroup":["1. Digital, AI, Automation","2. New Products, New Customers ,New Business Process Development","3. Development of Platform and Ecosystem Capitalism","4. Operation system serve Demand Satisfaction","5. Investment to Build the Future","6. Maintenance or Renovate old building"],"priCapex":["ลดรายจ่าย (Cost Efficiency)","สร้างโอกาสอนาคต (Strategic/Future Growth)","เพิ่มรายได้ (Revenue Growth)"],"priOpex":["เพิ่มรายได้ (Revenue Growth)","ลดรายจ่าย (Cost Efficiency)","สร้างโอกาสอนาคต (Strategic/Future Growth)","จำเป็นต้องมี/ตามกฎหมาย (Mandatory/Compliance/BAU)"],"status":["รออนุมัติ","อนุมัติแล้ว","ไม่อนุมัติ","ชะลอ"],"rank":["High","Medium","Low"],"fund":["Financing","Operating"],"plLine":["SG&A / ค่าเสื่อมราคา","ต้นทุนขาย (COGS) / ค่าเสื่อมราคา"],"bsLine":["สินทรัพย์ถาวร (PP&E) เพิ่มขึ้น","สินทรัพย์ไม่มีตัวตน (Intangible Assets) เพิ่มขึ้น"],"span":["หลายปี (Multi-year)"],"cat":["IT-Software/License"],"kind":["Recurring-รายปี (Annual)"]}}</script>
+<!--COX_DATA_END-->
+
+<div class="bar">
+  <div class="brand"><b>Capex &amp; Opex</b><span>Governance · PCC Group</span></div>
+  <a class="back" href="strategy-mapping.html">↩ Strategy Mapping</a>
+  <a class="back" href="business-plan.html">Business Plan</a>
+  <div class="sep"></div>
+  <button id="bEdit" class="on">✎ แก้ไข</button>
+  <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
+  <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
+  <div class="sep"></div>
+  <span class="lbl">อักษร</span>
+  <button id="bFsD">A–</button><button id="bFsU">A+</button>
+  <div class="sep"></div>
+  <button id="bAddCx">+ Capex</button>
+  <button id="bAddOx">+ Opex</button>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
+  <div class="sep"></div>
+  <button id="bSave">บันทึกไฟล์</button>
+  <button id="bOpen">เปิดไฟล์</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div class="wrap">
+  <h1 class="hd-title" id="hdTitle" contenteditable="true"></h1>
+  <p class="hd-sub" id="hdSub" contenteditable="true"></p>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="dash" id="dash"></div>
+  <div class="prichips" id="prichips"></div>
+
+  <div class="filters" id="filters">
+    <span class="lbl">กรอง</span>
+    <select id="fYear"><option value="">ปีงบ: ทั้งหมด</option></select>
+    <select id="fPri"><option value="">Priority: ทั้งหมด</option></select>
+    <select id="fGrp"><option value="">กลุ่มการลงทุน: ทั้งหมด</option></select>
+    <select id="fRank"><option value="">Ranking: ทั้งหมด</option></select>
+    <select id="fStatus"><option value="">สถานะ: ทั้งหมด</option></select>
+    <input type="search" id="fQ" placeholder="🔍 ค้นหา ID / ชื่อโครงการ / หน่วยงาน / เจ้าของ">
+  </div>
+
+  <div id="panes">
+    <div class="pane capex" id="paneCx">
+      <h3><span class="badge">Capex</span> แผนการลงทุน (Capital Expenditure)
+          <span class="sum" id="sumCx"></span></h3>
+      <div class="scroll"><table id="tblCx"></table></div>
+    </div>
+    <div class="pane opex" id="paneOx">
+      <h3><span class="badge">Opex</span> ค่าใช้จ่ายดำเนินงาน (Operating Expenditure)
+          <span class="sum" id="sumOx"></span></h3>
+      <div class="scroll"><table id="tblOx"></table></div>
+    </div>
+    <div id="overview" hidden><table id="tblOv"></table></div>
+  </div>
+</div>
+
+<div id="drawer">
+  <button id="dvClose">✕</button>
+  <div id="dvHead">
+    <div class="top"><span class="kind" id="dvKind">Capex</span><span class="id" id="dvId"></span></div>
+    <h3 id="dvName"></h3>
+  </div>
+  <div id="dvBody"></div>
+</div>
+
+<div id="tokPanel">
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับ <b>บันทึกขึ้นเว็บ</b> · เก็บไว้ในเบราว์เซอร์นี้เท่านั้น (<code>pcc_gh_tok</code>) ไม่ถูกส่งไปที่อื่น</p>
+  <input id="tokInput" type="password" placeholder="ghp_…" autocomplete="off">
+  <div class="tp-row"><button id="tokSave" class="pub">บันทึก</button><button id="tokClear">ลบ</button><button id="tokHide">ปิด</button></div>
+  <div id="tokState"></div>
+</div>
+
+<div class="tip" id="tip"></div>
+<input type="file" id="fileOpen" accept="application/json" hidden>
+
+<script>
+/* ================= ค่าคงที่ ================= */
+var LSK='pcc_cox_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'capex-opex.html'};
+
+/* คอลัมน์ของตารางย่อ — ส่วนที่เหลือทั้งหมดอยู่ในแผงรายละเอียดด้านขวา */
+var CXCOL=[
+  {k:'id',   t:'Capex ID',        w:118, cls:'idc'},
+  {k:'name', t:'ชื่อโครงการ',      w:290, cls:'nm'},
+  {k:'dept', t:'หน่วยงานที่ขอ',    w:98},
+  {k:'year', t:'ปีงบ',            w:62,  cls:'yr'},
+  {k:'pri',  t:'กลุ่ม Priority',   w:148, cls:'pri'},
+  {k:'grp',  t:'กลุ่มการลงทุน',    w:170},
+  {k:'amt',  t:'มูลค่า Capex',     w:118, cls:'amt'},
+  {k:'rank', t:'Ranking',         w:82,  cls:'rank'},
+  {k:'owner',t:'Owner',           w:74},
+  {k:'status',t:'สถานะอนุมัติ',    w:104, cls:'st'}
+];
+var OXCOL=[
+  {k:'id',   t:'Opex ID',         w:118, cls:'idc'},
+  {k:'name', t:'ชื่อรายการ / โครงการ',w:290, cls:'nm'},
+  {k:'dept', t:'หน่วยงานที่ขอ',    w:98},
+  {k:'cc',   t:'Cost Center',     w:108},
+  {k:'year', t:'ปีงบ',            w:62,  cls:'yr'},
+  {k:'pri',  t:'กลุ่ม Priority',   w:170, cls:'pri'},
+  {k:'cat',  t:'ประเภทค่าใช้จ่าย', w:150},
+  {k:'kind', t:'ลักษณะรายจ่าย',    w:136},
+  {k:'amt',  t:'มูลค่าที่ขออนุมัติ',w:118, cls:'amt'},
+  {k:'status',t:'สถานะอนุมัติ',    w:104, cls:'st'}
+];
+
+/* แผงรายละเอียด — จัดกลุ่มตามงบการเงินทั้ง 3 งบ ตามกรอบใน Framework */
+var CXDETAIL=[
+  ['ข้อมูลหลัก',[['dept','หน่วยงานที่ขอ'],['year','ปีงบประมาณ'],['invYear','เฉลี่ยปีที่ลงทุน'],
+                 ['span','จำนวนปีที่กระทบ งปม.'],['amt','มูลค่า Capex รวม (บาท)','num']]],
+  ['การจัดลำดับความสำคัญ',[['pri','กลุ่ม Priority'],['grp','กลุ่ม Priority การลงทุน'],
+                 ['why','เหตุผลสนับสนุน'],['rank','Ranking'],['tactical','Tactical Plan Mapping']]],
+  ['ผลกระทบ P&L',[['plLine','Line ที่กระทบ'],['pl1','ผลกระทบปีที่ 1 (บาท)','num'],
+                 ['pl2','ผลกระทบปีที่ 2 (บาท)','num'],['pl3','ผลกระทบปีที่ 3+ (บาท)','num'],
+                 ['revGrowth','Revenue Growth (บาท)','num'],['costRed','Cost Reduction (บาท)','num']]],
+  ['ผลกระทบ Balance Sheet',[['bsLine','Line ที่กระทบ'],['bsDetail','รายละเอียดผลกระทบ']]],
+  ['แหล่งเงินทุน & Cash Flow',[['fund','แหล่งเงินทุน (Source of Funds)'],['cf','รายละเอียดผลกระทบ Cash Flow']]],
+  ['เจ้าของ & สถานะ',[['apOwner','เจ้าของ Action Plan (ธุรกิจ)'],['owner','Owner (หลัก 1 คน)'],
+                 ['finOwner','เจ้าของฝ่ายการเงิน'],['status','สถานะอนุมัติ'],['note','หมายเหตุ']]],
+  ['งบผูกพันข้ามปี',[['carry','งบผูกพันไปปี 2027'],['carryAmt','มูลค่ายกไปปี 2027 (บาท)','num']]]
+];
+var OXDETAIL=[
+  ['ข้อมูลหลัก',[['dept','หน่วยงานที่ขอ'],['cc','Cost Center / รหัสงบประมาณ'],['year','ปีงบประมาณ'],
+                 ['amt','มูลค่ารวมที่ขออนุมัติ (บาท)','num']]],
+  ['ลักษณะรายจ่าย',[['pri','กลุ่ม Priority'],['why','เหตุผลสนับสนุน'],
+                 ['cat','ประเภทค่าใช้จ่าย'],['kind','ลักษณะรายจ่าย'],
+                 ['start','วันที่เริ่ม'],['end','วันที่สิ้นสุด']]],
+  ['ผลกระทบ P&L',[['plLine','Line ที่กระทบ'],['pl1','ผลกระทบปีแรก (บาท)','num'],
+                 ['plNext','ผลกระทบปีถัดไป (Recurring)','num']]],
+  ['Balance Sheet & Cash Flow',[['bs','ผลกระทบ Balance Sheet'],['cfType','Cash Flow: ประเภท'],
+                 ['cf','Cash Flow: รายละเอียด']]],
+  ['เจ้าของ & สถานะ',[['vendor','คู่สัญญา / Vendor'],['apOwner','เจ้าของ Action Plan'],
+                 ['finOwner','เจ้าของฝ่ายการเงิน'],['status','สถานะอนุมัติ'],['note','หมายเหตุ']]]
+];
+
+/* ================= state ================= */
+function fileData(){ try{ var el=document.getElementById('cox-data'); if(el){ var o=JSON.parse(el.textContent); if(o) return o; } }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&Array.isArray(ls.capex)&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=(FD&&Array.isArray(FD.capex))?FD:{savedAt:0,fs:1,title:'',sub:'',companies:[],capex:[],opex:[],ref:{}};
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+if(!S.fs) S.fs=1;
+['capex','opex','companies'].forEach(function(k){ if(!Array.isArray(S[k])) S[k]=[]; });
+if(!S.ref) S.ref={};
+
+var editMode=true, cur='__all', sel=null;   /* เปิดมาที่ภาพรวมกลุ่มก่อน */
+var F={year:'',pri:'',grp:'',rank:'',status:'',q:''};
+var hist=[], hi=-1, restoring=false, saveT=null;
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t); tip._t=setTimeout(function(){t.classList.remove('show')},3200); }
+function mb(v){ v=+v||0; return (v/1e6).toFixed(2); }
+function baht(v){ return (+v||0).toLocaleString('en-US',{maximumFractionDigits:0}); }
+
+function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$('autosave'); a.classList.add('hit'); setTimeout(function(){a.classList.remove('hit')},450); }catch(e){} }
+function recordHistory(){ if(restoring) return; var s=JSON.stringify(S); if(hi>=0&&hist[hi]===s) return;
+  hist=hist.slice(0,hi+1); hist.push(s); hi=hist.length-1; if(hist.length>40){hist.shift();hi--;} updateUndo(); }
+function persist(){ recordHistory(); persistRaw(); }
+function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persist,500); }
+function updateUndo(){ $('bUndo').disabled=hi<=0; $('bRedo').disabled=hi>=hist.length-1; }
+
+/* ================= filtering ================= */
+function rowsOf(kind,comp){
+  var arr=(kind==='cx'?S.capex:S.opex).filter(function(r){ return r.comp===comp; });
+  return arr.filter(function(r){
+    if(F.year && (r.year||'')!==F.year) return false;
+    if(F.pri && (r.pri||'')!==F.pri) return false;
+    if(F.status && (r.status||'')!==F.status) return false;
+    if(kind==='cx'){
+      if(F.grp && (r.grp||'')!==F.grp) return false;
+      if(F.rank && (r.rank||'')!==F.rank) return false;
+    } else if(F.grp||F.rank) return false;
+    if(F.q){
+      var q=F.q.toLowerCase();
+      var hay=[r.id,r.name,r.dept,r.owner,r.apOwner,r.finOwner,r.cc,r.vendor,r.why,r.note].join(' ').toLowerCase();
+      if(hay.indexOf(q)<0) return false;
+    }
+    return true;
+  });
+}
+function sumOf(arr){ return arr.reduce(function(a,r){ return a+(+r.amt||0); },0); }
+
+/* ================= render ================= */
+function priCls(p){ p=p||'';
+  if(p.indexOf('เพิ่มรายได้')===0) return 'p-rev';
+  if(p.indexOf('ลดรายจ่าย')===0) return 'p-cost';
+  if(p.indexOf('สร้างโอกาส')===0) return 'p-fut';
+  if(p.indexOf('จำเป็น')===0) return 'p-man';
+  return 'p-na';
+}
+function stCls(s){ s=s||'';
+  if(s.indexOf('อนุมัติแล้ว')>=0) return 'ok';
+  if(s.indexOf('ไม่อนุมัติ')>=0) return 'no';
+  if(s.indexOf('ชะลอ')>=0) return 'hold';
+  return '';
+}
+function cellHTML(r,c,kind,i){
+  var v=r[c.k]==null?'':r[c.k];
+  if(c.cls==='amt') return '<td class="amt">'+mb(v)+'<span class="bt">'+baht(v)+' บาท</span></td>';
+  if(c.cls==='pri') return '<td><span class="pchip '+priCls(v)+'">'+esc(v||'—')+'</span></td>';
+  if(c.cls==='rank') return '<td><span class="rk '+(['High','Medium','Low'].indexOf(v)>=0?v:'na')+'">'+esc(v||'—')+'</span></td>';
+  if(c.cls==='st') return '<td><span class="st '+stCls(v)+'">'+esc(v||'—')+'</span></td>';
+  if(c.cls==='yr') return '<td><span class="yr y'+esc(v)+'">'+esc(v||'—')+'</span></td>';
+  if(c.cls==='idc') return '<td class="idc">'+esc(v)+'</td>';
+  return '<td'+(c.cls?' class="'+c.cls+'"':'')+'>'+esc(v)+'</td>';
+}
+function renderTable(kind){
+  var cols=kind==='cx'?CXCOL:OXCOL, tbl=$(kind==='cx'?'tblCx':'tblOx');
+  var rows=rowsOf(kind,cur);
+  var h='<colgroup>'+cols.map(function(c){ return '<col style="width:'+c.w+'px">'; }).join('')+'<col style="width:44px"></colgroup>';
+  h+='<thead><tr>'+cols.map(function(c){ return '<th>'+esc(c.t)+'</th>'; }).join('')+'<th class="ctrl">ลบ</th></tr></thead><tbody>';
+  if(!rows.length){
+    h+='<tr class="empty"><td colspan="'+(cols.length+1)+'">ยังไม่มีรายการ '+(kind==='cx'?'Capex':'Opex')+' ของ '+esc(cur)+
+       (editMode?'<button data-add="'+kind+'">＋ เพิ่มรายการแรก</button>':'')+'</td></tr>';
+  } else {
+    rows.forEach(function(r){
+      var gi=(kind==='cx'?S.capex:S.opex).indexOf(r);
+      h+='<tr data-k="'+kind+'" data-i="'+gi+'"'+(sel&&sel.kind===kind&&sel.i===gi?' class="sel"':'')+'>'+
+         cols.map(function(c){ return cellHTML(r,c,kind); }).join('')+
+         '<td class="ctrl"><button class="del" data-del="'+kind+'.'+gi+'" title="ลบรายการนี้">✕</button></td></tr>';
+    });
+  }
+  tbl.innerHTML=h+'</tbody>';
+  $(kind==='cx'?'sumCx':'sumOx').innerHTML=rows.length+' รายการ · <b>'+mb(sumOf(rows))+'</b> ลบ.';
+}
+function renderTabs(){
+  var h='<button class="all'+(cur==='__all'?' on':'')+'" data-co="__all">ภาพรวมกลุ่ม</button>';
+  S.companies.forEach(function(c){
+    var n=S.capex.filter(function(r){return r.comp===c.code;}).length+S.opex.filter(function(r){return r.comp===c.code;}).length;
+    h+='<button data-co="'+c.code+'"'+(cur===c.code?' class="on"':'')+'>'+esc(c.code)+'<span class="cnt">'+n+'</span></button>';
+  });
+  $('tabs').innerHTML=h;
+}
+function renderDash(){
+  if(cur==='__all'){
+    var ac=S.capex, ao=S.opex;
+    $('dash').innerHTML=
+      stat('บริษัท',S.companies.length,'บริษัท')+
+      stat('รายการ Capex',ac.length,'รายการ','cap')+
+      stat('มูลค่า Capex',mb(sumOf(ac)),'ล้านบาท','cap')+
+      stat('รายการ Opex',ao.length,'รายการ','opx')+
+      stat('มูลค่า Opex',mb(sumOf(ao)),'ล้านบาท','opx')+
+      stat('รวมทั้งสิ้น',mb(sumOf(ac)+sumOf(ao)),'ล้านบาท');
+    $('prichips').innerHTML='';
+    return;
+  }
+  var cx=rowsOf('cx',cur), ox=rowsOf('ox',cur);
+  var carry=cx.reduce(function(a,r){ return a+(+r.carryAmt||0); },0);
+  $('dash').innerHTML=
+    stat('รายการ Capex',cx.length,'รายการ','cap')+
+    stat('มูลค่า Capex',mb(sumOf(cx)),'ล้านบาท','cap')+
+    stat('รายการ Opex',ox.length,'รายการ','opx')+
+    stat('มูลค่า Opex',mb(sumOf(ox)),'ล้านบาท','opx')+
+    stat('รวมทั้งสิ้น',mb(sumOf(cx)+sumOf(ox)),'ล้านบาท')+
+    (carry?stat('ยกไปปี 2027',mb(carry),'ล้านบาท'):'');
+  var by={};
+  cx.concat(ox).forEach(function(r){ var k=r.pri||'(ยังไม่ระบุ)'; if(!by[k])by[k]={n:0,v:0}; by[k].n++; by[k].v+=(+r.amt||0); });
+  $('prichips').innerHTML=Object.keys(by).sort().map(function(k){
+    return '<span class="pchip '+priCls(k)+'">'+esc(k)+' · '+by[k].n+' รายการ · '+mb(by[k].v)+' ลบ.</span>';
+  }).join('');
+}
+function stat(k,v,u,cls){
+  return '<div class="stat'+(cls?' '+cls:'')+'"><span class="k">'+esc(k)+'</span><b>'+esc(v)+'</b><span class="u">'+esc(u)+'</span></div>';
+}
+function renderOverview(){
+  var max=1;
+  S.companies.forEach(function(c){
+    var v=sumOf(S.capex.filter(function(r){return r.comp===c.code;}))+sumOf(S.opex.filter(function(r){return r.comp===c.code;}));
+    if(v>max) max=v;
+  });
+  var h='<colgroup><col style="width:190px"><col style="width:110px"><col style="width:130px"><col style="width:110px">'+
+        '<col style="width:130px"><col style="width:130px"><col></colgroup>'+
+        '<thead><tr><th>บริษัท</th><th>รายการ Capex</th><th>มูลค่า Capex (ลบ.)</th>'+
+        '<th>รายการ Opex</th><th>มูลค่า Opex (ลบ.)</th><th>รวม (ลบ.)</th><th>สัดส่วน</th></tr></thead><tbody>';
+  var tc=0,to=0,tnc=0,tno=0;
+  S.companies.forEach(function(c){
+    var cx=S.capex.filter(function(r){return r.comp===c.code;}), ox=S.opex.filter(function(r){return r.comp===c.code;});
+    var vc=sumOf(cx), vo=sumOf(ox), tot=vc+vo;
+    tc+=vc; to+=vo; tnc+=cx.length; tno+=ox.length;
+    h+='<tr data-co="'+c.code+'"><td class="co">'+esc(c.code)+'<small>'+esc(c.name||'')+'</small></td>'+
+       '<td class="amt">'+cx.length+'</td><td class="amt">'+mb(vc)+'</td>'+
+       '<td class="amt">'+ox.length+'</td><td class="amt">'+mb(vo)+'</td>'+
+       '<td class="amt">'+mb(tot)+'</td>'+
+       '<td class="barcell"><span class="bar2" style="width:'+Math.max(6,tot/max*100)+'%">'+
+         (vc?'<i class="c" style="width:'+(vc/(tot||1)*100)+'%"></i>':'')+
+         (vo?'<i class="o" style="width:'+(vo/(tot||1)*100)+'%"></i>':'')+'</span></td></tr>';
+  });
+  h+='<tr class="tot"><td class="co">รวมทั้งกลุ่ม</td><td class="amt">'+tnc+'</td><td class="amt">'+mb(tc)+'</td>'+
+     '<td class="amt">'+tno+'</td><td class="amt">'+mb(to)+'</td><td class="amt">'+mb(tc+to)+'</td><td></td></tr>';
+  $('tblOv').innerHTML=h+'</tbody>';
+}
+function render(){
+  document.documentElement.style.setProperty('--tfs',S.fs||1);
+  $('hdTitle').textContent=S.title||''; $('hdSub').textContent=S.sub||'';
+  renderTabs(); renderDash(); renderFilterOptions();
+  var all=cur==='__all';
+  $('paneCx').hidden=all; $('paneOx').hidden=all; $('overview').hidden=!all;
+  $('filters').style.display=all?'none':'';
+  if(all) renderOverview();
+  else {
+    renderTable('cx'); renderTable('ox');
+    var nc=rowsOf('cx',cur).length, no=rowsOf('ox',cur).length;
+    function grow(n){ return Math.max(1,Math.min(4,Math.round(n/6)+1)); }
+    $('paneCx').style.flexGrow=grow(nc); $('paneOx').style.flexGrow=grow(no);
+  }
+}
+
+/* ================= filters ================= */
+var filtersInit=false;
+function renderFilterOptions(){
+  if(filtersInit) return; filtersInit=true;
+  function fill(id,list,label){
+    var el=$(id);
+    list.forEach(function(v){ var o=document.createElement('option'); o.value=v; o.textContent=label+': '+v; el.appendChild(o); });
+  }
+  var years={},pris={},grps={},ranks={},sts={};
+  S.capex.concat(S.opex).forEach(function(r){
+    if(r.year)years[r.year]=1; if(r.pri)pris[r.pri]=1; if(r.grp)grps[r.grp]=1;
+    if(r.rank)ranks[r.rank]=1; if(r.status)sts[r.status]=1;
+  });
+  (S.ref.status||[]).forEach(function(v){ sts[v]=1; });
+  (S.ref.rank||[]).forEach(function(v){ ranks[v]=1; });
+  fill('fYear',Object.keys(years).sort(),'ปีงบ');
+  fill('fPri',Object.keys(pris).sort(),'Priority');
+  fill('fGrp',Object.keys(grps).sort(),'กลุ่ม');
+  fill('fRank',Object.keys(ranks).sort(),'Ranking');
+  fill('fStatus',Object.keys(sts).sort(),'สถานะ');
+}
+[['fYear','year'],['fPri','pri'],['fGrp','grp'],['fRank','rank'],['fStatus','status']].forEach(function(p){
+  $(p[0]).addEventListener('change',function(){ F[p[1]]=this.value; render(); });
+});
+$('fQ').addEventListener('input',function(){ F.q=this.value.trim(); render(); });
+
+/* ================= drawer ================= */
+function openDrawer(kind,i){
+  var r=(kind==='cx'?S.capex:S.opex)[i]; if(!r) return;
+  sel={kind:kind,i:i};
+  $('dvKind').textContent=kind==='cx'?'Capex':'Opex';
+  $('dvKind').className='kind'+(kind==='ox'?' o':'');
+  $('dvId').textContent=r.id||'(ไม่มี ID)';
+  $('dvName').textContent=r.name||'(ยังไม่ระบุชื่อ)';
+  var groups=kind==='cx'?CXDETAIL:OXDETAIL, h='';
+  groups.forEach(function(g){
+    var flds=g[1].filter(function(f){ return kind!=='cx'||g[0]!=='งบผูกพันข้ามปี'||r.year==='2026'; });
+    if(!flds.length) return;
+    h+='<h4>'+esc(g[0])+'</h4>';
+    flds.forEach(function(f){
+      var v=r[f[0]]==null?'':r[f[0]], num=f[2]==='num';
+      var disp=num?(v===''||v===0?'':baht(v)):v;
+      h+='<div class="fld'+(num?' num':'')+(num&&+v<0?' neg':'')+'"><span>'+esc(f[1])+'</span>'+
+         '<div contenteditable="'+(editMode?'true':'false')+'" data-f="'+f[0]+'"'+(num?' data-num="1"':'')+'>'+esc(disp)+'</div></div>';
+    });
+  });
+  h+='<p class="hint">แก้ไขได้ทุกช่องเมื่ออยู่ในโหมด ✎ แก้ไข · ช่องตัวเลขพิมพ์เป็นบาท (ใส่เครื่องหมายจุลภาคได้) · กด ✕ หรือ Esc เพื่อปิด</p>';
+  $('dvBody').innerHTML=h;
+  $('drawer').classList.add('open');
+  render();
+}
+function closeDrawer(){ $('drawer').classList.remove('open'); sel=null; render(); }
+$('dvClose').addEventListener('click',closeDrawer);
+$('dvBody').addEventListener('input',function(e){
+  var d=e.target.closest('[data-f]'); if(!d||!sel) return;
+  var r=(sel.kind==='cx'?S.capex:S.opex)[sel.i]; if(!r) return;
+  var v=d.textContent;
+  r[d.dataset.f]=d.dataset.num?(parseFloat(v.replace(/,/g,''))||0):v;
+  schedulePersist();
+  clearTimeout(openDrawer._t); openDrawer._t=setTimeout(function(){ renderTable(sel.kind); renderDash(); },400);
+});
+
+/* ================= table interactions ================= */
+document.addEventListener('click',function(e){
+  var add=e.target.closest('[data-add]');
+  if(add){ addRow(add.dataset.add); return; }
+  var del=e.target.closest('[data-del]');
+  if(del){ e.stopPropagation(); var p=del.dataset.del.split('.'); delRow(p[0],+p[1]); return; }
+  var tab=e.target.closest('[data-co]');
+  if(tab){ cur=tab.dataset.co; closeDrawer(); render(); return; }
+  var tr=e.target.closest('tr[data-k]');
+  if(tr){ openDrawer(tr.dataset.k,+tr.dataset.i); return; }
+  if(!e.target.closest('#drawer')&&!e.target.closest('tr[data-k]')&&$('drawer').classList.contains('open')
+     &&!e.target.closest('.bar')) closeDrawer();
+});
+function nextId(kind){
+  var pre=kind==='cx'?'CX':'OX', yr=(new Date()).getFullYear()+543>2500?(new Date()).getFullYear():2027;
+  var arr=(kind==='cx'?S.capex:S.opex).filter(function(r){ return r.comp===cur; });
+  var max=0;
+  arr.forEach(function(r){ var m=/(\d+)\s*$/.exec(r.id||''); if(m&&+m[1]>max) max=+m[1]; });
+  return pre+'-'+yr+'-'+String(max+1).padStart(3,'0');
+}
+function addRow(kind){
+  if(cur==='__all'){ tip('เลือกแท็บบริษัทก่อนเพิ่มรายการ'); return; }
+  var base={comp:cur,id:nextId(kind),name:'',dept:'',year:String((new Date()).getFullYear()),
+            pri:'',why:'',amt:0,status:'รออนุมัติ',note:''};
+  if(kind==='cx') Object.assign(base,{grp:'',invYear:'',span:'',plLine:'',pl1:0,pl2:0,pl3:0,
+      bsLine:'',bsDetail:'',fund:'',cf:'',apOwner:'',owner:'',finOwner:'',rank:'',tactical:'',revGrowth:0,costRed:0});
+  else Object.assign(base,{cc:'',cat:'',kind:'',start:'',end:'',plLine:'',pl1:0,plNext:0,
+      bs:'',cfType:'',cf:'',vendor:'',apOwner:'',finOwner:''});
+  var arr=kind==='cx'?S.capex:S.opex;
+  arr.push(base); persist(); render();
+  openDrawer(kind,arr.length-1);
+  tip('เพิ่มรายการแล้ว — กรอกรายละเอียดในแผงด้านขวา');
+}
+function delRow(kind,i){
+  var arr=kind==='cx'?S.capex:S.opex, r=arr[i]; if(!r) return;
+  if(!confirm('ลบ '+(r.id||'รายการนี้')+' ?')) return;
+  arr.splice(i,1); if(sel&&sel.kind===kind) closeDrawer();
+  persist(); render(); tip('ลบแล้ว');
+}
+$('bAddCx').addEventListener('click',function(){ addRow('cx'); });
+$('bAddOx').addEventListener('click',function(){ addRow('ox'); });
+
+/* ================= header edit ================= */
+['hdTitle','hdSub'].forEach(function(id){
+  $(id).addEventListener('input',function(){ S[id==='hdTitle'?'title':'sub']=this.textContent; schedulePersist(); });
+});
+
+/* ================= toolbar ================= */
+function setEditable(){
+  document.body.classList.toggle('edit',editMode);
+  ['hdTitle','hdSub'].forEach(function(id){ $(id).setAttribute('contenteditable',editMode?'true':'false'); });
+  $('dvBody').querySelectorAll('[data-f]').forEach(function(d){ d.setAttribute('contenteditable',editMode?'true':'false'); });
+}
+$('bEdit').addEventListener('click',function(){ editMode=!editMode; this.classList.toggle('on',editMode); setEditable(); render(); });
+$('bFsU').addEventListener('click',function(){ S.fs=Math.min(1.6,(S.fs||1)+.08); render(); persist(); });
+$('bFsD').addEventListener('click',function(){ S.fs=Math.max(.75,(S.fs||1)-.08); render(); persist(); });
+$('bPrint').addEventListener('click',function(){ window.print(); });
+$('bUndo').addEventListener('click',function(){ if(hi<=0) return; restoring=true; hi--; S=JSON.parse(hist[hi]); restoring=false; filtersInit=false; render(); persistRaw(); updateUndo(); });
+$('bRedo').addEventListener('click',function(){ if(hi>=hist.length-1) return; restoring=true; hi++; S=JSON.parse(hist[hi]); restoring=false; filtersInit=false; render(); persistRaw(); updateUndo(); });
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&$('drawer').classList.contains('open')) closeDrawer();
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){ e.preventDefault(); $('bUndo').click(); }
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){ e.preventDefault(); $('bRedo').click(); }
+});
+$('bSave').addEventListener('click',function(){
+  var b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}), a=document.createElement('a');
+  a.href=URL.createObjectURL(b); a.download='capex-opex-'+(new Date()).toISOString().slice(0,10)+'.json'; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
+});
+$('bOpen').addEventListener('click',function(){ $('fileOpen').click(); });
+$('fileOpen').addEventListener('change',function(){
+  var f=this.files[0]; if(!f) return; var fr=new FileReader();
+  fr.onload=function(e){ try{ var o=JSON.parse(e.target.result); if(!Array.isArray(o.capex)) throw 0;
+    S=o; if(!S.fs)S.fs=1; filtersInit=false; render(); persist(); tip('เปิดไฟล์แล้ว');
+  }catch(err){ tip('ไฟล์ไม่ถูกต้อง'); } };
+  fr.readAsText(f); this.value='';
+});
+
+/* ================= GitHub publish ================= */
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+function refreshTok(){ $('tokState').textContent=tokGet()?'✓ มี token แล้ว':'ยังไม่มี token'; }
+function openTok(){ $('tokPanel').style.display='block'; $('tokInput').value=''; refreshTok(); }
+$('bTok').addEventListener('click',function(){ var p=$('tokPanel'); p.style.display=p.style.display==='block'?'none':'block'; refreshTok(); });
+$('tokHide').addEventListener('click',function(){ $('tokPanel').style.display='none'; });
+$('tokSave').addEventListener('click',function(){ var v=($('tokInput').value||'').trim();
+  if(!v){ tip('ยังไม่ได้พิมพ์ token'); return; }
+  try{ localStorage.setItem('pcc_gh_tok',v); }catch(e){}
+  $('tokInput').value=''; refreshTok(); tip('บันทึก token แล้ว'); });
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} refreshTok(); tip('ลบ token แล้ว'); });
+
+function encodeB64(str){ var bytes=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<bytes.length;i+=ch){ var sl=bytes.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++) bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--COX_DATA_START-->[\s\S]*?<!--COX_DATA_END-->/;
+function dataBlock(json){ return '<!--COX_DATA_START-->\n<script id="cox-data" type="application/json">'+json+'<\/script>\n<!--COX_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ openTok(); tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+    throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้');
+    var ref=await refRes.json(), headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,
+      tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{
+      message:'Capex/Opex update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha, parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persistRaw(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+$('bPublish').addEventListener('click',publish);
+
+/* ================= boot ================= */
+setEditable();
+render();
+recordHistory();
+refreshTok();
+setTimeout(function(){ tip('คลิกแถวในตารางเพื่อเปิดรายละเอียดครบทุกช่อง · สลับบริษัทด้วยแท็บด้านบน · กด "บันทึกขึ้นเว็บ" เพื่อ live'); },700);
+</script>
+</body>
+</html>
