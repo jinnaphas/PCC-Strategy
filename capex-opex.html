@@ -128,6 +128,8 @@ tr.empty td button{margin-left:10px;text-transform:none}
 .bar2 i{display:block;height:100%}
 .bar2 i.c{background:var(--cap)}.bar2 i.o{background:var(--opx)}
 tr.tot td{background:#F4F8FC;font-weight:800;border-top:2px solid var(--blue2)}
+#tblOv caption{caption-side:top;text-align:left;padding:8px 12px;font-size:11.5px;font-weight:700;
+  color:#96590A;background:#FBF0E2;border-bottom:1px solid #EFD6AE}
 
 /* ---------- detail drawer ---------- */
 #drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,94vw);background:#fff;z-index:200;
@@ -427,15 +429,16 @@ function renderTabs(){
 }
 function renderDash(){
   if(cur==='__all'){
-    var ac=S.capex, ao=S.opex;
+    var ac=[],ao=[];
+    S.companies.forEach(function(c){ ac=ac.concat(rowsOf('cx',c.code)); ao=ao.concat(rowsOf('ox',c.code)); });
     $('dash').innerHTML=
-      stat('บริษัท',S.companies.length,'บริษัท')+
+      stat('บริษัท',S.companies.filter(function(c){ return rowsOf('cx',c.code).length||rowsOf('ox',c.code).length; }).length+' / '+S.companies.length,'มีรายการ')+
       stat('รายการ Capex',ac.length,'รายการ','cap')+
       stat('มูลค่า Capex',mb(sumOf(ac)),'ล้านบาท','cap')+
       stat('รายการ Opex',ao.length,'รายการ','opx')+
       stat('มูลค่า Opex',mb(sumOf(ao)),'ล้านบาท','opx')+
       stat('รวมทั้งสิ้น',mb(sumOf(ac)+sumOf(ao)),'ล้านบาท');
-    $('prichips').innerHTML='';
+    renderPriChips(ac.concat(ao));
     return;
   }
   var cx=rowsOf('cx',cur), ox=rowsOf('ox',cur);
@@ -447,8 +450,11 @@ function renderDash(){
     stat('มูลค่า Opex',mb(sumOf(ox)),'ล้านบาท','opx')+
     stat('รวมทั้งสิ้น',mb(sumOf(cx)+sumOf(ox)),'ล้านบาท')+
     (carry?stat('ยกไปปี 2027',mb(carry),'ล้านบาท'):'');
+  renderPriChips(cx.concat(ox));
+}
+function renderPriChips(rows){
   var by={};
-  cx.concat(ox).forEach(function(r){ var k=r.pri||'(ยังไม่ระบุ)'; if(!by[k])by[k]={n:0,v:0}; by[k].n++; by[k].v+=(+r.amt||0); });
+  rows.forEach(function(r){ var k=r.pri||'(ยังไม่ระบุ)'; if(!by[k])by[k]={n:0,v:0}; by[k].n++; by[k].v+=(+r.amt||0); });
   $('prichips').innerHTML=Object.keys(by).sort().map(function(k){
     return '<span class="pchip '+priCls(k)+'">'+esc(k)+' · '+by[k].n+' รายการ · '+mb(by[k].v)+' ลบ.</span>';
   }).join('');
@@ -456,10 +462,20 @@ function renderDash(){
 function stat(k,v,u,cls){
   return '<div class="stat'+(cls?' '+cls:'')+'"><span class="k">'+esc(k)+'</span><b>'+esc(v)+'</b><span class="u">'+esc(u)+'</span></div>';
 }
+function activeFilters(){
+  var L=[];
+  if(F.year)   L.push('ปีงบ '+F.year);
+  if(F.pri)    L.push(F.pri);
+  if(F.grp)    L.push(F.grp);
+  if(F.rank)   L.push('Ranking '+F.rank);
+  if(F.status) L.push(F.status);
+  if(F.q)      L.push('คำค้น "'+F.q+'"');
+  return L;
+}
 function renderOverview(){
   var max=1;
   S.companies.forEach(function(c){
-    var v=sumOf(S.capex.filter(function(r){return r.comp===c.code;}))+sumOf(S.opex.filter(function(r){return r.comp===c.code;}));
+    var v=sumOf(rowsOf('cx',c.code))+sumOf(rowsOf('ox',c.code));
     if(v>max) max=v;
   });
   var h='<colgroup><col style="width:190px"><col style="width:110px"><col style="width:130px"><col style="width:110px">'+
@@ -468,7 +484,7 @@ function renderOverview(){
         '<th>รายการ Opex</th><th>มูลค่า Opex (ลบ.)</th><th>รวม (ลบ.)</th><th>สัดส่วน</th></tr></thead><tbody>';
   var tc=0,to=0,tnc=0,tno=0;
   S.companies.forEach(function(c){
-    var cx=S.capex.filter(function(r){return r.comp===c.code;}), ox=S.opex.filter(function(r){return r.comp===c.code;});
+    var cx=rowsOf('cx',c.code), ox=rowsOf('ox',c.code);
     var vc=sumOf(cx), vo=sumOf(ox), tot=vc+vo;
     tc+=vc; to+=vo; tnc+=cx.length; tno+=ox.length;
     h+='<tr data-co="'+c.code+'"><td class="co">'+esc(c.code)+'<small>'+esc(c.name||'')+'</small></td>'+
@@ -481,7 +497,10 @@ function renderOverview(){
   });
   h+='<tr class="tot"><td class="co">รวมทั้งกลุ่ม</td><td class="amt">'+tnc+'</td><td class="amt">'+mb(tc)+'</td>'+
      '<td class="amt">'+tno+'</td><td class="amt">'+mb(to)+'</td><td class="amt">'+mb(tc+to)+'</td><td></td></tr>';
-  $('tblOv').innerHTML=h+'</tbody>';
+  var af=activeFilters();
+  h+='</tbody>';
+  if(af.length) h='<caption>กำลังกรอง: '+esc(af.join(' · '))+' — ตัวเลขด้านล่างนับเฉพาะรายการที่ตรงเงื่อนไข</caption>'+h;
+  $('tblOv').innerHTML=h;
 }
 function render(){
   document.documentElement.style.setProperty('--tfs',S.fs||1);
@@ -489,7 +508,6 @@ function render(){
   renderTabs(); renderDash(); renderFilterOptions();
   var all=cur==='__all';
   $('paneCx').hidden=all; $('paneOx').hidden=all; $('overview').hidden=!all;
-  $('filters').style.display=all?'none':'';
   if(all) renderOverview();
   else {
     renderTable('cx'); renderTable('ox');
