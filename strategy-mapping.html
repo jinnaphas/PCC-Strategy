@@ -130,6 +130,8 @@ body.present .anchor-dot,body.draw .anchor-dot,body.connect .anchor-dot{display:
 .card .rsz.sw{left:-6px;bottom:-6px;cursor:nesw-resize}
 .card .rsz.se{right:-6px;bottom:-6px;cursor:nwse-resize}
 .card.sel{outline:2px solid var(--hi);outline-offset:1px}
+body.selall .card.sel{outline-color:var(--a3)}
+svg#draw g.allsel path.d{filter:drop-shadow(0 0 2.5px rgba(247,148,29,.95))}
 .card.src{outline:2px solid var(--a3);outline-offset:1px}
 .card .clink{position:absolute;top:3px;right:28px;z-index:5;width:20px;height:20px;display:flex;align-items:center;
   justify-content:center;font-size:12px;background:#fff;border:1px solid var(--line);border-radius:6px;cursor:pointer;
@@ -1013,7 +1015,27 @@ canvas.addEventListener('mousedown',function(e){
   if(e.target.closest('.hd') && !e.target.classList.contains('del')){
     var gids=(selected.length>1 && selected.indexOf(card.dataset.id)>=0)?selected.slice():null;
     drag={mode:'move',el:card,sx:e.clientX,sy:e.clientY,x0:card.offsetLeft,y0:card.offsetTop,group:gids,starts:null};
-    if(gids){ drag.starts={}; gids.forEach(function(id){ var el=cardEl(id); if(el) drag.starts[id]={x:el.offsetLeft,y:el.offsetTop}; }); }
+    if(gids){
+      drag.starts={}; var minX=Infinity,minY=Infinity;
+      gids.forEach(function(id){ var el=cardEl(id); if(!el) return;
+        drag.starts[id]={x:el.offsetLeft,y:el.offsetTop};
+        if(el.offsetLeft<minX) minX=el.offsetLeft; if(el.offsetTop<minY) minY=el.offsetTop; });
+      drag.minX=isFinite(minX)?minX:0; drag.minY=isFinite(minY)?minY:0;
+      /* ย้ายของที่วาดเองไปด้วยเมื่อเลือกทั้งกระดาน — เก็บพิกัดตั้งต้นไว้ก่อน */
+      if(selectAllMode && Array.isArray(S.draw) && S.draw.length){
+        drag.draw0=S.draw.map(function(o){
+          return o.t==='pen' ? {pts:(o.pts||[]).map(function(pt){return {x:pt.x,y:pt.y};})}
+               : o.t==='text' ? {x:o.x,y:o.y}
+               : {x1:o.x1,y1:o.y1,x2:o.x2,y2:o.y2};
+        });
+        drag.draw0.forEach(function(d0){
+          if(d0.pts){ d0.pts.forEach(function(pt){ if(pt.x<drag.minX)drag.minX=pt.x; if(pt.y<drag.minY)drag.minY=pt.y; }); }
+          else if(d0.x!==undefined){ if(d0.x<drag.minX)drag.minX=d0.x; if(d0.y<drag.minY)drag.minY=d0.y; }
+          else { if(Math.min(d0.x1,d0.x2)<drag.minX)drag.minX=Math.min(d0.x1,d0.x2);
+                 if(Math.min(d0.y1,d0.y2)<drag.minY)drag.minY=Math.min(d0.y1,d0.y2); }
+        });
+      }
+    }
     e.preventDefault();
   }
 });
@@ -1022,9 +1044,21 @@ window.addEventListener('mousemove',function(e){
   if(drag.mode==='move'){
     var dx=(e.clientX-drag.sx)/zoom, dy=(e.clientY-drag.sy)/zoom;
     if(drag.group){
+      /* ตัด delta ไม่ให้ชิ้นซ้ายสุด/บนสุดหลุดขอบ แล้วใช้ delta เดียวกันกับทุกชิ้น
+         ถ้าปล่อยให้แต่ละชิ้น clamp เอง ของที่วาดกับกล่องจะเลื่อนไม่เท่ากัน */
+      if(dx < -drag.minX) dx = -drag.minX;
+      if(dy < -drag.minY) dy = -drag.minY;
+      if(snap){ dx=Math.round(dx/GRID)*GRID; dy=Math.round(dy/GRID)*GRID; }
       drag.group.forEach(function(id){ var el=cardEl(id), s=drag.starts[id]; if(!el||!s) return;
-        var gx=s.x+dx, gy=s.y+dy; if(snap){ gx=Math.round(gx/GRID)*GRID; gy=Math.round(gy/GRID)*GRID; }
-        el.style.left=Math.max(0,gx)+'px'; el.style.top=Math.max(0,gy)+'px'; });
+        el.style.left=(s.x+dx)+'px'; el.style.top=(s.y+dy)+'px'; });
+      if(drag.draw0){
+        S.draw.forEach(function(o,i){ var d0=drag.draw0[i]; if(!d0) return;
+          if(d0.pts){ o.pts=d0.pts.map(function(pt){ return {x:pt.x+dx,y:pt.y+dy}; }); }
+          else if(d0.x!==undefined){ o.x=d0.x+dx; o.y=d0.y+dy; }
+          else { o.x1=d0.x1+dx; o.y1=d0.y1+dy; o.x2=d0.x2+dx; o.y2=d0.y2+dy; }
+        });
+        if(!drag.draf){ drag.draf=requestAnimationFrame(function(){ if(drag) drag.draf=0; renderDraw(); }); }
+      }
     }else{
       var nx=drag.x0+dx, ny=drag.y0+dy;
       if(snap){ nx=Math.round(nx/GRID)*GRID; ny=Math.round(ny/GRID)*GRID; }
@@ -1043,7 +1077,13 @@ window.addEventListener('mousemove',function(e){
   if(!drag.raf){ drag.raf=requestAnimationFrame(function(){ if(drag) drag.raf=0; drawEdges(); }); }
 });
 window.addEventListener('mouseup',function(){
-  if(drag){ if(drag.raf) cancelAnimationFrame(drag.raf); commit(); drag=null; drawEdges(); }
+  if(drag){
+    if(drag.raf) cancelAnimationFrame(drag.raf);
+    if(drag.draf) cancelAnimationFrame(drag.draf);
+    var hadDraw=!!drag.draw0;
+    commit(); drag=null; drawEdges();
+    if(hadDraw) renderDraw();
+  }
 });
 
 /* connect mode */
@@ -1182,6 +1222,13 @@ document.getElementById('bReset').addEventListener('click',function(){
 
 /* ============================ FORMAT · VIEW · IMAGES ============================ */
 var activeCard=null, selected=[];
+/* เลือกทั้งกระดาน: กล่องทุกใบ + เส้น/ปีกกา/ข้อความที่วาดเองทุกชิ้น ย้ายไปพร้อมกัน */
+var selectAllMode=false;
+function setSelectAll(on){
+  selectAllMode=!!on;
+  document.body.classList.toggle('selall',selectAllMode);
+  if(typeof dgroup!=='undefined' && dgroup) dgroup.classList.toggle('allsel',selectAllMode);
+}
 function cardById(id){ for(var i=0;i<S.cards.length;i++){ if(S.cards[i].id===id) return S.cards[i]; } return null; }
 function paintSel(){
   var solo = selected.length===1 ? selected[0] : null;
@@ -1190,8 +1237,9 @@ function paintSel(){
     el.classList.toggle('solo', el.dataset.id===solo);
   });
 }
-function selectCards(ids){
+function selectCards(ids,keepAll){
   var hadEdge=activeEdgeIdx>=0;
+  if(!keepAll) setSelectAll(false);
   selected = ids ? ids.slice() : [];
   activeCard = selected.length===1 ? cardEl(selected[0]) : null;
   if(selected.length) activeEdgeIdx=-1;
@@ -1327,8 +1375,17 @@ document.addEventListener('keydown',function(e){
   var mod = e.ctrlKey||e.metaKey;
   if(mod && (e.key==='z'||e.key==='Z')){ e.preventDefault(); if(e.shiftKey) redo(); else undo(); return; }
   if(mod && (e.key==='y'||e.key==='Y')){ e.preventDefault(); redo(); return; }
+  if(mod && (e.key==='a'||e.key==='A') && !typing){
+    e.preventDefault();
+    var ids=S.cards.map(function(c){return c.id;});
+    var nd=Array.isArray(S.draw)?S.draw.length:0;
+    selectCards(ids,true); setSelectAll(true);
+    tip('เลือกทั้งกระดาน — '+ids.length+' กล่อง · '+nd+' ชิ้นที่วาดเอง · ลากที่แถบหัวกล่องใบไหนก็ได้เพื่อย้ายทั้งหมด (Esc ยกเลิก)');
+    return;
+  }
   if(e.key==='Escape'){
     if(lb.classList.contains('on')){ closeLightbox(); return; }
+    if(selectAllMode){ selectCards([]); tip('ยกเลิกการเลือกแล้ว'); return; }
     if(present){ setPresent(false); return; }
     if(typeof tplPanel!=='undefined' && tplPanel.classList.contains('on')){ tplPanel.classList.remove('on'); return; }
     if(typeof tokPanel!=='undefined' && tokPanel && tokPanel.style.display==='block'){ tokPanel.style.display='none'; return; }
