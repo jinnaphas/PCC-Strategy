@@ -1,0 +1,433 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DBTP Precise Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --night:#0A1622; --night2:#0D1D2C; --panel:#12283A; --panel2:#17324A; --line:#24425C;
+  --ink:#EAF2F6; --muted:#93A9B8; --faint:#5F7A8E;
+  --teal:#34C6CC; --teal-d:#0E7C86; --teal-glow:rgba(52,198,204,.18);
+  --amber:#F2A541; --amber-soft:rgba(242,165,65,.14); --green:#62CD93; --green-soft:rgba(98,205,147,.14);
+  --display:"Chakra Petch","IBM Plex Sans Thai",Tahoma,sans-serif;
+  --sans:"IBM Plex Sans Thai",Tahoma,"Leelawadee UI",sans-serif;
+  --s:min(.86vw,1.55vh);
+}
+*{box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;background:var(--night)}
+body{margin:0;background:var(--night);color:var(--ink);font-family:var(--sans);font-size:calc(var(--s)*1.5);line-height:1.55;padding-inline:0}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:balance}
+p{margin:0}
+.pg{position:relative;min-height:100svh;scroll-snap-align:start;display:grid;align-items:center;padding:calc(var(--s)*4) calc(var(--s)*6) calc(var(--s)*4) calc(var(--s)*5);overflow:hidden}
+.pg:nth-of-type(odd){background:radial-gradient(ellipse 60% 70% at 72% 50%,var(--teal-glow),transparent 70%),var(--night)}
+.pg:nth-of-type(even){background:radial-gradient(ellipse 55% 60% at 25% 55%,rgba(52,198,204,.10),transparent 70%),var(--night2)}
+.wrap{width:min(100%,calc(var(--s)*168));margin:0 auto;display:grid;gap:calc(var(--s)*2.4)}
+.kick{display:flex;gap:calc(var(--s)*1.2);align-items:center;font-family:var(--display);font-size:calc(var(--s)*1.15);letter-spacing:.05em;color:var(--teal)}
+.kick .no{color:var(--faint);letter-spacing:.06em}
+.h1{font-size:calc(var(--s)*6.2);letter-spacing:-.01em}
+.h2{font-size:calc(var(--s)*4)}
+.hl{color:var(--teal)}
+.am{color:var(--amber)}
+.sub{font-size:calc(var(--s)*1.7);color:var(--muted);max-width:40ch}
+.split{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:calc(var(--s)*4);align-items:center}
+.icons{display:grid;gap:calc(var(--s)*1.4)}
+.ic{display:grid;grid-template-columns:calc(var(--s)*4.6) 1fr;gap:calc(var(--s)*1.4);align-items:center}
+.ic .b{width:calc(var(--s)*4.6);height:calc(var(--s)*4.6);border-radius:calc(var(--s)*1.3);background:var(--panel);border:1px solid var(--line);display:grid;place-items:center}
+.ic svg{width:55%;height:55%;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ic b{display:block;font-size:calc(var(--s)*1.7);font-weight:600}
+.ic span{color:var(--muted);font-size:calc(var(--s)*1.3)}
+.viz{width:100%;height:auto;max-height:calc(100svh - var(--s)*16);display:block}
+svg text{font-family:var(--sans)}
+/* flow strip */
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:calc(var(--s)*1);font-size:calc(var(--s)*1.35)}
+.flow .c{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:calc(var(--s)*.55) calc(var(--s)*1.5)}
+.flow .a{color:var(--teal);font-family:var(--display)}
+.flow .win{background:var(--green-soft);border-color:rgba(98,205,147,.35);color:var(--ink)}
+.flow .win b{color:var(--green);font-family:var(--display);font-weight:600}
+.tag{font-family:var(--display);font-size:calc(var(--s)*2.1);font-weight:600}
+/* evidence chips */
+.ev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(var(--s)*.9)}
+.ev>div{background:var(--panel);border:1px solid var(--line);border-radius:calc(var(--s)*1);padding:calc(var(--s)*.8) calc(var(--s)*1.3);display:grid;gap:calc(var(--s)*.4);min-width:0}
+.ev span{font-size:calc(var(--s)*1.15);color:var(--muted)}
+.ev .pips{display:flex;gap:calc(var(--s)*.35)}
+.ev .pips i{width:calc(var(--s)*1.1);height:calc(var(--s)*1.1);border-radius:50%;background:var(--line)}
+.ev .pips i.on{background:var(--teal)}
+.ev b{font-family:var(--display);font-size:calc(var(--s)*1.5)}
+/* scale */
+.zoom{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:calc(var(--s)*2)}
+.zc{background:var(--panel);border:1px solid var(--line);border-radius:calc(var(--s)*1.8);padding:calc(var(--s)*2) calc(var(--s)*2.2);display:grid;gap:calc(var(--s)*1.4);align-content:start;position:relative}
+.zc.me{background:linear-gradient(160deg,rgba(52,198,204,.16),rgba(52,198,204,.03));border-color:rgba(52,198,204,.45)}
+.zc h3{font-size:calc(var(--s)*1.9);display:flex;gap:calc(var(--s)*1);align-items:center}
+.zc h3 svg{width:calc(var(--s)*2.6);height:calc(var(--s)*2.6);stroke:var(--teal);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.stat{display:grid;gap:calc(var(--s)*.1)}
+.stat .n{font-family:var(--display);font-size:calc(var(--s)*3.6);font-weight:600;color:var(--teal);line-height:1}
+.stat .n small{font-size:.5em;color:var(--muted);margin-left:.2em;font-weight:500}
+.stat .w{font-size:calc(var(--s)*1.2);color:var(--muted);line-height:1.4}
+.stat .w b{color:var(--ink);font-weight:600}
+.stairs{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--s)*1);align-items:end;height:calc(var(--s)*20)}
+.st{border-radius:calc(var(--s)*1) calc(var(--s)*1) calc(var(--s)*.4) calc(var(--s)*.4);background:var(--panel2);border:1px solid var(--line);padding:calc(var(--s)*1);display:grid;align-content:start;gap:calc(var(--s)*.4)}
+.st:nth-child(1){height:45%;background:linear-gradient(180deg,rgba(242,165,65,.28),rgba(242,165,65,.08));border-color:rgba(242,165,65,.6)}
+.st:nth-child(2){height:70%}
+.st:nth-child(3){height:100%}
+.st .k{font-family:var(--display);font-size:calc(var(--s)*1.05);color:var(--muted);letter-spacing:.06em}
+.st:nth-child(1) .k{color:var(--amber)}
+.st b{font-size:calc(var(--s)*1.3);line-height:1.3}
+.proof{font-family:var(--display);font-size:calc(var(--s)*2);text-align:center}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--s)*1.4)}
+.rule{display:grid;grid-template-columns:calc(var(--s)*3.6) 1fr;gap:calc(var(--s)*1.1);align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:calc(var(--s)*1.2);padding:calc(var(--s)*1) calc(var(--s)*1.3)}
+.rule .b{width:calc(var(--s)*3.6);height:calc(var(--s)*3.6);border-radius:50%;display:grid;place-items:center;background:var(--teal-glow)}
+.rule svg{width:55%;height:55%;stroke:var(--teal);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.rule b{display:block;font-size:calc(var(--s)*1.45)}
+.rule span{font-size:calc(var(--s)*1.15);color:var(--muted)}
+/* portal */
+.laptop{position:relative}
+.pwin{border-radius:calc(var(--s)*1.4);overflow:hidden;background:var(--panel);border:1px solid var(--line);box-shadow:0 calc(var(--s)*2) calc(var(--s)*5) rgba(0,0,0,.45)}
+.pwin .bar{display:flex;align-items:center;gap:calc(var(--s)*.6);padding:calc(var(--s)*.9) calc(var(--s)*1.3);background:var(--panel2);border-bottom:1px solid var(--line)}
+.pwin .bar i{width:calc(var(--s)*.9);height:calc(var(--s)*.9);border-radius:50%;background:var(--line)}
+.pwin .bar span{margin-left:calc(var(--s)*1);font-size:calc(var(--s)*1.1);color:var(--muted)}
+.pwin .body{padding:calc(var(--s)*1.4);display:grid;gap:calc(var(--s)*.8)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--s)*.8)}
+.kpis div{background:var(--night2);border-radius:calc(var(--s)*.8);padding:calc(var(--s)*.8) calc(var(--s)*1)}
+.kpis span{display:block;font-size:calc(var(--s)*1);color:var(--muted)}
+.kpis b{font-family:var(--display);font-size:calc(var(--s)*2.1);color:var(--ink)}
+.rw{display:grid;grid-template-columns:1.7fr .6fr .9fr;gap:calc(var(--s)*1);align-items:center;background:var(--night2);border-radius:calc(var(--s)*.7);padding:calc(var(--s)*.7) calc(var(--s)*1.1);font-size:calc(var(--s)*1.2)}
+.rw .r{color:var(--muted);font-family:var(--display)}
+.pill{justify-self:start;font-size:calc(var(--s)*1);padding:calc(var(--s)*.2) calc(var(--s)*.9);border-radius:999px;white-space:nowrap}
+.p-g{background:var(--green-soft);color:var(--green)} .p-t{background:var(--teal-glow);color:var(--teal)} .p-a{background:var(--amber-soft);color:var(--amber)} .p-s{background:rgba(147,169,184,.12);color:var(--muted)}
+.toast{position:absolute;right:calc(var(--s)*-2);bottom:calc(var(--s)*-2);width:calc(var(--s)*27);background:var(--panel2);border:1px solid rgba(52,198,204,.5);border-radius:calc(var(--s)*1.1);padding:calc(var(--s)*1) calc(var(--s)*1.3);display:grid;grid-template-columns:calc(var(--s)*3) 1fr;gap:calc(var(--s)*1);align-items:center;box-shadow:0 calc(var(--s)*1) calc(var(--s)*3) rgba(0,0,0,.4);animation:bob 5s ease-in-out infinite}
+.toast .b{width:calc(var(--s)*3);height:calc(var(--s)*3);border-radius:calc(var(--s)*.8);background:var(--teal-glow);display:grid;place-items:center}
+.toast svg{width:60%;height:60%;stroke:var(--teal);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.toast b{display:block;font-size:calc(var(--s)*1.2)}
+.toast span{font-size:calc(var(--s)*1.05);color:var(--muted)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--s)*-.6))}}
+.steps{display:grid;gap:calc(var(--s)*1.2)}
+.handoff{display:grid;grid-template-columns:1fr auto;gap:calc(var(--s)*2);align-items:center;border-top:1px solid var(--line);padding-top:calc(var(--s)*2)}
+.handoff p{font-size:calc(var(--s)*1.6);color:var(--muted)}
+.handoff p b{color:var(--ink)}
+.next{display:flex;align-items:center;gap:calc(var(--s)*1.2);background:var(--amber);color:#1B1206;border-radius:999px;padding:calc(var(--s)*.9) calc(var(--s)*2);font-family:var(--display);font-weight:600;font-size:calc(var(--s)*1.5);white-space:nowrap}
+a.next{text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+a.next:hover,a.next:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(242,165,65,.35);outline:none}
+/* animations in svg */
+.flowline{stroke-dasharray:6 10;animation:dash 1.6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-32}}
+.pulse{animation:pulse 3.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+/* nav */
+.pnav{position:fixed;right:calc(12px + env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:12px}
+.pnav a{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--faint);display:block;position:relative}
+.pnav a.on{background:var(--teal);border-color:var(--teal)}
+.pnav a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.pnav a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:2px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .15s}
+.pnav a:hover span,.pnav a:focus-visible span{opacity:1}
+.hud{position:fixed;left:calc(14px + env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--faint)}
+.hud button{font-family:var(--sans);font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer}
+.hud button:hover,.hud button:focus-visible{color:var(--ink);outline:none;border-color:var(--teal)}
+.hud button[aria-pressed="true"]{color:var(--teal);border-color:var(--teal)}
+#tmr{font-family:var(--display);font-variant-numeric:tabular-nums;min-width:62px}
+#tmr.warn{color:var(--amber)} #tmr.over{color:#F07F6B}
+.notes{display:none}
+body.show-notes .pg.on .notes{display:block;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(52px + env(safe-area-inset-bottom,0px));width:min(92vw,900px);z-index:15;background:rgba(18,40,58,.96);border:1px solid var(--amber);border-radius:12px;padding:12px 18px;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.notes .t{font-family:var(--display);color:var(--amber);margin-right:8px}
+@media (max-width:820px){
+  :root{--s:9px}
+  html{scroll-snap-type:none}
+  .pg{min-height:auto;padding:48px 18px}
+  .split,.zoom,.rules{grid-template-columns:1fr}
+  .h1{font-size:44px}.h2{font-size:32px}
+  .toast{position:relative;right:auto;bottom:auto;margin-top:12px;width:100%}
+  .handoff{grid-template-columns:1fr}
+  .pnav{display:none}
+  .viz{max-height:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.flowline,.pulse,.toast{animation:none}}
+</style>
+
+<!-- ============ 1 ============ -->
+<section class="pg" id="p1" data-name="DBTP คืออะไร · ทำไม">
+ <div class="wrap">
+  <div class="split">
+   <div style="display:grid;gap:calc(var(--s)*2.6)">
+    <span class="kick">Precise Day · หัวข้อ 9 <span class="no">01 / 05</span></span>
+    <h1 class="h1">6 ธุรกิจ<br><span class="hl">ฐานรากเดียว</span></h1>
+    <p class="sub">DBTP Architecture for 6 RST Development — กรอบสถาปัตยกรรมขององค์กร ตามแนวทาง Gartner</p>
+    <div class="icons">
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><path d="M9 15l6-6"/><path d="M11 6l1.5-1.5a4 4 0 015.7 5.7L16.5 12"/><path d="M13 18l-1.5 1.5a4 4 0 01-5.7-5.7L7.5 12"/></svg></span><div><b>เชื่อมข้อมูลให้ถึงกัน</b><span>ทีมหนึ่งบันทึก ทุกทีมเห็นตามสิทธิ์</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg></span><div><b>ลดความล่าช้า · สื่อสารเร็ว</b><span>ไม่ต้องขอไฟล์ กรอกซ้ำข้ามทีม</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><div><b>สะสมเป็นทรัพย์สินข้อมูลของ Precise</b><span>ยิ่งใช้ ยิ่งมีค่า</span></div></div>
+    </div>
+   </div>
+   <svg class="viz" viewBox="0 0 600 600" role="img" aria-label="6 RSTs connect to DBTP, drawn as Gartner's five overlapping platforms: Customer Engagement, Ecosystems, IoT and Information Systems around Data &amp; Analytics at the centre">
+    <defs>
+     <radialGradient id="core" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#34C6CC" stop-opacity=".42"/><stop offset="1" stop-color="#34C6CC" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="300" cy="300" r="190" fill="url(#core)" class="pulse"/>
+    <circle cx="300" cy="300" r="240" fill="none" stroke="#24425C" stroke-width="1.5" stroke-dasharray="3 7"/>
+    <!-- Gartner DBTP · 5 overlapping platforms -->
+    <g stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0 5.5">
+     <rect x="144" y="270" width="176" height="152" rx="74" ry="66" fill="#93A3F5" fill-opacity=".08" stroke="#93A3F5"/>
+     <rect x="280" y="270" width="176" height="152" rx="74" ry="66" fill="#4FD1A5" fill-opacity=".08" stroke="#4FD1A5"/>
+     <rect x="144" y="178" width="176" height="152" rx="74" ry="66" fill="#52B4EE" fill-opacity=".08" stroke="#52B4EE"/>
+     <rect x="280" y="178" width="176" height="152" rx="74" ry="66" fill="#F28C52" fill-opacity=".08" stroke="#F28C52"/>
+     <rect x="208" y="246" width="184" height="108" rx="54" fill="#0B1826" fill-opacity=".86" stroke="none"/>
+     <rect x="208" y="246" width="184" height="108" rx="54" fill="#EC6A9C" fill-opacity=".1" stroke="#EC6A9C"/>
+    </g>
+    <g font-size="12.5" font-weight="600" text-anchor="middle">
+     <text x="212" y="207" fill="#52B4EE">Customer<tspan x="212" dy="15">Engagement</tspan></text>
+     <text x="388" y="219" fill="#F28C52">Ecosystems</text>
+     <text x="212" y="392" fill="#93A3F5">IoT</text>
+     <text x="388" y="381" fill="#4FD1A5">Information<tspan x="388" dy="15">Systems</tspan></text>
+     <text x="300" y="271" fill="#EC6A9C" font-size="11.5">Data &amp; Analytics</text>
+    </g>
+    <g font-size="10.5" fill="#6F8799" letter-spacing=".5">
+     <text x="152" y="188" text-anchor="end">Customers</text>
+     <text x="448" y="188">Partners</text>
+     <text x="152" y="418" text-anchor="end">Things</text>
+     <text x="448" y="418">Employees</text>
+     <text x="300" y="454" text-anchor="middle" font-size="10">Gartner · 5 platforms</text>
+    </g>
+    <circle cx="300" cy="314" r="37" fill="#34C6CC" fill-opacity=".28" class="pulse"/>
+    <circle cx="300" cy="314" r="27" fill="#0E7C86" stroke="#34C6CC" stroke-width="1.5"/>
+    <text x="300" y="319.5" text-anchor="middle" fill="#EAF2F6" font-family="Chakra Petch" font-weight="700" font-size="15">DBTP</text>
+    <g stroke="#34C6CC" stroke-width="2.2" fill="none" class="flowline">
+     <path d="M203 132 L224 168.4"/><path d="M397 132 L376 168.4"/><path d="M494 300 H454"/>
+     <path d="M397 468 L376 431.6"/><path d="M203 468 L224 431.6"/><path d="M106 300 H146"/>
+    </g>
+    <g font-family="Chakra Petch" text-anchor="middle">
+     <g><circle cx="180" cy="92" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="180" y="90" fill="#EAF2F6" font-size="19" font-weight="600">TDR</text><text x="180" y="112" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณปอ</text></g>
+     <g><circle cx="420" cy="92" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="420" y="90" fill="#EAF2F6" font-size="19" font-weight="600">OMNI</text><text x="420" y="112" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณเบลล์</text></g>
+     <g><circle cx="540" cy="300" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="540" y="298" fill="#EAF2F6" font-size="19" font-weight="600">TCS</text><text x="540" y="320" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณอุ๊บอิบ</text></g>
+     <g><circle cx="420" cy="508" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="420" y="506" fill="#EAF2F6" font-size="19" font-weight="600">RCR</text><text x="420" y="528" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณหญิง</text></g>
+     <g><circle cx="180" cy="508" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="180" y="506" fill="#EAF2F6" font-size="19" font-weight="600">PPA</text><text x="180" y="528" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณเฟย์</text></g>
+     <g><circle cx="60" cy="300" r="46" fill="#12283A" stroke="#34C6CC" stroke-width="1.6"/><text x="60" y="298" fill="#EAF2F6" font-size="19" font-weight="600">INV</text><text x="60" y="320" fill="#93A9B8" font-size="13" font-family="IBM Plex Sans Thai">คุณน้ำ</text></g>
+    </g>
+   </svg>
+  </div>
+  <div style="display:grid;gap:calc(var(--s)*1.2)">
+   <p class="tag">แยกกันทำ <span class="hl">แต่ไม่แยกกันรู้</span></p>
+   <div class="flow">
+    <span class="c">ฐานกลาง สร้างครั้งเดียว</span><span class="a">→</span>
+    <span class="c">6 RST โตเร็วขึ้น ต้นทุนต่ำลง</span><span class="a">→</span>
+    <span class="c">Precise รายได้และกำไรเพิ่ม</span><span class="a">→</span>
+    <span class="c win">พนักงาน <b>EBS ↑</b></span>
+    <span class="c win">ผู้บริหาร <b>ปันผล ↑</b></span>
+   </div>
+  </div>
+ </div>
+ <aside class="notes"><span class="t">0:00–3:00</span>"ทั้ง 6 ท่านเพิ่งเล่าแผนของตัวเอง — ถ้าฟังดี ๆ ทุกทีมต้องการของเหมือนกัน: ลูกค้า สัญญา เก็บเงิน ข้อมูล" DBTP คือกรอบสถาปัตยกรรมขององค์กรตาม Gartner ไม่ใช่ซอฟต์แวร์ ไม่ใช่โครงการที่มีวันจบ ตรงกลางคือ 5 ห่วงของ Gartner ที่ซ้อนทับกัน (Customer Engagement · Ecosystems · IoT · Information Systems โดยมี Data &amp; Analytics อยู่ใจกลาง) — ทุกธุรกิจต้องการครบ ต่างกันแค่น้ำหนัก จึงสร้างครั้งเดียวใช้ซ้ำได้ ถ้าต่างคนต่างทำ = silo เดิมบนระบบใหม่ ปิดด้วยห่วงโซ่: ฐานกลาง → RST โต → Precise โต → พนักงานได้ EBS ผู้บริหารได้ปันผล</aside>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="pg" id="p2" data-name="สถาปัตยกรรม">
+ <div class="wrap">
+  <div class="split">
+   <div style="display:grid;gap:calc(var(--s)*2.6)">
+    <span class="kick">สถาปัตยกรรมภาพใหญ่ <span class="no">02 / 05</span></span>
+    <h2 class="h2">ธุรกิจออกแบบเอง<br><span class="hl">บนฐานกลางชุดเดียว</span></h2>
+    <div class="icons">
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span><div><b>RST เป็นเจ้าของธุรกิจของตัวเอง</b><span>ออกแบบงานได้เต็มที่</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><div><b>สร้างของกลางครั้งเดียว</b><span>ใช้ได้ทุกทีม ไม่มีใครสร้างซ้ำ</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><div><b>ระบบบัญชีหลักยังอยู่</b><span>บริการกลางเชื่อมให้</span></div></div>
+    </div>
+    <div class="ev" aria-label="จำนวน RST ที่ต้องใช้บริการกลาง">
+     <div><span>ข้อมูลลูกค้า</span><div class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><b>5 / 6 ทีม</b></div>
+     <div><span>สัญญา</span><div class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><b>5 / 6 ทีม</b></div>
+     <div><span>เก็บเงิน</span><div class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><b>4 / 6 ทีม</b></div>
+    </div>
+   </div>
+   <svg class="viz" viewBox="0 0 760 560" role="img" aria-label="ชั้นของแพลตฟอร์ม 5 ชั้น">
+    <defs>
+     <linearGradient id="gk" x1="0" x2="1"><stop offset="0" stop-color="#0E7C86"/><stop offset="1" stop-color="#34C6CC"/></linearGradient>
+     <filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+    </defs>
+    <!-- dashed spine -->
+    <path d="M370 70 V500" stroke="#24425C" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
+    <!-- slab helper: top (x+60,y)(x+520,y)(x+460,y+54)(x,y+54) ; front ; side -->
+    <g font-family="Chakra Petch">
+     <!-- 1 -->
+     <g transform="translate(70,22)"><path d="M60 0 H540 L480 54 H0 Z" fill="#17324A" stroke="#24425C"/><path d="M0 54 H480 V66 H0 Z" fill="#102436"/><path d="M480 54 L540 0 V12 L480 66 Z" fill="#0D1D2C"/>
+      <text x="38" y="33" fill="#EAF2F6" font-size="19" font-weight="600">ทางเข้าเดียว</text><text x="215" y="33" fill="#93A9B8" font-size="14" font-family="IBM Plex Sans Thai">Portal พนักงาน · ลูกค้า/คู่ค้า · Teams</text></g>
+     <!-- 2 -->
+     <g transform="translate(70,122)"><path d="M60 0 H540 L480 54 H0 Z" fill="#17324A" stroke="#24425C"/><path d="M0 54 H480 V66 H0 Z" fill="#102436"/><path d="M480 54 L540 0 V12 L480 66 Z" fill="#0D1D2C"/>
+      <text x="38" y="33" fill="#EAF2F6" font-size="19" font-weight="600">6 ธุรกิจ</text><text x="165" y="33" fill="#34C6CC" font-size="15" letter-spacing="2">TDR · OMNI · TCS · RCR · PPA · INV</text></g>
+     <!-- 3 key -->
+     <g transform="translate(70,222)"><path d="M60 0 H540 L480 54 H0 Z" fill="#34C6CC" opacity=".35" filter="url(#glow)"/><path d="M60 0 H540 L480 54 H0 Z" fill="url(#gk)"/><path d="M0 54 H480 V70 H0 Z" fill="#0A5E66"/><path d="M480 54 L540 0 V16 L480 70 Z" fill="#084B52"/>
+      <text x="38" y="33" fill="#FFFFFF" font-size="19" font-weight="700">บริการกลาง · DBTP</text><text x="238" y="33" fill="#E4FAFB" font-size="14" font-family="IBM Plex Sans Thai">ลูกค้า · สัญญา · เก็บเงิน · ตัวตน</text></g>
+     <!-- 4 -->
+     <g transform="translate(70,326)"><path d="M60 0 H540 L480 54 H0 Z" fill="#17324A" stroke="#24425C"/><path d="M0 54 H480 V66 H0 Z" fill="#102436"/><path d="M480 54 L540 0 V12 L480 66 Z" fill="#0D1D2C"/>
+      <text x="38" y="33" fill="#EAF2F6" font-size="19" font-weight="600">ข้อมูลและ AI</text><text x="210" y="33" fill="#93A9B8" font-size="14" font-family="IBM Plex Sans Thai">คลังข้อมูล · insight · AI ผู้ช่วย</text></g>
+     <!-- 5 -->
+     <g transform="translate(70,426)"><path d="M60 0 H540 L480 54 H0 Z" fill="#12283A" stroke="#24425C" stroke-dasharray="4 4"/><path d="M0 54 H480 V66 H0 Z" fill="#0D1D2C"/><path d="M480 54 L540 0 V12 L480 66 Z" fill="#0A1622"/>
+      <text x="38" y="33" fill="#EAF2F6" font-size="19" font-weight="600">โครงสร้างพื้นฐาน</text><text x="240" y="33" fill="#93A9B8" font-size="14" font-family="IBM Plex Sans Thai">Cloud · เครือข่าย · ความปลอดภัย</text></g>
+    </g>
+    <!-- accounting box -->
+    <path d="M628 250 H660" stroke="#F2A541" stroke-width="2" stroke-dasharray="4 4" class="flowline"/>
+    <rect x="662" y="200" width="92" height="100" rx="12" fill="none" stroke="#F2A541" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="708" y="240" text-anchor="middle" fill="#F2A541" font-size="14" font-weight="600">ระบบบัญชี</text>
+    <text x="708" y="260" text-anchor="middle" fill="#F2A541" font-size="14" font-weight="600">หลัก</text>
+    <text x="708" y="282" text-anchor="middle" fill="#93A9B8" font-size="11.5">ของบริษัท</text>
+   </svg>
+  </div>
+ </div>
+ <aside class="notes"><span class="t">3:00–4:45</span>เล่าจากบนลงล่าง ไม่ลงเทคนิค: ทุกคนเข้าทางเดียว → แต่ละ RST ออกแบบงานเอง → ใช้บริการกลางชุดเดียว (ชั้นที่เรืองแสงคือส่วนที่ DBTP ให้บริการ) → ข้อมูลและ AI → พื้นฐาน ระบบบัญชีหลักยังเป็นของเดิม ชี้ตัวเลขด้านซ้าย: ข้อมูลลูกค้าและสัญญา 5 จาก 6 ทีมต้องใช้ — ถ้าไม่มีของกลางจะได้ 5 ชุด (รายละเอียดสถาปัตยกรรมเชิงเทคนิคอยู่ในหัวข้อ 15 ช่วงบ่าย)</aside>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="pg" id="p3" data-name="การ Scale">
+ <div class="wrap">
+  <span class="kick">การ Scale · ประเทศ → โลก → Precise <span class="no">03 / 05</span></span>
+  <h2 class="h2">ที่อื่นพิสูจน์แล้ว — <span class="hl">สร้างฐานกลางก่อน</span> แล้วทุกคนสร้างบนนั้น</h2>
+  <div class="zoom">
+   <div class="zc"><h3><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>ระดับประเทศ</h3>
+    <div class="stat"><span class="n">24.5<small>พันล้าน</small></span><span class="w"><b>อินเดีย · UPI</b> รายการต่อเดือน บนระบบจ่ายเงินกลาง</span></div>
+    <div class="stat"><span class="n">820+<small>ปี</small></span><span class="w"><b>เอสโตเนีย · X-Road</b> เวลาทำงานที่ประหยัดได้ต่อปี</span></div>
+    <div class="stat"><span class="n">194</span><span class="w"><b>ไทย · GDX</b> หน่วยงานรัฐบนศูนย์ข้อมูลกลาง</span></div>
+   </div>
+   <div class="zc"><h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>ระดับโลก</h3>
+    <div class="stat"><span class="n">500+</span><span class="w"><b>Siemens</b> พาร์ทเนอร์บนแพลตฟอร์มเดียว</span></div>
+    <div class="stat"><span class="n">50%</span><span class="w"><b>Schneider</b> ออกสู่ตลาดเร็วขึ้น</span></div>
+    <div class="stat"><span class="n">26K</span><span class="w"><b>DBS</b> พนักงานเปลี่ยนเป็นองค์กรแพลตฟอร์ม</span></div>
+   </div>
+   <div class="zc me"><h3><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20v-5M12 20V9M18 20V4"/></svg>เส้นทาง Precise</h3>
+    <div class="stairs">
+     <div class="st"><span class="k">เริ่มวันนี้</span><b>ใช้เอง<br>นำร่อง RCR</b></div>
+     <div class="st"><span class="k">ระยะ 2</span><b>ทำเป็นผลิตภัณฑ์</b></div>
+     <div class="st"><span class="k">ระยะ 3</span><b>ขยายสู่ทุกสายธุรกิจ</b></div>
+    </div>
+   </div>
+  </div>
+  <p class="proof">เราขายสิ่งที่ตัวเองยังไม่ใช้ไม่ได้ — <span class="hl">จึงเริ่มใช้เองก่อน</span></p>
+ </div>
+ <aside class="notes"><span class="t">4:45–6:30</span>ระดับประเทศ: รัฐไม่ได้สร้างทุกแอป แต่สร้างถนนกลาง — ตัวตน การจ่ายเงิน การแลกเปลี่ยนข้อมูล ระดับโลก: Siemens และ Schneider อยู่ธุรกิจเดียวกับเรา เปลี่ยนจากขายของเป็นผู้ประสานระบบนิเวศ กลับมาที่ Precise: เริ่มใช้เองที่ RCR → ทำเป็นผลิตภัณฑ์ → ทุกสายธุรกิจมี DBTP ของตัวเอง โดย PDE ช่วยสร้าง ที่มา: NPCI ส.ค. 2026, e-Estonia, สพร. (ปีงบ 2564), กรณีศึกษาในเอกสาร DBTP</aside>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="pg" id="p4" data-name="วิธีสร้างงาน">
+ <div class="wrap">
+  <span class="kick">RST Delivery Harness <span class="no">04 / 05</span></span>
+  <h2 class="h2">ทดลองเองได้ทันที — <span class="hl">ขึ้นระบบจริงผ่านด่านเดียวกัน</span></h2>
+  <svg class="viz" viewBox="0 0 1100 372" role="img" aria-label="สองทางสร้างระบบ ผ่านด่านตรวจเดียวกันก่อนใช้งานจริง">
+   <defs>
+    <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17324A"/><stop offset="1" stop-color="#0E7C86"/></linearGradient>
+    <filter id="glow2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+   </defs>
+   <!-- lane 1 -->
+   <rect x="10" y="20" width="400" height="150" rx="22" fill="rgba(242,165,65,.10)" stroke="#F2A541" stroke-width="1.5"/>
+   <g transform="translate(40,52)" fill="none" stroke="#F2A541" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="44" height="34" rx="8"/><circle cx="18" cy="29" r="3.5"/><circle cx="34" cy="29" r="3.5"/><path d="M26 12V4M22 4h8"/><path d="M0 26v8M52 26v8"/></g>
+   <text x="112" y="70" fill="#EAF2F6" font-size="23" font-weight="600">RST ทำเองใน Sandbox</text>
+   <text x="112" y="102" fill="#93A9B8" font-size="17">ร่วมกับ AI agent ที่ CoE ตั้ง skill ไว้</text>
+   <text x="112" y="130" fill="#93A9B8" font-size="17">เช็ก process ได้ · แก้เองได้ทันที</text>
+   <text x="112" y="155" fill="#F2A541" font-size="14">ใช้ข้อมูลทดสอบ ไม่กระทบระบบจริง</text>
+   <!-- lane 2 -->
+   <rect x="10" y="210" width="400" height="150" rx="22" fill="#12283A" stroke="#24425C" stroke-width="1.5"/>
+   <g transform="translate(40,246)" fill="none" stroke="#34C6CC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14" width="48" height="32" rx="6"/><path d="M18 14V8a3 3 0 013-3h10a3 3 0 013 3v6"/><path d="M2 28h48"/></g>
+   <text x="112" y="262" fill="#EAF2F6" font-size="23" font-weight="600">จ้าง Vendor ภายนอก</text>
+   <text x="112" y="294" fill="#93A9B8" font-size="17">ส่งงานตามมาตรฐานเดียวกัน</text>
+   <text x="112" y="322" fill="#93A9B8" font-size="17">เรียกใช้ของกลางที่มี ไม่สร้างซ้ำ</text>
+   <!-- paths -->
+   <path d="M410 95 C 490 95, 500 190, 580 190" stroke="#F2A541" stroke-width="3" fill="none" class="flowline"/>
+   <path d="M410 285 C 490 285, 500 190, 580 190" stroke="#34C6CC" stroke-width="3" fill="none" class="flowline"/>
+   <!-- gate shield -->
+   <circle cx="690" cy="190" r="130" fill="#34C6CC" opacity=".16" filter="url(#glow2)" class="pulse"/>
+   <path d="M690 60 L800 100 V190 C800 260 750 305 690 325 C630 305 580 260 580 190 V100 Z" fill="url(#gg)" stroke="#34C6CC" stroke-width="2"/>
+   <path d="M650 180 l28 28 l50 -56" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+   <text x="690" y="252" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">ด่านตรวจเดียว</text>
+   <text x="690" y="358" text-anchor="middle" fill="#34C6CC" font-size="15">Harness + CI/CD gate · CoE SW</text>
+   <!-- out -->
+   <path d="M800 190 H904" stroke="#62CD93" stroke-width="3" fill="none" class="flowline"/>
+   <circle cx="990" cy="190" r="84" fill="rgba(98,205,147,.14)" stroke="#62CD93" stroke-width="2"/>
+   <g transform="translate(970,132)" fill="none" stroke="#62CD93" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 0c8 6 12 16 12 26l-6 8H14l-6-8C8 16 12 6 20 0z"/><circle cx="20" cy="18" r="4"/><path d="M14 34l-4 8M26 34l4 8"/></g>
+   <text x="990" y="210" text-anchor="middle" fill="#EAF2F6" font-size="20" font-weight="600">ใช้งานจริง</text>
+   <text x="990" y="234" text-anchor="middle" fill="#93A9B8" font-size="13">ดูแลต่อ · ใช้ซ้ำได้</text>
+  </svg>
+  <div class="rules">
+   <div class="rule"><span class="b"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></span><div><b>ทดลองได้เสรี</b><span>ใน sandbox ไม่ต้องขออนุญาต</span></div></div>
+   <div class="rule"><span class="b"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></span><div><b>ข้อมูลจริงต้องลงทะเบียน</b><span>อ่านได้หลังลงทะเบียน · เขียนต้องคุยก่อน</span></div></div>
+   <div class="rule"><span class="b"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span><div><b>ของกลางใหม่เข้าคิว</b><span>พิจารณาร่วมกัน กันสร้างซ้ำ</span></div></div>
+  </div>
+ </div>
+ <aside class="notes"><span class="t">6:30–8:15</span>คำตอบว่า "RST จะเริ่มสร้างอย่างไร": ทางที่ 1 ทำเองใน sandbox ร่วมกับ AI agent ที่ CoE ตั้ง skill ไว้ — ทดลองว่า process เข้ากันได้ แก้ได้ทันที ทางที่ 2 จ้าง vendor ก็ได้ ทั้งสองทางผ่านด่านตรวจเดียวกันของ CoE SW ก่อนขึ้นระบบจริง คุมคุณภาพด้วยเครื่อง ไม่ต้องให้คนตรวจทุกงาน (พูดตรง ๆ ว่า sandbox และด่านตรวจร่วมกำลังสร้าง)</aside>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="pg" id="p5" data-name="CoE Portal">
+ <div class="wrap">
+  <div class="split">
+   <div style="display:grid;gap:calc(var(--s)*2.6)">
+    <span class="kick">CoE Portal <span class="no">05 / 05</span></span>
+    <h2 class="h2">ประตูเดียว<br><span class="hl">ถึง CoE</span></h2>
+    <div class="steps icons">
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><div><b>Login ด้วยบัญชีบริษัท</b><span>บัญชีเดียวกับ Microsoft Teams</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg></span><div><b>ยื่นคำขอถึง CoE</b><span>ระบบแนะนำงานที่คล้ายกันก่อน กันทำซ้ำ</span></div></div>
+     <div class="ic"><span class="b"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>ติดตามสถานะได้เอง</b><span>แจ้งเตือนเข้า Teams เมื่อสถานะเปลี่ยน</span></div></div>
+    </div>
+   </div>
+   <div class="laptop">
+    <div class="pwin" aria-label="ภาพตัวอย่างหน้าจอ CoE Portal">
+     <div class="bar"><i></i><i></i><i></i><span>CoE Portal · ภาพรวมโมดูล</span></div>
+     <div class="body">
+      <div class="kpis"><div><span>คำขอทั้งหมด</span><b>—</b></div><div><span>กำลังดำเนินการ</span><b>—</b></div><div><span>ใช้งานแล้ว</span><b>—</b></div></div>
+      <div class="rw"><span>Platform Subscription</span><span class="r">RCR</span><span class="pill p-t">พร้อมเริ่ม</span></div>
+      <div class="rw"><span>Contract &amp; Entitlement</span><span class="r">RCR</span><span class="pill p-a">คัดกรอง</span></div>
+      <div class="rw"><span>Customer Registration</span><span class="r">OMNI</span><span class="pill p-s">รับคำขอ</span></div>
+      <div class="rw"><span>TOR-to-Product Mapping</span><span class="r">TDR</span><span class="pill p-g">ใช้งานแล้ว</span></div>
+      <div class="rw"><span>Farmer Register</span><span class="r">PPA</span><span class="pill p-s">รับคำขอ</span></div>
+      <span style="font-size:calc(var(--s)*.95);color:var(--faint);text-align:right">ภาพตัวอย่าง · สถานะสมมติ</span>
+     </div>
+    </div>
+    <div class="toast"><span class="b"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></span><div><b>คำขอของคุณเปลี่ยนสถานะ</b><span>Platform Subscription → พร้อมเริ่ม</span></div></div>
+   </div>
+  </div>
+  <div class="handoff">
+   <p>เรื่องที่ใหญ่ ซ้อน และยังขาดผู้เชี่ยวชาญ — <b>จึงต้องมี CoE มาขับเคลื่อน</b></p>
+   <a class="next" href="CoEx_Precise_Day_Rev0.html#1">ต่อด้วย คุณบอล · Head of CoE →</a>
+  </div>
+ </div>
+ <aside class="notes"><span class="t">8:15–10:00</span>ทุกคนในห้องจะมีช่องทางเดียวในการขอความช่วยเหลือจาก CoE และตามงานได้เอง ใช้บัญชีบริษัทเดียวกับ Teams เมื่อสถานะเปลี่ยนจะมีแจ้งเตือนเข้า Teams ปิดท้าย: "ทั้งหมดนี้เป็นงานที่ใหญ่ ซ้อนกันหลายชั้น และเรายังขาดผู้เชี่ยวชาญ — นี่คือเหตุผลที่ต้องมี CoE ขอส่งต่อให้คุณบอล Head of CoE และแนะนำทีม CoE ครับ"</aside>
+</section>
+
+<nav class="pnav" aria-label="หน้า">
+ <a href="#p1" aria-label="หน้า 1"><span>DBTP คืออะไร · ทำไม</span></a>
+ <a href="#p2" aria-label="หน้า 2"><span>สถาปัตยกรรม</span></a>
+ <a href="#p3" aria-label="หน้า 3"><span>การ Scale</span></a>
+ <a href="#p4" aria-label="หน้า 4"><span>วิธีสร้างงาน</span></a>
+ <a href="#p5" aria-label="หน้า 5"><span>CoE Portal</span></a>
+</nav>
+<div class="hud">
+ <button id="tmrBtn" title="T เริ่ม/หยุด · R รีเซ็ต"><span id="tmr">10:00</span></button>
+ <button id="notesBtn" aria-pressed="false" title="N">โน้ต</button>
+</div>
+
+<script>
+(function(){
+  var pages=[].slice.call(document.querySelectorAll('.pg'));
+  var dots=[].slice.call(document.querySelectorAll('.pnav a'));
+  var cur=0;
+  function mark(k){cur=k;pages.forEach(function(p,j){p.classList.toggle('on',j===k)});dots.forEach(function(d,j){d.classList.toggle('on',j===k)});}
+  mark(0);
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.intersectionRatio>.55){mark(pages.indexOf(e.target))}})},{threshold:[.55]});
+    pages.forEach(function(p){io.observe(p)});
+  }
+  function go(d){var k=Math.max(0,Math.min(pages.length-1,cur+d)); pages[k].scrollIntoView({behavior:'smooth',block:'start'}); mark(k); if(d>0&&!running&&elapsed===0) startT();}
+  dots.forEach(function(d,j){d.addEventListener('click',function(e){e.preventDefault();pages[j].scrollIntoView({behavior:'smooth',block:'start'});mark(j);})});
+  var LIMIT=600,elapsed=0,running=false,t0=0,iv=null,el=document.getElementById('tmr');
+  function fmt(s){var neg=s<0;s=Math.abs(s);return (neg?'+':'')+Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+  function tick(){var e=elapsed+(running?(Date.now()-t0)/1000:0);var left=LIMIT-e;el.textContent=fmt(left);el.className=left<0?'over':(left<60?'warn':'');}
+  function startT(){if(running)return;running=true;t0=Date.now();iv=setInterval(tick,500);tick();}
+  function stopT(){if(!running)return;elapsed+=(Date.now()-t0)/1000;running=false;clearInterval(iv);tick();}
+  document.getElementById('tmrBtn').onclick=function(){running?stopT():startT()};
+  document.getElementById('notesBtn').onclick=function(){var on=document.body.classList.toggle('show-notes');this.setAttribute('aria-pressed',String(on));};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();go(1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>=0){e.preventDefault();go(-1)}
+    else if(e.key==='Home'){e.preventDefault();go(-99)} else if(e.key==='End'){e.preventDefault();go(99)}
+    else if(e.key==='n'||e.key==='N'){document.getElementById('notesBtn').click()}
+    else if(e.key==='t'||e.key==='T'){running?stopT():startT()}
+    else if(e.key==='r'||e.key==='R'){stopT();elapsed=0;tick()}
+  });
+})();
+</script>
+
+</body></html>
