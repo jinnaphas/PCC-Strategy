@@ -37,7 +37,7 @@ button.pub:hover{background:#00466f;border-color:#00466f;color:#fff}
 #autosave.hit{color:var(--green)}
 
 /* ---------- page ---------- */
-.wrap{max-width:1400px;width:100%;margin:0 auto;padding:16px 18px 70px}
+.wrap{max-width:1520px;width:100%;margin:0 auto;padding:16px 18px 70px}
 .sec{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:16px;
   box-shadow:0 3px 18px rgba(30,58,95,.06)}
 .sech{display:flex;align-items:center;gap:11px;margin-bottom:13px}
@@ -125,6 +125,102 @@ table.fin td.gain{color:var(--green);font-family:'Inter';font-weight:800;white-s
 .grps .gd{font-size:12px;margin-top:9px;padding:8px 11px;border-radius:9px;background:#EFF6FC;color:#0B5A8C;line-height:1.5;font-weight:600}
 .grps .gd:before{content:"ปลายทางอาชีพ — ";font-weight:700;color:#5A6E88}
 
+/* ---------- ยกมาจาก workforce-planning.html ให้หน้าตาเหมือนกันทุกจุด ---------- */
+.pyra{overflow-x:auto;padding-bottom:4px}
+.pywrap{position:relative;display:flex;align-items:flex-start;min-width:1420px}
+.bands{position:absolute;left:0;right:0;top:50px;z-index:0}
+.bandrow{height:56px;border-bottom:2px solid #fff}
+.rows{flex:none;width:320px;position:relative;z-index:1;padding-top:50px}
+.rowlbl{height:56px;display:flex;align-items:center;gap:10px;padding:0 10px;color:var(--ink)}
+.rowlbl .tt{font-family:'Inter';font-size:19px;font-weight:800;color:var(--blue2);width:52px;text-align:right;flex:none}
+.rowlbl .lb{font-size:11px;line-height:1.32}
+.rowlbl .lb b{display:block;font-size:11.5px}
+.pycol{flex:1;min-width:352px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.pycol h3{font-family:'Inter','Sarabun';font-size:14.5px;font-weight:800;color:var(--ink);margin:0;height:30px;line-height:26px}
+.leg{display:flex;flex-direction:column;gap:3px;margin-top:12px;font-size:11.5px;align-self:center}
+.leg .li{display:flex;gap:7px;align-items:center}
+.leg .sw{width:13px;height:13px;border-radius:3px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.mini th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;padding:6px 9px;text-align:left;border:1px solid #14496e}
+.mini th.n,.mini td.n{text-align:right;width:78px;font-variant-numeric:tabular-nums}
+.mini td{border:1px solid var(--line);padding:6px 9px;line-height:1.5}
+.mini tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+.mini tr:hover td{background:#F7FBFE}
+.mini tr.sum:hover td{background:#EAF3FA}
+.mini td.g{font-weight:700;color:var(--blue2)}
+.mini td.neg{color:#C0392B;font-weight:800}
+.mini td.pos{color:var(--green);font-weight:800}
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:11px;padding:11px 15px;margin:10px 0;font-size:13px;line-height:1.65;color:#6b4a12}
+table.lp td.lt{width:210px;font-weight:700;color:var(--ink)}
+table.lp td.lt small{display:block;font-weight:400;font-size:11px;color:#7D93AA;margin-top:2px;line-height:1.45}
+table.lp td.ln{width:86px;text-align:right;font-family:'Inter';font-weight:900;font-size:16px;color:#0077B6}
+table.lp td.lo{font-size:11.5px;color:#0B5A8C;background:#F7FBFE}
+.grps{display:flex;flex-wrap:wrap;gap:11px}
+.grps .gc{flex:1;min-width:300px;border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:#fff;position:relative;overflow:hidden}
+.grps .gc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px}
+.grps .gc.g1:before{background:#2E9E62}
+.grps .gc.g2:before{background:#0077B6}
+.grps .gc.g3:before{background:#C2690A}
+.grps .gh{display:flex;align-items:baseline;gap:8px}
+.grps .gh b{font-family:'Inter';font-size:13.5px;font-weight:900;color:var(--ink)}
+.grps .gh .gn{margin-left:auto;font-family:'Inter';font-size:21px;font-weight:900;color:#0077B6}
+.grps .gh .gn small{font-size:11px;color:#7D93AA;font-weight:600;margin-left:3px}
+.grps .gk{font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8FA3B8;margin-top:3px}
+.grps .gw{font-size:12px;line-height:1.6;color:#41566E;margin-top:7px}
+.grps .gd{font-size:11.5px;margin-top:8px;padding:6px 10px;border-radius:8px;background:#EFF6FC;color:#0B5A8C;line-height:1.5}
+.grps .gd:before{content:"ปลายทางอาชีพ — ";font-weight:700;color:#5A6E88}
+.grps .gr{font-size:11.5px;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);color:#8A5B08;line-height:1.55}
+.model7{display:flex;flex-wrap:wrap;gap:10px}
+.model7 .mc{flex:1;min-width:290px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.model7 .mp{font-family:'Inter';font-size:27px;font-weight:900;color:#0077B6;line-height:1}
+.model7 .mp small{font-size:12px;color:#7D93AA;margin-left:4px}
+.model7 .mt{font-size:13px;font-weight:700;color:var(--ink);margin-top:3px}
+.model7 .md{font-size:11.5px;color:#7D93AA;margin-top:2px;line-height:1.5}
+.model7 .mh{font-size:11.8px;line-height:1.6;color:#0B5A8C;background:#F7FBFE;border-radius:8px;padding:7px 10px;margin-top:8px}
+.runrow{display:flex;flex-wrap:wrap;gap:11px}
+.runc{flex:1;min-width:268px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;overflow:hidden;background:#fff}
+.runc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px}
+.runc.r:before{background:#C2690A}
+.runc.u:before{background:#0077B6}
+.runc.n:before{background:#7B4FC9}
+.runc .rk{display:flex;align-items:baseline;gap:9px}
+.runc .rk b{font-family:'Inter';font-size:30px;font-weight:900;line-height:1}
+.runc.r .rk b{color:#C2690A}
+.runc.u .rk b{color:#0077B6}
+.runc.n .rk b{color:#7B4FC9}
+.runc .rk span{font-family:'Inter';font-size:14px;font-weight:800;color:var(--ink)}
+.runc .rn{font-family:'Inter';font-size:23px;font-weight:900;color:var(--ink);margin-top:7px;line-height:1.1}
+.runc .rn small{font-family:'Sarabun';font-size:11.5px;font-weight:600;color:#7D93AA;margin-left:5px}
+.runc .rd{font-size:12.3px;line-height:1.62;color:#41566E;margin-top:7px}
+.runc .rf{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;line-height:1.55;color:#8A5B08}
+.runc.u .rf{color:#0B5A8C}
+.runc.n .rf{color:#5B34A6}
+.runc .rf b{display:block;font-family:'Inter';font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A3B3C4;margin-bottom:2px}
+.runc .rp{position:absolute;right:13px;top:12px;font-family:'Inter';font-size:9.5px;font-weight:800;letter-spacing:.06em;
+  border-radius:11px;padding:2px 9px;background:#EEF3F8;color:#5A6E88}
+.trends{display:flex;flex-wrap:wrap;gap:10px}
+.trends .tc{flex:1;min-width:300px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.trends .tc .th{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.45}
+.trends .tc .tw{font-family:'Inter';font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B8;margin-top:2px}
+.trends .tc .tdd{font-size:12.2px;line-height:1.62;color:#41566E;margin-top:7px}
+.trends .tc .ty{font-size:11.5px;line-height:1.55;color:#0B5A8C;background:#EFF6FC;border-radius:8px;padding:7px 10px;margin-top:8px}
+.trends .tc .ty:before{content:"ทำไมถึงใช้ได้กับเรา — ";font-weight:700;color:#5A6E88}
+.runkpi{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.runkpi .kc{flex:1;min-width:212px;border:1px solid var(--line);border-left:4px solid #0077B6;border-radius:10px;padding:9px 12px;background:#F8FBFE}
+.runkpi .kc b{display:block;font-size:12.5px;color:var(--ink);line-height:1.45}
+.runkpi .kc .kt{font-family:'Inter';font-size:15px;font-weight:900;color:#0077B6;margin-top:3px}
+.runkpi .kc .kw{font-size:11px;color:#7D93AA;line-height:1.5;margin-top:3px}
+table.mgmod td.mm{width:210px;background:#F4F8FC;vertical-align:top;font-weight:700;color:var(--ink)}
+table.mgmod td.mm small{display:block;font-family:'Inter';font-weight:600;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:#8FA3B8;margin-top:2px}
+table.mgmod td{vertical-align:top;font-size:12.2px;line-height:1.62}
+table.mgmod td.wy{color:#0B5A8C;background:#F7FBFE;font-size:11.8px}
+.rbadge{display:inline-block;font-family:'Inter';font-size:10px;font-weight:900;color:#fff;border-radius:5px;
+  padding:1px 7px;margin-right:6px;letter-spacing:.04em}
+.rbadge.R{background:#C2690A}
+.rbadge.U{background:#0077B6}
+.rbadge.N{background:#7B4FC9}
+table.mini td .rbadge{margin-right:5px}
+
 /* ---------- presentation ---------- */
 #pres{display:none;position:fixed;inset:0;z-index:300;flex-direction:column;color:#fff;
   background:radial-gradient(1200px 700px at 50% 0%,#12345C 0%,#08182C 62%,#050F1C 100%)}
@@ -143,6 +239,7 @@ body.pres>.bar,body.pres>.wrap{display:none!important}
 #presInner .sec{margin-bottom:0;box-shadow:0 22px 60px rgba(0,0,0,.4)}
 #presInner .hero{margin-bottom:0;box-shadow:0 22px 60px rgba(0,0,0,.45)}
 [data-step]{transition:opacity .38s ease,transform .38s ease}
+body.pres .pyra{overflow:visible}
 body.pres [data-step].pdim{opacity:.10;transform:translateY(9px) scale(.99)}
 #presBot{flex:none;padding:9px 26px 16px}
 #presBar{height:4px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}
@@ -187,7 +284,7 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
 <body>
 
 <!--WPP_DATA_START-->
-<script id="wpp-data" type="application/json">{"savedAt":1790608811019,"total":821,"span":2.7,"avgAge":38.4,"avgSY":11.3,"genY":515,"fin":{"revenue":6202988637.88,"salary":359152229.8,"welfare":170419946.97,"benefit":560572176.77,"gm":1436094137.2,"hcActual":828,"revTarget":6000000000,"hcTarget":700},"pyramid":[{"t":"กลุ่มผู้บริหาร/ผู้บริหารโครงการ","sub":"ระดับ 10–13","n":13,"c":"#8FBEE0"},{"t":"กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ","sub":"ระดับ 7C–9A","n":121,"c":"#5AA9E6"},{"t":"กลุ่มจัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","n":86,"c":"#0077B6"},{"t":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","n":203,"c":"#005A8E"},{"t":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","n":398,"c":"#0B2447"}],"run":[{"k":"R","t":"Reskill","w":"เปลี่ยนอาชีพ","n":91,"u":"คน","ph":"Phase 2 (2570) นำ","d":"งานเดิมกำลังหายไปจากระบบ ต้องย้ายไปอาชีพใหม่ — มาจาก 166 ตำแหน่งที่ถูกตัด หักเกษียณ 27 และการควบรวมชั้นบริหาร 48"},{"k":"U","t":"Upskill","w":"ยกระดับในสายเดิม","n":655,"u":"คน","ph":"Phase 1 (2569 Q4) นำ","d":"งานยังอยู่แต่วิธีทำเปลี่ยนทั้งหมด — ERP · Factory 4.0 · AI ช่วยงาน · STEM baseline ในทุกสายงาน กลุ่มใหญ่ที่สุดและถูกพูดถึงน้อยที่สุด"},{"k":"N","t":"New Skill","w":"ทักษะที่ยังไม่มีในองค์กร","n":45,"u":"ตำแหน่ง","ph":"Phase 3 (2571) นำ","d":"ความสามารถที่วันนี้ไม่มีใครในกลุ่มทำได้ — Agentic AI · Platform · Digital Architecture 4 สาขา · Ecosystem Orchestration"}],"phases":[{"n":"Phase 1","y":"2569 Q4 – 2570 H1","lead":"U","g":"Go / No-Go: ห้ามกด ERP go-live ถ้า Key User ยังไม่ครบ 100%"},{"n":"Phase 2","y":"2570","lead":"R","g":"วัดผล: Internal Fill Rate ของ 45 ตำแหน่งใหม่ ต้องถึง 40%"},{"n":"Phase 3","y":"2571","lead":"N","g":"ปิดที่ 700 คน โดย Productivity ต่อหัว 8.57 ลบ./คน/ปี"}],"groups":[{"g":"กลุ่ม 1","t":"Product & Solution Development","k":"STEM · SGAM · SFAM · SCIAM · RAMI 4.0","n":59,"pct":7,"w":"สร้างสินค้า Long-tail ตาม Value Chain: Component → Equipment → DE → DBTP","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)"},{"g":"กลุ่ม 2","t":"Operation · Digital · AI · Automation","k":"OT · Digital · AI · Automation","n":469,"pct":58,"w":"รองรับสินค้าใหม่จากกลุ่ม 1 — Demand Satisfaction · Cost · Speed · Quality","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)"},{"g":"กลุ่ม 3","t":"Business Management & Corporate Support","k":"Strategy · Feasibility · Marketing · Finance · TQM","n":270,"pct":33,"w":"Business Generation สำหรับ Platform & Ecosystem Capitalism · Governance · M&A · Synergy","dest":"VP / President / Group COO ของ Holding Company"}],"journey":[{"n":821,"y":"ปี 2569 (ปัจจุบัน)"},{"n":796,"y":"2569 Q4 – 2570 H1"},{"n":746,"y":"2570"},{"n":700,"y":"2571"}],"txt":{"finNote":"\u003cb>ข้อสังเกตจากตัวเลขที่ได้รับ:\u003c/b> Salary 359.15 + Welfare 170.42 = 529.57 ลบ. แต่ Total ที่ใช้คำนวณคือ 560.57 ลบ. ต่างกัน 31.00 ลบ. — น่าจะมีองค์ประกอบที่สามที่ยังไม่ได้แสดง ผมใช้ยอด Total ตามที่ให้มา เพราะอัตราส่วน 2.56 คำนวณจากยอดนี้ · และ Revenue/Employee 7.49 ลบ./คน อิงกำลังคนราว 828 คน ขณะที่ระบบ HR ณ 1 ก.ย. 2569 มี 821 คน","grpNote":"\u003cb>จุดที่ต้องตัดสินใจ:\u003c/b> กลุ่ม 1 ซึ่งเป็นผู้สร้างสินค้า Long-tail อันเป็นโครงสร้างพื้นฐานขององค์กร มีคนน้อยที่สุดเพียง 59 คน (7%) และในแผนรับใหม่ 45 ตำแหน่งมีสายนี้เพียง 3 ตำแหน่ง — ถ้าเป้าหมายคือการเป็น Leading Engineering Firm กลุ่มนี้คือกลุ่มที่ต้องโตก่อน"}}</script>
+<script id="wpp-data" type="application/json">{"savedAt":1790610462594,"D":{"bands":[{"key":"g14","label":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","total":398},{"key":"g56","label":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","total":203},{"key":"g66","label":"กลุ่มจัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","total":86},{"key":"g79","label":"กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ","sub":"ระดับ 7C–9A","total":121},{"key":"g1013","label":"กลุ่มผู้บริหาร/ผู้บริหารโครงการ","sub":"ระดับ 10–13","total":13}],"dims":{"sy":{"title":"Service Year Group","buckets":["0-3 ปี","4-5 ปี","6-10 ปี","11-15 ปี","มากกว่า 15 ปี"],"colors":["#6DBE5B","#3D6BC6","#ED7D31","#FFC000","#3D6B33"]},"gen":{"title":"Generation Group","buckets":["Baby Boomer","Gen X","Gen Y","Gen Z"],"colors":["#5B9BD5","#ED7D31","#A6A6A6","#FFC000"]},"rt":{"title":"Retire Group","buckets":["อีก ≤3 ปี","4-5 ปี","6-10 ปี","มากกว่า 10 ปี"],"colors":["#ED7D31","#FFC000","#70AD47","#843C0C"]}},"mat":{"sy":{"g14":{"0-3 ปี":48,"มากกว่า 15 ปี":125,"11-15 ปี":54,"6-10 ปี":131,"4-5 ปี":40},"g56":{"0-3 ปี":60,"6-10 ปี":75,"4-5 ปี":36,"11-15 ปี":14,"มากกว่า 15 ปี":18},"g66":{"0-3 ปี":8,"6-10 ปี":35,"มากกว่า 15 ปี":17,"4-5 ปี":6,"11-15 ปี":20},"g79":{"0-3 ปี":5,"มากกว่า 15 ปี":52,"11-15 ปี":35,"4-5 ปี":3,"6-10 ปี":26},"g1013":{"มากกว่า 15 ปี":8,"6-10 ปี":3,"0-3 ปี":2}},"gen":{"g14":{"Gen Z":49,"Gen Y":231,"Gen X":118},"g56":{"Gen Z":56,"Gen Y":129,"Gen X":18},"g66":{"Gen Y":70,"Gen Z":5,"Gen X":11},"g79":{"Gen Y":84,"Gen X":34,"Gen Z":2,"Baby Boomer":1},"g1013":{"Gen X":10,"Gen Y":1,"Baby Boomer":2}},"rt":{"g14":{"มากกว่า 10 ปี":296,"6-10 ปี":63,"อีก ≤3 ปี":24,"4-5 ปี":15},"g56":{"มากกว่า 10 ปี":190,"6-10 ปี":8,"อีก ≤3 ปี":2,"4-5 ปี":3},"g66":{"มากกว่า 10 ปี":78,"6-10 ปี":6,"อีก ≤3 ปี":1,"4-5 ปี":1},"g79":{"มากกว่า 10 ปี":92,"6-10 ปี":12,"อีก ≤3 ปี":11,"4-5 ปี":6},"g1013":{"6-10 ปี":5,"มากกว่า 10 ปี":3,"อีก ≤3 ปี":4,"4-5 ปี":1}}},"tot":{"sy":{"0-3 ปี":123,"มากกว่า 15 ปี":220,"11-15 ปี":123,"6-10 ปี":270,"4-5 ปี":85},"gen":{"Gen Z":112,"Gen Y":515,"Gen X":191,"Baby Boomer":3},"rt":{"มากกว่า 10 ปี":659,"6-10 ปี":94,"อีก ≤3 ปี":42,"4-5 ปี":26}},"total":821,"asof":"1 ก.ย. 2569","avgAge":38.4,"avgSY":11.3},"span":2.7,"fin":{"revenue":6202988637.88,"salary":359152229.8,"welfare":170419946.97,"benefit":560572176.77,"gm":1436094137.2,"hcActual":828,"revTarget":6000000000,"hcTarget":700},"journey":[{"n":821,"y":"ปี 2569 (ปัจจุบัน)"},{"n":796,"y":"2569 Q4 – 2570 H1"},{"n":746,"y":"2570"},{"n":700,"y":"2571"}],"run":{"buckets":[{"k":"R","t":"Reskill","w":"เปลี่ยนอาชีพ","n":91,"u":"คน","d":"งานเดิมกำลังหายไปจากระบบ ต้องย้ายไปอาชีพใหม่ — มาจาก 166 ตำแหน่งที่ถูกตัด หักเกษียณ 27 และการควบรวมชั้นบริหาร 48","f":"ล้มเหลวแบบไหน: คนไม่มีที่ไป แผนกลายเป็นการเลิกจ้าง","ph":"Phase 2 (2570) นำ"},{"k":"U","t":"Upskill","w":"ยกระดับในสายเดิม","n":655,"u":"คน","d":"งานยังอยู่แต่วิธีทำเปลี่ยนทั้งหมด — ERP · Factory 4.0 · AI ช่วยงาน · STEM baseline ในทุกสายงาน กลุ่มใหญ่ที่สุดและถูกพูดถึงน้อยที่สุด","f":"ล้มเหลวแบบไหน: ระบบขึ้นแล้วคนใช้ไม่เป็น งานกองที่คนที่เหลือ","ph":"Phase 1 (2569 Q4) นำ"},{"k":"N","t":"New Skill","w":"ทักษะที่ยังไม่มีในองค์กร","n":45,"u":"ตำแหน่ง","d":"ความสามารถที่วันนี้ไม่มีใครในกลุ่มทำได้ — Agentic AI · Platform · Digital Architecture 4 สาขา · Ecosystem Orchestration","f":"ล้มเหลวแบบไหน: ซื้อคนมาแล้วเขาลาออก ความรู้หายไปกับตัว","ph":"Phase 3 (2571) นำ"}],"pillars":[{"p":"Digital & AI","s":"Agentic AI · Precise LLM","r":"พนักงานงานเอกสาร/คีย์ข้อมูลซ้ำซ้อน → AI-assisted Operator · ผู้ดูแล Workflow อัตโนมัติ","u":"ทุกคนที่อยู่ต่อต้องใช้ AI ช่วยงานประจำได้จริง — เขียน prompt · ตรวจผลลัพธ์ · รู้ว่าเมื่อไรห้ามเชื่อ AI","n":"AI / ML Engineer · Agentic Workflow Designer · ผู้ดูแล Precise LLM และ Opensource AI"},{"p":"6 Revenue Stream Type","s":"Tendering · Omni · TCS · Recurring · PPA · Investment","r":"ช่างบริการและพนักงานขายแบบขายครั้งเดียว → Recurring & TCS Specialist ที่ขายผลลัพธ์และดูแลสัญญาต่อเนื่อง","u":"BM · PM · S&OP ต้องอ่านโมเดลรายได้ทั้ง 6 แบบออก และรู้ว่า KPI ต่างกัน (ARR/NRR ไม่ใช่ Win Rate ไม่ใช่ IRR)","n":"Solution Architect · Platform Developer · ผู้เชี่ยวชาญโครงสร้างสัญญา PPA และ Long-term Contract"},{"p":"4 Digital Architecture","s":"SGAM · SFAM · SCIAM · RAMI 4.0","r":"ช่างไฟ/ช่างกลสายปฏิบัติการ → OT Technician ที่อ่านแบบตาม reference architecture เป็น ไม่ใช่ซ่อมตามอาการ","u":"วิศวกร 59 คนที่มีอยู่ ต้องออกแบบงานให้อยู่บน reference model ไม่ใช่ออกแบบเฉพาะจุดแล้วต่อกันไม่ได้","n":"Digital Architect ครบ 4 สาขา — เป็นเงื่อนไขของแผนระยะที่ 4 (Strategic Management 2578)"},{"p":"Leading Engineering Firm","s":"วิสัยทัศน์องค์กร","r":"—  เสานี้ไม่ใช่เส้นทางเปลี่ยนอาชีพ แต่เป็นมาตรฐานวิชาชีพที่ทุกสายวิศวกรรมต้องไปให้ถึง","u":"ยกระดับวิศวกรที่มีอยู่สู่ใบอนุญาตวิชาชีพ · Type Test และมาตรฐานสากล · เขียนข้อเสนอเชิงเทคนิคได้เอง","n":"Chartered / Professional Engineer · ผู้เชี่ยวชาญมาตรฐานและการรับรอง · งานสิทธิบัตรและทรัพย์สินทางปัญญา"},{"p":"STEM ในทุก Function","s":"Science · Technology · Engineering · Mathematics","r":"ผู้ปฏิบัติงานที่ใช้ทักษะมือ → ผู้ควบคุมเครื่องที่อ่านค่าเป็น ตัดสินใจจากข้อมูล ไม่ใช่จากความเคยชิน","u":"ทุกสายงานต้องมี STEM baseline — บัญชีใช้สถิติ · จัดซื้อใช้ optimization · HR ใช้ข้อมูลคน · ขายอ่านสเปกวิศวกรรมออก","n":"Analytics Translator ประจำแต่ละสายงาน — คนที่แปลโจทย์ธุรกิจเป็นโจทย์ข้อมูลได้"}],"phases":[{"n":"Phase 1","y":"2569 Q4 – 2570 H1","lead":"U","a":"ตั้ง Backfill Committee · ทำ Skill Inventory ทั้ง 821 คน · ปั้น ERP Key User ให้ครบทุก core process · เริ่ม STEM baseline · ระบุปลายทางรายคนให้ครบ 166 ตำแหน่ง","g":"Go / No-Go: ห้ามกด ERP go-live ถ้า Key User ยังไม่ครบ 100%"},{"n":"Phase 2","y":"2570","lead":"R","a":"ย้ายคนจริงตาม Track A–D · เปิดสาย Recurring & TCS · เริ่ม OT Technician ตาม reference architecture · ผู้ที่รับเข้ามาใหม่เริ่มสอนคนใน","g":"วัดผล: Internal Fill Rate ของ 45 ตำแหน่งใหม่ ต้องถึง 40%"},{"n":"Phase 3","y":"2571","lead":"N","a":"Agentic AI ใช้งานจริงในกระบวนการหลัก · Platform 6 RST เปิดครบ · ตั้ง Digital Architect ครบ 4 สาขา · Analytics Translator ประจำทุกสายงาน","g":"ปิดที่ 700 คน โดย Productivity ต่อหัว 8.57 ลบ./คน/ปี"}],"kpis":[{"k":"Redeployment Coverage","t":"100%","w":"ทุกคนใน 166 ตำแหน่งที่ถูกตัด ต้องระบุได้ว่าไปเป็นอะไร ภายในวันไหน — ไม่ใช่นับชั่วโมงอบรม"},{"k":"Internal Fill Rate","t":"≥ 40%","w":"45 ตำแหน่งใหม่ เติมจากคนในได้กี่ % — พิสูจน์ว่า R และ U ใช้ได้จริง ไม่ใช่แค่จัดคอร์ส"},{"k":"ERP Key User Readiness","t":"100% ก่อน Go-live","w":"ใช้เป็น Go/No-Go gate ของ ERP ไม่ใช่ KPI ของฝ่ายบุคคล"},{"k":"Skill-to-Revenue","t":"ติดตามรายคน","w":"คนที่ผ่าน RUN แล้วไปอยู่งาน Recurring / TCS กี่คน — เชื่อมกับเป้า GP 30% โดยตรง"},{"k":"Ready-Now Talent Pool","t":"30 คน (2 x 15 ตำแหน่ง)","w":"คู่มือกำหนด Ready-Now 2 คนต่อ 1 ตำแหน่งสำคัญระดับ L4–L6 — หน้าเว็บเดิมนับแค่ 15 ตำแหน่ง ซึ่งเป็นจำนวนเก้าอี้ ไม่ใช่จำนวนคนที่ต้องพร้อม"},{"k":"Teach-back Ratio","t":"≥ 2 คน / 12 เดือน","w":"ทุกตำแหน่งในกลุ่ม N ต้องสร้างคนในที่ทำแทนได้ ผูกกับโบนัส กันความรู้หายเมื่อลาออก"}],"tdf":{"levels":[{"l":"L1","t":"Manage Self","d":"ความเชี่ยวชาญเฉพาะตัว · Technical/Operational Mastery · วินัย","band":"ปฏิบัติการ 1–4","n":398,"note":"ฐานพีระมิด 48% — พื้นที่หลักของ Factory 4.0"},{"l":"L1–L2","t":"วิชาชีพ (รอยต่อ)","d":"ผู้เชี่ยวชาญที่เริ่มคุมงานและสอนคนอื่น","band":"วิชาชีพ 5B–6C","n":203,"note":"กลุ่มที่ป้อน Track C และ E ได้มากที่สุด"},{"l":"L2","t":"Manage Other","d":"คุมทีมระดับหน้างาน (Station & Field) · Delegation · Task Management","band":"จัดการ 6B–6A","n":86,"note":"Track G1"},{"l":"L3","t":"Manage Function","d":"บริหารแผนก/ฟังก์ชัน · Cross-Functional Sync (IT/OT Integration)","band":"จัดการ/ผจก. 7C–9A","n":121,"note":"Track G2 · ต้องผ่าน Promotion Gatekeeper"},{"l":"L4–L6","t":"Business → Group → Corporate","d":"P&L และ Market Growth (L4) · Synergy และ Portfolio (L5) · Capital Allocation และ Ecosystem (L6)","band":"ผู้บริหาร 10–13","n":13,"note":"ต้องมี Ready-Now 2 คนต่อตำแหน่ง"}],"groups":[{"g":"กลุ่ม 1","t":"Product & Solution Development","k":"STEM · SGAM · SFAM · SCIAM · RAMI 4.0","n":59,"pct":7,"cat":"Engineering","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"สร้างสินค้า Long-tail ตาม Value Chain: Component → Equipment → DE → DBTP","risk":"เล็กที่สุดในกลุ่ม (7%) ทั้งที่คู่มือระบุว่าเป็นโครงสร้างพื้นฐานขององค์กร และแผนรับใหม่ 45 ตำแหน่งมีสายนี้แค่ 3 — ถ้าจะเป็น Leading Engineering Firm กลุ่มนี้ต้องโตก่อน"},{"g":"กลุ่ม 2","t":"Operation · Digital · AI · Automation","k":"OT · Digital · AI · Automation","n":469,"pct":58,"cat":"Production · Warehouse · QA/QC · Maintenance · Digital/IT","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"รองรับสินค้าใหม่จากกลุ่ม 1 — Demand Satisfaction · Cost · Speed · Quality","risk":"เป็นกลุ่มที่ถูกกระทบจากการลด 166 ตำแหน่งมากที่สุด และเป็นต้นทางของ Track A · B · F"},{"g":"กลุ่ม 3","t":"Business Management & Corporate Support","k":"Strategy · Feasibility · Marketing · Finance · TQM","n":270,"pct":33,"cat":"Sales · Procurement · Finance · HR/Admin · อื่น ๆ","dest":"VP / President / Group COO ของ Holding Company","w":"Business Generation สำหรับ Platform & Ecosystem Capitalism · Governance · M&A · Synergy","risk":"PCC ในฐานะ Holding มี 44 คน Span 1:0.8 — เป็นปลายทางที่ยังไม่ได้ใช้จริง ควรรับคนจาก 48 ตำแหน่งที่จะถูกควบรวม แทนการตัดทิ้งอย่างเดียว"}],"stages":[{"s":"Stage 1","y":"ปีที่ 0–5","t":"Building Mastery & Discipline","lv":"L1 → L2","n":208,"exact":true,"d":"สร้างรากฐานความเชี่ยวชาญเฉพาะทาง"},{"s":"Stage 2","y":"ปีที่ 5–12","t":"Expansion & Team Leadership","lv":"L2 → L3","n":319,"exact":false,"d":"ขยายมุมมอง บริหารคนและโครงการ เริ่มทำงานข้ามสาย"},{"s":"Stage 3","y":"ปีที่ 12–20","t":"Strategic Business Building","lv":"L3 → L5","n":147,"exact":false,"d":"บริหารหน่วยธุรกิจและขับเคลื่อนผลกำไร"},{"s":"Stage 4","y":"ปีที่ 20+","t":"Legacy & Ecosystem Governance","lv":"L5 → L6","n":147,"exact":false,"d":"นำองค์กรระดับ Corporate และกำหนดทิศทางอุตสาหกรรม"}],"stageNote":"Stage 1 ตรงกับช่วงอายุงานในระบบพอดี (0–3 ปี 123 + 4–5 ปี 85) ส่วน Stage 2–4 เป็นการประมาณ เพราะระบบเก็บเป็นช่วง 6–10 / 11–15 / มากกว่า 15 ปี ซึ่งไม่ตรงกับ 5–12 / 12–20 / 20+ ในคู่มือ — ควรตัดข้อมูลอายุงานใหม่ตามช่วงของคู่มือ","model":[{"p":70,"t":"Stretch Assignment","d":"เรียนจากการลงมือทำงานจริงที่ยากกว่าระดับปัจจุบัน","how":"ใช้โครงการ Capex 181 รายการที่ขึ้นทะเบียนแล้วเป็นคลังงาน (PEM 101 · PSP 58 · PDE 16 · PEMC 6) — 121 รายการมีชื่อ Owner อยู่แล้ว เพิ่มแค่ช่อง \"ผู้เรียนที่ติดไปกับโครงการ\" ก็ได้ส่วน 70% ทันที โดยไม่ต้องสร้างงานใหม่ · ERP go-live · Factory 4.0 แต่ละสาย · Platform 6 RST คือ Stretch Assignment ชั้นดีที่มีอยู่แล้ว"},{"p":20,"t":"Mentorship ข้ามสาย","d":"พี่เลี้ยงจากคนละสายงานหรือคนละบริษัท","how":"PSP และ PDE มี Span 1:1.8 แปลว่ามีหัวหน้าเยอะผิดปกติ ใช้เป็นพี่เลี้ยงข้ามบริษัทได้ทันที และ 45 ตำแหน่งที่รับใหม่มี KPI Teach-back ผูกอยู่แล้ว"},{"p":10,"t":"Formal Training / Certification","d":"หลักสูตรและใบรับรอง","how":"คือ Track A–G ทั้งหมดที่ออกแบบไว้ — ต้องเข้าใจตรงกันว่านี่เป็นแค่ 10% ไม่ใช่ทั้งแผน"}],"rules":[{"r":"Promotion Gatekeeper","d":"เลื่อนขั้นระดับ L3 ขึ้นไป ต้องผ่านโปรเจกต์ Cross-Functional หรือ Job Rotation ข้ามสายงาน","y":"บังคับให้ 86 คนใน L2 ที่กำลังจะขึ้น L3 ต้องข้ามสายเอง — ทำให้ Internal Talent Marketplace ข้าม 9 บริษัทเกิดขึ้นจริงโดยไม่ต้องสร้างแรงจูงใจเพิ่ม"},{"r":"9-Box Grid ประจำปี","d":"ประเมินผลงานคู่กับศักยภาพ แล้วจัดกลุ่มคนเป็น 9 ช่อง","y":"เป็นเครื่องมือคัดคนเข้า Track A–G ที่โปร่งใส แทนการให้หัวหน้าเสนอชื่อตามความคุ้นเคย"},{"r":"Ready-Now Talent Pool","d":"ระดับ L4–L6 ต้องมีผู้พร้อมสืบทอดอย่างน้อย 2 คนต่อ 1 ตำแหน่ง","y":"15 ตำแหน่งที่จะเกษียณ ต้องมี pool 30 คน ไม่ใช่ 15 — Track D ตั้งเป้าไว้ 30 คนพอดีอยู่แล้ว"},{"r":"Competency Index ตอนรับเข้า","d":"ใช้กรอบ RAMI 4.0 / SGAM ประเมินสายวิศวกร และประเมินทักษะไฮบริดสำหรับสายบริหาร","y":"ทำให้ 45 ตำแหน่งที่รับใหม่วัดด้วยมาตรฐานเดียวกับสถาปัตยกรรม 4 สาขาที่เป็นเป้าของแผนระยะที่ 4"},{"r":"T-Shaped Business Manager","d":"BM ที่คุม 5–10 Business Unit เรียนกลุ่ม 3 เป็นหลัก 50% · กลุ่ม 2 30% · กลุ่ม 1 20%","y":"เป็นสูตรน้ำหนักของ Track G2 — ยืนยันว่า Business Acumen และ Business Model ต้องมาก่อนเนื้อหาเทคนิค"}]},"mgmt":{"pop":220,"bands":"จัดการ 6B–6A 86 คน · จัดการ/ผจก. 7C–9A 121 คน · ผู้บริหาร 10–13 13 คน","mods":[{"m":"TQM","e":"Total Quality Management","d":"คุณภาพที่ต้นทาง · PDCA และ QC Story · Daily Management · การแปลงนโยบายลงหน้างาน (Policy Deployment)","y":"เป็นเนื้อในของ QCDS ใน 3.2 Demand Satisfaction และเชื่อมกับ TP4 ลดต้นทุนสินค้า (CFS) โดยตรง — เมื่อ inline inspection มาแทนการสุ่มตรวจ คุณภาพต้องคุมที่กระบวนการ ไม่ใช่ที่ปลายทาง"},{"m":"Business Model","e":"Business Model Design","d":"อ่านและออกแบบ Business Model Canvas ครบ 9 ช่อง · รู้ว่าโมเดลรายได้แต่ละแบบหาเงินคนละทาง","y":"ผู้บริหารทุกคนต้องอ่าน 6 RST ออก — Recurring วัดด้วย ARR/NRR · TCS วัดด้วย Attach Rate · Tendering วัดด้วย Win Rate ถ้าใช้ตัวชี้วัดชุดเดียวกันหมดจะบริหารผิดทาง"},{"m":"Business Process Development","e":"Process Design & Ownership","d":"เขียนและออกแบบกระบวนการเป็น · เป็น Process Owner ตัวจริง · วัดผลด้วยข้อมูลจาก ERP ไม่ใช่ความรู้สึก","y":"ต่อโดยตรงกับ Track C (ERP Key User) และ Digital Architecture 4 สาขา — ถ้าผู้บริหารออกแบบกระบวนการไม่เป็น ระบบใหม่จะถูกใช้แบบเดิม"},{"m":"Business Acumen","e":"Financial & Commercial Literacy","d":"อ่านงบทั้ง 3 งบ · เข้าใจ GP / EBIT / กระแสเงินสด · ต้นทุนต่อหน่วย · ผลของการลงทุนต่อ P&L รายปี","y":"ทุกคนที่เซ็นอนุมัติงบต้องอ่านผลกระทบ P&L ของ Capex ออก — ตรงกับหน้า Capex & Opex ที่ทุกคำขอต้องระบุผลกระทบ 3 งบ และเป้า GP 30%"},{"m":"Entrepreneurial Soft Skills","e":"Ownership · Decision · Influence","d":"เป็นเจ้าของผลลัพธ์ ไม่ใช่เจ้าของงาน · ตัดสินใจได้ในความไม่แน่นอน · เจรจาโน้มน้าว · สร้างทีมข้ามบริษัท","y":"เป็นเงื่อนไขของการขยาย Span จาก 1:2.7 เป็น 1:3.5 — หัวหน้าที่คุมคนมากขึ้นต้องปล่อยให้ลูกทีมตัดสินใจเองได้ และต้องทำงานข้าม 9 บริษัทโดยไม่มีสายบังคับบัญชาตรง"}]},"trends":[{"t":"จัดการด้วย \"ทักษะ\" แทน \"ตำแหน่ง\"","w":"Skills-based Organisation","d":"ทำ Skill Inventory ทั้ง 821 คนให้จบใน Phase 1 แล้วย้ายคนตามทักษะที่มี ไม่ต้องรอสร้างชื่อตำแหน่งใหม่","y":"ตอบโจทย์โดยตรงกับการย้าย 166 ตำแหน่ง และ Span of Control 1:2.7 ที่มีหัวหน้าเยอะเกินจำเป็น"},{"t":"ตลาดงานภายในข้าม 9 บริษัท","w":"Internal Talent Marketplace","d":"ประกาศงานและโครงการระยะสั้นให้คนทั้งกลุ่มสมัครข้ามบริษัทได้ ก่อนเปิดรับจากภายนอกทุกครั้ง","y":"PEM 409 · PSP 212 · SBP 64 · PDE 44 คน ต่างคนต่างรับ — ย้ายคนในถูกกว่าจ้างใหม่และไม่เสียความรู้เรื่องลูกค้าที่สะสมเฉลี่ย 11.3 ปี"},{"t":"AI เป็นทักษะพื้นฐาน ไม่ใช่ทักษะเฉพาะทาง","w":"AI Literacy as Baseline","d":"แยกให้ชัดระหว่าง \"ทุกคนใช้ AI ช่วยงานได้\" (655 คน) กับ \"คนสร้างระบบ AI\" (หลักสิบ) — คนละหลักสูตร คนละงบ","y":"ถ้ารอให้ทีม AI 5 คนทำให้ทุกคน จะเป็นคอขวดทันที นี่คือเหตุผลที่ต้องมี Track F"},{"t":"เรียนในงานจริง ไม่ใช่ในห้องเรียน","w":"Learning in the Flow of Work","d":"ฝังบทเรียนไว้ในระบบที่ใช้จริง — ERP · MES · PCC Console — วัดจากการใช้งานจริง ไม่ใช่ใบผ่านการอบรม","y":"ERP go-live เป็นตัวบังคับตามธรรมชาติอยู่แล้ว ใช้จังหวะนี้แทนการจัดอบรมแยก"},{"t":"ทวิภาคีและคุณวุฒิวิชาชีพ","w":"Dual-track & TPQI Certification","d":"จับมือวิทยาลัยเทคนิคในพื้นที่ป้อน Automation Technician และส่งพนักงานสอบคุณวุฒิวิชาชีพเป็นหลักฐานทักษะที่พกติดตัวได้","y":"กลุ่ม ปวช./ปวส. 175 คนมีพื้นฐานตรงอยู่แล้ว และเป็นทางออกที่มีศักดิ์ศรีให้กลุ่มวุฒิ ม.6 อีก 172 คน"},{"t":"แผนรักษาคนที่เพิ่งพัฒนาเสร็จ","w":"Post-Reskill Retention","d":"ผูก skill premium เข้ากับทักษะที่สอบผ่านจริง + พันธะเวลาสำหรับหลักสูตรที่ลงทุนสูง","y":"คนที่ reskill เป็น Automation หรือ Data มีมูลค่าตลาดสูงขึ้นทันที — โมเดลต้นทุนของเราตั้ง digital premium ไว้ 19% อยู่แล้ว ใช้เป็นฐานได้"}],"warn":"\u003cb>กางตัวเลขแล้วช่องว่างอยู่คนละที่กับที่คิดตอนแรก:\u003c/b> ฝั่ง \u003cb>R\u003c/b> ต้องการ 91 คน แต่ Track A+B รองรับได้ 140 คน \u003cb>เกินพอ +49 คน\u003c/b> ใช้เป็นกันชนได้\u003cbr>ช่องว่างจริงอยู่ที่ \u003cb>U — ต้องยกระดับ 655 คน แต่เส้นทางเชิงลึก C+D รองรับแค่ 75 คน (11%)\u003c/b> จึงเพิ่ม Track F เป็นพื้นฐานทั้งองค์กรที่ฝังในงานจริง ไม่ใช่รุ่นอบรม\u003cbr>และ \u003cb>N เดิมไม่มีเส้นทางเลย\u003c/b> 45 ตำแหน่งใหม่พึ่งการรับจากภายนอก 100% ถ้าคนลาออกความรู้หายทั้งก้อน จึงเพิ่ม Track E ให้คนในเรียนคู่กับคนที่รับเข้ามา\u003cbr>\u003cb>งบที่ยังไม่มี:\u003c/b> แผนนี้ประหยัดค่าจ้างสุทธิราว 38.33 ลบ./ปี แต่ยังไม่มีบรรทัดงบ RUN ในหน้า Capex/Opex เลย เสนอให้กัน 10-15% ของยอดประหยัดปีแรก (ราว 4-6 ลบ.) ผูกเข้า Tactical Plan 7"},"txt":{"finNote":"\u003cb>ข้อสังเกตจากตัวเลขที่ได้รับ:\u003c/b> Salary 359.15 + Welfare 170.42 = 529.57 ลบ. แต่ Total ที่ใช้คำนวณคือ 560.57 ลบ. ต่างกัน 31.00 ลบ. — น่าจะมีองค์ประกอบที่สามที่ยังไม่ได้แสดง ผมใช้ยอด Total ตามที่ให้มา เพราะอัตราส่วน 2.56 คำนวณจากยอดนี้ · และ Revenue/Employee 7.49 ลบ./คน อิงกำลังคนราว 828 คน ขณะที่ระบบ HR ณ 1 ก.ย. 2569 มี 821 คน","grpNote":"\u003cb>จุดที่ต้องตัดสินใจ:\u003c/b> กลุ่ม 1 ซึ่งเป็นผู้สร้างสินค้า Long-tail อันเป็นโครงสร้างพื้นฐานขององค์กร มีคนน้อยที่สุดเพียง 59 คน (7%) และในแผนรับใหม่ 45 ตำแหน่งมีสายนี้เพียง 3 ตำแหน่ง — ถ้าเป้าหมายคือการเป็น Leading Engineering Firm กลุ่มนี้คือกลุ่มที่ต้องโตก่อน"}}</script>
 <!--WPP_DATA_END-->
 
 <div class="bar">
@@ -215,19 +312,16 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
   </div>
 
   <div class="sec" id="s1">
-    <div class="sech"><span class="n">1</span><h2>โครงสร้างกำลังคน &amp; การวัดผลิตภาพ</h2>
-      <span class="cap" data-k="c1">พีระมิดกำลังคน 821 คน คู่กับตัวเลขการเงินปี 2569 เพื่อให้เห็นว่าคนหนึ่งคนสร้างรายได้เท่าไร</span></div>
-    <div class="split">
-      <div>
-        <h3 style="font-size:13.5px;margin-bottom:10px">Workforce Pyramid — 821 คน</h3>
-        <div class="pyr" id="pyr"></div>
-        <div style="margin-top:12px" id="pyrSum"></div>
-      </div>
-      <div>
-        <h3 style="font-size:13.5px;margin-bottom:10px">ตัวเลขการเงินและผลิตภาพ</h3>
-        <table class="fin" id="tFin"></table>
-        <div class="note" data-k="finNote"></div>
-      </div>
+    <div class="sech"><span class="n">1</span><h2>โครงสร้างกำลังคน (Workforce Pyramid)</h2>
+      <span class="cap" data-k="c1">พีระมิด 5 ระดับ แยกตามอายุงาน · เจเนอเรชัน · ช่วงเกษียณ — ตัวเลขในแต่ละช่องคือจำนวนคน</span></div>
+    <div class="pyra" id="pyra"></div>
+
+    <h3 style="margin-top:20px">ตัวเลขการเงินและการวัดผลิตภาพ</h3>
+    <div class="cap" data-k="c1b">คนหนึ่งคนสร้างรายได้เท่าไร และกำไรขั้นต้นคุ้มกับค่าตอบแทนกี่เท่า</div>
+    <div class="split" style="margin-top:10px">
+      <div><table class="fin" id="tFin"></table></div>
+      <div><table class="mini" id="tWfSum"></table>
+        <div class="warnbox" data-k="finNote" style="margin-top:11px"></div></div>
     </div>
   </div>
 
@@ -235,14 +329,30 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
     <div class="sech"><span class="n">2</span><h2>RUN Roadmap — Reskill · Upskill · New Skill</h2>
       <span class="cap" data-k="c2">แบ่งคนตามสิ่งที่การเปลี่ยนแปลงทำกับ “งาน” ของเขา ไม่ใช่ตามหลักสูตร</span></div>
     <div class="runrow" id="runCards"></div>
-    <div class="phs" id="runPhases"></div>
+
+    <h3 style="margin-top:18px">RUN × 5 เสายุทธศาสตร์ — แต่ละเสาต้องการอะไรจากคน</h3>
+    <table class="mini runmat" id="tRunMat"></table>
+
+  </div>
+
+  <div class="sec" id="s2b">
+    <div class="sech"><span class="n">2</span><h2>RUN Roadmap — ลำดับการลงมือ · ตัวชี้วัด · แนวโน้ม</h2>
+      <span class="cap" data-k="c2b">เฟสไหนทำอะไร วัดด้วยอะไร และอะไรที่ยังไม่อยู่ในแผน</span></div>
+    <h3 style="margin-top:2px">ลำดับการลงมือ — ผูกกับ 3 เฟสของ Workforce Roadmap</h3>
+    <table class="mini" id="tRunPhase"></table>
+
+    <h3 style="margin-top:18px">ตัวชี้วัดที่ต้องมี</h3>
+    <div class="runkpi" id="runKpi"></div>
+    <div class="warnbox" id="runWarn" style="margin-top:12px"></div>
+
+    <h3 style="margin-top:18px">แนวโน้มที่ควรเพิ่มเข้าไปในแผน</h3>
+    <div class="trends" id="runTrends"></div>
   </div>
 
   <div class="sec" id="s3">
     <div class="sech"><span class="n">3</span><h2>3 กลุ่มตาม Core Value Creation Flow — และปลายทางอาชีพ</h2>
       <span class="cap" data-k="c3">ใครสร้างคุณค่าตรงไหนของห่วงโซ่ และเติบโตไปเป็นอะไร</span></div>
-    <div class="grps" id="grpCards"></div>
-    <div class="note" data-k="grpNote"></div>
+    <div class="grps" id="tGroups"></div>
   </div>
 
 </div>
@@ -301,32 +411,100 @@ function persistRaw(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$
 var saveT=null; function schedulePersist(){ clearTimeout(saveT); saveT=setTimeout(persistRaw,500); }
 
 /* ================= render ================= */
-function render(){
-  var F=S.fin, P=S.pyramid, R=S.run, G=S.groups, J=S.journey;
+var D=S.D, num=function(v){ return (+v||0).toLocaleString('en-US'); };
 
-  $('heroKpi').innerHTML=[
-    ['821 → 700','กำลังคน 2569 → 2571'],
-    [nf(F.revTarget/1e6,0),'เป้ายอดขาย ล้านบาท'],
-    ['30%','เป้า Gross Profit'],
-    [nf(F.revTarget/F.hcTarget/1e6,2),'ผลิตภาพเป้าหมาย ลบ./คน/ปี']
-  ].map(function(k){ return '<div class="k"><b>'+k[0]+'</b><span>'+k[1]+'</span></div>'; }).join('');
+/* ---------- pyramids ---------- */
+var ROWCOLORS=['#BDD7EE','#C9DDF0','#D6E5F4','#E2EDF8','#EEF5FC']; /* top→bottom */
+function lum(hex){ var c=parseInt(hex.slice(1),16); return (0.299*((c>>16)&255)+0.587*((c>>8)&255)+0.114*(c&255)); }
+function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
+  r=Math.min(255,Math.max(0,Math.round(r*f))); g=Math.min(255,Math.max(0,Math.round(g*f))); b=Math.min(255,Math.max(0,Math.round(b*f)));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
+function pyramidSVG(dimKey){
+  var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();
+  var RH=56, rows=bandsTop.length, H=RH*rows;      /* พื้นที่แถบ */
+  var APEX=20;                                      /* ยอดแหลมประดับเหนือแถบแรก */
+  var W=352, cx=W/2, HW0=27, HWmax=W/2-6;           /* ครึ่งความกว้าง: บนสุด -> ล่างสุด */
+  function hw(y){ return HW0+(y/H)*(HWmax-HW0); }
+  var defs='',body='',labels='',uid=dimKey;
+  body+='<ellipse cx="'+cx+'" cy="'+(APEX+H+6)+'" rx="'+(HWmax-6)+'" ry="7" fill="rgba(30,58,95,.14)"/>';
 
-  $('journey').innerHTML=J.map(function(j,i){
-    return (i?'<span class="ar">→</span>':'')+'<div class="j"><b>'+j.n+'</b><span>'+esc(j.y)+'</span></div>';
-  }).join('');
+  bandsTop.forEach(function(b,i){
+    var y0=i*RH, y1=(i+1)*RH-2, ym=(y0+y1)/2;
+    var hw0=hw(y0), hw1=hw(y1), hwm=hw(ym);
+    var Y0=y0+APEX, Y1=y1+APEX;
+    var counts=D.mat[dimKey][b.key]||{};
+    var items=[];
+    dim.buckets.forEach(function(bk,j){ var v=counts[bk]||0; if(v>0) items.push({v:v,j:j}); });
+    if(!items.length){
+      body+='<polygon points="'+(cx-hw0)+','+Y0+' '+(cx+hw0)+','+Y0+' '+(cx+hw1)+','+Y1+' '+(cx-hw1)+','+Y1+'" fill="#E7EDF4"/>';
+      return;
+    }
+    /* จัดสรรความกว้าง: ทุกช่องได้ขั้นต่ำพอใส่ตัวเลข ที่เหลือแบ่งตามสัดส่วนจริง */
+    var availMid=hwm*2, totalV=0;
+    items.forEach(function(it){ totalV+=it.v; });
+    var mins=items.map(function(it){ return (String(it.v).length*6.2+7)/availMid; });
+    var sumMin=mins.reduce(function(a,c){return a+c;},0), fr;
+    if(sumMin>=1){ fr=mins.map(function(m){ return m/sumMin; }); }
+    else { var rest=1-sumMin; fr=items.map(function(it,k){ return mins[k]+rest*(it.v/totalV); }); }
 
-  var max=Math.max.apply(null,P.map(function(b){return b.n;}));
-  $('pyr').innerHTML=P.map(function(b,i){
-    var w=Math.round(18+(b.n/max)*38);   /* 18-56% เหลือที่ให้ป้ายชื่อเสมอ ไม่ให้ข้อความล้น */
-    return '<div class="row"><span class="pbar" style="width:'+w+'%;background:'+b.c+'">'+b.n+'</span>'+
-      '<span class="lb">'+esc(b.t)+'<small>'+esc(b.sub)+'</small></span>'+
-      '<span class="pc">'+Math.round(b.n/S.total*100)+'%</span></div>';
-  }).join('');
-  $('pyrSum').innerHTML='<table class="fin"><tr><td class="k">หัวหน้า : พนักงาน (Span of Control)</td>'+
-    '<td class="n">1 : '+S.span+'</td></tr>'+
-    '<tr><td class="k">อายุเฉลี่ย / อายุงานเฉลี่ย</td><td class="n">'+S.avgAge+' ปี / '+S.avgSY+' ปี</td></tr>'+
-    '<tr><td class="k">Gen Y (กำลังหลัก)</td><td class="n">'+S.genY+' คน · '+Math.round(S.genY/S.total*100)+'%</td></tr></table>';
+    var acc=0;
+    items.forEach(function(it,k){
+      var c0=acc, c1=acc+fr[k]; acc=c1;
+      var col=dim.colors[it.j], gid='g_'+uid+'_'+i+'_'+k;
+      defs+='<linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0" stop-color="'+shade(col,1.18)+'"/>'+
+        '<stop offset="1" stop-color="'+shade(col,0.88)+'"/></linearGradient>';
+      var tL=cx-hw0+c0*hw0*2, tR=cx-hw0+c1*hw0*2;
+      var bL=cx-hw1+c0*hw1*2, bR=cx-hw1+c1*hw1*2;
+      body+='<polygon points="'+tL+','+Y0+' '+tR+','+Y0+' '+bR+','+Y1+' '+bL+','+Y1+'" fill="url(#'+gid+')"/>';
+      /* ตัวเลขกลางช่อง วัดจากความกว้างจริงที่กึ่งกลางแถว */
+      var mL=cx-hwm+c0*hwm*2, mR=cx-hwm+c1*hwm*2, wMid=mR-mL;
+      var dg=String(it.v).length;
+      var fs=Math.min(11.5, Math.max(6.2,(wMid-3)/(dg*0.63)));
+      var tc=lum(col)>150?'#3b3b3b':'#fff';
+      labels+='<text x="'+((mL+mR)/2)+'" y="'+(Y0+(Y1-Y0)/2+fs*0.36)+'" text-anchor="middle" '+
+        'font-family="Inter,Sarabun" font-size="'+fs.toFixed(1)+'" font-weight="700" fill="'+tc+'">'+it.v+'</text>';
+    });
+    /* ไฮไลต์ขอบขวาให้ดูมีมิติ */
+    body+='<polygon points="'+(cx+hw0)+','+Y0+' '+(cx+hw1)+','+Y1+' '+(cx+hw1-6)+','+Y1+' '+(cx+hw0-5)+','+Y0+'" fill="rgba(0,0,0,.10)"/>';
+    body+='<line x1="'+(cx-hw1)+'" y1="'+Y1+'" x2="'+(cx+hw1)+'" y2="'+Y1+'" stroke="#fff" stroke-width="2"/>';
+  });
 
+  /* ยอดแหลม: ใช้สีของช่องที่ใหญ่ที่สุดในแถวบนสุด */
+  var top0=D.mat[dimKey][bandsTop[0].key]||{}, bestC=dim.colors[0], bestV=-1;
+  dim.buckets.forEach(function(bk,j){ var v=top0[bk]||0; if(v>bestV){ bestV=v; bestC=dim.colors[j]; } });
+  body+='<polygon points="'+cx+',0 '+(cx-HW0)+','+APEX+' '+(cx+HW0)+','+APEX+'" fill="'+shade(bestC,1.05)+'"/>';
+  body+='<polygon points="'+cx+',0 '+(cx+HW0)+','+APEX+' '+(cx+HW0-5)+','+APEX+'" fill="rgba(0,0,0,.10)"/>';
+
+  return '<svg width="'+W+'" height="'+(APEX+H+16)+'" viewBox="0 0 '+W+' '+(APEX+H+16)+'"><defs>'+defs+'</defs>'+body+labels+'</svg>';
+}
+function legend(dimKey){
+  var dim=D.dims[dimKey], h='<div class="leg">';
+  dim.buckets.forEach(function(bk,j){
+    h+='<div class="li"><span class="sw" style="background:'+dim.colors[j]+'"></span>'+esc(bk)+' ('+num(D.tot[dimKey][bk]||0)+' คน)</div>';
+  });
+  return h+'</div>';
+}
+function renderPyramids(){
+  var bandsTop=D.bands.slice().reverse();
+  var h='<div class="pywrap">';
+  h+='<div class="bands">';
+  bandsTop.forEach(function(b,i){ h+='<div class="bandrow" style="background:'+ROWCOLORS[i]+'"></div>'; });
+  h+='</div>';
+  h+='<div class="rows">';
+  bandsTop.forEach(function(b,i){
+    h+='<div class="rowlbl"><span class="tt">'+num(b.total)+'</span><span class="lb"><b>'+esc(b.label)+'</b>'+esc(b.sub)+'</span></div>';
+  });
+  h+='</div>';
+  ['sy','gen','rt'].forEach(function(k){
+    h+='<div class="pycol"><h3>'+esc(D.dims[k].title)+'</h3>'+pyramidSVG(k)+legend(k)+'</div>';
+  });
+  h+='</div>';
+  document.getElementById('pyra').innerHTML=h;
+}
+
+function renderFin(){
+  var F=S.fin;
   var rpe=F.revenue/F.hcActual, rpeT=F.revTarget/F.hcTarget;
   var gmPct=F.gm/F.revenue*100, gmT=F.revTarget*0.30;
   $('tFin').innerHTML=
@@ -341,28 +519,75 @@ function render(){
     '<tr><td class="k">Gross Margin %</td><td class="n">'+nf(gmPct,1)+'%</td><td class="n">30.0% <span class="gain">+'+nf(30-gmPct,1)+'</span></td></tr>'+
     '<tr class="hl"><td class="k">Gross Margin / Employee Benefit</td><td class="n">'+nf(F.gm/F.benefit)+'</td>'+
       '<td class="n">'+nf(gmT/F.benefit)+' <span class="gain">+'+nf((gmT/F.gm-1)*100,1)+'%</span></td></tr>';
+  $('tWfSum').innerHTML=
+    '<tr><th>ตัวชี้วัดกำลังคน</th><th class="n">ปัจจุบัน</th></tr>'+
+    '<tr><td class="g">กำลังคนทั้งหมด</td><td class="n">'+num(D.total)+' คน</td></tr>'+
+    '<tr><td class="g">หัวหน้า : พนักงาน (Span of Control)</td><td class="n">1 : '+S.span+'</td></tr>'+
+    '<tr><td class="g">อายุเฉลี่ย / อายุงานเฉลี่ย</td><td class="n">'+D.avgAge+' ปี / '+D.avgSY+' ปี</td></tr>'+
+    '<tr><td class="g">Gen Y (กำลังหลัก)</td><td class="n">'+num(D.tot.gen['Gen Y'])+' คน · '+Math.round(D.tot.gen['Gen Y']/D.total*100)+'%</td></tr>'+
+    '<tr class="sum"><td class="g">เป้าหมายปี 2571</td><td class="n">'+num(S.fin.hcTarget)+' คน</td></tr>';
+}
 
-  $('runCards').innerHTML=R.map(function(b){
+function renderRun(){
+  var R=S.run; if(!R) return;
+  $('runCards').innerHTML=R.buckets.map(function(b){
     return '<div class="runc '+b.k.toLowerCase()+'"><span class="rp">'+esc(b.ph)+'</span>'+
-      '<div class="rk"><b>'+b.k+'</b><span>'+esc(b.t)+' · '+esc(b.w)+'</span></div>'+
+      '<div class="rk"><b>'+esc(b.k)+'</b><span>'+esc(b.t)+' · '+esc(b.w)+'</span></div>'+
       '<div class="rn">'+b.n+'<small>'+esc(b.u)+'</small></div>'+
-      '<div class="rd">'+esc(b.d)+'</div></div>';
-  }).join('');
-  $('runPhases').innerHTML=S.phases.map(function(p){
-    var c=p.lead==='R'?'var(--r)':p.lead==='U'?'var(--u)':'var(--n)';
-    return '<div class="p"><div class="h"><b>'+esc(p.n)+'</b><span class="y">'+esc(p.y)+'</span>'+
-      '<span class="ld" style="color:'+c+'">'+p.lead+'</span></div>'+
-      '<div class="g">'+esc(p.g)+'</div></div>';
+      '<div class="rd">'+esc(b.d)+'</div>'+
+      '<div class="rf"><b>จุดที่พัง</b>'+esc(b.f)+'</div></div>';
   }).join('');
 
-  $('grpCards').innerHTML=G.map(function(g,i){
-    return '<div class="gc g'+(i+1)+'"><div class="gh"><b>'+esc(g.g)+' · '+esc(g.t)+'</b>'+
-      '<span class="gn">'+g.n+'<small>คน · '+g.pct+'%</small></span></div>'+
-      '<div class="gk">'+esc(g.k)+'</div>'+
-      '<div class="gw">'+esc(g.w)+'</div>'+
-      '<div class="gd">'+esc(g.dest)+'</div></div>';
+  var h='<tr><th>เสายุทธศาสตร์</th><th class="hr">R · Reskill</th><th class="hu">U · Upskill</th><th class="hn">N · New Skill</th></tr>';
+  R.pillars.forEach(function(x){
+    h+='<tr><td class="pil">'+esc(x.p)+'<small>'+esc(x.s)+'</small></td>'+
+       '<td>'+esc(x.r)+'</td><td>'+esc(x.u)+'</td><td>'+esc(x.n)+'</td></tr>';
+  });
+  $('tRunMat').innerHTML=h;
+
+  var h2='<tr><th>เฟส</th><th>ช่วงเวลา</th><th class="n">ตัวนำ</th><th>สิ่งที่ต้องเกิด</th><th>ประตูวัดผล</th></tr>';
+  R.phases.forEach(function(x){
+    var c=x.lead==='R'?'#C2690A':x.lead==='U'?'#0077B6':'#7B4FC9';
+    h2+='<tr><td class="g">'+esc(x.n)+'</td><td>'+esc(x.y)+'</td>'+
+        '<td class="n"><b style="font-family:Inter;font-size:15px;color:'+c+'">'+esc(x.lead)+'</b></td>'+
+        '<td>'+esc(x.a)+'</td><td>'+esc(x.g)+'</td></tr>';
+  });
+  $('tRunPhase').innerHTML=h2;
+
+  $('runKpi').innerHTML=R.kpis.map(function(k){
+    return '<div class="kc"><b>'+esc(k.k)+'</b><div class="kt">'+esc(k.t)+'</div><div class="kw">'+esc(k.w)+'</div></div>';
+  }).join('');
+  $('runWarn').innerHTML=R.warn;
+  $('runTrends').innerHTML=(R.trends||[]).map(function(x){
+    return '<div class="tc"><div class="th">'+esc(x.t)+'</div><div class="tw">'+esc(x.w)+'</div>'+
+      '<div class="tdd">'+esc(x.d)+'</div><div class="ty">'+esc(x.y)+'</div></div>';
   }).join('');
 
+  var G=R.tdf&&R.tdf.groups; if(!G) return;
+  $('tGroups').innerHTML=G.map(function(x,i){
+    return '<div class="gc g'+(i+1)+'"><div class="gh"><b>'+esc(x.g)+' · '+esc(x.t)+'</b>'+
+      '<span class="gn">'+x.n+'<small>คน · '+x.pct+'%</small></span></div>'+
+      '<div class="gk">'+esc(x.k)+'</div>'+
+      '<div class="gw">'+esc(x.w)+'</div>'+
+      '<div class="gd">'+esc(x.dest)+'</div>'+
+      '<div class="gr">'+esc(x.risk)+'</div></div>';
+  }).join('');
+}
+
+function render(){
+  var F=S.fin, J=S.journey;
+  $('heroKpi').innerHTML=[
+    ['821 → 700','กำลังคน 2569 → 2571'],
+    [nf(F.revTarget/1e6,0),'เป้ายอดขาย ล้านบาท'],
+    ['30%','เป้า Gross Profit'],
+    [nf(F.revTarget/F.hcTarget/1e6,2),'ผลิตภาพเป้าหมาย ลบ./คน/ปี']
+  ].map(function(k){ return '<div class="k"><b>'+k[0]+'</b><span>'+k[1]+'</span></div>'; }).join('');
+  $('journey').innerHTML=J.map(function(j,i){
+    return (i?'<span class="ar">→</span>':'')+'<div class="j"><b>'+j.n+'</b><span>'+esc(j.y)+'</span></div>';
+  }).join('');
+  renderPyramids();
+  renderFin();
+  renderRun();
   applyTxt();
 }
 
@@ -383,10 +608,10 @@ document.addEventListener('input',function(e){
 $('bPrint').addEventListener('click',function(){ window.print(); });
 
 /* ================= presentation ================= */
-var SLIDES=[],HOMES=[],TITLES=['ภาพรวมและเป้าหมาย','1 · โครงสร้างกำลังคน & ผลิตภาพ','2 · RUN Roadmap','3 · 3 กลุ่ม Core Value Creation'];
+var SLIDES=[],HOMES=[],TITLES=['ภาพรวมและเป้าหมาย','1 · โครงสร้างกำลังคน & ผลิตภาพ','2 · RUN Roadmap — 3 กลุ่ม & เสายุทธศาสตร์','2 · RUN Roadmap — ลำดับการลงมือ & ตัวชี้วัด','3 · 3 กลุ่ม Core Value Creation'];
 var cur=0,step=0,MAXSTEP=[];
 function collectSlides(){
-  SLIDES=['s0','s1','s2','s3'].map(function(id){ return $(id); });
+  SLIDES=['s0','s1','s2','s2b','s3'].map(function(id){ return $(id); });
   HOMES=SLIDES.map(function(el){ return {p:el.parentNode,n:el.nextSibling}; });
   stepify();
   MAXSTEP=SLIDES.map(function(el){
@@ -394,14 +619,19 @@ function collectSlides(){
   });
 }
 function stepify(){
-  $('s0').querySelectorAll('.k').forEach(function(x,i){ x.dataset.step=1; });
+  $('s0').querySelectorAll('.k').forEach(function(x){ x.dataset.step=1; });
   $('s0').querySelectorAll('.journey .j,.journey .ar').forEach(function(x){ x.dataset.step=2; });
-  $('s1').querySelectorAll('.pyr .row').forEach(function(x){ x.dataset.step=1; });
-  $('s1').querySelectorAll('#pyrSum,#tFin,.note').forEach(function(x){ x.dataset.step=2; });
-  $('s2').querySelectorAll('.runc').forEach(function(x,i){ x.dataset.step=i+1; });
-  $('s2').querySelectorAll('.phs .p').forEach(function(x){ x.dataset.step=4; });
-  $('s3').querySelectorAll('.gc').forEach(function(x,i){ x.dataset.step=i+1; });
-  $('s3').querySelectorAll('.note').forEach(function(x){ x.dataset.step=3; });
+
+  $('s1').querySelectorAll(':scope > h3, [data-k="c1b"], .split').forEach(function(x){ x.dataset.step=1; });
+
+  $('s2').querySelectorAll('.runc').forEach(function(x,i){ x.dataset.step=i; });
+  $('s2').querySelectorAll(':scope > h3, #tRunMat').forEach(function(x){ x.dataset.step=3; });
+
+  var H=$('s2b').querySelectorAll(':scope > h3');
+  [H[1],$('runKpi'),$('runWarn')].forEach(function(x){ if(x) x.dataset.step=1; });
+  [H[2],$('runTrends')].forEach(function(x){ if(x) x.dataset.step=2; });
+
+  $('s3').querySelectorAll('.gc').forEach(function(x,i){ x.dataset.step=i; });
 }
 function paintSteps(){
   var el=SLIDES[cur]; if(!el) return;
@@ -417,19 +647,22 @@ function paintNav(){
   $('presPrev').disabled=(cur===0&&step===0);
   $('presNext').disabled=(cur===SLIDES.length-1&&step===MAXSTEP[cur]);
 }
-var PRES_W=[1340,1220,1100,980];
+var PRES_W=[1480,1340,1220,1100];
 function fitPres(){
   var inner=$('presInner'), stage=$('presStage'); if(!inner.firstChild) return;
-  inner.style.transform='none';
+  inner.style.transform='none'; inner.style.margin='0';
   var sw=stage.clientWidth-8, sh=stage.clientHeight-10, best=null;
   PRES_W.forEach(function(w){
     inner.style.width=w+'px';
     var cw=inner.scrollWidth||1, ch=inner.scrollHeight||1;
     var sc=Math.min(1.5, sw/cw, sh/ch);
-    if(!best||sc>best.sc*1.03) best={sc:sc,w:w};
+    if(!best||sc>best.sc*1.03) best={sc:sc,w:w,h:ch};
   });
   inner.style.width=best.w+'px';
   inner.style.transform='scale('+best.sc.toFixed(3)+')';
+  /* ยุบกล่อง layout ให้เท่าขนาดที่ตาเห็น ไม่งั้นสไลด์ที่สูงเกินจอจะไม่ถูกจัดกึ่งกลาง */
+  var gh=inner.scrollHeight*(1-best.sc)/2, gw=best.w*(1-best.sc)/2;
+  inner.style.margin=(-gh).toFixed(1)+'px '+(-gw).toFixed(1)+'px';
 }
 function goSlide(i,st){
   if(i<0||i>=SLIDES.length) return;
@@ -447,7 +680,7 @@ function presOff(){
   document.body.classList.remove('pres'); $('bPres').classList.remove('on');
   SLIDES.forEach(function(el,i){ var h=HOMES[i]; if(h&&h.p) h.p.insertBefore(el,h.n); });
   document.querySelectorAll('[data-step]').forEach(function(x){ x.classList.remove('pdim'); x.removeAttribute('data-step'); });
-  $('presInner').innerHTML='';
+  $('presInner').innerHTML=''; $('presInner').style.margin=''; $('presInner').style.transform='';
 }
 $('bPres').addEventListener('click',presOn);
 $('presExit').addEventListener('click',presOff);
@@ -538,7 +771,7 @@ $('bPublish').addEventListener('click',publish);
 render();
 setEditable();
 refreshTok();
-setTimeout(function(){ tip('กด 🎬 นำเสนอ หรือปุ่ม P เพื่อเข้าโหมดนำเสนอ 4 สไลด์'); },700);
+setTimeout(function(){ tip('กด 🎬 นำเสนอ หรือปุ่ม P เพื่อเข้าโหมดนำเสนอ 5 สไลด์'); },700);
 </script>
 </body>
 </html>
