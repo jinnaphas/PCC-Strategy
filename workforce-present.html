@@ -355,13 +355,11 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
   </div>
 
   <div class="sec" id="s2b">
-    <div class="sech"><span class="n">2</span><h2>RUN Roadmap — ลำดับการลงมือ · ตัวชี้วัด</h2>
-      <span class="cap" data-k="c2b">เฟสไหนทำอะไร ต้องเกิดอะไรขึ้น และวัดผลด้วยอะไร</span></div>
+    <div class="sech"><span class="n">2</span><h2>RUN Roadmap — ลำดับการลงมือ</h2>
+      <span class="cap" data-k="c2b">เฟสไหนทำอะไร ต้องเกิดอะไรขึ้น และประตูวัดผลอยู่ตรงไหน</span></div>
     <h3 style="margin-top:2px">ลำดับการลงมือ — ผูกกับ 3 เฟสของ Workforce Roadmap</h3>
     <table class="mini" id="tRunPhase"></table>
 
-    <h3 style="margin-top:18px">ตัวชี้วัดที่ต้องมี</h3>
-    <div class="runkpi" id="runKpi"></div>
   </div>
 
   <div class="sec" id="s3">
@@ -599,9 +597,6 @@ function renderRun(){
   });
   $('tRunPhase').innerHTML=h2;
 
-  $('runKpi').innerHTML=R.kpis.map(function(k){
-    return '<div class="kc"><b>'+esc(k.k)+'</b><div class="kt">'+esc(k.t)+'</div><div class="kw">'+esc(k.w)+'</div></div>';
-  }).join('');
 
   var G=R.tdf&&R.tdf.groups; if(!G) return;
   $('tGroups').innerHTML=G.map(function(x,i){
@@ -656,7 +651,7 @@ document.addEventListener('input',function(e){
 $('bPrint').addEventListener('click',function(){ window.print(); });
 
 /* ================= presentation ================= */
-var SLIDES=[],HOMES=[],TITLES=['ภาพรวมและเป้าหมาย','1 · โครงสร้างกำลังคน & ผลิตภาพ','2 · RUN Roadmap — 3 กลุ่ม & เสายุทธศาสตร์','2 · RUN Roadmap — ลำดับการลงมือ & ตัวชี้วัด','3 · 3 กลุ่ม Core Value Creation'];
+var SLIDES=[],HOMES=[],TITLES=['ภาพรวมและเป้าหมาย','1 · โครงสร้างกำลังคน & ผลิตภาพ','2 · RUN Roadmap — 3 กลุ่ม & เสายุทธศาสตร์','2 · RUN Roadmap — ลำดับการลงมือ','3 · 3 กลุ่ม Core Value Creation'];
 var cur=0,step=0,MAXSTEP=[];
 function collectSlides(){
   SLIDES=['s0','s1','s2','s2b','s3'].map(function(id){ return $(id); });
@@ -674,9 +669,6 @@ function stepify(){
 
   $('s2').querySelectorAll('.runc').forEach(function(x,i){ x.dataset.step=i; });
   $('s2').querySelectorAll(':scope > h3, #tRunMat').forEach(function(x){ x.dataset.step=3; });
-
-  var H=$('s2b').querySelectorAll(':scope > h3');
-  [H[1],$('runKpi')].forEach(function(x){ if(x) x.dataset.step=1; });
 
   $('s3').querySelectorAll('.gc').forEach(function(x,i){ x.dataset.step=i; });
 }
