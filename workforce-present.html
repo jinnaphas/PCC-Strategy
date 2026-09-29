@@ -128,6 +128,21 @@ table.fin td.gain{color:var(--green);font-family:'Inter';font-weight:800;white-s
 
 /* ---------- ยกมาจาก workforce-planning.html ให้หน้าตาเหมือนกันทุกจุด ---------- */
 .pyra{overflow-x:auto;padding-bottom:4px}
+.yrsw{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:2px 0 13px;background:#fff}
+.yrsw button{border:0;background:#fff;color:#41566E;font:800 12.5px 'Inter','Sarabun',sans-serif;padding:7px 18px;cursor:pointer;transition:.12s}
+.yrsw button+button{border-left:1px solid var(--line)}
+.yrsw button:hover{background:#F2F8FD}
+.yrsw button.on{background:var(--blue2);color:#fff}
+.story{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 15px}
+.story .st{flex:1;min-width:205px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#F8FBFE}
+.story .st .lb{font-size:11.5px;font-weight:700;color:#5A7391}
+.story .st .vv{display:flex;align-items:baseline;gap:6px;margin-top:4px;font-family:'Inter',sans-serif;font-weight:900;font-size:18px;color:var(--ink)}
+.story .st .vv i{font-style:normal;font-size:12.5px;color:#9AAEC2;font-weight:800}
+.story .st .dl{font-family:'Inter',sans-serif;font-size:12px;font-weight:800;margin-top:3px}
+.story .st .dl.up{color:var(--green)}
+.story .st .dl.dn{color:#C0392B}
+table.fin td.drop{color:#C0392B;font-family:'Inter',sans-serif;font-weight:800;white-space:nowrap}
+table.fin span.drop{color:#C0392B;font-family:'Inter',sans-serif;font-weight:800;white-space:nowrap}
 .pywrap{position:relative;display:flex;align-items:flex-start;min-width:1420px}
 .bands{position:absolute;left:0;right:0;top:50px;z-index:0}
 .bandrow{height:56px;border-bottom:2px solid #fff}
@@ -287,7 +302,7 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
 <body>
 
 <!--WPP_DATA_START-->
-<script id="wpp-data" type="application/json">{"savedAt":1790610462595,"D":{"bands":[{"key":"g14","label":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","total":398},{"key":"g56","label":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","total":203},{"key":"g66","label":"กลุ่มจัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","total":86},{"key":"g79","label":"กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ","sub":"ระดับ 7C–9A","total":121},{"key":"g1013","label":"กลุ่มผู้บริหาร/ผู้บริหารโครงการ","sub":"ระดับ 10–13","total":13}],"dims":{"sy":{"title":"Service Year Group","buckets":["0-3 ปี","4-5 ปี","6-10 ปี","11-15 ปี","มากกว่า 15 ปี"],"colors":["#6DBE5B","#3D6BC6","#ED7D31","#FFC000","#3D6B33"]},"gen":{"title":"Generation Group","buckets":["Baby Boomer","Gen X","Gen Y","Gen Z"],"colors":["#5B9BD5","#ED7D31","#A6A6A6","#FFC000"]},"rt":{"title":"Retire Group","buckets":["อีก ≤3 ปี","4-5 ปี","6-10 ปี","มากกว่า 10 ปี"],"colors":["#ED7D31","#FFC000","#70AD47","#843C0C"]}},"mat":{"sy":{"g14":{"0-3 ปี":48,"มากกว่า 15 ปี":125,"11-15 ปี":54,"6-10 ปี":131,"4-5 ปี":40},"g56":{"0-3 ปี":60,"6-10 ปี":75,"4-5 ปี":36,"11-15 ปี":14,"มากกว่า 15 ปี":18},"g66":{"0-3 ปี":8,"6-10 ปี":35,"มากกว่า 15 ปี":17,"4-5 ปี":6,"11-15 ปี":20},"g79":{"0-3 ปี":5,"มากกว่า 15 ปี":52,"11-15 ปี":35,"4-5 ปี":3,"6-10 ปี":26},"g1013":{"มากกว่า 15 ปี":8,"6-10 ปี":3,"0-3 ปี":2}},"gen":{"g14":{"Gen Z":49,"Gen Y":231,"Gen X":118},"g56":{"Gen Z":56,"Gen Y":129,"Gen X":18},"g66":{"Gen Y":70,"Gen Z":5,"Gen X":11},"g79":{"Gen Y":84,"Gen X":34,"Gen Z":2,"Baby Boomer":1},"g1013":{"Gen X":10,"Gen Y":1,"Baby Boomer":2}},"rt":{"g14":{"มากกว่า 10 ปี":296,"6-10 ปี":63,"อีก ≤3 ปี":24,"4-5 ปี":15},"g56":{"มากกว่า 10 ปี":190,"6-10 ปี":8,"อีก ≤3 ปี":2,"4-5 ปี":3},"g66":{"มากกว่า 10 ปี":78,"6-10 ปี":6,"อีก ≤3 ปี":1,"4-5 ปี":1},"g79":{"มากกว่า 10 ปี":92,"6-10 ปี":12,"อีก ≤3 ปี":11,"4-5 ปี":6},"g1013":{"6-10 ปี":5,"มากกว่า 10 ปี":3,"อีก ≤3 ปี":4,"4-5 ปี":1}}},"tot":{"sy":{"0-3 ปี":123,"มากกว่า 15 ปี":220,"11-15 ปี":123,"6-10 ปี":270,"4-5 ปี":85},"gen":{"Gen Z":112,"Gen Y":515,"Gen X":191,"Baby Boomer":3},"rt":{"มากกว่า 10 ปี":659,"6-10 ปี":94,"อีก ≤3 ปี":42,"4-5 ปี":26}},"total":821,"asof":"1 ก.ย. 2569","avgAge":38.4,"avgSY":11.3},"span":2.7,"fin":{"revenue":6202988637.88,"salary":359152229.8,"welfare":170419946.97,"benefit":560572176.77,"gm":1436094137.2,"hcActual":828,"revTarget":6000000000,"hcTarget":700},"journey":[{"n":821,"y":"ปี 2569 (ปัจจุบัน)"},{"n":796,"y":"2569 Q4 – 2570 H1"},{"n":746,"y":"2570"},{"n":700,"y":"2571"}],"run":{"buckets":[{"k":"R","t":"Reskill","w":"เปลี่ยนอาชีพ","n":91,"u":"คน","d":"งานเดิมกำลังหายไปจากระบบ ต้องย้ายไปอาชีพใหม่ — มาจากตำแหน่งที่ถูกตัด การเกษียณ และการควบรวมชั้นบริหาร","f":"ล้มเหลวแบบไหน: คนไม่มีที่ไป แผนกลายเป็นการเลิกจ้าง","ph":"Phase 2 (2570) นำ"},{"k":"U","t":"Upskill","w":"ยกระดับในสายเดิม","n":655,"u":"คน","d":"งานยังอยู่แต่วิธีทำเปลี่ยนทั้งหมด — ERP · Factory 4.0 · AI ช่วยงาน · STEM baseline ในทุกสายงาน กลุ่มใหญ่ที่สุดและถูกพูดถึงน้อยที่สุด","f":"ล้มเหลวแบบไหน: ระบบขึ้นแล้วคนใช้ไม่เป็น งานกองที่คนที่เหลือ","ph":"Phase 1 (2569 Q4) นำ"},{"k":"N","t":"New Skill","w":"ทักษะที่ยังไม่มีในองค์กร","n":45,"u":"ตำแหน่ง","d":"ความสามารถที่วันนี้ไม่มีใครในกลุ่มทำได้ — Agentic AI · Platform · Digital Architecture 4 สาขา · Ecosystem Orchestration","f":"ล้มเหลวแบบไหน: ซื้อคนมาแล้วเขาลาออก ความรู้หายไปกับตัว","ph":"Phase 3 (2571) นำ"}],"pillars":[{"p":"Digital & AI","s":"Agentic AI · Precise LLM","r":"พนักงานงานเอกสาร/คีย์ข้อมูลซ้ำซ้อน → AI-assisted Operator · ผู้ดูแล Workflow อัตโนมัติ","u":"ทุกคนที่อยู่ต่อต้องใช้ AI ช่วยงานประจำได้จริง — เขียน prompt · ตรวจผลลัพธ์ · รู้ว่าเมื่อไรห้ามเชื่อ AI","n":"AI / ML Engineer · Agentic Workflow Designer · ผู้ดูแล Precise LLM และ Opensource AI"},{"p":"6 Revenue Stream Type","s":"Tendering · Omni · TCS · Recurring · PPA · Investment","r":"ช่างบริการและพนักงานขายแบบขายครั้งเดียว → Recurring & TCS Specialist ที่ขายผลลัพธ์และดูแลสัญญาต่อเนื่อง","u":"BM · PM · S&OP ต้องอ่านโมเดลรายได้ทั้ง 6 แบบออก และรู้ว่า KPI ต่างกัน (ARR/NRR ไม่ใช่ Win Rate ไม่ใช่ IRR)","n":"Solution Architect · Platform Developer · ผู้เชี่ยวชาญโครงสร้างสัญญา PPA และ Long-term Contract"},{"p":"4 Digital Architecture","s":"SGAM · SFAM · SCIAM · RAMI 4.0","r":"ช่างไฟ/ช่างกลสายปฏิบัติการ → OT Technician ที่อ่านแบบตาม reference architecture เป็น ไม่ใช่ซ่อมตามอาการ","u":"วิศวกร 59 คนที่มีอยู่ ต้องออกแบบงานให้อยู่บน reference model ไม่ใช่ออกแบบเฉพาะจุดแล้วต่อกันไม่ได้","n":"Digital Architect ครบ 4 สาขา — เป็นเงื่อนไขของแผนระยะที่ 4 (Strategic Management 2578)"},{"p":"Leading Engineering Firm","s":"วิสัยทัศน์องค์กร","r":"—  เสานี้ไม่ใช่เส้นทางเปลี่ยนอาชีพ แต่เป็นมาตรฐานวิชาชีพที่ทุกสายวิศวกรรมต้องไปให้ถึง","u":"ยกระดับวิศวกรที่มีอยู่สู่ใบอนุญาตวิชาชีพ · Type Test และมาตรฐานสากล · เขียนข้อเสนอเชิงเทคนิคได้เอง","n":"Chartered / Professional Engineer · ผู้เชี่ยวชาญมาตรฐานและการรับรอง · งานสิทธิบัตรและทรัพย์สินทางปัญญา"},{"p":"STEM ในทุก Function","s":"Science · Technology · Engineering · Mathematics","r":"ผู้ปฏิบัติงานที่ใช้ทักษะมือ → ผู้ควบคุมเครื่องที่อ่านค่าเป็น ตัดสินใจจากข้อมูล ไม่ใช่จากความเคยชิน","u":"ทุกสายงานต้องมี STEM baseline — บัญชีใช้สถิติ · จัดซื้อใช้ optimization · HR ใช้ข้อมูลคน · ขายอ่านสเปกวิศวกรรมออก","n":"Analytics Translator ประจำแต่ละสายงาน — คนที่แปลโจทย์ธุรกิจเป็นโจทย์ข้อมูลได้"}],"phases":[{"n":"Phase 1","y":"2569 Q4 – 2570 H1","lead":"U","a":"ตั้ง Backfill Committee · ทำ Skill Inventory ทั้ง 821 คน · ปั้น ERP Key User ให้ครบทุก core process · เริ่ม STEM baseline · ระบุปลายทางรายคนให้ครบ 166 ตำแหน่ง","g":"Go / No-Go: ห้ามกด ERP go-live ถ้า Key User ยังไม่ครบ 100%"},{"n":"Phase 2","y":"2570","lead":"R","a":"ย้ายคนจริงตาม Track A–D · เปิดสาย Recurring & TCS · เริ่ม OT Technician ตาม reference architecture · ผู้ที่รับเข้ามาใหม่เริ่มสอนคนใน","g":"วัดผล: Internal Fill Rate ของ 45 ตำแหน่งใหม่ ต้องถึง 40%"},{"n":"Phase 3","y":"2571","lead":"N","a":"Agentic AI ใช้งานจริงในกระบวนการหลัก · Platform 6 RST เปิดครบ · ตั้ง Digital Architect ครบ 4 สาขา · Analytics Translator ประจำทุกสายงาน","g":"ปิดที่ 700 คน โดย Productivity ต่อหัว 8.57 ลบ./คน/ปี"}],"kpis":[{"k":"Redeployment Coverage","t":"100%","w":"ทุกคนใน 166 ตำแหน่งที่ถูกตัด ต้องระบุได้ว่าไปเป็นอะไร ภายในวันไหน — ไม่ใช่นับชั่วโมงอบรม"},{"k":"Internal Fill Rate","t":"≥ 40%","w":"45 ตำแหน่งใหม่ เติมจากคนในได้กี่ % — พิสูจน์ว่า R และ U ใช้ได้จริง ไม่ใช่แค่จัดคอร์ส"},{"k":"ERP Key User Readiness","t":"100% ก่อน Go-live","w":"ใช้เป็น Go/No-Go gate ของ ERP ไม่ใช่ KPI ของฝ่ายบุคคล"},{"k":"Skill-to-Revenue","t":"ติดตามรายคน","w":"คนที่ผ่าน RUN แล้วไปอยู่งาน Recurring / TCS กี่คน — เชื่อมกับเป้า GP 30% โดยตรง"},{"k":"Ready-Now Talent Pool","t":"30 คน (2 x 15 ตำแหน่ง)","w":"คู่มือกำหนด Ready-Now 2 คนต่อ 1 ตำแหน่งสำคัญระดับ L4–L6 — หน้าเว็บเดิมนับแค่ 15 ตำแหน่ง ซึ่งเป็นจำนวนเก้าอี้ ไม่ใช่จำนวนคนที่ต้องพร้อม"},{"k":"Teach-back Ratio","t":"≥ 2 คน / 12 เดือน","w":"ทุกตำแหน่งในกลุ่ม N ต้องสร้างคนในที่ทำแทนได้ ผูกกับโบนัส กันความรู้หายเมื่อลาออก"}],"tdf":{"levels":[{"l":"L1","t":"Manage Self","d":"ความเชี่ยวชาญเฉพาะตัว · Technical/Operational Mastery · วินัย","band":"ปฏิบัติการ 1–4","n":398,"note":"ฐานพีระมิด 48% — พื้นที่หลักของ Factory 4.0"},{"l":"L1–L2","t":"วิชาชีพ (รอยต่อ)","d":"ผู้เชี่ยวชาญที่เริ่มคุมงานและสอนคนอื่น","band":"วิชาชีพ 5B–6C","n":203,"note":"กลุ่มที่ป้อน Track C และ E ได้มากที่สุด"},{"l":"L2","t":"Manage Other","d":"คุมทีมระดับหน้างาน (Station & Field) · Delegation · Task Management","band":"จัดการ 6B–6A","n":86,"note":"Track G1"},{"l":"L3","t":"Manage Function","d":"บริหารแผนก/ฟังก์ชัน · Cross-Functional Sync (IT/OT Integration)","band":"จัดการ/ผจก. 7C–9A","n":121,"note":"Track G2 · ต้องผ่าน Promotion Gatekeeper"},{"l":"L4–L6","t":"Business → Group → Corporate","d":"P&L และ Market Growth (L4) · Synergy และ Portfolio (L5) · Capital Allocation และ Ecosystem (L6)","band":"ผู้บริหาร 10–13","n":13,"note":"ต้องมี Ready-Now 2 คนต่อตำแหน่ง"}],"groups":[{"g":"กลุ่ม 1","t":"Product & Solution Development","k":"STEM · SGAM · SFAM · SCIAM · RAMI 4.0","n":59,"pct":7,"cat":"Engineering","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"สร้างสินค้า Long-tail ตาม Value Chain: Component → Equipment → DE → DBTP","risk":"เล็กที่สุดในกลุ่ม (7%) ทั้งที่คู่มือระบุว่าเป็นโครงสร้างพื้นฐานขององค์กร และแผนรับใหม่ 45 ตำแหน่งมีสายนี้แค่ 3 — ถ้าจะเป็น Leading Engineering Firm กลุ่มนี้ต้องโตก่อน"},{"g":"กลุ่ม 2","t":"Operation · Digital · AI · Automation","k":"OT · Digital · AI · Automation","n":469,"pct":58,"cat":"Production · Warehouse · QA/QC · Maintenance · Digital/IT","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"รองรับสินค้าใหม่จากกลุ่ม 1 — Demand Satisfaction · Cost · Speed · Quality","risk":"เป็นกลุ่มที่ถูกกระทบจากการลด 166 ตำแหน่งมากที่สุด และเป็นต้นทางของ Track A · B · F"},{"g":"กลุ่ม 3","t":"Business Management & Corporate Support","k":"Strategy · Feasibility · Marketing · Finance · TQM","n":270,"pct":33,"cat":"Sales · Procurement · Finance · HR/Admin · อื่น ๆ","dest":"VP / President / Group COO ของ Holding Company","w":"Business Generation สำหรับ Platform & Ecosystem Capitalism · Governance · M&A · Synergy","risk":"PCC ในฐานะ Holding มี 44 คน Span 1:0.8 — เป็นปลายทางที่ยังไม่ได้ใช้จริง ควรรับคนจาก 48 ตำแหน่งที่จะถูกควบรวม แทนการตัดทิ้งอย่างเดียว"}],"stages":[{"s":"Stage 1","y":"ปีที่ 0–5","t":"Building Mastery & Discipline","lv":"L1 → L2","n":208,"exact":true,"d":"สร้างรากฐานความเชี่ยวชาญเฉพาะทาง"},{"s":"Stage 2","y":"ปีที่ 5–12","t":"Expansion & Team Leadership","lv":"L2 → L3","n":319,"exact":false,"d":"ขยายมุมมอง บริหารคนและโครงการ เริ่มทำงานข้ามสาย"},{"s":"Stage 3","y":"ปีที่ 12–20","t":"Strategic Business Building","lv":"L3 → L5","n":147,"exact":false,"d":"บริหารหน่วยธุรกิจและขับเคลื่อนผลกำไร"},{"s":"Stage 4","y":"ปีที่ 20+","t":"Legacy & Ecosystem Governance","lv":"L5 → L6","n":147,"exact":false,"d":"นำองค์กรระดับ Corporate และกำหนดทิศทางอุตสาหกรรม"}],"stageNote":"Stage 1 ตรงกับช่วงอายุงานในระบบพอดี (0–3 ปี 123 + 4–5 ปี 85) ส่วน Stage 2–4 เป็นการประมาณ เพราะระบบเก็บเป็นช่วง 6–10 / 11–15 / มากกว่า 15 ปี ซึ่งไม่ตรงกับ 5–12 / 12–20 / 20+ ในคู่มือ — ควรตัดข้อมูลอายุงานใหม่ตามช่วงของคู่มือ","model":[{"p":70,"t":"Stretch Assignment","d":"เรียนจากการลงมือทำงานจริงที่ยากกว่าระดับปัจจุบัน","how":"ใช้โครงการ Capex 181 รายการที่ขึ้นทะเบียนแล้วเป็นคลังงาน (PEM 101 · PSP 58 · PDE 16 · PEMC 6) — 121 รายการมีชื่อ Owner อยู่แล้ว เพิ่มแค่ช่อง \"ผู้เรียนที่ติดไปกับโครงการ\" ก็ได้ส่วน 70% ทันที โดยไม่ต้องสร้างงานใหม่ · ERP go-live · Factory 4.0 แต่ละสาย · Platform 6 RST คือ Stretch Assignment ชั้นดีที่มีอยู่แล้ว"},{"p":20,"t":"Mentorship ข้ามสาย","d":"พี่เลี้ยงจากคนละสายงานหรือคนละบริษัท","how":"PSP และ PDE มี Span 1:1.8 แปลว่ามีหัวหน้าเยอะผิดปกติ ใช้เป็นพี่เลี้ยงข้ามบริษัทได้ทันที และ 45 ตำแหน่งที่รับใหม่มี KPI Teach-back ผูกอยู่แล้ว"},{"p":10,"t":"Formal Training / Certification","d":"หลักสูตรและใบรับรอง","how":"คือ Track A–G ทั้งหมดที่ออกแบบไว้ — ต้องเข้าใจตรงกันว่านี่เป็นแค่ 10% ไม่ใช่ทั้งแผน"}],"rules":[{"r":"Promotion Gatekeeper","d":"เลื่อนขั้นระดับ L3 ขึ้นไป ต้องผ่านโปรเจกต์ Cross-Functional หรือ Job Rotation ข้ามสายงาน","y":"บังคับให้ 86 คนใน L2 ที่กำลังจะขึ้น L3 ต้องข้ามสายเอง — ทำให้ Internal Talent Marketplace ข้าม 9 บริษัทเกิดขึ้นจริงโดยไม่ต้องสร้างแรงจูงใจเพิ่ม"},{"r":"9-Box Grid ประจำปี","d":"ประเมินผลงานคู่กับศักยภาพ แล้วจัดกลุ่มคนเป็น 9 ช่อง","y":"เป็นเครื่องมือคัดคนเข้า Track A–G ที่โปร่งใส แทนการให้หัวหน้าเสนอชื่อตามความคุ้นเคย"},{"r":"Ready-Now Talent Pool","d":"ระดับ L4–L6 ต้องมีผู้พร้อมสืบทอดอย่างน้อย 2 คนต่อ 1 ตำแหน่ง","y":"15 ตำแหน่งที่จะเกษียณ ต้องมี pool 30 คน ไม่ใช่ 15 — Track D ตั้งเป้าไว้ 30 คนพอดีอยู่แล้ว"},{"r":"Competency Index ตอนรับเข้า","d":"ใช้กรอบ RAMI 4.0 / SGAM ประเมินสายวิศวกร และประเมินทักษะไฮบริดสำหรับสายบริหาร","y":"ทำให้ 45 ตำแหน่งที่รับใหม่วัดด้วยมาตรฐานเดียวกับสถาปัตยกรรม 4 สาขาที่เป็นเป้าของแผนระยะที่ 4"},{"r":"T-Shaped Business Manager","d":"BM ที่คุม 5–10 Business Unit เรียนกลุ่ม 3 เป็นหลัก 50% · กลุ่ม 2 30% · กลุ่ม 1 20%","y":"เป็นสูตรน้ำหนักของ Track G2 — ยืนยันว่า Business Acumen และ Business Model ต้องมาก่อนเนื้อหาเทคนิค"}]},"mgmt":{"pop":220,"bands":"จัดการ 6B–6A 86 คน · จัดการ/ผจก. 7C–9A 121 คน · ผู้บริหาร 10–13 13 คน","mods":[{"m":"TQM","e":"Total Quality Management","d":"คุณภาพที่ต้นทาง · PDCA และ QC Story · Daily Management · การแปลงนโยบายลงหน้างาน (Policy Deployment)","y":"เป็นเนื้อในของ QCDS ใน 3.2 Demand Satisfaction และเชื่อมกับ TP4 ลดต้นทุนสินค้า (CFS) โดยตรง — เมื่อ inline inspection มาแทนการสุ่มตรวจ คุณภาพต้องคุมที่กระบวนการ ไม่ใช่ที่ปลายทาง"},{"m":"Business Model","e":"Business Model Design","d":"อ่านและออกแบบ Business Model Canvas ครบ 9 ช่อง · รู้ว่าโมเดลรายได้แต่ละแบบหาเงินคนละทาง","y":"ผู้บริหารทุกคนต้องอ่าน 6 RST ออก — Recurring วัดด้วย ARR/NRR · TCS วัดด้วย Attach Rate · Tendering วัดด้วย Win Rate ถ้าใช้ตัวชี้วัดชุดเดียวกันหมดจะบริหารผิดทาง"},{"m":"Business Process Development","e":"Process Design & Ownership","d":"เขียนและออกแบบกระบวนการเป็น · เป็น Process Owner ตัวจริง · วัดผลด้วยข้อมูลจาก ERP ไม่ใช่ความรู้สึก","y":"ต่อโดยตรงกับ Track C (ERP Key User) และ Digital Architecture 4 สาขา — ถ้าผู้บริหารออกแบบกระบวนการไม่เป็น ระบบใหม่จะถูกใช้แบบเดิม"},{"m":"Business Acumen","e":"Financial & Commercial Literacy","d":"อ่านงบทั้ง 3 งบ · เข้าใจ GP / EBIT / กระแสเงินสด · ต้นทุนต่อหน่วย · ผลของการลงทุนต่อ P&L รายปี","y":"ทุกคนที่เซ็นอนุมัติงบต้องอ่านผลกระทบ P&L ของ Capex ออก — ตรงกับหน้า Capex & Opex ที่ทุกคำขอต้องระบุผลกระทบ 3 งบ และเป้า GP 30%"},{"m":"Entrepreneurial Soft Skills","e":"Ownership · Decision · Influence","d":"เป็นเจ้าของผลลัพธ์ ไม่ใช่เจ้าของงาน · ตัดสินใจได้ในความไม่แน่นอน · เจรจาโน้มน้าว · สร้างทีมข้ามบริษัท","y":"เป็นเงื่อนไขของการขยาย Span จาก 1:2.7 เป็น 1:3.5 — หัวหน้าที่คุมคนมากขึ้นต้องปล่อยให้ลูกทีมตัดสินใจเองได้ และต้องทำงานข้าม 9 บริษัทโดยไม่มีสายบังคับบัญชาตรง"}]},"trends":[{"t":"จัดการด้วย \"ทักษะ\" แทน \"ตำแหน่ง\"","w":"Skills-based Organisation","d":"ทำ Skill Inventory ทั้ง 821 คนให้จบใน Phase 1 แล้วย้ายคนตามทักษะที่มี ไม่ต้องรอสร้างชื่อตำแหน่งใหม่","y":"ตอบโจทย์โดยตรงกับการย้าย 166 ตำแหน่ง และ Span of Control 1:2.7 ที่มีหัวหน้าเยอะเกินจำเป็น"},{"t":"ตลาดงานภายในข้าม 9 บริษัท","w":"Internal Talent Marketplace","d":"ประกาศงานและโครงการระยะสั้นให้คนทั้งกลุ่มสมัครข้ามบริษัทได้ ก่อนเปิดรับจากภายนอกทุกครั้ง","y":"PEM 409 · PSP 212 · SBP 64 · PDE 44 คน ต่างคนต่างรับ — ย้ายคนในถูกกว่าจ้างใหม่และไม่เสียความรู้เรื่องลูกค้าที่สะสมเฉลี่ย 11.3 ปี"},{"t":"AI เป็นทักษะพื้นฐาน ไม่ใช่ทักษะเฉพาะทาง","w":"AI Literacy as Baseline","d":"แยกให้ชัดระหว่าง \"ทุกคนใช้ AI ช่วยงานได้\" (655 คน) กับ \"คนสร้างระบบ AI\" (หลักสิบ) — คนละหลักสูตร คนละงบ","y":"ถ้ารอให้ทีม AI 5 คนทำให้ทุกคน จะเป็นคอขวดทันที นี่คือเหตุผลที่ต้องมี Track F"},{"t":"เรียนในงานจริง ไม่ใช่ในห้องเรียน","w":"Learning in the Flow of Work","d":"ฝังบทเรียนไว้ในระบบที่ใช้จริง — ERP · MES · PCC Console — วัดจากการใช้งานจริง ไม่ใช่ใบผ่านการอบรม","y":"ERP go-live เป็นตัวบังคับตามธรรมชาติอยู่แล้ว ใช้จังหวะนี้แทนการจัดอบรมแยก"},{"t":"ทวิภาคีและคุณวุฒิวิชาชีพ","w":"Dual-track & TPQI Certification","d":"จับมือวิทยาลัยเทคนิคในพื้นที่ป้อน Automation Technician และส่งพนักงานสอบคุณวุฒิวิชาชีพเป็นหลักฐานทักษะที่พกติดตัวได้","y":"กลุ่ม ปวช./ปวส. 175 คนมีพื้นฐานตรงอยู่แล้ว และเป็นทางออกที่มีศักดิ์ศรีให้กลุ่มวุฒิ ม.6 อีก 172 คน"},{"t":"แผนรักษาคนที่เพิ่งพัฒนาเสร็จ","w":"Post-Reskill Retention","d":"ผูก skill premium เข้ากับทักษะที่สอบผ่านจริง + พันธะเวลาสำหรับหลักสูตรที่ลงทุนสูง","y":"คนที่ reskill เป็น Automation หรือ Data มีมูลค่าตลาดสูงขึ้นทันที — โมเดลต้นทุนของเราตั้ง digital premium ไว้ 19% อยู่แล้ว ใช้เป็นฐานได้"}],"warn":"\u003cb>กางตัวเลขแล้วช่องว่างอยู่คนละที่กับที่คิดตอนแรก:\u003c/b> ฝั่ง \u003cb>R\u003c/b> ต้องการ 91 คน แต่ Track A+B รองรับได้ 140 คน \u003cb>เกินพอ +49 คน\u003c/b> ใช้เป็นกันชนได้\u003cbr>ช่องว่างจริงอยู่ที่ \u003cb>U — ต้องยกระดับ 655 คน แต่เส้นทางเชิงลึก C+D รองรับแค่ 75 คน (11%)\u003c/b> จึงเพิ่ม Track F เป็นพื้นฐานทั้งองค์กรที่ฝังในงานจริง ไม่ใช่รุ่นอบรม\u003cbr>และ \u003cb>N เดิมไม่มีเส้นทางเลย\u003c/b> 45 ตำแหน่งใหม่พึ่งการรับจากภายนอก 100% ถ้าคนลาออกความรู้หายทั้งก้อน จึงเพิ่ม Track E ให้คนในเรียนคู่กับคนที่รับเข้ามา\u003cbr>\u003cb>งบที่ยังไม่มี:\u003c/b> แผนนี้ประหยัดค่าจ้างสุทธิราว 38.33 ลบ./ปี แต่ยังไม่มีบรรทัดงบ RUN ในหน้า Capex/Opex เลย เสนอให้กัน 10-15% ของยอดประหยัดปีแรก (ราว 4-6 ลบ.) ผูกเข้า Tactical Plan 7"},"txt":{"grpNote":"\u003cb>จุดที่ต้องตัดสินใจ:\u003c/b> กลุ่ม 1 ซึ่งเป็นผู้สร้างสินค้า Long-tail อันเป็นโครงสร้างพื้นฐานขององค์กร มีคนน้อยที่สุดเพียง 59 คน (7%) และในแผนรับใหม่ 45 ตำแหน่งมีสายนี้เพียง 3 ตำแหน่ง — ถ้าเป้าหมายคือการเป็น Leading Engineering Firm กลุ่มนี้คือกลุ่มที่ต้องโตก่อน"}}</script>
+<script id="wpp-data" type="application/json">{"savedAt":1790610462596,"D":{"bands":[{"key":"g14","label":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","total":398},{"key":"g56","label":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","total":203},{"key":"g66","label":"กลุ่มจัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","total":86},{"key":"g79","label":"กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ","sub":"ระดับ 7C–9A","total":121},{"key":"g1013","label":"กลุ่มผู้บริหาร/ผู้บริหารโครงการ","sub":"ระดับ 10–13","total":13}],"dims":{"sy":{"title":"Service Year Group","buckets":["0-3 ปี","4-5 ปี","6-10 ปี","11-15 ปี","มากกว่า 15 ปี"],"colors":["#6DBE5B","#3D6BC6","#ED7D31","#FFC000","#3D6B33"]},"gen":{"title":"Generation Group","buckets":["Baby Boomer","Gen X","Gen Y","Gen Z"],"colors":["#5B9BD5","#ED7D31","#A6A6A6","#FFC000"]},"rt":{"title":"Retire Group","buckets":["อีก ≤3 ปี","4-5 ปี","6-10 ปี","มากกว่า 10 ปี"],"colors":["#ED7D31","#FFC000","#70AD47","#843C0C"]}},"mat":{"sy":{"g14":{"0-3 ปี":48,"มากกว่า 15 ปี":125,"11-15 ปี":54,"6-10 ปี":131,"4-5 ปี":40},"g56":{"0-3 ปี":60,"6-10 ปี":75,"4-5 ปี":36,"11-15 ปี":14,"มากกว่า 15 ปี":18},"g66":{"0-3 ปี":8,"6-10 ปี":35,"มากกว่า 15 ปี":17,"4-5 ปี":6,"11-15 ปี":20},"g79":{"0-3 ปี":5,"มากกว่า 15 ปี":52,"11-15 ปี":35,"4-5 ปี":3,"6-10 ปี":26},"g1013":{"มากกว่า 15 ปี":8,"6-10 ปี":3,"0-3 ปี":2}},"gen":{"g14":{"Gen Z":49,"Gen Y":231,"Gen X":118},"g56":{"Gen Z":56,"Gen Y":129,"Gen X":18},"g66":{"Gen Y":70,"Gen Z":5,"Gen X":11},"g79":{"Gen Y":84,"Gen X":34,"Gen Z":2,"Baby Boomer":1},"g1013":{"Gen X":10,"Gen Y":1,"Baby Boomer":2}},"rt":{"g14":{"มากกว่า 10 ปี":296,"6-10 ปี":63,"อีก ≤3 ปี":24,"4-5 ปี":15},"g56":{"มากกว่า 10 ปี":190,"6-10 ปี":8,"อีก ≤3 ปี":2,"4-5 ปี":3},"g66":{"มากกว่า 10 ปี":78,"6-10 ปี":6,"อีก ≤3 ปี":1,"4-5 ปี":1},"g79":{"มากกว่า 10 ปี":92,"6-10 ปี":12,"อีก ≤3 ปี":11,"4-5 ปี":6},"g1013":{"6-10 ปี":5,"มากกว่า 10 ปี":3,"อีก ≤3 ปี":4,"4-5 ปี":1}}},"tot":{"sy":{"0-3 ปี":123,"มากกว่า 15 ปี":220,"11-15 ปี":123,"6-10 ปี":270,"4-5 ปี":85},"gen":{"Gen Z":112,"Gen Y":515,"Gen X":191,"Baby Boomer":3},"rt":{"มากกว่า 10 ปี":659,"6-10 ปี":94,"อีก ≤3 ปี":42,"4-5 ปี":26}},"total":821,"asof":"1 ก.ย. 2569","avgAge":38.4,"avgSY":11.3},"span":2.7,"fin":{"revenue":6202988637.88,"salary":359152229.8,"welfare":170419946.97,"benefit":560572176.77,"gm":1436094137.2,"hcActual":828,"revTarget":6000000000,"hcTarget":700},"journey":[{"n":958,"y":"ปี 2566"},{"n":821,"y":"ปี 2569 (ปัจจุบัน)"},{"n":796,"y":"2569 Q4 – 2570 H1"},{"n":746,"y":"2570"},{"n":700,"y":"2571"}],"run":{"buckets":[{"k":"R","t":"Reskill","w":"เปลี่ยนอาชีพ","n":91,"u":"คน","d":"งานเดิมกำลังหายไปจากระบบ ต้องย้ายไปอาชีพใหม่ — มาจากตำแหน่งที่ถูกตัด การเกษียณ และการควบรวมชั้นบริหาร","f":"ล้มเหลวแบบไหน: คนไม่มีที่ไป แผนกลายเป็นการเลิกจ้าง","ph":"Phase 2 (2570) นำ"},{"k":"U","t":"Upskill","w":"ยกระดับในสายเดิม","n":655,"u":"คน","d":"งานยังอยู่แต่วิธีทำเปลี่ยนทั้งหมด — ERP · Factory 4.0 · AI ช่วยงาน · STEM baseline ในทุกสายงาน กลุ่มใหญ่ที่สุดและถูกพูดถึงน้อยที่สุด","f":"ล้มเหลวแบบไหน: ระบบขึ้นแล้วคนใช้ไม่เป็น งานกองที่คนที่เหลือ","ph":"Phase 1 (2569 Q4) นำ"},{"k":"N","t":"New Skill","w":"ทักษะที่ยังไม่มีในองค์กร","n":45,"u":"ตำแหน่ง","d":"ความสามารถที่วันนี้ไม่มีใครในกลุ่มทำได้ — Agentic AI · Platform · Digital Architecture 4 สาขา · Ecosystem Orchestration","f":"ล้มเหลวแบบไหน: ซื้อคนมาแล้วเขาลาออก ความรู้หายไปกับตัว","ph":"Phase 3 (2571) นำ"}],"pillars":[{"p":"Digital & AI","s":"Agentic AI · Precise LLM","r":"พนักงานงานเอกสาร/คีย์ข้อมูลซ้ำซ้อน → AI-assisted Operator · ผู้ดูแล Workflow อัตโนมัติ","u":"ทุกคนที่อยู่ต่อต้องใช้ AI ช่วยงานประจำได้จริง — เขียน prompt · ตรวจผลลัพธ์ · รู้ว่าเมื่อไรห้ามเชื่อ AI","n":"AI / ML Engineer · Agentic Workflow Designer · ผู้ดูแล Precise LLM และ Opensource AI"},{"p":"6 Revenue Stream Type","s":"Tendering · Omni · TCS · Recurring · PPA · Investment","r":"ช่างบริการและพนักงานขายแบบขายครั้งเดียว → Recurring & TCS Specialist ที่ขายผลลัพธ์และดูแลสัญญาต่อเนื่อง","u":"BM · PM · S&OP ต้องอ่านโมเดลรายได้ทั้ง 6 แบบออก และรู้ว่า KPI ต่างกัน (ARR/NRR ไม่ใช่ Win Rate ไม่ใช่ IRR)","n":"Solution Architect · Platform Developer · ผู้เชี่ยวชาญโครงสร้างสัญญา PPA และ Long-term Contract"},{"p":"4 Digital Architecture","s":"SGAM · SFAM · SCIAM · RAMI 4.0","r":"ช่างไฟ/ช่างกลสายปฏิบัติการ → OT Technician ที่อ่านแบบตาม reference architecture เป็น ไม่ใช่ซ่อมตามอาการ","u":"วิศวกร 59 คนที่มีอยู่ ต้องออกแบบงานให้อยู่บน reference model ไม่ใช่ออกแบบเฉพาะจุดแล้วต่อกันไม่ได้","n":"Digital Architect ครบ 4 สาขา — เป็นเงื่อนไขของแผนระยะที่ 4 (Strategic Management 2578)"},{"p":"Leading Engineering Firm","s":"วิสัยทัศน์องค์กร","r":"—  เสานี้ไม่ใช่เส้นทางเปลี่ยนอาชีพ แต่เป็นมาตรฐานวิชาชีพที่ทุกสายวิศวกรรมต้องไปให้ถึง","u":"ยกระดับวิศวกรที่มีอยู่สู่ใบอนุญาตวิชาชีพ · Type Test และมาตรฐานสากล · เขียนข้อเสนอเชิงเทคนิคได้เอง","n":"Chartered / Professional Engineer · ผู้เชี่ยวชาญมาตรฐานและการรับรอง · งานสิทธิบัตรและทรัพย์สินทางปัญญา"},{"p":"STEM ในทุก Function","s":"Science · Technology · Engineering · Mathematics","r":"ผู้ปฏิบัติงานที่ใช้ทักษะมือ → ผู้ควบคุมเครื่องที่อ่านค่าเป็น ตัดสินใจจากข้อมูล ไม่ใช่จากความเคยชิน","u":"ทุกสายงานต้องมี STEM baseline — บัญชีใช้สถิติ · จัดซื้อใช้ optimization · HR ใช้ข้อมูลคน · ขายอ่านสเปกวิศวกรรมออก","n":"Analytics Translator ประจำแต่ละสายงาน — คนที่แปลโจทย์ธุรกิจเป็นโจทย์ข้อมูลได้"}],"phases":[{"n":"Phase 1","y":"2569 Q4 – 2570 H1","lead":"U","a":"ตั้ง Backfill Committee · ทำ Skill Inventory ทั้ง 821 คน · ปั้น ERP Key User ให้ครบทุก core process · เริ่ม STEM baseline · ระบุปลายทางรายคนให้ครบ 166 ตำแหน่ง","g":"Go / No-Go: ห้ามกด ERP go-live ถ้า Key User ยังไม่ครบ 100%"},{"n":"Phase 2","y":"2570","lead":"R","a":"ย้ายคนจริงตาม Track A–D · เปิดสาย Recurring & TCS · เริ่ม OT Technician ตาม reference architecture · ผู้ที่รับเข้ามาใหม่เริ่มสอนคนใน","g":"วัดผล: Internal Fill Rate ของ 45 ตำแหน่งใหม่ ต้องถึง 40%"},{"n":"Phase 3","y":"2571","lead":"N","a":"Agentic AI ใช้งานจริงในกระบวนการหลัก · Platform 6 RST เปิดครบ · ตั้ง Digital Architect ครบ 4 สาขา · Analytics Translator ประจำทุกสายงาน","g":"ปิดที่ 700 คน โดย Productivity ต่อหัว 8.57 ลบ./คน/ปี"}],"kpis":[{"k":"Redeployment Coverage","t":"100%","w":"ทุกคนใน 166 ตำแหน่งที่ถูกตัด ต้องระบุได้ว่าไปเป็นอะไร ภายในวันไหน — ไม่ใช่นับชั่วโมงอบรม"},{"k":"Internal Fill Rate","t":"≥ 40%","w":"45 ตำแหน่งใหม่ เติมจากคนในได้กี่ % — พิสูจน์ว่า R และ U ใช้ได้จริง ไม่ใช่แค่จัดคอร์ส"},{"k":"ERP Key User Readiness","t":"100% ก่อน Go-live","w":"ใช้เป็น Go/No-Go gate ของ ERP ไม่ใช่ KPI ของฝ่ายบุคคล"},{"k":"Skill-to-Revenue","t":"ติดตามรายคน","w":"คนที่ผ่าน RUN แล้วไปอยู่งาน Recurring / TCS กี่คน — เชื่อมกับเป้า GP 30% โดยตรง"},{"k":"Ready-Now Talent Pool","t":"30 คน (2 x 15 ตำแหน่ง)","w":"คู่มือกำหนด Ready-Now 2 คนต่อ 1 ตำแหน่งสำคัญระดับ L4–L6 — หน้าเว็บเดิมนับแค่ 15 ตำแหน่ง ซึ่งเป็นจำนวนเก้าอี้ ไม่ใช่จำนวนคนที่ต้องพร้อม"},{"k":"Teach-back Ratio","t":"≥ 2 คน / 12 เดือน","w":"ทุกตำแหน่งในกลุ่ม N ต้องสร้างคนในที่ทำแทนได้ ผูกกับโบนัส กันความรู้หายเมื่อลาออก"}],"tdf":{"levels":[{"l":"L1","t":"Manage Self","d":"ความเชี่ยวชาญเฉพาะตัว · Technical/Operational Mastery · วินัย","band":"ปฏิบัติการ 1–4","n":398,"note":"ฐานพีระมิด 48% — พื้นที่หลักของ Factory 4.0"},{"l":"L1–L2","t":"วิชาชีพ (รอยต่อ)","d":"ผู้เชี่ยวชาญที่เริ่มคุมงานและสอนคนอื่น","band":"วิชาชีพ 5B–6C","n":203,"note":"กลุ่มที่ป้อน Track C และ E ได้มากที่สุด"},{"l":"L2","t":"Manage Other","d":"คุมทีมระดับหน้างาน (Station & Field) · Delegation · Task Management","band":"จัดการ 6B–6A","n":86,"note":"Track G1"},{"l":"L3","t":"Manage Function","d":"บริหารแผนก/ฟังก์ชัน · Cross-Functional Sync (IT/OT Integration)","band":"จัดการ/ผจก. 7C–9A","n":121,"note":"Track G2 · ต้องผ่าน Promotion Gatekeeper"},{"l":"L4–L6","t":"Business → Group → Corporate","d":"P&L และ Market Growth (L4) · Synergy และ Portfolio (L5) · Capital Allocation และ Ecosystem (L6)","band":"ผู้บริหาร 10–13","n":13,"note":"ต้องมี Ready-Now 2 คนต่อตำแหน่ง"}],"groups":[{"g":"กลุ่ม 1","t":"Product & Solution Development","k":"STEM · SGAM · SFAM · SCIAM · RAMI 4.0","n":59,"pct":7,"cat":"Engineering","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"สร้างสินค้า Long-tail ตาม Value Chain: Component → Equipment → DE → DBTP","risk":"เล็กที่สุดในกลุ่ม ทั้งที่คู่มือระบุว่าเป็นโครงสร้างพื้นฐานขององค์กร และแผนรับใหม่มีสายนี้น้อยที่สุด — ถ้าเป้าหมายคือการเป็น Leading Engineering Firm กลุ่มนี้คือกลุ่มที่ต้องโตก่อน"},{"g":"กลุ่ม 2","t":"Operation · Digital · AI · Automation","k":"OT · Digital · AI · Automation","n":469,"pct":58,"cat":"Production · Warehouse · QA/QC · Maintenance · Digital/IT","dest":"CEO / COO / CTO ของบริษัทย่อย (OpCo)","w":"รองรับสินค้าใหม่จากกลุ่ม 1 — Demand Satisfaction · Cost · Speed · Quality","risk":"เป็นกลุ่มที่ถูกกระทบจากการลดตำแหน่งมากที่สุด และเป็นต้นทางของ Track A · B · F"},{"g":"กลุ่ม 3","t":"Business Management & Corporate Support","k":"Strategy · Feasibility · Marketing · Finance · TQM","n":270,"pct":33,"cat":"Sales · Procurement · Finance · HR/Admin · อื่น ๆ","dest":"VP / President / Group COO ของ Holding Company","w":"Business Generation สำหรับ Platform & Ecosystem Capitalism · Governance · M&A · Synergy","risk":"PCC ในฐานะ Holding ยังเป็นปลายทางที่ยังไม่ได้ใช้จริง ควรรับคนจากตำแหน่งที่จะถูกควบรวม แทนการตัดทิ้งอย่างเดียว"}],"stages":[{"s":"Stage 1","y":"ปีที่ 0–5","t":"Building Mastery & Discipline","lv":"L1 → L2","n":208,"exact":true,"d":"สร้างรากฐานความเชี่ยวชาญเฉพาะทาง"},{"s":"Stage 2","y":"ปีที่ 5–12","t":"Expansion & Team Leadership","lv":"L2 → L3","n":319,"exact":false,"d":"ขยายมุมมอง บริหารคนและโครงการ เริ่มทำงานข้ามสาย"},{"s":"Stage 3","y":"ปีที่ 12–20","t":"Strategic Business Building","lv":"L3 → L5","n":147,"exact":false,"d":"บริหารหน่วยธุรกิจและขับเคลื่อนผลกำไร"},{"s":"Stage 4","y":"ปีที่ 20+","t":"Legacy & Ecosystem Governance","lv":"L5 → L6","n":147,"exact":false,"d":"นำองค์กรระดับ Corporate และกำหนดทิศทางอุตสาหกรรม"}],"stageNote":"Stage 1 ตรงกับช่วงอายุงานในระบบพอดี (0–3 ปี 123 + 4–5 ปี 85) ส่วน Stage 2–4 เป็นการประมาณ เพราะระบบเก็บเป็นช่วง 6–10 / 11–15 / มากกว่า 15 ปี ซึ่งไม่ตรงกับ 5–12 / 12–20 / 20+ ในคู่มือ — ควรตัดข้อมูลอายุงานใหม่ตามช่วงของคู่มือ","model":[{"p":70,"t":"Stretch Assignment","d":"เรียนจากการลงมือทำงานจริงที่ยากกว่าระดับปัจจุบัน","how":"ใช้โครงการ Capex 181 รายการที่ขึ้นทะเบียนแล้วเป็นคลังงาน (PEM 101 · PSP 58 · PDE 16 · PEMC 6) — 121 รายการมีชื่อ Owner อยู่แล้ว เพิ่มแค่ช่อง \"ผู้เรียนที่ติดไปกับโครงการ\" ก็ได้ส่วน 70% ทันที โดยไม่ต้องสร้างงานใหม่ · ERP go-live · Factory 4.0 แต่ละสาย · Platform 6 RST คือ Stretch Assignment ชั้นดีที่มีอยู่แล้ว"},{"p":20,"t":"Mentorship ข้ามสาย","d":"พี่เลี้ยงจากคนละสายงานหรือคนละบริษัท","how":"PSP และ PDE มี Span 1:1.8 แปลว่ามีหัวหน้าเยอะผิดปกติ ใช้เป็นพี่เลี้ยงข้ามบริษัทได้ทันที และ 45 ตำแหน่งที่รับใหม่มี KPI Teach-back ผูกอยู่แล้ว"},{"p":10,"t":"Formal Training / Certification","d":"หลักสูตรและใบรับรอง","how":"คือ Track A–G ทั้งหมดที่ออกแบบไว้ — ต้องเข้าใจตรงกันว่านี่เป็นแค่ 10% ไม่ใช่ทั้งแผน"}],"rules":[{"r":"Promotion Gatekeeper","d":"เลื่อนขั้นระดับ L3 ขึ้นไป ต้องผ่านโปรเจกต์ Cross-Functional หรือ Job Rotation ข้ามสายงาน","y":"บังคับให้ 86 คนใน L2 ที่กำลังจะขึ้น L3 ต้องข้ามสายเอง — ทำให้ Internal Talent Marketplace ข้าม 9 บริษัทเกิดขึ้นจริงโดยไม่ต้องสร้างแรงจูงใจเพิ่ม"},{"r":"9-Box Grid ประจำปี","d":"ประเมินผลงานคู่กับศักยภาพ แล้วจัดกลุ่มคนเป็น 9 ช่อง","y":"เป็นเครื่องมือคัดคนเข้า Track A–G ที่โปร่งใส แทนการให้หัวหน้าเสนอชื่อตามความคุ้นเคย"},{"r":"Ready-Now Talent Pool","d":"ระดับ L4–L6 ต้องมีผู้พร้อมสืบทอดอย่างน้อย 2 คนต่อ 1 ตำแหน่ง","y":"15 ตำแหน่งที่จะเกษียณ ต้องมี pool 30 คน ไม่ใช่ 15 — Track D ตั้งเป้าไว้ 30 คนพอดีอยู่แล้ว"},{"r":"Competency Index ตอนรับเข้า","d":"ใช้กรอบ RAMI 4.0 / SGAM ประเมินสายวิศวกร และประเมินทักษะไฮบริดสำหรับสายบริหาร","y":"ทำให้ 45 ตำแหน่งที่รับใหม่วัดด้วยมาตรฐานเดียวกับสถาปัตยกรรม 4 สาขาที่เป็นเป้าของแผนระยะที่ 4"},{"r":"T-Shaped Business Manager","d":"BM ที่คุม 5–10 Business Unit เรียนกลุ่ม 3 เป็นหลัก 50% · กลุ่ม 2 30% · กลุ่ม 1 20%","y":"เป็นสูตรน้ำหนักของ Track G2 — ยืนยันว่า Business Acumen และ Business Model ต้องมาก่อนเนื้อหาเทคนิค"}]},"mgmt":{"pop":220,"bands":"จัดการ 6B–6A 86 คน · จัดการ/ผจก. 7C–9A 121 คน · ผู้บริหาร 10–13 13 คน","mods":[{"m":"TQM","e":"Total Quality Management","d":"คุณภาพที่ต้นทาง · PDCA และ QC Story · Daily Management · การแปลงนโยบายลงหน้างาน (Policy Deployment)","y":"เป็นเนื้อในของ QCDS ใน 3.2 Demand Satisfaction และเชื่อมกับ TP4 ลดต้นทุนสินค้า (CFS) โดยตรง — เมื่อ inline inspection มาแทนการสุ่มตรวจ คุณภาพต้องคุมที่กระบวนการ ไม่ใช่ที่ปลายทาง"},{"m":"Business Model","e":"Business Model Design","d":"อ่านและออกแบบ Business Model Canvas ครบ 9 ช่อง · รู้ว่าโมเดลรายได้แต่ละแบบหาเงินคนละทาง","y":"ผู้บริหารทุกคนต้องอ่าน 6 RST ออก — Recurring วัดด้วย ARR/NRR · TCS วัดด้วย Attach Rate · Tendering วัดด้วย Win Rate ถ้าใช้ตัวชี้วัดชุดเดียวกันหมดจะบริหารผิดทาง"},{"m":"Business Process Development","e":"Process Design & Ownership","d":"เขียนและออกแบบกระบวนการเป็น · เป็น Process Owner ตัวจริง · วัดผลด้วยข้อมูลจาก ERP ไม่ใช่ความรู้สึก","y":"ต่อโดยตรงกับ Track C (ERP Key User) และ Digital Architecture 4 สาขา — ถ้าผู้บริหารออกแบบกระบวนการไม่เป็น ระบบใหม่จะถูกใช้แบบเดิม"},{"m":"Business Acumen","e":"Financial & Commercial Literacy","d":"อ่านงบทั้ง 3 งบ · เข้าใจ GP / EBIT / กระแสเงินสด · ต้นทุนต่อหน่วย · ผลของการลงทุนต่อ P&L รายปี","y":"ทุกคนที่เซ็นอนุมัติงบต้องอ่านผลกระทบ P&L ของ Capex ออก — ตรงกับหน้า Capex & Opex ที่ทุกคำขอต้องระบุผลกระทบ 3 งบ และเป้า GP 30%"},{"m":"Entrepreneurial Soft Skills","e":"Ownership · Decision · Influence","d":"เป็นเจ้าของผลลัพธ์ ไม่ใช่เจ้าของงาน · ตัดสินใจได้ในความไม่แน่นอน · เจรจาโน้มน้าว · สร้างทีมข้ามบริษัท","y":"เป็นเงื่อนไขของการขยาย Span จาก 1:2.7 เป็น 1:3.5 — หัวหน้าที่คุมคนมากขึ้นต้องปล่อยให้ลูกทีมตัดสินใจเองได้ และต้องทำงานข้าม 9 บริษัทโดยไม่มีสายบังคับบัญชาตรง"}]},"trends":[{"t":"จัดการด้วย \"ทักษะ\" แทน \"ตำแหน่ง\"","w":"Skills-based Organisation","d":"ทำ Skill Inventory ทั้ง 821 คนให้จบใน Phase 1 แล้วย้ายคนตามทักษะที่มี ไม่ต้องรอสร้างชื่อตำแหน่งใหม่","y":"ตอบโจทย์โดยตรงกับการย้าย 166 ตำแหน่ง และ Span of Control 1:2.7 ที่มีหัวหน้าเยอะเกินจำเป็น"},{"t":"ตลาดงานภายในข้าม 9 บริษัท","w":"Internal Talent Marketplace","d":"ประกาศงานและโครงการระยะสั้นให้คนทั้งกลุ่มสมัครข้ามบริษัทได้ ก่อนเปิดรับจากภายนอกทุกครั้ง","y":"PEM 409 · PSP 212 · SBP 64 · PDE 44 คน ต่างคนต่างรับ — ย้ายคนในถูกกว่าจ้างใหม่และไม่เสียความรู้เรื่องลูกค้าที่สะสมเฉลี่ย 11.3 ปี"},{"t":"AI เป็นทักษะพื้นฐาน ไม่ใช่ทักษะเฉพาะทาง","w":"AI Literacy as Baseline","d":"แยกให้ชัดระหว่าง \"ทุกคนใช้ AI ช่วยงานได้\" (655 คน) กับ \"คนสร้างระบบ AI\" (หลักสิบ) — คนละหลักสูตร คนละงบ","y":"ถ้ารอให้ทีม AI 5 คนทำให้ทุกคน จะเป็นคอขวดทันที นี่คือเหตุผลที่ต้องมี Track F"},{"t":"เรียนในงานจริง ไม่ใช่ในห้องเรียน","w":"Learning in the Flow of Work","d":"ฝังบทเรียนไว้ในระบบที่ใช้จริง — ERP · MES · PCC Console — วัดจากการใช้งานจริง ไม่ใช่ใบผ่านการอบรม","y":"ERP go-live เป็นตัวบังคับตามธรรมชาติอยู่แล้ว ใช้จังหวะนี้แทนการจัดอบรมแยก"},{"t":"ทวิภาคีและคุณวุฒิวิชาชีพ","w":"Dual-track & TPQI Certification","d":"จับมือวิทยาลัยเทคนิคในพื้นที่ป้อน Automation Technician และส่งพนักงานสอบคุณวุฒิวิชาชีพเป็นหลักฐานทักษะที่พกติดตัวได้","y":"กลุ่ม ปวช./ปวส. 175 คนมีพื้นฐานตรงอยู่แล้ว และเป็นทางออกที่มีศักดิ์ศรีให้กลุ่มวุฒิ ม.6 อีก 172 คน"},{"t":"แผนรักษาคนที่เพิ่งพัฒนาเสร็จ","w":"Post-Reskill Retention","d":"ผูก skill premium เข้ากับทักษะที่สอบผ่านจริง + พันธะเวลาสำหรับหลักสูตรที่ลงทุนสูง","y":"คนที่ reskill เป็น Automation หรือ Data มีมูลค่าตลาดสูงขึ้นทันที — โมเดลต้นทุนของเราตั้ง digital premium ไว้ 19% อยู่แล้ว ใช้เป็นฐานได้"}],"warn":"\u003cb>กางตัวเลขแล้วช่องว่างอยู่คนละที่กับที่คิดตอนแรก:\u003c/b> ฝั่ง \u003cb>R\u003c/b> ต้องการ 91 คน แต่ Track A+B รองรับได้ 140 คน \u003cb>เกินพอ +49 คน\u003c/b> ใช้เป็นกันชนได้\u003cbr>ช่องว่างจริงอยู่ที่ \u003cb>U — ต้องยกระดับ 655 คน แต่เส้นทางเชิงลึก C+D รองรับแค่ 75 คน (11%)\u003c/b> จึงเพิ่ม Track F เป็นพื้นฐานทั้งองค์กรที่ฝังในงานจริง ไม่ใช่รุ่นอบรม\u003cbr>และ \u003cb>N เดิมไม่มีเส้นทางเลย\u003c/b> 45 ตำแหน่งใหม่พึ่งการรับจากภายนอก 100% ถ้าคนลาออกความรู้หายทั้งก้อน จึงเพิ่ม Track E ให้คนในเรียนคู่กับคนที่รับเข้ามา\u003cbr>\u003cb>งบที่ยังไม่มี:\u003c/b> แผนนี้ประหยัดค่าจ้างสุทธิราว 38.33 ลบ./ปี แต่ยังไม่มีบรรทัดงบ RUN ในหน้า Capex/Opex เลย เสนอให้กัน 10-15% ของยอดประหยัดปีแรก (ราว 4-6 ลบ.) ผูกเข้า Tactical Plan 7"},"txt":{},"D66":{"bands":[{"key":"g14","label":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","total":518},{"key":"g56","label":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","total":230},{"key":"g66","label":"กลุ่มจัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","total":96},{"key":"g79","label":"กลุ่มจัดการ/ชำนาญการ/ผู้จัดการโครงการ","sub":"ระดับ 7C–9A","total":99},{"key":"g1013","label":"กลุ่มผู้บริหาร/ผู้บริหารโครงการ","sub":"ระดับ 10–13","total":15}],"dims":{"sy":{"title":"Service Year Group","buckets":["0-3 ปี","4-5 ปี","6-10 ปี","11-15 ปี","มากกว่า 15 ปี"],"colors":["#6DBE5B","#3D6BC6","#ED7D31","#FFC000","#3D6B33"]},"gen":{"title":"Generation Group","buckets":["Baby Boomer","Gen X","Gen Y","Gen Z"],"colors":["#5B9BD5","#ED7D31","#A6A6A6","#FFC000"]},"rt":{"title":"Retire Group","buckets":["อีก ≤3 ปี","4-5 ปี","6-10 ปี","มากกว่า 10 ปี"],"colors":["#ED7D31","#FFC000","#70AD47","#843C0C"]}},"mat":{"sy":{"g14":{"0-3 ปี":90,"4-5 ปี":93,"6-10 ปี":103,"11-15 ปี":93,"มากกว่า 15 ปี":136},"g56":{"0-3 ปี":87,"4-5 ปี":37,"6-10 ปี":79,"11-15 ปี":12,"มากกว่า 15 ปี":15},"g66":{"0-3 ปี":6,"4-5 ปี":10,"6-10 ปี":28,"11-15 ปี":26,"มากกว่า 15 ปี":26},"g79":{"0-3 ปี":3,"4-5 ปี":7,"6-10 ปี":16,"11-15 ปี":29,"มากกว่า 15 ปี":44},"g1013":{"0-3 ปี":1,"4-5 ปี":2,"6-10 ปี":2,"มากกว่า 15 ปี":10}},"gen":{"g14":{"Baby Boomer":8,"Gen X":193,"Gen Y":306,"Gen Z":11},"g56":{"Baby Boomer":2,"Gen X":15,"Gen Y":206,"Gen Z":7},"g66":{"Baby Boomer":2,"Gen X":27,"Gen Y":67},"g79":{"Baby Boomer":6,"Gen X":36,"Gen Y":57},"g1013":{"Baby Boomer":3,"Gen X":12}},"rt":{"g14":{"อีก ≤3 ปี":26,"4-5 ปี":23,"6-10 ปี":57,"มากกว่า 10 ปี":412},"g56":{"อีก ≤3 ปี":2,"4-5 ปี":3,"6-10 ปี":3,"มากกว่า 10 ปี":222},"g66":{"อีก ≤3 ปี":3,"4-5 ปี":2,"6-10 ปี":8,"มากกว่า 10 ปี":83},"g79":{"อีก ≤3 ปี":7,"4-5 ปี":6,"6-10 ปี":10,"มากกว่า 10 ปี":76},"g1013":{"อีก ≤3 ปี":5,"4-5 ปี":1,"6-10 ปี":3,"มากกว่า 10 ปี":6}}},"tot":{"sy":{"0-3 ปี":187,"4-5 ปี":149,"6-10 ปี":228,"11-15 ปี":160,"มากกว่า 15 ปี":231},"gen":{"Baby Boomer":21,"Gen X":283,"Gen Y":636,"Gen Z":18},"rt":{"อีก ≤3 ปี":43,"4-5 ปี":35,"6-10 ปี":81,"มากกว่า 10 ปี":799}},"total":958,"asof":"ปี 2566","avgAge":null,"avgSY":null,"gender":{"m":636,"f":322,"mp":66.39,"fp":33.61}},"fin66":{"hcActual":959,"revenue":5079503346.37,"salary":325012949.54,"welfare":280640102.76,"benefit":628418486.2,"gm":1253237306.51}}</script>
 <!--WPP_DATA_END-->
 
 <div class="bar">
@@ -309,14 +324,16 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
   <div class="hero" id="s0">
     <div class="kd">Workforce Planning</div>
     <h1 data-k="h1">เป้าหมาย 700 คน ปี 2571</h1>
-    <div class="sub" data-k="hsub">ลดกำลังคนจาก 821 เหลือ 700 คน พร้อมเพิ่มยอดขายเป็น 6,000 ล้านบาท ที่ Gross Profit 30% — ผลิตภาพต่อคนต้องขึ้นจาก 7.49 เป็น 8.57 ล้านบาท/คน/ปี</div>
+    <div class="sub" data-k="hsub">จาก 958 คนในปี 2566 เหลือ 821 คนวันนี้ และจะเหลือ 700 คนในปี 2571 พร้อมยอดขาย 6,000 ล้านบาท ที่ Gross Profit 30% — ผลิตภาพต่อคนเดินจาก 5.30 (2566) มา 7.49 (2569) และต้องถึง 8.57 ล้านบาท/คน/ปี</div>
     <div class="kpis" id="heroKpi"></div>
     <div class="journey" id="journey"></div>
   </div>
 
   <div class="sec" id="s1">
-    <div class="sech"><span class="n">1</span><h2>โครงสร้างกำลังคน (Workforce Pyramid)</h2>
-      <span class="cap" data-k="c1">พีระมิด 5 ระดับ แยกตามอายุงาน · เจเนอเรชัน · ช่วงเกษียณ — ตัวเลขในแต่ละช่องคือจำนวนคน</span></div>
+    <div class="sech"><span class="n">1</span><h2>โครงสร้างกำลังคน (Workforce Pyramid) — 2566 เทียบ 2569</h2>
+      <span class="cap" data-k="c1">พีระมิด 5 ระดับ แยกตามอายุงาน · เจเนอเรชัน · ช่วงเกษียณ — กดสลับปีเพื่อดูว่าโครงสร้างเปลี่ยนไปอย่างไร</span></div>
+    <div class="story" id="story"></div>
+    <div class="yrsw" id="yrsw"><button data-yr="y66">ปี 2566</button><button data-yr="y69" class="on">ปี 2569</button></div>
     <div class="pyra" id="pyra"></div>
 
     <h3 style="margin-top:20px">ตัวเลขการเงินและการวัดผลิตภาพ</h3>
@@ -338,17 +355,13 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
   </div>
 
   <div class="sec" id="s2b">
-    <div class="sech"><span class="n">2</span><h2>RUN Roadmap — ลำดับการลงมือ · ตัวชี้วัด · แนวโน้ม</h2>
-      <span class="cap" data-k="c2b">เฟสไหนทำอะไร วัดด้วยอะไร และอะไรที่ยังไม่อยู่ในแผน</span></div>
+    <div class="sech"><span class="n">2</span><h2>RUN Roadmap — ลำดับการลงมือ · ตัวชี้วัด</h2>
+      <span class="cap" data-k="c2b">เฟสไหนทำอะไร ต้องเกิดอะไรขึ้น และวัดผลด้วยอะไร</span></div>
     <h3 style="margin-top:2px">ลำดับการลงมือ — ผูกกับ 3 เฟสของ Workforce Roadmap</h3>
     <table class="mini" id="tRunPhase"></table>
 
     <h3 style="margin-top:18px">ตัวชี้วัดที่ต้องมี</h3>
     <div class="runkpi" id="runKpi"></div>
-    <div class="warnbox" id="runWarn" style="margin-top:12px"></div>
-
-    <h3 style="margin-top:18px">แนวโน้มที่ควรเพิ่มเข้าไปในแผน</h3>
-    <div class="trends" id="runTrends"></div>
   </div>
 
   <div class="sec" id="s3">
@@ -414,6 +427,11 @@ var saveT=null; function schedulePersist(){ clearTimeout(saveT); saveT=setTimeou
 
 /* ================= render ================= */
 var D=S.D, num=function(v){ return (+v||0).toLocaleString('en-US'); };
+var curYear='y69';
+function YD(yr){ return (yr||curYear)==='y66' ? S.D66 : S.D; }
+function pct(a,b){ return (b/a-1)*100; }
+function dl(v,good){ var up=v>=0, cls=(good===false ? (up?'dn':'up') : (up?'up':'dn'));
+  return '<div class="dl '+cls+'">'+(up?'+':'')+nf(v,1)+'%</div>'; }
 
 /* ---------- pyramids ---------- */
 var ROWCOLORS=['#BDD7EE','#C9DDF0','#D6E5F4','#E2EDF8','#EEF5FC']; /* top→bottom */
@@ -421,8 +439,8 @@ function lum(hex){ var c=parseInt(hex.slice(1),16); return (0.299*((c>>16)&255)+
 function shade(hex,f){ var c=parseInt(hex.slice(1),16),r=(c>>16)&255,g=(c>>8)&255,b=c&255;
   r=Math.min(255,Math.max(0,Math.round(r*f))); g=Math.min(255,Math.max(0,Math.round(g*f))); b=Math.min(255,Math.max(0,Math.round(b*f)));
   return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1); }
-function pyramidSVG(dimKey){
-  var dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();
+function pyramidSVG(dimKey,DY){
+  var D=DY, dim=D.dims[dimKey], bandsTop=D.bands.slice().reverse();
   var RH=56, rows=bandsTop.length, H=RH*rows;      /* พื้นที่แถบ */
   var APEX=20;                                      /* ยอดแหลมประดับเหนือแถบแรก */
   var W=352, cx=W/2, HW0=27, HWmax=W/2-6;           /* ครึ่งความกว้าง: บนสุด -> ล่างสุด */
@@ -480,15 +498,15 @@ function pyramidSVG(dimKey){
 
   return '<svg width="'+W+'" height="'+(APEX+H+16)+'" viewBox="0 0 '+W+' '+(APEX+H+16)+'"><defs>'+defs+'</defs>'+body+labels+'</svg>';
 }
-function legend(dimKey){
-  var dim=D.dims[dimKey], h='<div class="leg">';
+function legend(dimKey,DY){
+  var D=DY, dim=D.dims[dimKey], h='<div class="leg">';
   dim.buckets.forEach(function(bk,j){
     h+='<div class="li"><span class="sw" style="background:'+dim.colors[j]+'"></span>'+esc(bk)+' ('+num(D.tot[dimKey][bk]||0)+' คน)</div>';
   });
   return h+'</div>';
 }
-function renderPyramids(){
-  var bandsTop=D.bands.slice().reverse();
+function renderPyramids(yr){
+  var D=YD(yr), bandsTop=D.bands.slice().reverse();
   var h='<div class="pywrap">';
   h+='<div class="bands">';
   bandsTop.forEach(function(b,i){ h+='<div class="bandrow" style="background:'+ROWCOLORS[i]+'"></div>'; });
@@ -499,37 +517,63 @@ function renderPyramids(){
   });
   h+='</div>';
   ['sy','gen','rt'].forEach(function(k){
-    h+='<div class="pycol"><h3>'+esc(D.dims[k].title)+'</h3>'+pyramidSVG(k)+legend(k)+'</div>';
+    h+='<div class="pycol"><h3>'+esc(D.dims[k].title)+'</h3>'+pyramidSVG(k,D)+legend(k,D)+'</div>';
   });
   h+='</div>';
   document.getElementById('pyra').innerHTML=h;
 }
 
-function renderFin(){
-  var F=S.fin;
-  var rpe=F.revenue/F.hcActual, rpeT=F.revTarget/F.hcTarget;
-  var gmPct=F.gm/F.revenue*100, gmT=F.revTarget*0.30;
-  $('tFin').innerHTML=
-    '<tr><th>รายการ</th><th class="n">ปี 2569 (จริง)</th><th class="n">เป้า ปี 2571</th></tr>'+
-    '<tr><td class="k">รายได้รวม (บาท)</td><td class="n">'+nf(F.revenue)+'</td><td class="n">'+nf(F.revTarget)+'</td></tr>'+
-    '<tr class="hl"><td class="k">Revenue / Employee (ลบ./คน)</td><td class="n">'+nf(rpe/1e6)+'</td>'+
-      '<td class="n">'+nf(rpeT/1e6)+' <span class="gain">+'+nf((rpeT/rpe-1)*100,1)+'%</span></td></tr>'+
-    '<tr><td class="k">Salary</td><td class="n">'+nf(F.salary)+'</td><td class="n">—</td></tr>'+
-    '<tr><td class="k">Welfare</td><td class="n">'+nf(F.welfare)+'</td><td class="n">—</td></tr>'+
-    '<tr class="tot"><td class="k">Total Employee Benefit</td><td class="n">'+nf(F.benefit)+'</td><td class="n">—</td></tr>'+
-    '<tr><td class="k">Gross Margin</td><td class="n">'+nf(F.gm)+'</td><td class="n">'+nf(gmT)+'</td></tr>'+
-    '<tr><td class="k">Gross Margin %</td><td class="n">'+nf(gmPct,1)+'%</td><td class="n">30.0% <span class="gain">+'+nf(30-gmPct,1)+'</span></td></tr>'+
-    '<tr class="hl"><td class="k">Gross Margin / Employee Benefit</td><td class="n">'+nf(F.gm/F.benefit)+'</td>'+
-      '<td class="n">'+nf(gmT/F.benefit)+' <span class="gain">+'+nf((gmT/F.gm-1)*100,1)+'%</span></td></tr>';
-  $('tWfSum').innerHTML=
-    '<tr><th>ตัวชี้วัดกำลังคน</th><th class="n">ปัจจุบัน</th></tr>'+
-    '<tr><td class="g">กำลังคนทั้งหมด</td><td class="n">'+num(D.total)+' คน</td></tr>'+
-    '<tr><td class="g">หัวหน้า : พนักงาน (Span of Control)</td><td class="n">1 : '+S.span+'</td></tr>'+
-    '<tr><td class="g">อายุเฉลี่ย / อายุงานเฉลี่ย</td><td class="n">'+D.avgAge+' ปี / '+D.avgSY+' ปี</td></tr>'+
-    '<tr><td class="g">Gen Y (กำลังหลัก)</td><td class="n">'+num(D.tot.gen['Gen Y'])+' คน · '+Math.round(D.tot.gen['Gen Y']/D.total*100)+'%</td></tr>'+
-    '<tr class="sum"><td class="g">เป้าหมายปี 2571</td><td class="n">'+num(S.fin.hcTarget)+' คน</td></tr>';
+function renderStory(){
+  var A=S.fin66, B=S.fin, P=S.D66.total, Q=S.D.total;
+  var items=[
+    ['กำลังคน', num(P), num(Q), 'คน', pct(P,Q), false],
+    ['รายได้รวม', nf(A.revenue/1e6,0), nf(B.revenue/1e6,0), 'ล้านบาท', pct(A.revenue,B.revenue), true],
+    ['ผลิตภาพ · Revenue / Employee', nf(A.revenue/A.hcActual/1e6,2), nf(B.revenue/B.hcActual/1e6,2), 'ลบ./คน/ปี', pct(A.revenue/A.hcActual,B.revenue/B.hcActual), true],
+    ['กำไรขั้นต้นต่อค่าตอบแทน', nf(A.gm/A.benefit,2), nf(B.gm/B.benefit,2), 'เท่า', pct(A.gm/A.benefit,B.gm/B.benefit), true]
+  ];
+  $('story').innerHTML=items.map(function(x){
+    return '<div class="st"><div class="lb">'+esc(x[0])+'</div>'+
+      '<div class="vv">'+x[1]+' <i>&rarr;</i> '+x[2]+' <i>'+esc(x[3])+'</i></div>'+
+      dl(x[4],x[5])+'</div>';
+  }).join('');
 }
 
+function renderFin(){
+  var F=S.fin, A=S.fin66;
+  var rpeA=A.revenue/A.hcActual, rpe=F.revenue/F.hcActual, rpeT=F.revTarget/F.hcTarget;
+  var gmA=A.gm/A.revenue*100, gmPct=F.gm/F.revenue*100, gmT=F.revTarget*0.30;
+  /* good===false หมายถึงตัวเลขที่ "ลด" คือดี เช่น ต้นทุนค่าตอบแทน */
+  function g(v,good){ var up=v>=0, ok=(good===false)?!up:up;
+    return '<span class="'+(ok?'gain':'drop')+'">'+(up?'+':'')+nf(v,1)+'%</span>'; }
+  $('tFin').innerHTML=
+    '<tr><th>รายการ</th><th class="n">ปี 2566</th><th class="n">ปี 2569</th><th class="n">เป้า ปี 2571</th></tr>'+
+    '<tr><td class="k">รายได้รวม (บาท)</td><td class="n">'+nf(A.revenue)+'</td><td class="n">'+nf(F.revenue)+' '+g(pct(A.revenue,F.revenue))+'</td><td class="n">'+nf(F.revTarget)+'</td></tr>'+
+    '<tr class="hl"><td class="k">Revenue / Employee (ลบ./คน)</td><td class="n">'+nf(rpeA/1e6)+'</td>'+
+      '<td class="n">'+nf(rpe/1e6)+' '+g(pct(rpeA,rpe))+'</td>'+
+      '<td class="n">'+nf(rpeT/1e6)+' '+g(pct(rpe,rpeT))+'</td></tr>'+
+    '<tr><td class="k">Salary</td><td class="n">'+nf(A.salary)+'</td><td class="n">'+nf(F.salary)+'</td><td class="n">—</td></tr>'+
+    '<tr><td class="k">Welfare</td><td class="n">'+nf(A.welfare)+'</td><td class="n">'+nf(F.welfare)+'</td><td class="n">—</td></tr>'+
+    '<tr class="tot"><td class="k">Total Employee Benefit</td><td class="n">'+nf(A.benefit)+'</td><td class="n">'+nf(F.benefit)+' '+g(pct(A.benefit,F.benefit),false)+'</td><td class="n">—</td></tr>'+
+    '<tr><td class="k">Gross Margin</td><td class="n">'+nf(A.gm)+'</td><td class="n">'+nf(F.gm)+' '+g(pct(A.gm,F.gm))+'</td><td class="n">'+nf(gmT)+'</td></tr>'+
+    '<tr><td class="k">Gross Margin %</td><td class="n">'+nf(gmA,1)+'%</td><td class="n">'+nf(gmPct,1)+'%</td><td class="n">30.0%</td></tr>'+
+    '<tr class="hl"><td class="k">Gross Margin / Employee Benefit</td><td class="n">'+nf(A.gm/A.benefit)+'</td>'+
+      '<td class="n">'+nf(F.gm/F.benefit)+' '+g(pct(A.gm/A.benefit,F.gm/F.benefit))+'</td>'+
+      '<td class="n">'+nf(gmT/F.benefit)+' '+g(pct(F.gm/F.benefit,gmT/F.benefit))+'</td></tr>';
+
+  var P=S.D66, Q=S.D;
+  function r5(X){ return (X.tot.rt['อีก ≤3 ปี']||0)+(X.tot.rt['4-5 ปี']||0); }
+  function gy(X){ return num(X.tot.gen['Gen Y'])+' คน · '+Math.round(X.tot.gen['Gen Y']/X.total*100)+'%'; }
+  function sy15(X){ return num(X.tot.sy['มากกว่า 15 ปี'])+' คน · '+Math.round(X.tot.sy['มากกว่า 15 ปี']/X.total*100)+'%'; }
+  $('tWfSum').innerHTML=
+    '<tr><th>ตัวชี้วัดกำลังคน</th><th class="n">ปี 2566</th><th class="n">ปี 2569</th></tr>'+
+    '<tr><td class="g">กำลังคนทั้งหมด</td><td class="n">'+num(P.total)+' คน</td><td class="n">'+num(Q.total)+' คน</td></tr>'+
+    '<tr><td class="g">Gen Y (กำลังหลัก)</td><td class="n">'+gy(P)+'</td><td class="n">'+gy(Q)+'</td></tr>'+
+    '<tr><td class="g">อายุงานเกิน 15 ปี</td><td class="n">'+sy15(P)+'</td><td class="n">'+sy15(Q)+'</td></tr>'+
+    '<tr><td class="g">เกษียณภายใน 5 ปี</td><td class="n">'+num(r5(P))+' คน</td><td class="n">'+num(r5(Q))+' คน</td></tr>'+
+    '<tr><td class="g">อายุเฉลี่ย / อายุงานเฉลี่ย</td><td class="n">—</td><td class="n">'+Q.avgAge+' / '+Q.avgSY+' ปี</td></tr>'+
+    '<tr><td class="g">หัวหน้า : พนักงาน (Span of Control)</td><td class="n">—</td><td class="n">1 : '+S.span+'</td></tr>'+
+    '<tr class="sum"><td class="g">เป้าหมายปี 2571</td><td class="n" colspan="2">'+num(S.fin.hcTarget)+' คน</td></tr>';
+}
 function renderRun(){
   var R=S.run; if(!R) return;
   $('runCards').innerHTML=R.buckets.map(function(b){
@@ -558,16 +602,10 @@ function renderRun(){
   $('runKpi').innerHTML=R.kpis.map(function(k){
     return '<div class="kc"><b>'+esc(k.k)+'</b><div class="kt">'+esc(k.t)+'</div><div class="kw">'+esc(k.w)+'</div></div>';
   }).join('');
-  $('runWarn').innerHTML=R.warn;
-  $('runTrends').innerHTML=(R.trends||[]).map(function(x){
-    return '<div class="tc"><div class="th">'+esc(x.t)+'</div><div class="tw">'+esc(x.w)+'</div>'+
-      '<div class="tdd">'+esc(x.d)+'</div><div class="ty">'+esc(x.y)+'</div></div>';
-  }).join('');
 
   var G=R.tdf&&R.tdf.groups; if(!G) return;
   $('tGroups').innerHTML=G.map(function(x,i){
-    return '<div class="gc g'+(i+1)+'"><div class="gh"><b>'+esc(x.g)+' · '+esc(x.t)+'</b>'+
-      '<span class="gn">'+x.n+'<small>คน · '+x.pct+'%</small></span></div>'+
+    return '<div class="gc g'+(i+1)+'"><div class="gh"><b>'+esc(x.g)+' · '+esc(x.t)+'</b></div>'+
       '<div class="gk">'+esc(x.k)+'</div>'+
       '<div class="gw">'+esc(x.w)+'</div>'+
       '<div class="gd">'+esc(x.dest)+'</div>'+
@@ -578,7 +616,7 @@ function renderRun(){
 function render(){
   var F=S.fin, J=S.journey;
   $('heroKpi').innerHTML=[
-    ['821 → 700','กำลังคน 2569 → 2571'],
+    [num(S.D66.total)+' → '+num(S.D.total)+' → '+num(F.hcTarget),'กำลังคน 2566 → 2569 → 2571'],
     [nf(F.revTarget/1e6,0),'เป้ายอดขาย ล้านบาท'],
     ['30%','เป้า Gross Profit'],
     [nf(F.revTarget/F.hcTarget/1e6,2),'ผลิตภาพเป้าหมาย ลบ./คน/ปี']
@@ -586,11 +624,20 @@ function render(){
   $('journey').innerHTML=J.map(function(j,i){
     return (i?'<span class="ar">→</span>':'')+'<div class="j"><b>'+j.n+'</b><span>'+esc(j.y)+'</span></div>';
   }).join('');
-  renderPyramids();
+  renderStory();
+  renderPyramids(curYear);
   renderFin();
   renderRun();
   applyTxt();
 }
+
+$('yrsw').addEventListener('click',function(e){
+  e.stopPropagation();
+  var b=e.target.closest('button[data-yr]'); if(!b) return;
+  curYear=b.dataset.yr;
+  [].forEach.call(this.querySelectorAll('button'),function(x){ x.classList.toggle('on',x===b); });
+  renderPyramids(curYear);
+});
 
 /* ================= edit ================= */
 var editMode=false;
@@ -629,8 +676,7 @@ function stepify(){
   $('s2').querySelectorAll(':scope > h3, #tRunMat').forEach(function(x){ x.dataset.step=3; });
 
   var H=$('s2b').querySelectorAll(':scope > h3');
-  [H[1],$('runKpi'),$('runWarn')].forEach(function(x){ if(x) x.dataset.step=1; });
-  [H[2],$('runTrends')].forEach(function(x){ if(x) x.dataset.step=2; });
+  [H[1],$('runKpi')].forEach(function(x){ if(x) x.dataset.step=1; });
 
   $('s3').querySelectorAll('.gc').forEach(function(x,i){ x.dataset.step=i; });
 }
