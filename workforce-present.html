@@ -326,7 +326,6 @@ body.edit [data-k]:hover{background:rgba(245,179,1,.13)}
     <h1 data-k="h1">เป้าหมาย 700 คน ปี 2571</h1>
     <div class="sub" data-k="hsub">จาก 958 คนในปี 2566 เหลือ 821 คนวันนี้ และจะเหลือ 700 คนในปี 2571 พร้อมยอดขาย 6,000 ล้านบาท ที่ Gross Profit 30% — ผลิตภาพต่อคนเดินจาก 5.30 (2566) มา 7.49 (2569) และต้องถึง 8.57 ล้านบาท/คน/ปี</div>
     <div class="kpis" id="heroKpi"></div>
-    <div class="journey" id="journey"></div>
   </div>
 
   <div class="sec" id="s1">
@@ -609,16 +608,13 @@ function renderRun(){
 }
 
 function render(){
-  var F=S.fin, J=S.journey;
+  var F=S.fin;
   $('heroKpi').innerHTML=[
     [num(S.D66.total)+' → '+num(S.D.total)+' → '+num(F.hcTarget),'กำลังคน 2566 → 2569 → 2571'],
     [nf(F.revTarget/1e6,0),'เป้ายอดขาย ล้านบาท'],
     ['30%','เป้า Gross Profit'],
     [nf(F.revTarget/F.hcTarget/1e6,2),'ผลิตภาพเป้าหมาย ลบ./คน/ปี']
   ].map(function(k){ return '<div class="k"><b>'+k[0]+'</b><span>'+k[1]+'</span></div>'; }).join('');
-  $('journey').innerHTML=J.map(function(j,i){
-    return (i?'<span class="ar">→</span>':'')+'<div class="j"><b>'+j.n+'</b><span>'+esc(j.y)+'</span></div>';
-  }).join('');
   renderStory();
   renderPyramids(curYear);
   renderFin();
@@ -663,7 +659,6 @@ function collectSlides(){
 }
 function stepify(){
   $('s0').querySelectorAll('.k').forEach(function(x){ x.dataset.step=1; });
-  $('s0').querySelectorAll('.journey .j,.journey .ar').forEach(function(x){ x.dataset.step=2; });
 
   $('s1').querySelectorAll(':scope > h3, [data-k="c1b"], .split').forEach(function(x){ x.dataset.step=1; });
 
