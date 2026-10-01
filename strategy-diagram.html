@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCC — Strategy Linkage Diagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12233A; --mute:#5A7391; --line:#D8E3EE; --blue:#0B2447; --blue2:#13507C;
+  --cap:#0077B6; --da:#7B4FC9; --bg2:#1E7A46; --ds:#C2690A; --found:#2E7D32; --fin:#B8860B;
+  --paper:#F4F7FB;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Sarabun','Inter',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+
+/* ---------- toolbar ---------- */
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;background:#fff;
+  border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06);flex:none;z-index:20}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#93A6BA}
+.bar a.back,.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;
+  text-decoration:none;cursor:pointer;white-space:nowrap;transition:.12s}
+.bar a.back:hover,.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.pub{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar button.pub:hover{background:#0f4066}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
+.bar .sp{flex:1}
+#autosave{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB;transition:.2s}
+#autosave.hit{color:var(--found)}
+
+/* ---------- stage ---------- */
+#stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+#sheet{position:relative;width:1840px;height:1345px;flex:0 0 auto;transform-origin:center center;
+  background:linear-gradient(180deg,#FFFFFF 0%,#FBFDFF 55%,#F7FAFD 100%);
+  border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 70px rgba(18,35,58,.13)}
+#wires{position:absolute;inset:0;pointer-events:none;z-index:1}
+#sheet>*:not(#wires){position:absolute;z-index:2}
+
+/* ---------- head ---------- */
+#head{left:56px;top:28px;width:560px}
+#head h1{font-family:'Inter','Sarabun';font-size:25px;font-weight:900;margin:0;letter-spacing:-.01em;line-height:1.2}
+#head p{font-size:13px;color:var(--mute);margin:7px 0 0;line-height:1.6}
+#legend{right:56px;top:34px;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+#legend .li{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#41566E;font-weight:600}
+#legend .sw{width:34px;height:0;border-top:3px solid var(--blue2);border-radius:2px}
+#legend .sw.sup{border-top:3px dashed var(--found)}
+#legend .sw.fin{border-top:3px solid var(--fin)}
+
+/* ---------- circles ---------- */
+.cir{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:14px;text-decoration:none;color:inherit;transition:.15s}
+.cir b{font-family:'Inter','Sarabun';font-weight:900;line-height:1.2;display:block}
+.cir span{font-size:11px;color:#56708C;margin-top:5px;line-height:1.4;font-weight:600}
+a.cir:hover{transform:translateY(-2px);filter:brightness(1.03)}
+
+#nRoot{left:825px;top:28px;width:190px;height:190px;
+  background:radial-gradient(circle at 36% 28%,#1C5F96,#0B2447);color:#fff;
+  box-shadow:0 16px 38px rgba(11,36,71,.34)}
+#nRoot b{font-size:23px;color:#fff}
+#nRoot span{color:#AEC9E2;font-size:11.5px}
+
+#nCap{left:530px;top:255px;width:210px;height:210px;background:#fff;
+  border:4px solid var(--cap);box-shadow:0 12px 30px rgba(0,119,182,.18)}
+#nCap b{font-size:17px;color:var(--cap)}
+#nDa{left:1415px;top:260px;width:200px;height:200px;background:#fff;
+  border:4px solid var(--da);box-shadow:0 12px 30px rgba(123,79,201,.18)}
+#nDa b{font-size:17px;color:var(--da)}
+
+#nBg{left:215px;top:500px;width:170px;height:170px;background:#fff;
+  border:3px solid var(--bg2);box-shadow:0 10px 24px rgba(30,122,70,.16)}
+#nBg b{font-size:15.5px;color:var(--bg2)}
+#nDs{left:885px;top:500px;width:170px;height:170px;background:#fff;
+  border:3px solid var(--ds);box-shadow:0 10px 24px rgba(194,105,10,.16)}
+#nDs b{font-size:15.5px;color:var(--ds)}
+
+/* ---------- panels ---------- */
+.pan{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px 17px 16px;
+  box-shadow:0 10px 26px rgba(18,35,58,.07)}
+.pan>h3{font-family:'Inter','Sarabun';font-size:12.5px;font-weight:800;margin:0 0 11px;letter-spacing:.01em}
+.chips{display:flex;flex-wrap:wrap;gap:11px}
+.chip{border:1px solid var(--line);border-left-width:4px;border-radius:11px;padding:9px 12px;background:#FCFDFF;
+  text-decoration:none;color:inherit;transition:.12s;display:block}
+.chip b{display:block;font-family:'Inter','Sarabun';font-size:13.5px;font-weight:800;line-height:1.25}
+.chip span{display:block;font-size:10.5px;color:#6A82A0;margin-top:3px;line-height:1.4}
+a.chip:hover{background:#F2F8FD;border-color:#B9D3E8}
+
+#pRst{left:90px;top:715px;width:420px;border-top:4px solid var(--bg2)}
+#pRst>h3{color:var(--bg2)}
+#pRst .chip{width:181px;border-left-color:var(--bg2)}
+
+#pCos{left:700px;top:715px;width:540px;border-top:4px solid var(--ds)}
+#pCos>h3{color:var(--ds)}
+#pCos .chips{gap:10px}
+#pCos .chip{width:118px;border-left-color:var(--ds);text-align:center;border-left-width:1px;border-top:4px solid var(--ds)}
+#pCos .chip b{font-size:19px;font-family:'Inter';letter-spacing:.02em;color:var(--ds)}
+
+#pArch{left:1330px;top:500px;width:380px;border-top:4px solid var(--da)}
+#pArch>h3{color:var(--da)}
+#pArch .chips{flex-direction:column;gap:10px}
+#pArch .chip{width:100%;border-left-color:var(--da)}
+#pArch .chip b{font-size:15px;color:var(--da)}
+
+/* ---------- bands ---------- */
+.band{border-radius:18px;padding:13px 20px 16px}
+.band>h3{font-family:'Inter','Sarabun';font-size:12.5px;font-weight:800;margin:0 0 11px;letter-spacing:.01em}
+.band .cells{display:flex;gap:16px}
+.band .cell{flex:1;border-radius:12px;padding:11px 14px;text-decoration:none;color:inherit;transition:.12s;display:block}
+.band .cell b{display:block;font-family:'Inter','Sarabun';font-size:14px;font-weight:800;line-height:1.3}
+.band .cell span{display:block;font-size:10.5px;margin-top:4px;line-height:1.45}
+
+#bFound{left:120px;top:1010px;width:1600px;background:#EAF5EC;border:1px solid #BEDFC6}
+#bFound>h3{color:var(--found)}
+#bFound .cell{background:#fff;border:1px solid #CBE5D2;border-left:4px solid var(--found)}
+#bFound .cell b{color:#1B5E20}
+#bFound .cell span{color:#4E6B57}
+a.cell:hover{background:#F7FFF9}
+
+#bFin{left:120px;top:1180px;width:1600px;background:#FFF8E8;border:1px solid #EFD9A6}
+#bFin>h3{color:#8A6A08}
+#bFin .cell{background:#fff;border:1px solid #EFDDB4;border-left:4px solid var(--fin)}
+#bFin .cell b{color:#8A6A08;font-family:'Inter';font-size:18px}
+#bFin .cell span{color:#78684A}
+
+/* ---------- misc ---------- */
+.tip{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(11,36,71,.94);color:#fff;
+  padding:9px 18px;border-radius:11px;font-size:12.5px;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+.tip.show{opacity:1}
+body.edit [data-k]{outline:1px dashed rgba(19,80,124,.45);outline-offset:2px;border-radius:4px}
+body.edit a{pointer-events:none}
+#tokPanel{position:fixed;right:16px;top:54px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:14px;box-shadow:0 16px 40px rgba(18,35,58,.18);z-index:70;width:330px}
+#tokPanel[hidden]{display:none}
+#tokPanel h4{margin:0 0 8px;font:800 12px 'Inter';color:var(--blue)}
+#tokPanel p{margin:0 0 9px;font-size:11.5px;color:var(--mute);line-height:1.55}
+#tokPanel input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px}
+#tokPanel .row{display:flex;gap:8px;margin-top:9px}
+#tokPanel button{flex:1;font:700 11px 'Inter';padding:7px;border-radius:8px;border:1px solid var(--line);
+  background:#fff;cursor:pointer}
+#tokPanel button.ok{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+
+@media print{
+  @page{size:A3 landscape;margin:8mm}
+  body{overflow:visible;background:#fff}
+  .bar,.tip,#tokPanel{display:none!important}
+  #stage{overflow:visible;padding:0}
+  #sheet{box-shadow:none;border:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>Strategy Linkage</b><span>PCC Group · Diagram</span></div>
+  <a class="back" href="schedule.html">↩ กำหนดการ</a>
+  <a class="back" href="strategy-mapping.html">Strategy Mapping</a>
+  <a class="back" href="capex-opex.html">Capex / Opex</a>
+  <div class="sep"></div>
+  <button id="bEdit">✎ แก้ข้อความ</button>
+  <button id="bFull">⛶ เต็มจอ</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
+  <span class="sp"></span>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel" hidden>
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับปุ่ม “บันทึกขึ้นเว็บ” เก็บไว้ในเครื่องนี้เท่านั้น (localStorage)</p>
+  <input id="tokInput" type="password" placeholder="ghp_...">
+  <div class="row"><button class="ok" id="tokSave">บันทึก</button><button id="tokClear">ลบ</button></div>
+</div>
+
+<div id="stage">
+  <div id="sheet">
+    <svg id="wires" width="1840" height="1345" viewBox="0 0 1840 1345"></svg>
+
+    <div id="head">
+      <h1 data-k="title"></h1>
+      <p data-k="sub"></p>
+    </div>
+    <div id="legend"></div>
+
+    <a id="nRoot" class="cir"></a>
+    <a id="nCap"  class="cir"></a>
+    <a id="nDa"   class="cir"></a>
+    <a id="nBg"   class="cir"></a>
+    <a id="nDs"   class="cir"></a>
+
+    <div id="pRst" class="pan"><h3 data-k="rstTitle"></h3><div class="chips"></div></div>
+    <div id="pCos" class="pan"><h3 data-k="cosTitle"></h3><div class="chips"></div></div>
+    <div id="pArch" class="pan"><h3 data-k="archTitle"></h3><div class="chips"></div></div>
+
+    <div id="bFound" class="band"><h3 data-k="foundTitle"></h3><div class="cells"></div></div>
+    <div id="bFin" class="band"><h3 data-k="finTitle"></h3><div class="cells"></div></div>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<!--DIAG_DATA_START-->
+<script id="diag-data" type="application/json">{"savedAt":1790814512226,"title":"PCC Strategy — ภาพความเชื่อมโยงทั้งองค์กร","sub":"จากทิศทางองค์กร → 2 เสาหลัก → การสร้างรายได้และการส่งมอบ → หนุนด้วย 4 ฐานราก → จบที่ตัวเลขทางการเงิน","root":{"t":"PCC Strategy","s":"ทิศทางองค์กร","href":"strategy-mapping.html"},"cap":{"t":"Industrial สู่\u003cbr>Ecosystem Capitalism","s":"เปลี่ยนรูปแบบการสร้างมูลค่า","href":"capitalism.html"},"da":{"t":"4 Digital\u003cbr>Architecture","s":"มาตรฐานกลางของระบบงาน","href":""},"bg":{"t":"Business\u003cbr>Generation","s":"หารายได้จากที่ไหน","href":"business-generation.html"},"ds":{"t":"Demand\u003cbr>Satisfaction","s":"ส่งมอบให้ลูกค้าอย่างไร","href":"demand-satisfaction.html"},"rstTitle":"6 Revenue Stream Type Platform","rst":[{"t":"Tendering","s":"งานประมูล"},{"t":"Omni Channel","s":"ขายหลายช่องทาง"},{"t":"TCS","s":"Total Customer Solution"},{"t":"Recurring","s":"รายได้ต่อเนื่อง"},{"t":"PPA / Long Term","s":"สัญญาระยะยาว"},{"t":"Investment","s":"ลงทุนในธุรกิจอื่น"}],"cosTitle":"7 บริษัทในกลุ่ม — ส่งมอบโดย COO แต่ละบริษัท","cos":[{"t":"PEM"},{"t":"PSP"},{"t":"PDE"},{"t":"PSL"},{"t":"PPP"},{"t":"SBP"},{"t":"PCE"}],"archTitle":"4 Digital Architecture Model","arch":[{"t":"SGAM","s":"Smart Grid Architecture Model","href":""},{"t":"SFAM","s":"Smart Farming Architecture Model","href":"sfam.html"},{"t":"SCIAM","s":"Smart City Intelligence Architecture Model","href":""},{"t":"RAMI 4.0","s":"Reference Architecture Model Industrie 4.0","href":"RAMI4.0.html"}],"foundTitle":"Foundation — ฐานรากที่หนุนทุกเสา (Function Unit)","found":[{"t":"Digital Organization &amp; Information Capital","s":"DO · Agentic Transformation · ERP · Factory 4.0","href":""},{"t":"Digital Process Capital","s":"กระบวนการทำงานบนมาตรฐานเดียวกัน","href":"functional-units.html"},{"t":"Human Capital","s":"Workforce Planning · 700 คน ปี 2571","href":"workforce-present.html"},{"t":"ESG","s":"Information Flow ฝังในระบบ เพื่อให้เกิด QCDs","href":""}],"finTitle":"ทุกเสาและทุกฐานราก แปลงเป็นตัวเลขชุดเดียวกัน","fin":[{"t":"Capex","s":"งบลงทุน — สินทรัพย์ที่สร้างความสามารถใหม่","href":"capex-opex.html"},{"t":"Opex","s":"งบดำเนินงาน — ต้นทุนที่ทำให้ระบบเดินได้","href":"capex-opex.html"},{"t":"Income Statement","s":"รายได้ · กำไรขั้นต้น · ผลิตภาพต่อคน","href":""}],"legend":[{"k":"flow","t":"การแตกยุทธศาสตร์ จากบนลงล่าง"},{"k":"sup","t":"ฐานรากหนุนขึ้นไปทุกเสา"},{"k":"fin","t":"ทุกส่วนแปลงเป็นตัวเลขทางการเงิน"}]}</script>
+<!--DIAG_DATA_END-->
+
+<script>
+var LSK='pcc_diag_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'strategy-diagram.html'};
+var W=1840, H=1345;
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2800); }
+
+/* ================= state ================= */
+function fileData(){ try{ var o=JSON.parse($('diag-data').textContent); if(o) return o; }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.root&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=FD;
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+function persist(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$('autosave'); a.classList.add('hit');
+  setTimeout(function(){a.classList.remove('hit')},450); }catch(e){} }
+var pT=null; function schedulePersist(){ clearTimeout(pT); pT=setTimeout(persist,500); }
+
+/* ================= render ================= */
+function fillCir(id,o){
+  var el=$(id); if(!o) return;
+  el.innerHTML='<b data-k="'+id+'.t">'+o.t+'</b>'+(o.s?'<span data-k="'+id+'.s">'+o.s+'</span>':'');
+  if(o.href) el.setAttribute('href',o.href); else el.removeAttribute('href');
+}
+function chipHTML(o,i,key){
+  var inner='<b data-k="'+key+'.'+i+'.t">'+o.t+'</b>'+(o.s?'<span data-k="'+key+'.'+i+'.s">'+o.s+'</span>':'');
+  return o.href ? '<a class="chip" href="'+o.href+'">'+inner+'</a>' : '<div class="chip">'+inner+'</div>';
+}
+function cellHTML(o,i,key){
+  var inner='<b data-k="'+key+'.'+i+'.t">'+o.t+'</b>'+(o.s?'<span data-k="'+key+'.'+i+'.s">'+o.s+'</span>':'');
+  return o.href ? '<a class="cell" href="'+o.href+'">'+inner+'</a>' : '<div class="cell">'+inner+'</div>';
+}
+function render(){
+  $('head').querySelector('[data-k="title"]').innerHTML=S.title||'';
+  $('head').querySelector('[data-k="sub"]').innerHTML=S.sub||'';
+  ['rstTitle','cosTitle','archTitle','foundTitle','finTitle'].forEach(function(k){
+    var el=document.querySelector('[data-k="'+k+'"]'); if(el) el.innerHTML=S[k]||'';
+  });
+  fillCir('nRoot',S.root); fillCir('nCap',S.cap); fillCir('nDa',S.da);
+  fillCir('nBg',S.bg); fillCir('nDs',S.ds);
+  $('pRst').querySelector('.chips').innerHTML=(S.rst||[]).map(function(o,i){ return chipHTML(o,i,'rst'); }).join('');
+  $('pCos').querySelector('.chips').innerHTML=(S.cos||[]).map(function(o,i){ return chipHTML(o,i,'cos'); }).join('');
+  $('pArch').querySelector('.chips').innerHTML=(S.arch||[]).map(function(o,i){ return chipHTML(o,i,'arch'); }).join('');
+  $('bFound').querySelector('.cells').innerHTML=(S.found||[]).map(function(o,i){ return cellHTML(o,i,'found'); }).join('');
+  $('bFin').querySelector('.cells').innerHTML=(S.fin||[]).map(function(o,i){ return cellHTML(o,i,'fin'); }).join('');
+  $('legend').innerHTML=(S.legend||[]).map(function(l){
+    return '<div class="li"><span>'+esc(l.t)+'</span><span class="sw '+(l.k==='flow'?'':l.k)+'"></span></div>';
+  }).join('');
+  setEditable();
+  requestAnimationFrame(function(){ drawWires(); fit(); });
+}
+
+/* ================= wires ================= */
+/* วัดตำแหน่งจริงของกล่องแล้วค่อยลากเส้น ย้ายกล่องแล้วเส้นตามเองไม่ต้องแก้มือ */
+function box(id){
+  var el=$(id), s=$('sheet');
+  var tf=s.style.transform, mg=s.style.margin;
+  s.style.transform='none'; s.style.margin='0';
+  var a=el.getBoundingClientRect(), b=s.getBoundingClientRect();
+  s.style.transform=tf; s.style.margin=mg;
+  return {x:a.left-b.left, y:a.top-b.top, w:a.width, h:a.height};
+}
+function pt(bx,side){
+  if(side==='t') return [bx.x+bx.w/2, bx.y];
+  if(side==='b') return [bx.x+bx.w/2, bx.y+bx.h];
+  if(side==='l') return [bx.x, bx.y+bx.h/2];
+  return [bx.x+bx.w, bx.y+bx.h/2];
+}
+function curve(p1,p2){
+  var dy=Math.max(34,Math.abs(p2[1]-p1[1])*0.46);
+  return 'M'+p1[0]+','+p1[1]+' C'+p1[0]+','+(p1[1]+dy)+' '+p2[0]+','+(p2[1]-dy)+' '+p2[0]+','+p2[1];
+}
+function drawWires(){
+  var svg=$('wires');
+  var defs='<defs>'+
+    ['flow:#13507C','sup:#2E7D32','fin:#B8860B'].map(function(d){
+      var p=d.split(':');
+      return '<marker id="ar-'+p[0]+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">'+
+             '<path d="M0 0 L10 5 L0 10 z" fill="'+p[1]+'"/></marker>';
+    }).join('')+'</defs>';
+  var g={flow:[],sup:[],fin:[]};
+  function link(a,sa,b,sb,kind){ g[kind].push(curve(pt(box(a),sa),pt(box(b),sb))); }
+
+  /* 1. การแตกยุทธศาสตร์ */
+  link('nRoot','b','nCap','t','flow');
+  link('nRoot','b','nDa','t','flow');
+  link('nCap','b','nBg','t','flow');
+  link('nCap','b','nDs','t','flow');
+  link('nBg','b','pRst','t','flow');
+  link('nDs','b','pCos','t','flow');
+  link('nDa','b','pArch','t','flow');
+
+  /* 2. ฐานรากหนุนขึ้นไป */
+  ['pRst','pCos','pArch'].forEach(function(id){
+    var f=box('bFound'), t=box(id);
+    var x1=t.x+t.w/2, y1=f.y, x2=t.x+t.w/2, y2=t.y+t.h;
+    g.sup.push('M'+x1+','+y1+' C'+x1+','+(y1-18)+' '+x2+','+(y2+18)+' '+x2+','+y2);
+  });
+
+  /* 3. ทุกส่วนลงสู่ตัวเลขทางการเงิน */
+  var fo=box('bFound'), fi=box('bFin');
+  [0.26,0.5,0.74].forEach(function(r){
+    g.fin.push(curve([fo.x+fo.w*r, fo.y+fo.h],[fi.x+fi.w*r, fi.y]));
+  });
+  /* รางด้านข้าง อ้อมแถบฐานราก ไม่ให้เส้นทับกัน */
+  var rst=box('pRst'), arch=box('pArch');
+  g.fin.push('M'+rst.x+','+(rst.y+rst.h*0.62)+' C'+(rst.x-70)+','+(rst.y+rst.h*0.62)+
+             ' 56,'+(fi.y-120)+' 56,'+(fi.y-30)+' L56,'+(fi.y+fi.h*0.5)+' L'+fi.x+','+(fi.y+fi.h*0.5));
+  g.fin.push('M'+(arch.x+arch.w)+','+(arch.y+arch.h*0.62)+' C'+(arch.x+arch.w+70)+','+(arch.y+arch.h*0.62)+
+             ' 1784,'+(fi.y-120)+' 1784,'+(fi.y-30)+' L1784,'+(fi.y+fi.h*0.5)+' L'+(fi.x+fi.w)+','+(fi.y+fi.h*0.5));
+
+  var style={flow:'stroke:#13507C;stroke-width:3',
+             sup:'stroke:#2E7D32;stroke-width:2.6;stroke-dasharray:9 7',
+             fin:'stroke:#B8860B;stroke-width:2.8'};
+  var h=defs;
+  ['flow','sup','fin'].forEach(function(k){
+    h+='<g fill="none" style="'+style[k]+'" stroke-linecap="round" marker-end="url(#ar-'+k+')">'+
+       g[k].map(function(d){ return '<path d="'+d+'"/>'; }).join('')+'</g>';
+  });
+  svg.innerHTML=h;
+}
+
+/* ================= fit ================= */
+function fit(){
+  var st=$('stage'), sh=$('sheet');
+  sh.style.transform='none'; sh.style.margin='0';
+  var sc=Math.min((st.clientWidth-26)/W,(st.clientHeight-26)/H,1.5);
+  sh.style.transform='scale('+sc.toFixed(4)+')';
+  sh.style.margin=(-(H*(1-sc))/2).toFixed(1)+'px '+(-(W*(1-sc))/2).toFixed(1)+'px';
+}
+window.addEventListener('resize',function(){ requestAnimationFrame(function(){ drawWires(); fit(); }); });
+
+/* ================= edit ================= */
+var editMode=false;
+function setEditable(){
+  document.body.classList.toggle('edit',editMode);
+  document.querySelectorAll('[data-k]').forEach(function(el){ el.setAttribute('contenteditable',editMode?'true':'false'); });
+}
+function setPath(path,val){
+  var p=path.split('.'), o=S;
+  for(var i=0;i<p.length-1;i++){ var k=/^\d+$/.test(p[i])?+p[i]:p[i]; if(o[k]==null) o[k]={}; o=o[k]; }
+  var last=/^\d+$/.test(p[p.length-1])?+p[p.length-1]:p[p.length-1];
+  o[last]=val;
+}
+$('bEdit').addEventListener('click',function(){
+  editMode=!editMode; this.classList.toggle('on',editMode); setEditable();
+  tip(editMode?'แก้ข้อความได้ทุกกล่อง · ลิงก์ถูกปิดชั่วคราว':'ล็อกแล้ว');
+});
+document.addEventListener('input',function(e){
+  var el=e.target.closest('[data-k]'); if(!el||!editMode) return;
+  setPath(el.dataset.k, el.innerHTML); schedulePersist();
+  requestAnimationFrame(drawWires);
+});
+$('bFull').addEventListener('click',function(){
+  if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+});
+$('bPrint').addEventListener('click',function(){ window.print(); });
+document.addEventListener('keydown',function(e){
+  var ae=document.activeElement, typing=ae&&(ae.isContentEditable||ae.tagName==='INPUT');
+  if(typing) return;
+  if(e.key==='f'||e.key==='F'){ e.preventDefault(); $('bFull').click(); }
+});
+
+/* ================= publish ================= */
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+$('bTok').addEventListener('click',function(){ var p=$('tokPanel'); p.hidden=!p.hidden; if(!p.hidden) $('tokInput').focus(); });
+$('tokSave').addEventListener('click',function(){
+  var v=$('tokInput').value.trim(); if(!v) return;
+  try{ localStorage.setItem('pcc_gh_tok',v); }catch(e){}
+  $('tokInput').value=''; $('tokPanel').hidden=true; tip('บันทึก token แล้ว');
+});
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} tip('ลบ token แล้ว'); });
+function encodeB64(str){ var b=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<b.length;i+=ch){ var sl=b.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++) bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--DIAG_DATA_START-->[\s\S]*?<!--DIAG_DATA_END-->/;
+function dataBlock(json){ return '<!--DIAG_DATA_START-->\n<script id="diag-data" type="application/json">'+json+'<\/script>\n<!--DIAG_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ $('tokPanel').hidden=false; tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+    throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้');
+    var ref=await refRes.json(), headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,
+      tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{
+      message:'Strategy diagram update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha, parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persist(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+$('bPublish').addEventListener('click',publish);
+
+/* ================= boot ================= */
+render();
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ drawWires(); fit(); });
+setTimeout(function(){ drawWires(); fit(); },350);
+</script>
+</body></html>
