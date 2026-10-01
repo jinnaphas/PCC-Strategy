@@ -39,7 +39,7 @@ body{margin:0;background:var(--paper);color:var(--ink);
 
 /* ---------- stage ---------- */
 #stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
-#sheet{position:relative;width:1840px;height:1345px;flex:0 0 auto;transform-origin:center center;
+#sheet{position:relative;width:1840px;height:1480px;flex:0 0 auto;transform-origin:center center;
   background:#FBFDFF;border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 70px rgba(18,35,58,.13);
   overflow:hidden}
 #wires{position:absolute;inset:0;pointer-events:none;z-index:1}
@@ -53,8 +53,8 @@ body{margin:0;background:var(--paper);color:var(--ink);
 #lane1{top:18px;height:224px;background:linear-gradient(180deg,#EDF4FB,#F7FAFE);border:1px solid #E2ECF6}
 #lane2{top:250px;height:230px;background:#FFFFFF;border:1px solid #EDF3F9}
 #lane3{top:488px;height:502px;background:linear-gradient(180deg,#F8FBFE,#FFFFFF);border:1px solid #EDF3F9}
-#lane4{top:998px;height:166px;background:#EFF8F1;border:1px solid #D5EBDA}
-#lane5{top:1172px;height:157px;background:#FFF9EC;border:1px solid #F0E0BC}
+#lane4{top:998px;height:300px;background:#EFF8F1;border:1px solid #D5EBDA}
+#lane5{top:1308px;height:157px;background:#FFF9EC;border:1px solid #F0E0BC}
 #lane4 .tag{color:#86B291}
 #lane5 .tag{color:#CBB380}
 
@@ -165,13 +165,26 @@ a.chip:hover{background:#F2F8FD;border-color:#B9D3E8}
 .band .cell span{display:block;font-size:10.5px;margin-top:4px;line-height:1.45}
 
 #bFound{left:120px;top:1010px;width:1600px;background:#EAF5EC;border:1px solid #BEDFC6}
+.coe{display:flex;gap:16px;margin:0 0 14px;padding:0 0 14px;border-bottom:1px dashed #A9D2B4}
+#bFound .coe .cell{flex:1;background:linear-gradient(135deg,#1B5E20,#2E7D32);border:0;border-left:4px solid #8BC34A;
+  box-shadow:0 8px 20px rgba(27,94,32,.22)}
+#bFound .coe .cell b{color:#fff}
+#bFound .coe .cell span{color:#C8E6C9}
+#bFound a.coe-cell:hover{filter:brightness(1.08);background:linear-gradient(135deg,#226B28,#37903B)}
+.coe-lbl{display:flex;align-items:center;gap:9px;margin:0 0 10px}
+.coe-lbl .pill{font:800 10px 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:9px;color:#fff;background:#1B5E20;flex:none}
+.coe-lbl.fu .pill{background:#6B9B76}
+.coe-lbl.fu h4{color:#3B6B45}
+.coe-lbl h4{margin:0;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;color:#1B5E20}
+.coe-lbl .hint{font-size:10.5px;color:#5E8268;font-weight:600}
 #bFound>h3{color:var(--found)}
 #bFound .cell{background:#fff;border:1px solid #CBE5D2;border-left:4px solid var(--found)}
 #bFound .cell b{color:#1B5E20}
 #bFound .cell span{color:#4E6B57}
 a.cell:hover{background:#F7FFF9}
 
-#bFin{left:120px;top:1180px;width:1600px;background:#FFF8E8;border:1px solid #EFD9A6}
+#bFin{left:120px;top:1320px;width:1600px;background:#FFF8E8;border:1px solid #EFD9A6}
 #bFin>h3{color:#8A6A08}
 #bFin .cell{background:#fff;border:1px solid #EFDDB4;border-left:4px solid var(--fin)}
 #bFin .cell b{color:#8A6A08;font-family:'Inter';font-size:18px}
@@ -236,7 +249,7 @@ body.edit a{pointer-events:none}
     <div class="lane" id="lane4"><span class="tag">05 · Foundation</span></div>
     <div class="lane" id="lane5"><span class="tag">06 · Financials</span></div>
 
-    <svg id="wires" width="1840" height="1345" viewBox="0 0 1840 1345"></svg>
+    <svg id="wires" width="1840" height="1480" viewBox="0 0 1840 1480"></svg>
 
     <div id="head">
       <h1 data-k="title"></h1>
@@ -255,7 +268,12 @@ body.edit a{pointer-events:none}
     <div id="pCos" class="pan"><h3 data-k="cosTitle"></h3><div class="chips"></div></div>
     <div id="pArch" class="pan"><h3 data-k="archTitle"></h3><div class="chips"></div></div>
 
-    <div id="bFound" class="band"><h3 data-k="foundTitle"></h3><div class="cells"></div></div>
+    <div id="bFound" class="band"><h3 data-k="foundTitle"></h3>
+      <div class="coe-lbl"><span class="pill">COE</span><h4 data-k="coeTitle"></h4>
+        <span class="hint" data-k="coeHint"></span></div>
+      <div class="coe"></div>
+      <div class="coe-lbl fu"><span class="pill">Function Unit</span><h4 data-k="fuTitle"></h4></div>
+      <div class="cells"></div></div>
     <div id="bFin" class="band"><h3 data-k="finTitle"></h3><div class="cells"></div></div>
   </div>
 </div>
@@ -263,13 +281,13 @@ body.edit a{pointer-events:none}
 <div class="tip" id="tip"></div>
 
 <!--DIAG_DATA_START-->
-<script id="diag-data" type="application/json">{"savedAt":1790815076327,"title":"PCC Strategy — ภาพความเชื่อมโยงทั้งองค์กร","sub":"จากทิศทางองค์กร → 2 เสาหลัก → การสร้างรายได้และการส่งมอบ → หนุนด้วย 4 ฐานราก → จบที่ตัวเลขทางการเงิน","root":{"t":"PCC Strategy","s":"ทิศทางองค์กร","href":"strategy-mapping.html"},"cap":{"t":"Industrial สู่\u003cbr>Ecosystem Capitalism","s":"เปลี่ยนรูปแบบการสร้างมูลค่า","href":"capitalism.html"},"da":{"t":"4 Digital\u003cbr>Architecture","s":"มาตรฐานกลางของระบบงาน","href":""},"bg":{"t":"Business\u003cbr>Generation","s":"หารายได้จากที่ไหน","href":"business-generation.html"},"ds":{"t":"Demand\u003cbr>Satisfaction","s":"ส่งมอบให้ลูกค้าอย่างไร","href":"demand-satisfaction.html"},"rstTitle":"6 Revenue Stream Type Platform","rst":[{"t":"Tendering","s":"งานประมูล"},{"t":"Omni Channel","s":"ขายหลายช่องทาง"},{"t":"TCS","s":"Total Customer Solution"},{"t":"Recurring","s":"รายได้ต่อเนื่อง"},{"t":"PPA / Long Term","s":"สัญญาระยะยาว"},{"t":"Investment","s":"ลงทุนในธุรกิจอื่น"}],"cosTitle":"7 บริษัทในกลุ่ม — ส่งมอบโดย COO แต่ละบริษัท","cos":[{"t":"PEM"},{"t":"PSP"},{"t":"PDE"},{"t":"PSL"},{"t":"PPP"},{"t":"SBP"},{"t":"PCE"}],"archTitle":"4 Digital Architecture Model","arch":[{"t":"SGAM","s":"Smart Grid Architecture Model","href":""},{"t":"SFAM","s":"Smart Farming Architecture Model","href":"sfam.html"},{"t":"SCIAM","s":"Smart City Intelligence Architecture Model","href":""},{"t":"RAMI 4.0","s":"Reference Architecture Model Industrie 4.0","href":"RAMI4.0.html"}],"foundTitle":"Foundation — ฐานรากที่หนุนทุกเสา (Function Unit)","found":[{"t":"Digital Organization &amp; Information Capital","s":"DO · Agentic Transformation · ERP · Factory 4.0","href":""},{"t":"Digital Process Capital","s":"กระบวนการทำงานบนมาตรฐานเดียวกัน","href":"functional-units.html"},{"t":"Human Capital","s":"Workforce Planning · 700 คน ปี 2571","href":"workforce-present.html"},{"t":"ESG","s":"Information Flow ฝังในระบบ เพื่อให้เกิด QCDs","href":""}],"finTitle":"ทุกเสาและทุกฐานราก แปลงเป็นตัวเลขชุดเดียวกัน","fin":[{"t":"Capex","s":"งบลงทุน 2570 · 320.92 ลบ. จาก 291 รายการ","href":"capex-opex.html"},{"t":"Opex","s":"งบดำเนินงาน 2570 · 1,082.91 ลบ. จาก 218 รายการ","href":"capex-opex.html"},{"t":"Income Statement","s":"รวมคำขอทั้งกลุ่ม 1,403.83 ลบ. · เป้ารายได้ 6,000 ลบ. ที่ GP 30%","href":""}],"legend":[{"k":"flow","t":"การแตกยุทธศาสตร์ จากบนลงล่าง"},{"k":"sup","t":"ฐานรากหนุนขึ้นไปทุกเสา"},{"k":"fin","t":"ทุกส่วนแปลงเป็นตัวเลขทางการเงิน"}],"mascot":{"src":"","alt":"Precise mascot","w":230,"h":206}}</script>
+<script id="diag-data" type="application/json">{"savedAt":1790815361521,"title":"PCC Strategy — ภาพความเชื่อมโยงทั้งองค์กร","sub":"จากทิศทางองค์กร → 2 เสาหลัก → การสร้างรายได้และการส่งมอบ → หนุนด้วย 4 ฐานราก → จบที่ตัวเลขทางการเงิน","root":{"t":"PCC Strategy","s":"ทิศทางองค์กร","href":"strategy-mapping.html"},"cap":{"t":"Industrial สู่\u003cbr>Ecosystem Capitalism","s":"เปลี่ยนรูปแบบการสร้างมูลค่า","href":"capitalism.html"},"da":{"t":"4 Digital\u003cbr>Architecture","s":"มาตรฐานกลางของระบบงาน","href":""},"bg":{"t":"Business\u003cbr>Generation","s":"หารายได้จากที่ไหน","href":"business-generation.html"},"ds":{"t":"Demand\u003cbr>Satisfaction","s":"ส่งมอบให้ลูกค้าอย่างไร","href":"demand-satisfaction.html"},"rstTitle":"6 Revenue Stream Type Platform","rst":[{"t":"Tendering","s":"งานประมูล"},{"t":"Omni Channel","s":"ขายหลายช่องทาง"},{"t":"TCS","s":"Total Customer Solution"},{"t":"Recurring","s":"รายได้ต่อเนื่อง"},{"t":"PPA / Long Term","s":"สัญญาระยะยาว"},{"t":"Investment","s":"ลงทุนในธุรกิจอื่น"}],"cosTitle":"7 บริษัทในกลุ่ม — ส่งมอบโดย COO แต่ละบริษัท","cos":[{"t":"PEM"},{"t":"PSP"},{"t":"PDE"},{"t":"PSL"},{"t":"PPP"},{"t":"SBP"},{"t":"PCE"}],"archTitle":"4 Digital Architecture Model","arch":[{"t":"SGAM","s":"Smart Grid Architecture Model","href":""},{"t":"SFAM","s":"Smart Farming Architecture Model","href":"sfam.html"},{"t":"SCIAM","s":"Smart City Intelligence Architecture Model","href":""},{"t":"RAMI 4.0","s":"Reference Architecture Model Industrie 4.0","href":"RAMI4.0.html"}],"foundTitle":"Foundation — ฐานรากที่หนุนทุกเสา (Function Unit)","found":[{"t":"Digital Organization &amp; Information Capital","s":"DO · Agentic Transformation · ERP · Factory 4.0","href":""},{"t":"Digital Process Capital","s":"กระบวนการทำงานบนมาตรฐานเดียวกัน","href":"functional-units.html"},{"t":"Human Capital","s":"Workforce Planning · 700 คน ปี 2571","href":"workforce-present.html"},{"t":"ESG","s":"Information Flow ฝังในระบบ เพื่อให้เกิด QCDs","href":""}],"finTitle":"ทุกเสาและทุกฐานราก แปลงเป็นตัวเลขชุดเดียวกัน","fin":[{"t":"Capex","s":"งบลงทุน 2570 · 320.92 ลบ. จาก 291 รายการ","href":"capex-opex.html"},{"t":"Opex","s":"งบดำเนินงาน 2570 · 1,082.91 ลบ. จาก 218 รายการ","href":"capex-opex.html"},{"t":"Income Statement","s":"รวมคำขอทั้งกลุ่ม 1,403.83 ลบ. · เป้ารายได้ 6,000 ลบ. ที่ GP 30%","href":""}],"legend":[{"k":"flow","t":"การแตกยุทธศาสตร์ จากบนลงล่าง"},{"k":"sup","t":"ฐานรากหนุนขึ้นไปทุกเสา"},{"k":"fin","t":"ทุกส่วนแปลงเป็นตัวเลขทางการเงิน"}],"mascot":{"src":"","alt":"Precise mascot","w":230,"h":206},"coeTitle":"Center of Excellence (COE)","coeHint":"ชั้นบนสุดของฐานราก — ทีมกลางที่สร้างของให้ทุกบริษัทใช้ร่วมกัน","coe":[{"t":"Digital Engineering","s":"ทีมวิศวกรรมกลาง ออกแบบและสร้างระบบตามมาตรฐาน 4 Digital Architecture","href":""},{"t":"DBTP","s":"Digital Business Technology Platform — แกนกลางที่รองรับการพัฒนา 6 Revenue Stream Type","href":"DBTP_CoE.html"}],"fuTitle":"4 ด้านที่ต้องแข็งแรงพร้อมกัน"}</script>
 <!--DIAG_DATA_END-->
 
 <script>
 var LSK='pcc_diag_v1';
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'strategy-diagram.html'};
-var W=1840, H=1345;
+var W=1840, H=1480;
 function $(id){ return document.getElementById(id); }
 function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
@@ -313,14 +331,14 @@ function cellHTML(o,i,key){
 function render(){
   $('head').querySelector('[data-k="title"]').innerHTML=S.title||'';
   $('head').querySelector('[data-k="sub"]').innerHTML=S.sub||'';
-  ['rstTitle','cosTitle','archTitle','foundTitle','finTitle'].forEach(function(k){
+  ['rstTitle','cosTitle','archTitle','foundTitle','finTitle','coeTitle','coeHint','fuTitle'].forEach(function(k){
     var el=document.querySelector('[data-k="'+k+'"]'); if(el) el.innerHTML=S[k]||'';
   });
   fillCir('nRoot',S.root); fillCir('nCap',S.cap); fillCir('nDa',S.da);
   fillCir('nBg',S.bg); fillCir('nDs',S.ds);
   fillMascot();
   [['pRst',(S.rst||[]).length+' ประเภท'],['pCos',(S.cos||[]).length+' บริษัท'],
-   ['pArch',(S.arch||[]).length+' โมเดล'],['bFound',(S.found||[]).length+' ด้าน'],
+   ['pArch',(S.arch||[]).length+' โมเดล'],['bFound','2 ชั้น'],
    ['bFin',(S.fin||[]).length+' งบ']].forEach(function(x){
     var h=$(x[0]).querySelector('h3'); if(h) h.insertAdjacentHTML('afterbegin','<span class="pill">'+x[1]+'</span>');
   });
@@ -330,6 +348,10 @@ function render(){
   $('pRst').querySelector('.chips').innerHTML=(S.rst||[]).map(function(o,i){ return chipHTML(o,i,'rst'); }).join('');
   $('pCos').querySelector('.chips').innerHTML=(S.cos||[]).map(function(o,i){ return chipHTML(o,i,'cos'); }).join('');
   $('pArch').querySelector('.chips').innerHTML=(S.arch||[]).map(function(o,i){ return chipHTML(o,i,'arch'); }).join('');
+  $('bFound').querySelector('.coe').innerHTML=(S.coe||[]).map(function(o,i){
+    var inner='<b data-k="coe.'+i+'.t">'+o.t+'</b>'+(o.s?'<span data-k="coe.'+i+'.s">'+o.s+'</span>':'');
+    return o.href ? '<a class="cell coe-cell" href="'+o.href+'">'+inner+'</a>' : '<div class="cell">'+inner+'</div>';
+  }).join('');
   $('bFound').querySelector('.cells').innerHTML=(S.found||[]).map(function(o,i){ return cellHTML(o,i,'found'); }).join('');
   $('bFin').querySelector('.cells').innerHTML=(S.fin||[]).map(function(o,i){ return cellHTML(o,i,'fin'); }).join('');
   $('legend').innerHTML=(S.legend||[]).map(function(l){
