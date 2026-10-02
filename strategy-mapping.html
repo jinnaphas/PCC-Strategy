@@ -307,6 +307,7 @@ body.connect .card .bd *{pointer-events:none}
   <button id="bEdit" class="on">✎ แก้ไข</button>
   <button id="bConn">↗ เชื่อมเส้น</button>
   <button id="bDraw">✏️ วาดอิสระ</button>
+  <button id="bSelAll" title="เลือกทุกกล่องและเส้นที่วาดเอง เพื่อลากย้ายทั้งกระดานพร้อมกัน (Ctrl+A หรือ Ctrl+Shift+A)">⬚ เลือกทั้งหมด</button>
   <div class="sep"></div>
   <button id="bUndo" title="ย้อนกลับ (Ctrl+Z)" disabled>↶</button>
   <button id="bRedo" title="ทำซ้ำ (Ctrl+Y)" disabled>↷</button>
@@ -1229,6 +1230,12 @@ function setSelectAll(on){
   document.body.classList.toggle('selall',selectAllMode);
   if(typeof dgroup!=='undefined' && dgroup) dgroup.classList.toggle('allsel',selectAllMode);
 }
+function selectAllBoxes(){
+  var ids=S.cards.map(function(c){return c.id;});
+  var nd=Array.isArray(S.draw)?S.draw.length:0;
+  selectCards(ids,true); setSelectAll(true);
+  tip('เลือกทั้งกระดาน — '+ids.length+' กล่อง · '+nd+' ชิ้นที่วาดเอง · ลากที่แถบหัวกล่องใบไหนก็ได้เพื่อย้ายทั้งหมด (Esc ยกเลิก)');
+}
 function cardById(id){ for(var i=0;i<S.cards.length;i++){ if(S.cards[i].id===id) return S.cards[i]; } return null; }
 function paintSel(){
   var solo = selected.length===1 ? selected[0] : null;
@@ -1375,12 +1382,11 @@ document.addEventListener('keydown',function(e){
   var mod = e.ctrlKey||e.metaKey;
   if(mod && (e.key==='z'||e.key==='Z')){ e.preventDefault(); if(e.shiftKey) redo(); else undo(); return; }
   if(mod && (e.key==='y'||e.key==='Y')){ e.preventDefault(); redo(); return; }
-  if(mod && (e.key==='a'||e.key==='A') && !typing){
+  /* Ctrl+Shift+A ทำงานได้แม้เคอร์เซอร์อยู่ในกล่องข้อความ เพราะเบราว์เซอร์ไม่ได้ใช้คีย์นี้ */
+  if(mod && (e.key==='a'||e.key==='A') && (e.shiftKey || !typing)){
     e.preventDefault();
-    var ids=S.cards.map(function(c){return c.id;});
-    var nd=Array.isArray(S.draw)?S.draw.length:0;
-    selectCards(ids,true); setSelectAll(true);
-    tip('เลือกทั้งกระดาน — '+ids.length+' กล่อง · '+nd+' ชิ้นที่วาดเอง · ลากที่แถบหัวกล่องใบไหนก็ได้เพื่อย้ายทั้งหมด (Esc ยกเลิก)');
+    if(typing && document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    selectAllBoxes();
     return;
   }
   if(e.key==='Escape'){
@@ -1866,6 +1872,12 @@ function deleteSheet(i){
   syncModeButtons(); build(); renderInspector(); renderSheets(); recordHistory(); persistRaw();
   tip('ลบชีตแล้ว');
 }
+var bSelAllEl=document.getElementById('bSelAll');
+if(bSelAllEl) bSelAllEl.addEventListener('click',function(){
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  selectAllBoxes();
+});
+
 sheetTabsEl.addEventListener('click',function(e){
   var del=e.target.closest('.x[data-del]');
   if(del){ e.stopPropagation(); deleteSheet(+del.dataset.del); return; }
