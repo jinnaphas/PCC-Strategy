@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCC — RAMI 4.0 Workforce &amp; Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12233A;--mute:#5A7391;--line:#D8E3EE;--blue:#0B2447;--blue2:#13507C;
+  --m:#C2690A;--s:#0077B6;--p:#7B4FC9;--green:#2E7D32;--red:#C0392B;--paper:#F4F7FB}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','Inter',system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;
+  background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06)}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
+.bar a.back,.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;
+  text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar a.back:hover,.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.pub{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
+.bar .sp{flex:1}
+#autosave{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB}
+#autosave.hit{color:var(--green)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:18px 18px 80px}
+.hero{background:linear-gradient(135deg,#0B2447,#13507C 55%,#1C6CA8);color:#fff;border-radius:20px;
+  padding:26px 30px;box-shadow:0 18px 44px rgba(11,36,71,.26)}
+.hero .kd{font:800 9.5px 'Inter';letter-spacing:.2em;text-transform:uppercase;color:#9FC2DE}
+.hero h1{font-family:'Inter','Sarabun';font-size:27px;font-weight:900;margin:7px 0 0;letter-spacing:-.01em}
+.hero .sub{font-size:13.5px;color:#CFE0EE;margin-top:9px;line-height:1.65;max-width:980px}
+.hero .kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .k{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:9px 15px}
+.hero .k b{display:block;font-family:'Inter';font-size:19px;font-weight:900}
+.hero .k span{font-size:10px;opacity:.85}
+
+.sec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;margin-top:16px;
+  box-shadow:0 8px 22px rgba(18,35,58,.06)}
+.sech{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:13px}
+.sech .n{width:27px;height:27px;border-radius:9px;background:var(--blue2);color:#fff;display:flex;
+  align-items:center;justify-content:center;font:900 13px 'Inter';flex:none}
+.sech h2{font-family:'Inter','Sarabun';font-size:19px;font-weight:800;margin:0;letter-spacing:-.01em}
+.sech .cap{font-size:12.5px;color:var(--mute)}
+.sec h3{font-family:'Inter','Sarabun';font-size:14px;font-weight:800;margin:0 0 9px}
+.cap{font-size:12.5px;color:var(--mute);line-height:1.6}
+
+table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:9px}
+table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;
+  padding:7px 10px;text-align:left;border:1px solid #14496e;vertical-align:middle}
+table.t td{border:1px solid var(--line);padding:7px 10px;line-height:1.55;vertical-align:top}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.g{font-weight:700;color:var(--blue2);white-space:nowrap}
+table.t tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+table.t tr:hover td{background:#F8FBFE}
+table.t tr.sum:hover td{background:#EAF3FA}
+td.pos{color:var(--green);font-weight:800}
+td.neg{color:var(--red);font-weight:800}
+th.m,td.hm{background:#FFF3E5}
+th.s,td.hs{background:#EAF4FB}
+th.p,td.hp{background:#F3EDFB}
+table.t th.m{background:var(--m);border-color:#9c5408}
+table.t th.s{background:var(--s);border-color:#055c8c}
+table.t th.p{background:var(--p);border-color:#5f39a3}
+
+/* ---------- shape ---------- */
+.shapes{display:flex;align-items:flex-end;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding:8px 2px 4px}
+.shapes .lv{flex:none;width:200px;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:48px;
+  font-size:11px;line-height:1.25}
+.shapes .lv .r{height:42px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #EAF1F8;
+  padding-right:8px;text-align:right}
+.shapes .lv .r b{font-size:11.5px;font-weight:800;color:var(--ink);display:block}
+.shapes .lv .r span{font-size:10px;color:#7D93AA}
+.shapes .lv .roof{height:72px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;text-align:right}
+.shapes .yr{flex:none;width:206px;text-align:center}
+.shapes .yr .hd{font-family:'Inter',sans-serif;font-weight:900;font-size:16px;color:var(--ink)}
+.shapes .yr .tg{display:inline-block;font:800 9.5px 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;
+  padding:2px 8px;border-radius:8px;margin:3px 0 7px}
+.shapes .yr.real .tg{background:#EAF3FA;color:#13507C}
+.shapes .yr.plan .tg{background:#FFF1DB;color:#9A6508}
+.shapes .yr.tobe .tg{background:#F3EDFB;color:#5F39A3}
+.shapes .yr .tot{margin-top:7px;font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:var(--blue2)}
+.shapes .yr .tot small{display:block;font-family:'Sarabun';font-size:10px;font-weight:600;color:#7D93AA}
+.shapes .arw{flex:none;width:26px;align-self:center;color:#C3D2E0;font-size:20px;padding-bottom:50px}
+table.mx{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:9px}
+table.mx th{background:var(--blue2);color:#fff;font:700 10.5px 'Inter','Sarabun';padding:6px 8px;
+  text-align:center;border:1px solid #14496e}
+table.mx th.l{text-align:left;width:190px}
+table.mx td{border:1px solid var(--line);padding:6px 8px;line-height:1.45;vertical-align:top}
+table.mx td.l{font-weight:800;color:var(--blue2);background:#F7FAFD}
+table.mx td.l small{display:block;font-weight:400;color:#93A6BA;font-size:9.5px;margin-top:1px}
+table.mx td.ok{background:#F1F8F2}
+table.mx td.gap{background:#FFF0F0}
+table.mx td.na{background:#F7FAFD;color:#C3D2E0;text-align:center}
+table.mx .r{display:block;font-weight:700;color:var(--ink)}
+table.mx .n{display:block;font:800 9.5px 'Inter';margin-top:2px}
+table.mx .n.have{color:var(--green)} table.mx .n.miss{color:var(--red)}
+.legend2{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:11px;color:var(--mute)}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px;border:1px solid var(--line)}
+.roles{display:flex;flex-wrap:wrap;gap:13px}
+.role{flex:1;min-width:300px;border:1px solid var(--line);border-top-width:5px;border-radius:14px;padding:13px 16px;background:#FCFDFF}
+.role.n2{border-top-color:#7B4FC9} .role.r2{border-top-color:#C2690A} .role.u2{border-top-color:#0077B6}
+.role .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.role .hd b{font-family:'Inter','Sarabun';font-size:14px;font-weight:800}
+.role .tg{font:800 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:7px;color:#fff}
+.role.n2 .tg{background:#7B4FC9} .role.r2 .tg{background:#C2690A} .role.u2 .tg{background:#0077B6}
+.role .lv{font:700 10px 'Inter';color:#7D93AA}
+.role p{font-size:11.5px;color:#41566E;line-height:1.6;margin:8px 0 0}
+.role .std{margin-top:8px;font-size:10.5px;color:#5A6E88;line-height:1.55;border-top:1px dashed var(--line);padding-top:7px}
+.role .std b{font:800 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:#93A6BA;display:block;margin-bottom:3px}
+.role .cnt{margin-top:8px;font:800 11px 'Inter'}
+.tracks{display:flex;flex-wrap:wrap;gap:14px}
+.tr{flex:1;min-width:290px;border:1px solid var(--line);border-top-width:5px;border-radius:14px;padding:14px 17px;background:#FCFDFF}
+.tr.m{border-top-color:var(--m)} .tr.s{border-top-color:var(--s)} .tr.p{border-top-color:var(--p)}
+.tr .hd{display:flex;align-items:baseline;gap:9px}
+.tr .hd b{font-family:'Inter';font-size:27px;font-weight:900;line-height:1}
+.tr.m .hd b{color:var(--m)} .tr.s .hd b{color:var(--s)} .tr.p .hd b{color:var(--p)}
+.tr .hd span{font-family:'Inter';font-size:13.5px;font-weight:800}
+.tr .q{display:inline-block;margin-top:9px;font:800 10px 'Inter';letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:9px;color:#fff}
+.tr.m .q{background:var(--m)} .tr.s .q{background:var(--s)} .tr.p .q{background:var(--p)}
+.tr p{font-size:12.5px;color:#41566E;line-height:1.65;margin:9px 0 0}
+.tr ul{margin:8px 0 0;padding-left:17px;font-size:12px;color:#41566E;line-height:1.6}
+
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#6b4a12}
+.okbox{background:#EFF8F1;border:1px solid #BEDFC6;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#1B5E20}
+.rulebox{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.rule{flex:1;min-width:260px;border:1px solid var(--line);border-left:4px solid var(--blue2);border-radius:11px;
+  padding:11px 14px;background:#FCFDFF}
+.rule b{display:block;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;margin-bottom:4px}
+.rule span{font-size:12px;color:#41566E;line-height:1.6}
+.tip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(11,36,71,.94);color:#fff;
+  padding:9px 18px;border-radius:11px;font-size:12.5px;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+.tip.show{opacity:1}
+body.edit [data-k]{outline:1px dashed rgba(19,80,124,.45);outline-offset:2px;border-radius:4px}
+#tokPanel{position:fixed;right:16px;top:54px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:14px;box-shadow:0 16px 40px rgba(18,35,58,.18);z-index:70;width:330px}
+#tokPanel[hidden]{display:none}
+#tokPanel h4{margin:0 0 8px;font:800 12px 'Inter';color:var(--blue)}
+#tokPanel p{margin:0 0 9px;font-size:11.5px;color:var(--mute);line-height:1.55}
+#tokPanel input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px}
+#tokPanel .row{display:flex;gap:8px;margin-top:9px}
+#tokPanel button{flex:1;font:700 11px 'Inter';padding:7px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+#tokPanel button.ok{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+@media print{@page{size:A3 portrait;margin:10mm} .bar,.tip,#tokPanel{display:none!important} body{background:#fff} .sec{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>RAMI 4.0 Workforce</b><span>PEM · Factory 4.0 Prototype</span></div>
+  <a class="back" href="standards-cube.html">🧊 Standards Cube</a>
+  <a class="back" href="job-architecture.html">👤 Job Architecture</a>
+  <a class="back" href="workforce-present.html">Workforce Present</a>
+  <a class="back" href="sfam-workforce.html">🌱 SFAM Workforce</a>
+  <div class="sep"></div>
+  <button id="bEdit">✎ แก้ข้อความ</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
+  <span class="sp"></span>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel" hidden>
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับปุ่ม “บันทึกขึ้นเว็บ” เก็บไว้ในเครื่องนี้เท่านั้น</p>
+  <input id="tokInput" type="password" placeholder="ghp_...">
+  <div class="row"><button class="ok" id="tokSave">บันทึก</button><button id="tokClear">ลบ</button></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">RAMI 4.0 Workforce &amp; Training</div>
+    <h1 data-k="h1">กำลังคนและหลักสูตรของห่วงโซ่ไผ่ — ถอดจาก SFAM</h1>
+    <div class="sub" data-k="hsub">เอา Flow ใน Bamboo Supply Chain มาทาบกับชั้นและโดเมนของ SFAM แล้วถามว่าแต่ละช่องต้องมีใคร และคนนั้นต้องรู้มาตรฐานตัวไหน</div>
+    <div class="kpis" id="heroKpi"></div>
+  </div>
+
+  <div class="sec" id="s1">
+    <div class="sech"><span class="n">1</span><h2>ช่องว่างกำลังคนวันนี้</h2>
+      <span class="cap" data-k="c1">ถอดจากงบบุคลากรปี 2570 ที่นำเข้าในหน้า Capex/Opex</span></div>
+    <table class="t" id="tNow"></table>
+    <div class="warnbox" id="nowNote" data-k="nowNote"></div>
+  </div>
+
+  <div class="sec" id="s1b">
+    <div class="sech"><span class="n">1B</span><h2>ทรงกำลังคนของ PEM — ฐานแคบ กลางหนา ยอดแหลม</h2>
+      <span class="cap" data-k="c1b">ความกว้างของแถบ = จำนวนคนจริง · โรงงานที่เป็นต้นแบบ Factory 4.0 ฐานปฏิบัติการจะแคบกว่าชั้นวิชาชีพ</span></div>
+    <div class="shapes" id="shapes"></div>
+    <h3 style="margin-top:18px">ตัวเลขรายระดับ</h3>
+    <div class="split" style="margin-top:10px">
+      <div><table class="t" id="tShape"></table></div>
+      <div><div class="warnbox" id="shapeNote" data-k="shapeNote"></div></div>
+    </div>
+  </div>
+
+  <div class="sec" id="s2">
+    <div class="sech"><span class="n">2</span><h2>Workforce Matrix — ชั้น RAMI 4.0 × ระดับลำดับชั้นของโรงงาน</h2>
+      <span class="cap" data-k="c2">ใช้แกนเดียวกับ Standards Cube · 6 ชั้น × ลำดับชั้นของโรงงาน</span></div>
+    <table class="mx" id="tMx"></table>
+    <div class="legend2">
+      <span><i style="background:#F1F8F2"></i>มีคนแล้ว</span>
+      <span><i style="background:#FFF0F0"></i>ยังไม่มีคน — ต้องสร้าง</span>
+      <span><i style="background:#F7FAFD"></i>ไม่ใช้ในห่วงโซ่ไผ่</span>
+    </div>
+    <div class="warnbox" id="mxNote" data-k="mxNote"></div>
+  </div>
+
+  <div class="sec" id="s3">
+    <div class="sech"><span class="n">3</span><h2>ตำแหน่งที่ต้องมี</h2>
+      <span class="cap" data-k="c3">เรียงตามชั้นของ RAMI 4.0 · R = ย้ายอาชีพ · U = ยกระดับ · N = ทักษะใหม่</span></div>
+    <div class="roles" id="roles"></div>
+    <h3 style="margin-top:18px">สรุปจำนวนคน</h3>
+    <table class="t" id="tSum"></table>
+  </div>
+
+  <div class="sec" id="s4">
+    <div class="sech"><span class="n">4</span><h2>แผนหลักสูตร — ผูกกับมาตรฐาน RAMI 4.0 รายตัว</h2>
+      <span class="cap" data-k="c4">ทุกหลักสูตรอ้างมาตรฐานจริงที่อยู่ในแผนที่ RAMI 4.0 ไม่ใช่หลักสูตรทั่วไป</span></div>
+    <table class="t" id="tCur"></table>
+  </div>
+
+  <div class="sec" id="s5">
+    <div class="sech"><span class="n">5</span><h2>หลักสูตรซัพพลายเออร์และผู้รับเหมา — กำลังคนที่ไม่อยู่ในพีระมิด</h2>
+      <span class="cap" data-k="c5">ถ้าซัพพลายเออร์ส่งข้อมูลสินค้าไม่ได้ตามมาตรฐาน Digital Nameplate ทั้งสายจะสะดุด</span></div>
+    <div class="warnbox" id="farmNote" data-k="farmNote"></div>
+    <table class="t" id="tFarm"></table>
+  </div>
+
+  <div class="sec" id="s6">
+    <div class="sech"><span class="n">6</span><h2>ลำดับการลงมือ และสิ่งที่ยังต้องการ</h2>
+      <span class="cap" data-k="c6">อะไรต้องมาก่อน และข้อมูลอะไรที่ยังขาด</span></div>
+    <div class="rulebox" id="seq"></div>
+    <h3 style="margin-top:18px">ข้อมูลที่ยังต้องการ</h3>
+    <table class="t" id="tNeed"></table>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<!--RMW_DATA_START-->
+<script id="rmw-data" type="application/json">{"savedAt":1791186437475,"kpi":[{"v":"~300 คน","t":"กำลังคน PEM วันนี้ (ประมาณจากงบ)"},{"v":"240 คน","t":"เป้าปี 2572 — ลด 20%"},{"v":"−115 คน","t":"ชั้นปฏิบัติการที่ automation รับไป"},{"v":"324 ชม.","t":"หลักสูตรตามมาตรฐาน RAMI 4.0"}],"now":[{"cc":"PEM — Salary","sal":118011102.2,"wel":0,"hc":"—"},{"cc":"PEM — Employee Welfare and Benefits","sal":0,"wel":82614637.33,"hc":"—"},{"cc":"รวม PEM","sal":118011102.2,"wel":82614637.33,"hc":"294 – 365","hi":1},{"cc":"PEMC (โรงงานคู่แฝด)","sal":4123590.38,"wel":2013091.44,"hc":"9 – 11"}],"nowNote":"\u003cb>วิธีคำนวณ:\u003c/b> ค่าใช้จ่ายบุคลากร 200.63 ลบ. ÷ ค่าเฉลี่ยทั้งกลุ่ม 682,792 บาท/คน/ปี = \u003cb>294 คน\u003c/b> · ถ้าใช้อัตราโรงงานที่ต่ำกว่า (550,000 บาท/คน/ปี) = 365 คน \u003cb>น่าจะอยู่ราว 300–360 คน\u003c/b>\u003cbr>\u003cb>PEM เป็นบริษัทที่ใหญ่ที่สุดในกลุ่ม\u003c/b> — ค่าใช้จ่ายบุคลากร 200.63 จาก 560.57 ลบ. ของทั้งกลุ่ม คิดเป็น \u003cb>36%\u003c/b> และงบรวม Capex+Opex 718.15 ลบ. จาก 1,403.83 ลบ. คิดเป็น \u003cb>51%\u003c/b> ของทั้งกลุ่ม\u003cbr>\u003cb>ข้อจำกัด:\u003c/b> ฐานข้อมูล HR ที่มีครอบคลุม PEM เพียง 48 คน เฉพาะระดับ 7–9 จึงยังแตกทรงปัจจุบันรายระดับไม่ได้จริง ตัวเลขรายระดับในหัวข้อถัดไปเป็นการประมาณจากสัดส่วนของกลุ่ม ปรับให้หนักฝั่งปฏิบัติการตามลักษณะโรงงาน","shape":{"levels":[{"key":"g14","label":"กลุ่มปฏิบัติการ","sub":"ระดับ 1–4","c":"#0B2447"},{"key":"g56","label":"กลุ่มวิชาชีพ","sub":"ระดับ 5B–6C","c":"#13507C"},{"key":"g66","label":"จัดการ/ชำนาญการ","sub":"ระดับ 6B–6A","c":"#0077B6"},{"key":"g79","label":"จัดการ/ชำนาญการ","sub":"ระดับ 7C–9A","c":"#5AA9E6"},{"key":"g1013","label":"ผู้บริหาร","sub":"ระดับ 10–13","c":"#8FBEE0"}],"years":[{"y":"2569","tag":"ประมาณ","cls":"real","note":"ทรงพีระมิด ฐานกว้าง","v":{"g14":165,"g56":66,"g66":27,"g79":39,"g1013":3}},{"y":"2570","tag":"Phase 1","cls":"plan","note":"ERP + สายอัตโนมัติชุดแรก","v":{"g14":130,"g56":68,"g66":32,"g79":42,"g1013":4}},{"y":"2571","tag":"Phase 2","cls":"plan","note":"AAS + MES เดินจริง","v":{"g14":85,"g56":70,"g66":48,"g79":50,"g1013":5}},{"y":"2572","tag":"To-Be","cls":"tobe","note":"ฐานสอบเข้า กลางหนา","v":{"g14":50,"g56":65,"g66":62,"g79":56,"g1013":7}}],"note":"\u003cb>ทำไมทรงของ PEM ต่างจากทรงบ้านของทั้งกลุ่ม:\u003c/b> ทั้งกลุ่มตั้งเป้าให้ฐานเท่าชั้นกลาง (170/172/170/168) แต่ PEM เป็นต้นแบบ Factory 4.0 \u003cb>ฐานปฏิบัติการจะแคบกว่าชั้นวิชาชีพ\u003c/b> (50 เทียบกับ 65) เพราะงานเดินเครื่องและงานซ้ำซ้อน ถูกระบบอัตโนมัติรับไป เหลือคนที่ต้องอ่านค่า ตัดสินใจ และดูแลระบบ — ขอบล่างจึงสอบเข้าเป็นทรงตามที่ต้องการ\u003cbr>\u003cb>ตัวเลขที่หนักที่สุด:\u003c/b> ชั้นปฏิบัติการลดจาก 165 เหลือ 50 คน = \u003cb>−115 คน หรือ −70%\u003c/b> ซึ่งคิดเป็นราวครึ่งหนึ่ง ของการลด 228 คนทั้งกลุ่ม — PEM จึงเป็นบริษัทที่แบกภาระการเปลี่ยนผ่านมากที่สุด\u003cbr>\u003cb>และเช่นเดียวกับทั้งกลุ่ม\u003c/b> ระดับ 6B ขึ้นไปจะมี 125 คนจาก 240 คน ถ้าทุกคนเป็นหัวหน้าจะได้ span 1:0.9 ต้องคุมสาย M ไม่เกิน 25% (ราว 31 คน) ตาม Job Architecture จึงจะได้ span จริง 1:6.7"},"mx":{"lays":[["biz","Business","ธุรกิจ · KPI · Product Passport"],["fnl","Functional","ตรรกะควบคุม · MES · Safety"],["inf","Information","Engineering data · AAS"],["com","Communication","เครือข่ายและโปรโตคอล"],["itg","Integration","PLC · เซ็นเซอร์ · HMI · Edge"],["ast","Asset","เครื่องจักร · สินค้า · เครื่องมือวัด"]],"doms":[["prd","Product","สินค้า Precise"],["fld","Field / Control","อุปกรณ์ภาคสนาม + ควบคุม"],["sta","Station","สถานี / เครื่องจักร"],["wrk","Work Centers","สายการผลิต"],["ent","Enterprise","องค์กร + เชื่อมต่อภายนอก"]],"cells":{"biz|prd":{"r":"Product Passport & PCF Lead","n":1,"have":0},"biz|sta":{"r":"Dependability / RAM Engineer","n":1,"have":0},"biz|wrk":{"r":"Production KPI / OEE Owner","n":1,"have":0},"biz|ent":{"r":"ผู้จัดการโรงงาน / COO","n":2,"have":2},"fnl|prd":{"r":"Product Structure Engineer","n":1,"have":1},"fnl|fld":{"r":"Control Logic Engineer","n":3,"have":2},"fnl|sta":{"r":"Functional Safety Engineer","n":2,"have":0},"fnl|wrk":{"r":"MES / MOM Specialist","n":2,"have":0},"fnl|ent":{"r":"Digital Factory Lead","n":1,"have":0},"inf|prd":{"r":"Properties & Dictionary (ECLASS)","n":1,"have":0},"inf|fld":{"r":"Device Description / FDI","n":1,"have":0},"inf|sta":{"r":"Engineering Data Manager (AutomationML)","n":2,"have":0},"inf|wrk":{"r":"Operations Data Analyst","n":2,"have":0},"inf|ent":{"r":"AAS / Digital Nameplate Owner","n":2,"have":0},"com|fld":{"r":"วิศวกรเครือข่ายอุตสาหกรรม (TSN)","n":2,"have":1},"com|sta":{"r":"ใช้ทีมร่วมกับ PSP","n":0,"have":1},"com|wrk":{"r":"ใช้ทีมร่วมกับ PSP (OPC UA · MQTT)","n":0,"have":1},"itg|prd":{"r":"Digital Nameplate Technician","n":1,"have":0},"itg|fld":{"r":"ช่าง PLC / I/O · เซ็นเซอร์","n":12,"have":10},"itg|sta":{"r":"ช่าง HMI และระบบแจ้งเตือน","n":4,"have":2},"itg|wrk":{"r":"Machine Data / Edge Engineer","n":2,"have":0},"itg|ent":{"r":"IT/OT Integration Engineer","n":2,"have":0},"ast|prd":{"r":"ช่างประกอบสินค้า · ช่างทดสอบ Type Test","n":35,"have":55},"ast|fld":{"r":"ช่างเครื่องมือวัดและสอบเทียบ","n":4,"have":3},"ast|sta":{"r":"ช่างซ่อมบำรุงเครื่องจักรและหุ่นยนต์","n":14,"have":12},"ast|wrk":{"r":"หัวหน้าสายการผลิต · Line Safety","n":6,"have":6},"ast|ent":{"r":"ESG / EHS โรงงาน","n":2,"have":2}}},"mxNote":"\u003cb>สิ่งที่ตารางนี้บอก:\u003c/b> ชั้น \u003cb>Information\u003c/b> ว่างทั้งแถวเหมือนกับ SFAM — PEM มีคนเดินเครื่องและซ่อมเครื่องครบ แต่\u003cb>ไม่มีใครเป็นเจ้าของข้อมูลวิศวกรรม\u003c/b> ทั้งที่ RAMI 4.0 ทั้งแผนที่วางอยู่บนชั้นนี้\u003cbr>ช่อง \u003cb>Asset × Product\u003c/b> เป็นช่องเดียวที่คนเกินความต้องการ (55 → 35) เพราะงานประกอบและทดสอบซ้ำ ๆ คือส่วนที่ automation รับไปได้มากที่สุด — คนกลุ่มนี้คือแหล่งที่จะย้ายไปเติมชั้น Integration และ Information\u003cbr>ชั้น Communication ตั้งใจให้ว่างบางช่อง เพราะใช้ทีมร่วมกับ PSP (OPC UA · MQTT เป็นมาตรฐานเดียวกันทั้งสองแผนที่)","roles":[{"t":"Digital Architect (RAMI 4.0)","run":"N","lv":"9B–9A · Specialist","grp":"ชั้นข้อมูลและสถาปัตยกรรม","now":0,"need":1,"d":"เจ้าของ reference model RAMI 4.0 ของทั้งกลุ่ม ตรวจรับการออกแบบสายการผลิตและเป็นผู้ส่งต้นแบบให้ PSL ไปต่อยอด","std":"DIN SPEC 91345 · IEC PAS 63088 · IEC 62264"},{"t":"AAS / Digital Nameplate Owner","run":"N","lv":"8C–8A · Specialist","grp":"ชั้นข้อมูลและสถาปัตยกรรม","now":0,"need":2,"d":"เจ้าของ Asset Administration Shell ของสินค้า Precise — เป็นสะพานที่ทำให้สินค้าจากโรงงาน PEM เสียบเข้ากริดของ PSP ได้","std":"IEC 63278-1 · IEC 63365 · IEC 61406-1 · IDTA-01001"},{"t":"Engineering Data Manager","run":"N","lv":"7C–7A · Specialist","grp":"ชั้นข้อมูลและสถาปัตยกรรม","now":0,"need":2,"d":"ดูแลข้อมูลวิศวกรรมตั้งแต่แบบจนถึงสายการผลิต ด้วย AutomationML เพื่อให้แบบเดินทางจากห้องออกแบบถึงหน้างานได้โดยไม่ต้องคีย์ซ้ำ","std":"IEC 62714 (AML) · IEC 61131-10 · IEC 62424"},{"t":"Properties & Dictionary (ECLASS)","run":"N","lv":"6B–6A · Specialist","grp":"ชั้นข้อมูลและสถาปัตยกรรม","now":0,"need":1,"d":"นิยามคุณสมบัติสินค้าให้เป็นมาตรฐานเดียว เป็นฐานของ Product Passport และการขายข้ามตลาด","std":"IEC 61360-1 · IEC 61987-1 · ECLASS"},{"t":"Operations Data Analyst","run":"U","lv":"6B–6A · Specialist","grp":"ชั้นข้อมูลและสถาปัตยกรรม","now":0,"need":2,"d":"แปลงข้อมูลเครื่องจักรเป็น OEE และต้นทุนต่อหน่วย ส่งเข้าการวางแผนผลิต","std":"IEC 62264-2 · IEC 62264-5 · ISO 22400"},{"t":"MES / MOM Specialist","run":"N","lv":"7C–7A · Specialist","grp":"วางแผนและควบคุมการผลิต","now":0,"need":2,"d":"วางระบบสั่งงานและติดตามการผลิตระดับสายการผลิต เชื่อม ERP กับหน้างาน","std":"IEC 62264-3 · ISO 22400-1"},{"t":"Functional Safety Engineer","run":"N","lv":"8C–8A · Specialist","grp":"วางแผนและควบคุมการผลิต","now":0,"need":2,"d":"ออกแบบและตรวจรับระบบความปลอดภัยของเครื่องจักรและกระบวนการ เป็นข้อบังคับทางกฎหมาย","std":"IEC 61508 · IEC 61511-1 · IEC 62061 · ISO 13849-1"},{"t":"Control Logic Engineer","run":"U","lv":"7C–7A · Specialist","grp":"วางแผนและควบคุมการผลิต","now":2,"need":3,"d":"เขียนและดูแลตรรกะควบคุมตามมาตรฐาน ไม่ใช่เขียนตามความเคยชินของแต่ละเครื่อง","std":"IEC 61131-3 · IEC 61499-1 · IEC 61512-1"},{"t":"Digital Factory Lead","run":"N","lv":"8C–8A · Project","grp":"วางแผนและควบคุมการผลิต","now":0,"need":1,"d":"ขับเคลื่อนโครงการ Factory 4.0 ทั้งโรงงาน และเป็นผู้ส่งมอบต้นแบบให้บริษัทอื่นในกลุ่ม","std":"IEC 62832-1 · ISO 23247-1"},{"t":"วิศวกรเครือข่ายอุตสาหกรรม","run":"U","lv":"7C–7A · Specialist","grp":"เครือข่ายและการเชื่อมต่อ","now":1,"need":2,"d":"ออกแบบเครือข่ายโรงงานให้รองรับเวลาจริง — ใช้ทีมร่วมกับ PSP ในชั้น OPC UA และ MQTT","std":"IEC 61784-2 · IEC/IEEE 60802 · IEEE 802.1Q · IEC 62541"},{"t":"Machine Data / Edge Engineer","run":"N","lv":"6B–6A · Specialist","grp":"เครือข่ายและการเชื่อมต่อ","now":0,"need":2,"d":"ดึงข้อมูลจากเครื่องจักรขึ้น Edge และส่งต่อให้ระบบวิเคราะห์","std":"OPC 40001 · ISO 23247-3 · ISO/IEC 20922"},{"t":"IT/OT Integration Engineer","run":"N","lv":"7C–7A · Specialist","grp":"เครือข่ายและการเชื่อมต่อ","now":0,"need":2,"d":"เชื่อมระบบโรงงานกับ ERP และระบบองค์กร พร้อมคุมความมั่นคงปลอดภัยของจุดเชื่อม","std":"IEC 62264-1 · IEC 62264-4 · IEC 62443"},{"t":"ช่าง PLC / I/O และเซ็นเซอร์","run":"U","lv":"5B–6C","grp":"งานหน้างานและเครื่องจักร","now":10,"need":12,"d":"ติดตั้งและดูแล PLC เซ็นเซอร์ และทรานสมิตเตอร์ตามมาตรฐาน ไม่ใช่ตามแบบเฉพาะเครื่อง","std":"IEC 61131-2 · IEC 61010-2-201 · IEC 60770"},{"t":"ช่าง HMI และระบบแจ้งเตือน","run":"U","lv":"5B–6C","grp":"งานหน้างานและเครื่องจักร","now":2,"need":4,"d":"ออกแบบหน้าจอและระบบแจ้งเตือนให้คนหน้างานตัดสินใจได้ถูกและเร็ว","std":"IEC 63303 · IEC 62682"},{"t":"ช่างซ่อมบำรุงเครื่องจักรและหุ่นยนต์","run":"U","lv":"1–4 / 5B–6C","grp":"งานหน้างานและเครื่องจักร","now":12,"need":14,"d":"ซ่อมบำรุงตามแผนและตามสภาพ แทนการซ่อมเมื่อเสีย","std":"IEC 60204-1 · ISO 12100 · ISO 10218 · EN 13306"},{"t":"ช่างเครื่องมือวัดและสอบเทียบ","run":"U","lv":"5B–6C","grp":"งานหน้างานและเครื่องจักร","now":3,"need":4,"d":"สอบเทียบเครื่องมือวัดและเครื่องทดสอบให้พร้อมสำหรับ Type Test","std":"IEC 61869 series · IEC 61010-1"},{"t":"ช่างประกอบสินค้าและทดสอบ","run":"R","lv":"1–4","grp":"งานหน้างานและเครื่องจักร","now":55,"need":35,"d":"งานประกอบและทดสอบซ้ำ ๆ คือส่วนที่ automation รับไปได้มากที่สุด — 20 คนที่เกินคือแหล่งกำลังคนสำหรับชั้น Integration และ Information","std":"IEC 62271 series · IEC 60076 series · IEC 61439 series"},{"t":"หัวหน้าสายการผลิตและ Line Safety","run":"U","lv":"6B–6A","grp":"งานหน้างานและเครื่องจักร","now":6,"need":6,"d":"คุมสายการผลิตและความปลอดภัยของสาย","std":"ISO 13849-1 · IEC 62061"},{"t":"Product Passport & PCF Lead","run":"N","lv":"8C–8A · Specialist","grp":"ธุรกิจและความยั่งยืน","now":0,"need":1,"d":"จัดทำหนังสือเดินทางสินค้าและคาร์บอนฟุตพรินต์รายผลิตภัณฑ์ เป็นเงื่อนไขการส่งออกไปตลาดที่มีมาตรการคาร์บอน","std":"IEC 63278-1 · ISO 14067 · IEC 61360-1"},{"t":"Dependability / RAM Engineer","run":"N","lv":"7C–7A · Specialist","grp":"ธุรกิจและความยั่งยืน","now":0,"need":1,"d":"วิเคราะห์ความน่าเชื่อถือของสินค้าและกำหนดกลยุทธ์บำรุงรักษาตลอดอายุการใช้งาน","std":"IEC 60300-1 · IEC 60300-3-11 · IEC 62402"},{"t":"Production KPI / OEE Owner","run":"U","lv":"6B–6A","grp":"ธุรกิจและความยั่งยืน","now":0,"need":1,"d":"เจ้าของตัวชี้วัดการผลิตและการเชื่อมกลับไปที่ P&L ของโรงงาน","std":"ISO 22400-1 · ISO 22400-2 · IEC 62264-1"},{"t":"ESG / EHS โรงงาน","run":"U","lv":"6B–6A","grp":"ธุรกิจและความยั่งยืน","now":2,"need":2,"d":"ระบบจัดการสิ่งแวดล้อม ความปลอดภัย และพลังงานของโรงงาน","std":"ISO 14001 · ISO 45001 · ISO 50001"},{"t":"ผู้จัดการโรงงาน / COO","run":"U","lv":"10–13 · Management","grp":"ธุรกิจและความยั่งยืน","now":2,"need":2,"d":"รับผิดชอบ P&L และเป็นเจ้าภาพ RAMI 4.0 ในระดับบริหาร","std":"ISO 9001 · ISO 55001"}],"cur":[{"t":"RAMI 4.0 Architecture — อ่านและใช้ reference model","std":"DIN SPEC 91345 · IEC PAS 63088","who":"Digital Architect · COO · หัวหน้าหน่วย","hr":32,"when":"2570 H1"},{"t":"Asset Administration Shell","std":"IEC 63278-1 · IDTA-01001","who":"AAS Owner · Engineering Data · ออกแบบสินค้า","hr":32,"when":"2570 H1"},{"t":"Digital Nameplate และการระบุตัวตนสินค้า","std":"IEC 63365 · IEC 61406-1","who":"AAS Owner · ช่างประกอบ · QC","hr":16,"when":"2570 H1"},{"t":"Functional Safety","std":"IEC 61508 · IEC 61511-1 · IEC 62061","who":"Safety Engineer · Control Logic · หัวหน้าสาย","hr":32,"when":"2570 H1","must":1},{"t":"ความปลอดภัยเครื่องจักรและหุ่นยนต์","std":"IEC 60204-1 · ISO 12100 · ISO 10218","who":"ช่างซ่อมบำรุง · ช่างประกอบ · หัวหน้าสาย","hr":16,"when":"2570 H1","must":1},{"t":"AutomationML และข้อมูลวิศวกรรม","std":"IEC 62714 · IEC 61131-10 · IEC 62424","who":"Engineering Data Manager · วิศวกรออกแบบ","hr":24,"when":"2570 H2"},{"t":"ISA-95 และ MES / MOM","std":"IEC 62264-1, -2, -3","who":"MES Specialist · Ops Data · วางแผนผลิต","hr":24,"when":"2570 H2"},{"t":"OT Security","std":"IEC 62443 · ISO/IEC 27001","who":"ทุกคนที่แตะระบบควบคุม","hr":16,"when":"2570 H2","must":1},{"t":"OPC UA และ MQTT","std":"IEC 62541 · ISO/IEC 20922","who":"วิศวกรเครือข่าย · Edge Engineer · IT/OT","hr":24,"when":"2570 H2"},{"t":"TSN และ Industrial Ethernet","std":"IEC 61784-2 · IEC/IEEE 60802 · IEEE 802.1Q","who":"วิศวกรเครือข่ายอุตสาหกรรม","hr":24,"when":"2571"},{"t":"IEC 61131-3 และ IEC 61499 Control Logic","std":"IEC 61131-3 · IEC 61499-1","who":"Control Logic Engineer · ช่าง PLC","hr":32,"when":"2571"},{"t":"OEE และตัวชี้วัดการผลิต","std":"ISO 22400-1 · ISO 22400-2","who":"KPI Owner · หัวหน้าสาย · Ops Data","hr":12,"when":"2571"},{"t":"Product Carbon Footprint","std":"ISO 14067 · IEC 63278-1","who":"PCF Lead · ESG · ขาย","hr":24,"when":"2571"},{"t":"Dependability และ RAM","std":"IEC 60300-1 · IEC 60300-3-11 · IEC 62402","who":"RAM Engineer · บริการหลังการขาย","hr":16,"when":"2572"}],"farmNote":"\u003cb>คู่ขนานกับหลักสูตรเกษตรกรของ PSL:\u003c/b> ฝั่งโรงงานไม่มีเกษตรกร แต่มี \u003cb>ซัพพลายเออร์และผู้รับเหมา\u003c/b> ที่ต้องส่งข้อมูลเข้าระบบเหมือนกัน — ถ้าซัพพลายเออร์ส่งชิ้นส่วนมาโดยไม่มี Digital Nameplate หรือข้อมูลคุณสมบัติตามมาตรฐาน \u003cb>Asset Administration Shell ของสินค้า Precise จะประกอบไม่ครบ\u003c/b> และ Product Passport จะออกไม่ได้\u003cbr>คนกลุ่มนี้ไม่ใช่พนักงาน จึงไม่อยู่ในพีระมิด แต่เป็นเงื่อนไขความสำเร็จของทั้งแผน \u003cb>ข้อเสนอ:\u003c/b> ให้ทีม AAS Owner และจัดซื้อร่วมกันจัดอบรม และผูกเป็นเงื่อนไขในสัญญาจัดซื้อ","farm":[{"t":"ปฐมนิเทศซัพพลายเออร์","d":"มาตรฐานข้อมูลที่ PEM ต้องการ · รูปแบบไฟล์ · กำหนดส่ง","by":"จัดซื้อ + AAS Owner","hr":4},{"t":"Digital Nameplate สำหรับชิ้นส่วน","d":"IEC 63365 · IEC 61406-1 — การทำป้ายและรหัสระบุตัวตน","by":"AAS Owner","hr":8},{"t":"คุณสมบัติสินค้าตาม ECLASS","d":"IEC 61360-1 — การกรอกคุณสมบัติให้ใช้ข้ามระบบได้","by":"Properties & Dictionary","hr":6},{"t":"ข้อมูลคาร์บอนของชิ้นส่วน","d":"ISO 14067 — ข้อมูลที่ต้องส่งเพื่อคิด PCF ของสินค้าสำเร็จรูป","by":"PCF Lead","hr":6},{"t":"ความปลอดภัยสำหรับผู้รับเหมาในโรงงาน","d":"กฎความปลอดภัย · Lockout/Tagout · การทำงานกับเครื่องจักร","by":"ESG / EHS","hr":4},{"t":"ความมั่นคงปลอดภัยเมื่อเชื่อมต่อระบบ","d":"IEC 62443 — ข้อกำหนดสำหรับผู้รับเหมาที่ต้องต่อเข้าเครือข่ายโรงงาน","by":"IT/OT Integration","hr":3}],"seq":[{"t":"1. ตั้ง AAS Owner ก่อนทุกอย่าง","d":"Asset Administration Shell คือสะพานที่ทำให้สินค้าของ PEM เสียบเข้ากริดของ PSP ได้ และเป็นฐานของ Product Passport ทั้งหมด \u003cb>ถ้าไม่มีคนนี้ สะพาน RAMI ↔ SGAM ที่ระบุไว้ในแผนที่จะเป็นแค่ข้อความ\u003c/b>"},{"t":"2. ย้ายคนจากช่อง Asset × Product ขึ้นชั้นบน","d":"ช่างประกอบและทดสอบเกินความต้องการ 20 คน (55 → 35) \u003cb>นี่คือแหล่งกำลังคนที่ใกล้ที่สุด\u003c/b> สำหรับชั้น Integration และ Information ที่ว่างอยู่ — ย้ายได้เร็วกว่ารับใหม่และไม่เสียความรู้เรื่องสินค้า"},{"t":"3. หลักสูตรบังคับ 3 ตัวต้องเสร็จก่อนเดินสายอัตโนมัติ","d":"Functional Safety (IEC 61508/61511/62061) · ความปลอดภัยเครื่องจักร (IEC 60204-1 · ISO 12100 · ISO 10218) · OT Security (IEC 62443) — เป็นเงื่อนไขทางกฎหมายและการรับประกัน"},{"t":"4. ทำชั้น Information ก่อนขยาย Edge และ Analytics","d":"เหมือนกับที่เตือนไว้ในฝั่ง SFAM — ถ้ายังไม่มี Engineering Data Manager และ ECLASS ข้อมูลจากเครื่องจักรจะเทียบกันไม่ได้ข้ามสายการผลิต"},{"t":"5. ใช้ทีมร่วมกับ PSP ในชั้น Communication","d":"OPC UA (IEC 62541) และ MQTT (ISO/IEC 20922) เป็นมาตรฐานเดียวกันทั้ง RAMI และ SGAM ตามที่พบในหน้า Standards Cube \u003cb>ไม่ต้องมีทีมเครือข่าย 2 ชุด\u003c/b>"},{"t":"6. ส่งต้นแบบให้ PSL ตั้งแต่ปี 2571","d":"SFAM กับ RAMI 4.0 ใช้โครงชั้นเหมือนกันทุกประการ 6 ชั้น PSL จึงรับแบบไปต่อยอดกับสายผลิตภัณฑ์จากไผ่ได้ทันทีโดยไม่ต้องออกแบบใหม่"}],"need":[{"t":"ฐานข้อมูล HR ของ PEM ครบทุกระดับ","u":"แทนการประมาณทรงปัจจุบันรายระดับ และนับตำแหน่ง Manager ที่มีอยู่จริง","now":"มี 48 คน เฉพาะระดับ 7–9"},{"t":"ผังองค์กรปัจจุบันของ PEM","u":"เทียบกับเพดานสาย M 25% และวางผังใหม่ตามชั้น RAMI","now":"ยังไม่มีข้อมูล"},{"t":"รายการงานที่ automation จะรับไป ระดับสถานี","u":"ให้ตัวเลขลด 115 คนมีที่มาจริง ไม่ใช่การประมาณ","now":"ประมาณจากสัดส่วนและลักษณะงาน"},{"t":"จำนวนซัพพลายเออร์ที่ต้องอบรม","u":"วางแผนรุ่นและงบอบรมซัพพลายเออร์","now":"ยังไม่มีข้อมูล"},{"t":"แผนการลงทุนสายอัตโนมัติรายปี","u":"ผูกการลดคนกับวัน go-live ของแต่ละสาย","now":"มี Capex รวม 204.34 ลบ. แต่ยังไม่ได้แยกตามสาย"}],"txt":{}}</script>
+<!--RMW_DATA_END-->
+
+<script>
+var LSK='pcc_rmw_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'rami-workforce.html'};
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function nf(v,d){ return (+v||0).toLocaleString('en-US',{minimumFractionDigits:d===undefined?2:d,maximumFractionDigits:d===undefined?2:d}); }
+function num(v){ return (+v||0).toLocaleString('en-US'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2800); }
+
+function fileData(){ try{ var o=JSON.parse($('rmw-data').textContent); if(o) return o; }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.tracks&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=FD;
+if(!S.txt) S.txt={};
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+function persist(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$('autosave'); a.classList.add('hit');
+  setTimeout(function(){a.classList.remove('hit')},450); }catch(e){} }
+var pT=null; function schedulePersist(){ clearTimeout(pT); pT=setTimeout(persist,500); }
+
+/* ================= render ================= */
+function shapeSVG(vals,LV,MAX){
+  /* วาดเป็นสี่เหลี่ยมคางหมูระหว่างความกว้างของแถบที่ติดกัน
+     ถ้าแถบล่างแคบกว่าแถบบน ขอบล่างจะสอบเข้า ได้ทรงตามที่ต้องการ */
+  var W=196, cx=W/2, RH=42, ROOF=72, H=RH*4+ROOF, k=(W/2-10)/MAX;
+  var hw=LV.map(function(l){ return Math.max(5,(vals[l.key]||0)*k); });
+  var h='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+  for(var i=0;i<4;i++){
+    var yb=H-RH*i, yt=yb-RH, a=hw[i], b=(i===3)?hw[3]:hw[i+1];
+    h+='<polygon points="'+(cx-a).toFixed(1)+','+yb+' '+(cx+a).toFixed(1)+','+yb+' '+
+       (cx+b).toFixed(1)+','+yt+' '+(cx-b).toFixed(1)+','+yt+'" fill="'+LV[i].c+'"/>';
+    var n=vals[LV[i].key]||0, wmid=(a+b);
+    var ins=wmid>38;
+    h+='<text x="'+(ins?cx:cx+Math.max(a,b)+7)+'" y="'+(yb-RH/2+4)+'" text-anchor="'+(ins?'middle':'start')+'" '+
+       'font-family="Inter" font-size="12.5" font-weight="800" fill="'+(ins?'#fff':'#41566E')+'">'+n+'</text>';
+  }
+  var yb2=H-RH*4, yt2=yb2-ROOF;
+  h+='<polygon points="'+(cx-hw[3]).toFixed(1)+','+yb2+' '+cx+','+yt2+' '+(cx+hw[3]).toFixed(1)+','+yb2+'" fill="'+LV[4].c+'"/>';
+  h+='<text x="'+cx+'" y="'+(yb2-15)+'" text-anchor="middle" font-family="Inter" font-size="12" font-weight="800" fill="#12233A">'+(vals[LV[4].key]||0)+'</text>';
+  return h+'</svg>';
+}
+function renderShape(){
+  var T=S.shape; if(!T) return;
+  var LV=T.levels, YS=T.years, MAX=0;
+  YS.forEach(function(y){ LV.forEach(function(l){ MAX=Math.max(MAX,y.v[l.key]||0); }); });
+  var lab='<div class="lv">';
+  for(var i=4;i>=0;i--){
+    var l=LV[i];
+    lab+= i===4 ? '<div class="roof"><span><b>'+esc(l.label)+'</b><span>'+esc(l.sub)+'</span></span></div>'
+                : '<div class="r"><b>'+esc(l.label)+'</b><span>'+esc(l.sub)+'</span></div>';
+  }
+  lab+='</div>';
+  $('shapes').innerHTML=lab+YS.map(function(y,i){
+    var tot=LV.reduce(function(a,l){ return a+(y.v[l.key]||0); },0);
+    return (i?'<span class="arw">&rarr;</span>':'')+
+      '<div class="yr '+y.cls+'"><div class="hd">'+esc(y.y)+'</div><span class="tg">'+esc(y.tag)+'</span>'+
+      shapeSVG(y.v,LV,MAX)+'<div class="tot">'+tot+' คน<small>'+esc(y.note||'')+'</small></div></div>';
+  }).join('');
+  function tot(y){ return LV.reduce(function(a,l){ return a+(y.v[l.key]||0); },0); }
+  var h='<tr><th>ระดับ</th>'+YS.map(function(y){ return '<th class="n">'+esc(y.y)+'</th>'; }).join('')+
+        '<th class="n">2569 &rarr; 2572</th></tr>';
+  LV.slice().reverse().forEach(function(l){
+    var a=YS[0].v[l.key], b=YS[YS.length-1].v[l.key], d=b-a;
+    h+='<tr><td class="g">'+esc(l.label)+' <small style="color:#7D93AA">'+esc(l.sub)+'</small></td>'+
+       YS.map(function(y){ return '<td class="n">'+y.v[l.key]+'</td>'; }).join('')+
+       '<td class="n '+(d>=0?'pos':'neg')+'">'+(d>=0?'+':'')+d+'</td></tr>';
+  });
+  h+='<tr class="sum"><td class="g">รวม</td>'+YS.map(function(y){ return '<td class="n">'+tot(y)+'</td>'; }).join('')+
+     '<td class="n neg">'+(tot(YS[YS.length-1])-tot(YS[0]))+'</td></tr>';
+  $('tShape').innerHTML=h; $('shapeNote').innerHTML=T.note||'';
+}
+
+function render(){
+  renderShape();
+  var K=S.kpi||[];
+  $('heroKpi').innerHTML=K.map(function(k){ return '<div class="k"><b>'+esc(k.v)+'</b><span>'+esc(k.t)+'</span></div>'; }).join('');
+
+  var h='<tr><th>ศูนย์ต้นทุน</th><th class="n">Salary (บาท/ปี)</th><th class="n">Welfare (บาท/ปี)</th>'+
+        '<th class="n">รวม</th><th class="n">ประมาณการคน</th></tr>';
+  (S.now||[]).forEach(function(r){
+    h+='<tr'+(r.hi?' class="sum"':'')+'><td class="g">'+esc(r.cc)+'</td><td class="n">'+nf(r.sal,0)+'</td>'+
+       '<td class="n">'+nf(r.wel,0)+'</td><td class="n">'+nf(r.sal+r.wel,0)+'</td><td class="n">'+esc(r.hc)+'</td></tr>';
+  });
+  $('tNow').innerHTML=h; $('nowNote').innerHTML=S.nowNote||'';
+
+  var M=S.mx||{}, L=M.lays||[], Dm=M.doms||[];
+  var h2='<tr><th class="l">ชั้น SFAM</th>'+Dm.map(function(d){ return '<th>'+esc(d[1])+'</th>'; }).join('')+'</tr>';
+  L.forEach(function(l){
+    h2+='<tr><td class="l">'+esc(l[1])+'<small>'+esc(l[2]||'')+'</small></td>'+
+      Dm.map(function(d){
+        var c=(M.cells||{})[l[0]+'|'+d[0]];
+        if(!c) return '<td class="na">—</td>';
+        return '<td class="'+(c.have?'ok':'gap')+'"><span class="r">'+esc(c.r)+'</span>'+
+          '<span class="n '+(c.have?'have':'miss')+'">'+esc(c.have?('มีแล้ว '+c.n+' คน'):('ต้องมี '+c.n+' คน'))+'</span></td>';
+      }).join('')+'</tr>';
+  });
+  $('tMx').innerHTML=h2; $('mxNote').innerHTML=S.mxNote||'';
+
+  $('roles').innerHTML=(S.roles||[]).map(function(r){
+    return '<div class="role '+r.run.toLowerCase()+'2"><div class="hd"><b>'+esc(r.t)+'</b>'+
+      '<span class="tg">'+esc(r.run)+'</span><span class="lv">'+esc(r.lv)+'</span></div>'+
+      '<p>'+esc(r.d)+'</p>'+
+      '<div class="std"><b>มาตรฐานที่ต้องรู้</b>'+esc(r.std||'—')+'</div>'+
+      '<div class="cnt" style="color:'+(r.now>=r.need?'#2E7D32':'#C0392B')+'">มีอยู่ '+r.now+' → ต้องมี '+r.need+' คน</div></div>';
+  }).join('');
+
+  var g={}, tn=0, tN=0;
+  (S.roles||[]).forEach(function(r){ if(!g[r.grp]) g[r.grp]={n:0,N:0}; g[r.grp].n+=r.now; g[r.grp].N+=r.need; tn+=r.now; tN+=r.need; });
+  var h3='<tr><th>กลุ่มงาน</th><th class="n">มีอยู่</th><th class="n">ต้องมี</th><th class="n">ต้องเพิ่ม</th></tr>';
+  Object.keys(g).forEach(function(k){
+    var d=g[k].N-g[k].n;
+    h3+='<tr><td class="g">'+esc(k)+'</td><td class="n">'+g[k].n+'</td><td class="n">'+g[k].N+'</td>'+
+        '<td class="n '+(d>0?'neg':'pos')+'">'+(d>0?'+':'')+d+'</td></tr>';
+  });
+  h3+='<tr class="sum"><td class="g">รวม</td><td class="n">'+tn+'</td><td class="n">'+tN+'</td>'+
+      '<td class="n neg">+'+(tN-tn)+'</td></tr>';
+  $('tSum').innerHTML=h3;
+
+  var h4='<tr><th>หลักสูตร</th><th>มาตรฐานที่อ้างอิง</th><th>ให้ใคร</th><th class="n">ชม.</th><th class="n">เมื่อไร</th></tr>';
+  (S.cur||[]).forEach(function(c){
+    h4+='<tr><td class="g">'+esc(c.t)+(c.must?' <span style="color:#C0392B;font-size:10px">บังคับ</span>':'')+'</td>'+
+        '<td>'+esc(c.std)+'</td><td>'+esc(c.who)+'</td><td class="n">'+c.hr+'</td><td class="n">'+esc(c.when)+'</td></tr>';
+  });
+  var th=(S.cur||[]).reduce(function(a,c){ return a+(+c.hr||0); },0);
+  h4+='<tr class="sum"><td class="g">รวม</td><td colspan="2"></td><td class="n">'+th+'</td><td></td></tr>';
+  $('tCur').innerHTML=h4;
+
+  $('farmNote').innerHTML=S.farmNote||'';
+  var h5='<tr><th>หลักสูตร</th><th>เนื้อหา</th><th>ใครสอน</th><th class="n">ชม.</th></tr>';
+  (S.farm||[]).forEach(function(c){
+    h5+='<tr><td class="g">'+esc(c.t)+'</td><td>'+esc(c.d)+'</td><td>'+esc(c.by)+'</td><td class="n">'+c.hr+'</td></tr>';
+  });
+  var fh=(S.farm||[]).reduce(function(a,c){ return a+(+c.hr||0); },0);
+  h5+='<tr class="sum"><td class="g">รวมต่อราย</td><td colspan="2"></td><td class="n">'+fh+'</td></tr>';
+  $('tFarm').innerHTML=h5;
+
+  $('seq').innerHTML=(S.seq||[]).map(function(r){
+    return '<div class="rule"><b>'+esc(r.t)+'</b><span>'+r.d+'</span></div>';
+  }).join('');
+  var h6='<tr><th>ข้อมูลที่ต้องการ</th><th>ใช้ทำอะไร</th><th>ตอนนี้ใช้อะไรแทน</th></tr>';
+  (S.need||[]).forEach(function(r){
+    h6+='<tr><td class="g">'+esc(r.t)+'</td><td>'+esc(r.u)+'</td><td>'+esc(r.now)+'</td></tr>';
+  });
+  $('tNeed').innerHTML=h6;
+
+  applyTxt(); setEditable();
+}
+var NODES=[].slice.call(document.querySelectorAll('[data-k]'));
+function applyTxt(){ NODES.forEach(function(el){ var k=el.dataset.k; if(S.txt[k]!==undefined) el.innerHTML=S.txt[k]; }); }
+
+/* ================= edit ================= */
+var editMode=false;
+function setEditable(){
+  document.body.classList.toggle('edit',editMode);
+  NODES.forEach(function(el){ el.setAttribute('contenteditable',editMode?'true':'false'); });
+}
+$('bEdit').addEventListener('click',function(){
+  editMode=!editMode; this.classList.toggle('on',editMode); setEditable();
+  tip(editMode?'แก้ข้อความได้ — ตารางคำนวณจากข้อมูลในหน้า':'ล็อกแล้ว');
+});
+document.addEventListener('input',function(e){
+  var el=e.target.closest('[data-k]'); if(!el||!editMode) return;
+  S.txt[el.dataset.k]=el.innerHTML; schedulePersist();
+});
+$('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* ================= publish ================= */
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+$('bTok').addEventListener('click',function(){ var p=$('tokPanel'); p.hidden=!p.hidden; if(!p.hidden) $('tokInput').focus(); });
+$('tokSave').addEventListener('click',function(){ var v=$('tokInput').value.trim(); if(!v) return;
+  try{ localStorage.setItem('pcc_gh_tok',v); }catch(e){} $('tokInput').value=''; $('tokPanel').hidden=true; tip('บันทึก token แล้ว'); });
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} tip('ลบ token แล้ว'); });
+function encodeB64(str){ var b=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<b.length;i+=ch){ var sl=b.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++) bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--RMW_DATA_START-->[\s\S]*?<!--RMW_DATA_END-->/;
+function dataBlock(json){ return '<!--RMW_DATA_START-->\n<script id="rmw-data" type="application/json">'+json+'<\/script>\n<!--RMW_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ $('tokPanel').hidden=false; tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+    throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้');
+    var ref=await refRes.json(), headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'RAMI workforce update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha,parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persist(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+$('bPublish').addEventListener('click',publish);
+
+render();
+</script>
+</body></html>
