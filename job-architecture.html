@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCC — Job Architecture &amp; Pay Band</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12233A;--mute:#5A7391;--line:#D8E3EE;--blue:#0B2447;--blue2:#13507C;
+  --m:#C2690A;--s:#0077B6;--p:#7B4FC9;--green:#2E7D32;--red:#C0392B;--paper:#F4F7FB}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','Inter',system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;
+  background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06)}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
+.bar a.back,.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;
+  text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar a.back:hover,.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.pub{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
+.bar .sp{flex:1}
+#autosave{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB}
+#autosave.hit{color:var(--green)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:18px 18px 80px}
+.hero{background:linear-gradient(135deg,#0B2447,#13507C 55%,#1C6CA8);color:#fff;border-radius:20px;
+  padding:26px 30px;box-shadow:0 18px 44px rgba(11,36,71,.26)}
+.hero .kd{font:800 9.5px 'Inter';letter-spacing:.2em;text-transform:uppercase;color:#9FC2DE}
+.hero h1{font-family:'Inter','Sarabun';font-size:27px;font-weight:900;margin:7px 0 0;letter-spacing:-.01em}
+.hero .sub{font-size:13.5px;color:#CFE0EE;margin-top:9px;line-height:1.65;max-width:980px}
+.hero .kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .k{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:9px 15px}
+.hero .k b{display:block;font-family:'Inter';font-size:19px;font-weight:900}
+.hero .k span{font-size:10px;opacity:.85}
+
+.sec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;margin-top:16px;
+  box-shadow:0 8px 22px rgba(18,35,58,.06)}
+.sech{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:13px}
+.sech .n{width:27px;height:27px;border-radius:9px;background:var(--blue2);color:#fff;display:flex;
+  align-items:center;justify-content:center;font:900 13px 'Inter';flex:none}
+.sech h2{font-family:'Inter','Sarabun';font-size:19px;font-weight:800;margin:0;letter-spacing:-.01em}
+.sech .cap{font-size:12.5px;color:var(--mute)}
+.sec h3{font-family:'Inter','Sarabun';font-size:14px;font-weight:800;margin:0 0 9px}
+.cap{font-size:12.5px;color:var(--mute);line-height:1.6}
+
+table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:9px}
+table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;
+  padding:7px 10px;text-align:left;border:1px solid #14496e;vertical-align:middle}
+table.t td{border:1px solid var(--line);padding:7px 10px;line-height:1.55;vertical-align:top}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.g{font-weight:700;color:var(--blue2);white-space:nowrap}
+table.t tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+table.t tr:hover td{background:#F8FBFE}
+table.t tr.sum:hover td{background:#EAF3FA}
+td.pos{color:var(--green);font-weight:800}
+td.neg{color:var(--red);font-weight:800}
+th.m,td.hm{background:#FFF3E5}
+th.s,td.hs{background:#EAF4FB}
+th.p,td.hp{background:#F3EDFB}
+table.t th.m{background:var(--m);border-color:#9c5408}
+table.t th.s{background:var(--s);border-color:#055c8c}
+table.t th.p{background:var(--p);border-color:#5f39a3}
+
+.tracks{display:flex;flex-wrap:wrap;gap:14px}
+.tr{flex:1;min-width:290px;border:1px solid var(--line);border-top-width:5px;border-radius:14px;padding:14px 17px;background:#FCFDFF}
+.tr.m{border-top-color:var(--m)} .tr.s{border-top-color:var(--s)} .tr.p{border-top-color:var(--p)}
+.tr .hd{display:flex;align-items:baseline;gap:9px}
+.tr .hd b{font-family:'Inter';font-size:27px;font-weight:900;line-height:1}
+.tr.m .hd b{color:var(--m)} .tr.s .hd b{color:var(--s)} .tr.p .hd b{color:var(--p)}
+.tr .hd span{font-family:'Inter';font-size:13.5px;font-weight:800}
+.tr .q{display:inline-block;margin-top:9px;font:800 10px 'Inter';letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:9px;color:#fff}
+.tr.m .q{background:var(--m)} .tr.s .q{background:var(--s)} .tr.p .q{background:var(--p)}
+.tr p{font-size:12.5px;color:#41566E;line-height:1.65;margin:9px 0 0}
+.tr ul{margin:8px 0 0;padding-left:17px;font-size:12px;color:#41566E;line-height:1.6}
+
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#6b4a12}
+.okbox{background:#EFF8F1;border:1px solid #BEDFC6;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#1B5E20}
+.rulebox{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.rule{flex:1;min-width:260px;border:1px solid var(--line);border-left:4px solid var(--blue2);border-radius:11px;
+  padding:11px 14px;background:#FCFDFF}
+.rule b{display:block;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;margin-bottom:4px}
+.rule span{font-size:12px;color:#41566E;line-height:1.6}
+.tip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(11,36,71,.94);color:#fff;
+  padding:9px 18px;border-radius:11px;font-size:12.5px;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+.tip.show{opacity:1}
+body.edit [data-k]{outline:1px dashed rgba(19,80,124,.45);outline-offset:2px;border-radius:4px}
+#tokPanel{position:fixed;right:16px;top:54px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:14px;box-shadow:0 16px 40px rgba(18,35,58,.18);z-index:70;width:330px}
+#tokPanel[hidden]{display:none}
+#tokPanel h4{margin:0 0 8px;font:800 12px 'Inter';color:var(--blue)}
+#tokPanel p{margin:0 0 9px;font-size:11.5px;color:var(--mute);line-height:1.55}
+#tokPanel input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px}
+#tokPanel .row{display:flex;gap:8px;margin-top:9px}
+#tokPanel button{flex:1;font:700 11px 'Inter';padding:7px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+#tokPanel button.ok{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+@media print{@page{size:A3 portrait;margin:10mm} .bar,.tip,#tokPanel{display:none!important} body{background:#fff} .sec{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>Job Architecture</b><span>PCC Group · Human Capital</span></div>
+  <a class="back" href="workforce-present.html">↩ Workforce Present</a>
+  <a class="back" href="model-ownership.html">🏛 Model Ownership</a>
+  <a class="back" href="strategy-diagram.html">🔗 Linkage</a>
+  <div class="sep"></div>
+  <button id="bEdit">✎ แก้ข้อความ</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
+  <span class="sp"></span>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel" hidden>
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับปุ่ม “บันทึกขึ้นเว็บ” เก็บไว้ในเครื่องนี้เท่านั้น</p>
+  <input id="tokInput" type="password" placeholder="ghp_...">
+  <div class="row"><button class="ok" id="tokSave">บันทึก</button><button id="tokClear">ลบ</button></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">Job Architecture &amp; Pay Band</div>
+    <h1 data-k="h1">3 เส้นทางอาชีพ — Management · Specialist · Project</h1>
+    <div class="sub" data-k="hsub">โครงสร้างตำแหน่งที่ทำให้ทรง To-Be ปี 2572 เป็นจริงได้ โดยไม่กลายเป็นองค์กรที่มีหัวหน้ามากกว่าลูกน้อง</div>
+    <div class="kpis" id="heroKpi"></div>
+  </div>
+
+  <div class="sec" id="s1">
+    <div class="sech"><span class="n">1</span><h2>ปัญหาที่โครงสร้างนี้แก้</h2>
+      <span class="cap" data-k="c1">ทำไมแค่ลดจำนวน Manager อย่างเดียวไม่พอ</span></div>
+    <div id="probBox"></div>
+    <table class="t" id="tSpan"></table>
+  </div>
+
+  <div class="sec" id="s2">
+    <div class="sech"><span class="n">2</span><h2>3 เส้นทางอาชีพ</h2>
+      <span class="cap" data-k="c2">ระดับ 6B ขึ้นไป เลือกได้ 3 ทาง ค่าตอบแทนเท่ากันในระดับเดียวกัน</span></div>
+    <div class="tracks" id="tracks"></div>
+    <div class="okbox" id="trackNote" data-k="trackNote"></div>
+  </div>
+
+  <div class="sec" id="s3">
+    <div class="sech"><span class="n">3</span><h2>ตารางตำแหน่ง ระดับ 6B – 13</h2>
+      <span class="cap" data-k="c3">ชื่อตำแหน่งผูกกับ 4 Digital Architecture · 6 Revenue Stream Type · Leading Engineering Firm</span></div>
+    <table class="t" id="tLadder"></table>
+    <div class="cap" style="margin-top:9px" data-k="c3b">ระดับ 1–5 ยังเป็นเส้นทางเดียว (สายปฏิบัติการและวิชาชีพ) เริ่มแยก track ที่ระดับ 6B ซึ่งเป็นจุดที่เริ่มมีลูกน้องหรือเริ่มเป็นผู้เชี่ยวชาญเฉพาะทาง</div>
+  </div>
+
+  <div class="sec" id="s4">
+    <div class="sech"><span class="n">4</span><h2>ตำแหน่งตาม 6 Revenue Stream Type</h2>
+      <span class="cap" data-k="c4">แต่ละสายรายได้ต้องการ track ไหนบ้าง</span></div>
+    <table class="t" id="tRst"></table>
+  </div>
+
+  <div class="sec" id="s5">
+    <div class="sech"><span class="n">5</span><h2>โครงสร้างค่าตอบแทน — ตำแหน่งที่ P75</h2>
+      <span class="cap" data-k="c5">หลักการออกแบบช่วงเงินเดือน และผลต่องบประมาณที่ต้องยอมรับ</span></div>
+    <div class="rulebox" id="payRules"></div>
+    <h3 style="margin-top:18px">ผลต่องบค่าตอบแทนปี 2572</h3>
+    <div class="cap" data-k="c5b">คำนวณจากตัวเลขจริงปี 2569 (เงินเดือน 359.15 ลบ. · Employee Benefit 560.57 ลบ. · 821 คน) และทรง To-Be ปี 2572 (700 คน)</div>
+    <table class="t" id="tCost"></table>
+    <div class="warnbox" id="costNote" data-k="costNote"></div>
+  </div>
+
+  <div class="sec" id="s6">
+    <div class="sech"><span class="n">6</span><h2>กติกาที่ต้องตั้งพร้อมกัน</h2>
+      <span class="cap" data-k="c6">ถ้าขาดข้อใดข้อหนึ่ง โครงสร้างจะกลับไปเป็นแบบเดิมภายใน 2 ปี</span></div>
+    <div class="rulebox" id="govRules"></div>
+  </div>
+
+  <div class="sec" id="s7">
+    <div class="sech"><span class="n">7</span><h2>ข้อมูลที่ยังต้องการ ก่อนใส่ตัวเลขจริง</h2>
+      <span class="cap" data-k="c7">สิ่งที่หน้านี้ยังเป็นสมมติฐาน</span></div>
+    <table class="t" id="tNeed"></table>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<!--JOB_DATA_START-->
+<script id="job-data" type="application/json">{"savedAt":1791170764101,"kpi":[{"v":"3 Track","t":"M · S · P ที่ระดับ 6B ขึ้นไป"},{"v":"≤ 25%","t":"เพดานสาย Management"},{"v":"1 : 6.8","t":"Span of control จริงปี 2572"},{"v":"P75","t":"ตำแหน่งในตลาด เฉพาะสายวิกฤต"}],"problem":"\u003cb>ทรง To-Be ปี 2572 มีคนระดับ 6B ขึ้นไป 358 คน จากทั้งหมด 700 คน\u003c/b> — ถ้าทุกคนในระดับนี้เป็น “หัวหน้าคน” อัตราส่วนหัวหน้าต่อพนักงานจะเป็น \u003cb>1 : 1.0\u003c/b> คือหัวหน้า 1 คนดูแลลูกน้อง 1 คน ซึ่งบริหารไม่ได้จริง\u003cbr>การลดจำนวน Manager อย่างเดียวไม่พอ เพราะถ้าไม่มีเส้นทางอื่นให้เติบโต คนเก่งจะลาออกไปหาตำแหน่ง Manager ที่อื่น \u003cb>ต้องสร้างเส้นทางที่ขึ้นได้สูงเท่ากันโดยไม่ต้องมีลูกน้อง\u003c/b> พร้อมกันไปด้วย","span":[{"y":"2569 (จริง)","hc":821,"lead":220,"allMgr":2.7,"capped":13.9},{"y":"2570","hc":746,"lead":236,"allMgr":2.2,"capped":11.6},{"y":"2571","hc":700,"lead":267,"allMgr":1.6,"capped":9.5},{"y":"2572 (To-Be)","hc":700,"lead":358,"allMgr":1.0,"capped":6.8}],"tracks":[{"k":"M","name":"Management","quota":"ไม่เกิน 25% ของระดับ 6B+ · ราว 90 คน","d":"มีลูกน้องโดยตรง มีอำนาจอนุมัติงบและกำลังคน รับผิดชอบผลของหน่วยงาน","pts":["วัดด้วยผลของทีม ไม่ใช่ผลงานตัวเอง","ต้องผ่านหลักสูตรผู้บริหาร TQM · Business Acumen · Entrepreneur","จำนวนตำแหน่งถูกกำหนดจากผังองค์กร ไม่ใช่จากจำนวนคนที่พร้อม"]},{"k":"S","name":"Specialist","quota":"ราว 50% ของระดับ 6B+ · ราว 180 คน","d":"ผู้เชี่ยวชาญที่ไม่มีลูกน้อง เป็นเจ้าของมาตรฐานและองค์ความรู้ของสายงาน","pts":["ขึ้นได้ถึงระดับ 10–13 เทียบเท่าผู้บริหาร","เจ้าของ reference model ทั้ง 4 อยู่ใน track นี้","วัดด้วยมาตรฐานที่วางได้ · ปัญหาที่แก้ได้ · คนที่สอนได้"]},{"k":"P","name":"Project","quota":"ราว 25% ของระดับ 6B+ · ราว 88 คน","d":"ผู้จัดการโครงการ มีทีมชั่วคราวตามอายุโครงการ รับผิดชอบ scope เวลา และต้นทุน","pts":["เหมาะกับสาย Tendering · PPA · EPC · Data Center","วัดด้วย on-time · on-budget · GP ของโครงการ","ต้องมีคุณวุฒิ PM และผ่าน gate review ของ Capex/Opex"]}],"trackNote":"\u003cb>หัวใจของ dual-track:\u003c/b> ในระดับเดียวกัน M · S · P ต้องมี \u003cb>ช่วงเงินเดือนและ midpoint เดียวกัน\u003c/b> ถ้าสาย S ได้น้อยกว่าสาย M แม้แต่บาทเดียว คนจะยังแย่งกันเป็น Manager และโครงสร้างจะกลับไปเป็นแบบเดิมภายใน 2 ปี","ladder":[{"lv":"10 – 13","band":"ผู้บริหาร","m":"CEO / COO / CTO ของบริษัทย่อย · VP / President / Group COO","s":"Chief Architect · Fellow Engineer · เจ้าของ Precise LLM","p":"Portfolio Director · ผู้อำนวยการโครงการขนาดใหญ่"},{"lv":"9B – 9A","band":"จัดการ/ชำนาญการ","m":"ผู้อำนวยการสายงาน (Function Director)","s":"Digital Architect ประจำ SGAM · SFAM · SCIAM · RAMI 4.0 · Principal Engineer","p":"Program Manager — PPA · Long-term Contract · Data Center"},{"lv":"8C – 8A","band":"จัดการ/ชำนาญการ","m":"ผู้จัดการฝ่าย (Division Manager)","s":"Solution Architect · AI / ML Engineer · OT Security Specialist · Chartered Engineer","p":"Project Manager · EPC Manager"},{"lv":"7C – 7A","band":"จัดการ/ชำนาญการ","m":"ผู้จัดการแผนก (Department Manager)","s":"วิศวกรอาวุโส · Agentic Workflow Designer · Analytics Translator · Recurring & TCS Specialist","p":"Project Engineer · Bid Manager"},{"lv":"6B – 6A","band":"จัดการ/ชำนาญการ","m":"หัวหน้าส่วน (Section Head)","s":"วิศวกรชำนาญการ · OT Technician อาวุโส · Data Analyst","p":"Project Coordinator · Cost Engineer"}],"rst":[{"n":"1. Tendering","roles":"Bid Manager · Cost Engineer · Technical Proposal Writer","tr":"P · S","arch":"RAMI 4.0 · SCIAM"},{"n":"2. Omni Channel","roles":"Channel Manager · Digital Marketing Specialist","tr":"M · S","arch":"SCIAM"},{"n":"3. TCS","roles":"Solution Architect · Customer Success Manager","tr":"S · P","arch":"ทั้ง 4 โมเดล"},{"n":"4. Recurring","roles":"Service Delivery Manager · Recurring & TCS Specialist · OT Technician","tr":"P · S","arch":"RAMI 4.0 · SGAM"},{"n":"5. PPA / Long Term Contract","roles":"Program Manager · ผู้เชี่ยวชาญโครงสร้างสัญญา · Energy Analyst","tr":"P · S","arch":"SGAM · SFAM"},{"n":"6. Investment","roles":"Investment Analyst · M&A Manager · Feasibility Lead","tr":"S · M","arch":"—"}],"payRules":[{"t":"1. ตำแหน่งในตลาดแบบแยกสาย ไม่ใช่ P75 ทั้งองค์กร","d":"สายวิกฤตที่แย่งตัวกันจริง (Digital Architect · AI/ML · Solution Architect · Data) ตั้งที่ \u003cb>P75\u003c/b> · สายที่หาคนได้ไม่ยากตั้งที่ \u003cb>P50–P60\u003c/b> — ได้คนที่ต้องการโดยไม่ลากฐานทั้งองค์กรขึ้น"},{"t":"2. M · S · P ระดับเดียวกัน ใช้ช่วงเงินเดือนเดียวกัน","d":"midpoint เดียวกัน เพดานเดียวกัน ต่างกันแค่เกณฑ์การประเมิน — นี่คือเงื่อนไขที่ทำให้ dual-track เป็นจริง"},{"t":"3. ความกว้างของช่วง (Range Spread)","d":"ระดับ 1–4 ราว 40% · ระดับ 5–6 ราว 50% · ระดับ 7–9 ราว 60% · ระดับ 10–13 ราว 70% ยิ่งระดับสูง ช่วงยิ่งกว้าง เพราะความต่างของผลงานยิ่งมาก"},{"t":"4. ช่วงทับกันระหว่างระดับ 20–25%","d":"ทำให้ผู้เชี่ยวชาญที่เก่งมากในระดับ 8 ได้มากกว่าผู้จัดการมือใหม่ในระดับ 9 ได้ — จำเป็นมากสำหรับสาย S"},{"t":"5. Compa-ratio เป็นเครื่องมือคุมงบ","d":"เข้าใหม่ 85–95% ของ midpoint · ชำนาญเต็มที่ 100–110% · เกิน 120% ต้องขออนุมัติพิเศษ ใช้ตัวนี้คุมงบแทนการล็อกเพดานขึ้นเงินเดือนรายคน"},{"t":"6. Hot-skill premium จ่ายแยกจากฐาน","d":"ส่วนที่จ่ายเกินโครงสร้างสำหรับทักษะขาดตลาด ให้จ่ายเป็น \u003cb>market premium แยกรายการ ทบทวนทุกปี\u003c/b> ไม่ฝังในเงินเดือนฐาน — ถอนได้เมื่อตลาดเย็นลง และไม่ทำให้ฐานของคนทั้งระดับขยับตาม"}],"cost":[{"n":"เป้าปี 2571 — คนลดเหลือ 700 แต่ benefit คงที่ 560.57 ลบ.","sal":359.15,"ben":560.57,"ratio":3.21,"hi":false},{"n":"2572 ทรง To-Be · คงอัตราเดิม","sal":389.44,"ben":607.85,"ratio":2.96,"hi":true},{"n":"2572 · ขึ้นทั้งองค์กร +10%","sal":428.39,"ben":668.64,"ratio":2.69,"hi":false},{"n":"2572 · ขึ้นทั้งองค์กร +15% (P75 ทุกสาย)","sal":447.86,"ben":699.03,"ratio":2.58,"hi":false},{"n":"2572 · ขึ้นทั้งองค์กร +20%","sal":467.33,"ben":729.42,"ratio":2.47,"hi":false},{"n":"2572 · P75 เฉพาะระดับ 6B+ (+15%)","sal":431.09,"ben":672.86,"ratio":2.68,"hi":false},{"n":"2572 · P75 เฉพาะสายวิกฤต ~120 คน (+15%)","sal":402.35,"ben":628.0,"ratio":2.87,"hi":true}],"gov":[{"t":"เพดานสาย M เป็นตัวเลขในผังองค์กร","d":"จำนวนตำแหน่ง Manager ต้องถูกล็อกไว้ในผังองค์กรที่คณะกรรมการอนุมัติ ไม่ใช่เพิ่มได้เมื่อมีคนพร้อม"},{"t":"ขอเพิ่มคนผ่านประตูเดียวกับ Capex/Opex","d":"headcount คือการลงทุนรูปแบบหนึ่ง ควรใช้คณะกรรมการและรอบเดียวกัน พร้อมระบุ Benefit Ratio และเสายุทธศาสตร์ที่รับใช้"},{"t":"Internal Fill Rate เป็น KPI ของ COO","d":"ตั้งเป้า 40% ขึ้นไป ถ้าต่ำกว่านี้แปลว่ากำลังซื้อคนจากข้างนอกแทนการพัฒนาคนใน ซึ่งทำให้ต้นทุนพุ่ง"},{"t":"ทบทวนโครงสร้างปีละครั้ง พร้อมงบประมาณ","d":"ผูกรอบการทบทวน job architecture เข้ากับรอบ Budgeting ระยะที่ 1 จะได้เห็นผลต่อ P&amp;L ทันที"},{"t":"สาย S ต้องมีผลงานที่จับต้องได้","d":"มาตรฐานที่วางได้ · สิทธิบัตร · Type Test ที่ผ่าน · คนที่สอนได้ — ไม่ใช่เลื่อนขั้นเพราะอายุงาน"},{"t":"ประกาศเพดานและเกณฑ์ให้ทุกคนเห็น","d":"ถ้าไม่โปร่งใส คนจะเชื่อว่าสาย S คือที่พักของคนที่ไม่ได้เป็น Manager ซึ่งจะทำให้โครงสร้างล้มทันที"}],"need":[{"t":"โครงสร้างเงินเดือนปัจจุบันรายระดับ 1–13","u":"แทนสมมติฐานดัชนีค่าตอบแทนที่ใช้คำนวณในหน้านี้","now":"ถอดย้อนจากเงินเดือนรวม 359.15 ลบ. และสัดส่วนกำลังคนปี 2569"},{"t":"ผลสำรวจค่าตอบแทนตลาด (P50 / P75) ตามตำแหน่ง","u":"กำหนด midpoint จริงของแต่ละ band","now":"ใช้ช่วง +10% ถึง +20% เป็นกรอบทดสอบความอ่อนไหว"},{"t":"อัตราการเลื่อนขั้นย้อนหลัง 3–5 ปี","u":"ตรวจว่าเลื่อนคนขึ้น 6B+ ปีละ 44 คนเป็นไปได้จริงหรือไม่","now":"ยังไม่มีข้อมูล"},{"t":"ฐานข้อมูล HR ครบ 821 คน ทุกระดับ 9 บริษัท","u":"แตก To-Be รายบริษัทและนับตำแหน่ง M ที่มีอยู่จริง","now":"มี 297 คน ใน 5 บริษัท เฉพาะระดับ 5–9"},{"t":"ผังองค์กรปัจจุบันรายบริษัท","u":"นับจำนวนตำแหน่ง Manager ที่มีอยู่ เทียบกับเพดาน 25%","now":"ยังไม่มีข้อมูล"}],"costNote":"\u003cb>ข้อค้นพบที่สำคัญที่สุดของหน้านี้:\u003c/b> ทรง To-Be ทำให้เงินเดือนรวมเพิ่ม \u003cb>+8.4%\u003c/b> ทั้งที่กำลังคนลดลง 14.7% เพราะสัดส่วนคนระดับสูงมากขึ้น — ส่วนนี้\u003cb>เลี่ยงไม่ได้\u003c/b> และยังรับได้ (GP/Benefit = 2.96)\u003cbr>แต่ถ้าขยับทั้งองค์กรไป P75 (+15%) \u003cb>GP/Benefit จะเหลือ 2.58 ซึ่งแทบไม่ต่างจากวันนี้ที่ 2.56\u003c/b> — เท่ากับผลิตภาพที่อุตส่าห์สร้างมาทั้งหมดถูกกลืนไปกับค่าตอบแทน และถ้าจะรักษา 3.21 ไว้ให้ได้ \u003cb>ต้องมีรายได้ราว 7,480 ลบ. ไม่ใช่ 6,000 ลบ.\u003c/b>\u003cbr>ทางออกที่เสนอคือ \u003cb>P75 เฉพาะสายวิกฤตราว 120 คน\u003c/b> ซึ่งทำให้ GP/Benefit อยู่ที่ 2.87 ใช้งบเพิ่มเพียง \u003cb>20.3 ลบ./ปี\u003c/b> แทนที่จะเป็น 91.2 ลบ./ปี ของการขึ้นทั้งองค์กร — ได้คนที่แย่งกันจริง โดยไม่ลากฐานทั้งองค์กรขึ้น\u003cbr>\u003csmall>ทุก 1% ที่ขยับฐานเงินเดือนทั้งองค์กร = 6.1 ลบ./ปี · ตัวเลขทั้งหมดคำนวณบนสมมติฐานดัชนีค่าตอบแทนรายระดับ (1.00 / 1.55 / 2.25 / 3.40 / 6.50) ต้องแทนด้วยโครงสร้างจริงก่อนใช้ตัดสินใจ\u003c/small>","txt":{}}</script>
+<!--JOB_DATA_END-->
+
+<script>
+var LSK='pcc_job_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'job-architecture.html'};
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function nf(v,d){ return (+v||0).toLocaleString('en-US',{minimumFractionDigits:d===undefined?2:d,maximumFractionDigits:d===undefined?2:d}); }
+function num(v){ return (+v||0).toLocaleString('en-US'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2800); }
+
+function fileData(){ try{ var o=JSON.parse($('job-data').textContent); if(o) return o; }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.tracks&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=FD;
+if(!S.txt) S.txt={};
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+function persist(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$('autosave'); a.classList.add('hit');
+  setTimeout(function(){a.classList.remove('hit')},450); }catch(e){} }
+var pT=null; function schedulePersist(){ clearTimeout(pT); pT=setTimeout(persist,500); }
+
+/* ================= render ================= */
+function render(){
+  var K=S.kpi||[];
+  $('heroKpi').innerHTML=K.map(function(k){ return '<div class="k"><b>'+esc(k.v)+'</b><span>'+esc(k.t)+'</span></div>'; }).join('');
+  $('probBox').innerHTML='<div class="warnbox">'+(S.problem||'')+'</div>';
+
+  var SP=S.span||[];
+  var h='<tr><th>ปี</th><th class="n">กำลังคน</th><th class="n">ระดับ 6B ขึ้นไป</th><th class="n">ถ้าทุกคนเป็นหัวหน้า</th><th class="n">ถ้าคุมสาย M ไว้ 25%</th></tr>';
+  SP.forEach(function(r){
+    h+='<tr><td class="g">'+esc(r.y)+'</td><td class="n">'+num(r.hc)+'</td><td class="n">'+num(r.lead)+'</td>'+
+       '<td class="n'+(r.allMgr>=1.5?'':' neg')+'">1 : '+nf(r.allMgr,1)+'</td>'+
+       '<td class="n pos">1 : '+nf(r.capped,1)+'</td></tr>';
+  });
+  $('tSpan').innerHTML=h;
+
+  $('tracks').innerHTML=(S.tracks||[]).map(function(t){
+    return '<div class="tr '+t.k.toLowerCase()+'"><div class="hd"><b>'+esc(t.k)+'</b><span>'+esc(t.name)+'</span></div>'+
+      '<span class="q">'+esc(t.quota)+'</span><p>'+esc(t.d)+'</p>'+
+      '<ul>'+(t.pts||[]).map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('')+'</ul></div>';
+  }).join('');
+  $('trackNote').innerHTML=S.trackNote||'';
+
+  var L=S.ladder||[];
+  var h2='<tr><th>ระดับ</th><th class="m">M · Management</th><th class="s">S · Specialist</th><th class="p">P · Project</th></tr>';
+  L.forEach(function(r){
+    h2+='<tr><td class="g">'+esc(r.lv)+'<br><small style="color:#7D93AA;font-weight:400">'+esc(r.band||'')+'</small></td>'+
+        '<td class="hm">'+esc(r.m)+'</td><td class="hs">'+esc(r.s)+'</td><td class="hp">'+esc(r.p)+'</td></tr>';
+  });
+  $('tLadder').innerHTML=h2;
+
+  var h3='<tr><th>Revenue Stream</th><th>ตำแหน่งหลักที่ต้องมี</th><th class="n">Track</th><th>ผูกกับ Architecture</th></tr>';
+  (S.rst||[]).forEach(function(r){
+    h3+='<tr><td class="g">'+esc(r.n)+'</td><td>'+esc(r.roles)+'</td><td class="n">'+esc(r.tr)+'</td><td>'+esc(r.arch)+'</td></tr>';
+  });
+  $('tRst').innerHTML=h3;
+
+  $('payRules').innerHTML=(S.payRules||[]).map(function(r){
+    return '<div class="rule"><b>'+esc(r.t)+'</b><span>'+r.d+'</span></div>';
+  }).join('');
+
+  var C=S.cost||[];
+  var h4='<tr><th>สถานการณ์</th><th class="n">เงินเดือนรวม<br>(ลบ.)</th><th class="n">Employee Benefit<br>(ลบ.)</th>'+
+         '<th class="n">เทียบปี 2569<br>(560.57 ลบ.)</th><th class="n">GP / Benefit<br>ที่ GP 1,800 ลบ.</th></tr>';
+  C.forEach(function(r){
+    var d=r.ben-560.57;
+    h4+='<tr'+(r.hi?' class="sum"':'')+'><td class="g">'+esc(r.n)+'</td><td class="n">'+nf(r.sal)+'</td>'+
+        '<td class="n">'+nf(r.ben)+'</td><td class="n '+(d>0?'neg':'pos')+'">'+(d>0?'+':'')+nf(d,1)+'</td>'+
+        '<td class="n '+(r.ratio>=3.21?'pos':'neg')+'">'+nf(r.ratio)+'</td></tr>';
+  });
+  $('tCost').innerHTML=h4;
+  $('costNote').innerHTML=S.costNote||'';
+
+  $('govRules').innerHTML=(S.gov||[]).map(function(r){
+    return '<div class="rule"><b>'+esc(r.t)+'</b><span>'+r.d+'</span></div>';
+  }).join('');
+
+  var h5='<tr><th>ข้อมูลที่ต้องการ</th><th>ใช้ทำอะไร</th><th>ตอนนี้ใช้อะไรแทน</th></tr>';
+  (S.need||[]).forEach(function(r){
+    h5+='<tr><td class="g">'+esc(r.t)+'</td><td>'+esc(r.u)+'</td><td>'+esc(r.now)+'</td></tr>';
+  });
+  $('tNeed').innerHTML=h5;
+
+  applyTxt(); setEditable();
+}
+var NODES=[].slice.call(document.querySelectorAll('[data-k]'));
+function applyTxt(){ NODES.forEach(function(el){ var k=el.dataset.k; if(S.txt[k]!==undefined) el.innerHTML=S.txt[k]; }); }
+
+/* ================= edit ================= */
+var editMode=false;
+function setEditable(){
+  document.body.classList.toggle('edit',editMode);
+  NODES.forEach(function(el){ el.setAttribute('contenteditable',editMode?'true':'false'); });
+}
+$('bEdit').addEventListener('click',function(){
+  editMode=!editMode; this.classList.toggle('on',editMode); setEditable();
+  tip(editMode?'แก้ข้อความได้ — ตารางคำนวณจากข้อมูลในหน้า':'ล็อกแล้ว');
+});
+document.addEventListener('input',function(e){
+  var el=e.target.closest('[data-k]'); if(!el||!editMode) return;
+  S.txt[el.dataset.k]=el.innerHTML; schedulePersist();
+});
+$('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* ================= publish ================= */
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+$('bTok').addEventListener('click',function(){ var p=$('tokPanel'); p.hidden=!p.hidden; if(!p.hidden) $('tokInput').focus(); });
+$('tokSave').addEventListener('click',function(){ var v=$('tokInput').value.trim(); if(!v) return;
+  try{ localStorage.setItem('pcc_gh_tok',v); }catch(e){} $('tokInput').value=''; $('tokPanel').hidden=true; tip('บันทึก token แล้ว'); });
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} tip('ลบ token แล้ว'); });
+function encodeB64(str){ var b=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<b.length;i+=ch){ var sl=b.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++) bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--JOB_DATA_START-->[\s\S]*?<!--JOB_DATA_END-->/;
+function dataBlock(json){ return '<!--JOB_DATA_START-->\n<script id="job-data" type="application/json">'+json+'<\/script>\n<!--JOB_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ $('tokPanel').hidden=false; tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+    throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้');
+    var ref=await refRes.json(), headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'Job architecture update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha,parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persist(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+$('bPublish').addEventListener('click',publish);
+
+render();
+</script>
+</body></html>
