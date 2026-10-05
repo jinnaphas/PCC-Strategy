@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCC — Standards Cube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12233A;--mute:#5A7391;--line:#D8E3EE;--blue:#0B2447;--blue2:#13507C;--hi:#F7941D;--paper:#EEF3F9}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','Inter',system-ui,sans-serif;
+  display:flex;flex-direction:column;overflow:hidden}
+
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;background:#fff;
+  border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06);flex:none;z-index:30}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
+.bar a.back,.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;
+  text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar a.back:hover,.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
+.bar .sp{flex:1}
+#q{font:600 12px 'Inter','Sarabun';padding:6px 11px;border:1px solid var(--line);border-radius:7px;width:230px}
+#q:focus{outline:none;border-color:var(--blue2)}
+
+.mods{display:flex;gap:7px;padding:9px 16px;background:#fff;border-bottom:1px solid var(--line);flex:none;flex-wrap:wrap}
+.mods button{font:800 12px 'Inter','Sarabun';padding:7px 15px;border-radius:9px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;color:#41566E;display:flex;align-items:center;gap:7px}
+.mods button i{width:9px;height:9px;border-radius:50%;font-style:normal;flex:none}
+.mods button.on{color:#fff;border-color:transparent}
+.mods button small{font-family:'Sarabun';font-weight:600;font-size:10px;opacity:.8}
+
+#main{flex:1;min-height:0;display:flex}
+#stage{flex:1;min-width:0;position:relative;overflow:hidden;cursor:grab;
+  background:radial-gradient(ellipse at 50% 35%,#FFFFFF 0%,#EDF2F8 60%,#E3EBF4 100%)}
+#stage.drag{cursor:grabbing}
+#scene{position:absolute;inset:0;perspective:2000px;perspective-origin:50% 44%}
+#cube{position:absolute;left:50%;top:46%;transform-style:preserve-3d;transition:transform .12s linear}
+
+.plane{position:absolute;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.3,.8,.3,1),opacity .3s}
+.pbase{position:absolute;inset:0;border-radius:10px;border:1.5px solid rgba(19,80,124,.3);
+  background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(18,35,58,.14)}
+.pgrid{position:absolute;inset:0;display:grid;gap:4px;padding:5px}
+.cell{border-radius:7px;background:#fff;border:1px solid var(--line);padding:5px 7px;overflow:hidden;
+  cursor:pointer;transition:.12s;display:flex;flex-direction:column;justify-content:center}
+.cell:hover{border-color:var(--blue2);background:#F2F8FD}
+.cell b{display:block;font-family:'Inter','Sarabun';font-size:10px;font-weight:800;line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell span{display:block;font:700 8.5px 'Inter';color:#93A6BA;margin-top:2px}
+.cell.hit{background:#FFF3DF;border-color:var(--hi);box-shadow:0 0 0 2px rgba(247,148,29,.35)}
+.cell.sel{background:#E7F2FB;border-color:var(--blue2);box-shadow:0 0 0 2px rgba(19,80,124,.35)}
+.cell.empty{background:#F7FAFD;border-style:dashed;cursor:default}
+.cell.empty:hover{background:#F7FAFD;border-color:var(--line)}
+.plab{position:absolute;right:100%;top:50%;transform:translateY(-50%);margin-right:14px;text-align:right;
+  white-space:nowrap;cursor:pointer}
+.plab b{display:block;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;color:var(--blue2)}
+.plab span{display:block;font-size:9.5px;color:#7D93AA;margin-top:1px}
+.plab .ct{display:inline-block;margin-top:3px;font:800 9px 'Inter';padding:2px 7px;border-radius:7px;
+  background:#EAF3FA;color:#13507C}
+.plane.dim{opacity:.22}
+.plane.dim .plab{opacity:.5}
+.xlab{position:absolute;bottom:100%;left:0;right:0;margin-bottom:9px;display:grid;gap:4px;padding:0 5px}
+.xlab div{text-align:center;font-family:'Inter','Sarabun';font-size:10.5px;font-weight:800;color:#41566E;
+  line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xlab div small{display:block;font-family:'Sarabun';font-weight:600;font-size:8.5px;color:#93A6BA}
+
+#hud{position:absolute;left:16px;bottom:14px;display:flex;flex-direction:column;gap:7px;z-index:5}
+#hud .h{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+  box-shadow:0 6px 18px rgba(18,35,58,.12);font-size:11px;color:#41566E;line-height:1.5;max-width:330px}
+#hud .h b{font-family:'Inter','Sarabun';font-size:12px;font-weight:800;color:var(--blue2)}
+#yaxis{position:absolute;right:16px;top:14px;z-index:5;background:rgba(255,255,255,.95);border:1px solid var(--line);
+  border-radius:12px;padding:11px 14px;box-shadow:0 6px 18px rgba(18,35,58,.12);max-width:300px}
+#yaxis h4{margin:0 0 7px;font:800 10px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:#93A6BA}
+#yaxis .z{font-size:11px;color:#41566E;line-height:1.45;padding:5px 0;border-bottom:1px dashed var(--line)}
+#yaxis .z:last-child{border-bottom:0}
+#yaxis .z b{display:block;font-family:'Inter','Sarabun';font-size:11.5px;font-weight:800;color:var(--ink)}
+#yaxis .z span{font-size:9.5px;color:#7D93AA}
+
+#side{width:380px;flex:none;background:#fff;border-left:1px solid var(--line);overflow:auto;padding:16px 18px 40px}
+#side h3{font-family:'Inter','Sarabun';font-size:15px;font-weight:800;margin:0 0 4px}
+#side .meta{font-size:11.5px;color:var(--mute);line-height:1.6}
+#side .grp{margin-top:16px}
+#side .grp h4{font:800 10px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:#93A6BA;margin:0 0 8px}
+.std{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;
+  margin-bottom:6px;background:#FCFDFF;font-family:'Inter';font-size:12px;font-weight:700;color:var(--ink);cursor:pointer}
+.std:hover{border-color:var(--blue2);background:#F2F8FD}
+.std .n{font:800 9px 'Inter';padding:2px 6px;border-radius:6px;background:#EAF3FA;color:#13507C;flex:none;margin-top:1px}
+.std.multi .n{background:#FFF3DF;color:#9A6508}
+.empty-note{font-size:12px;color:var(--mute);line-height:1.7;background:#F7FAFD;border:1px dashed var(--line);
+  border-radius:10px;padding:12px 14px}
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:11px;padding:11px 14px;margin-top:14px;
+  font-size:11.5px;line-height:1.65;color:#6b4a12}
+.tip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(11,36,71,.94);color:#fff;
+  padding:9px 18px;border-radius:11px;font-size:12.5px;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+.tip.show{opacity:1}
+@media print{.bar,.mods,#stage,#hud,.tip{display:none!important} #side{width:auto;border:0;overflow:visible}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>Standards Cube</b><span>PCC Group · Architecture</span></div>
+  <a class="back" href="model-ownership.html">↩ Model Ownership</a>
+  <a class="back" href="strategy-diagram.html">🔗 Linkage</a>
+  <div class="sep"></div>
+  <input id="q" placeholder="ค้นหามาตรฐาน เช่น 62541 หรือ OPC UA">
+  <button id="bClear">ล้าง</button>
+  <div class="sep"></div>
+  <button id="bExp">⇕ แยกชั้น</button>
+  <button id="bReset">⟲ มุมเริ่มต้น</button>
+  <button id="bFlat">▦ มุมบนตรง</button>
+  <span class="sp"></span>
+  <span id="cnt" style="font:700 10px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#93A6BA"></span>
+</div>
+
+<div class="mods" id="mods"></div>
+
+<div id="main">
+  <div id="stage">
+    <div id="scene"><div id="cube"></div></div>
+    <div id="yaxis"></div>
+    <div id="hud"><div class="h" id="hudTxt"></div></div>
+  </div>
+  <div id="side"></div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<!--CUBE_DATA_START-->
+<script id="cube-data" type="application/json">{"sgam":{"name":"SGAM","full":"Smart Grid Architecture Model","owner":"PSP","color":"#0077B6","axX":"Domain","axZ":"Layer","axY":"Zone","doms":[["gen","Generation","โรงไฟฟ้า"],["tra","Transmission","ระบบส่ง"],["dis","Distribution","ระบบจำหน่าย"],["der","DER / VPP","พลังงานกระจายตัว"],["cus","Customer","ผู้ใช้ไฟ"]],"lays":[["biz","Business","ธุรกิจ / การบริหารจัดการ"],["fun","Function","การทำงานของระบบ"],["int","Intelligence","วิเคราะห์ / ตัดสินใจ"],["inf","Information","ข้อมูล / Data model"],["com","Communication","การสื่อสาร"],["cyb","Cyber","ความมั่นคงปลอดภัย"],["cmp","Component","อุปกรณ์ / ทางกายภาพ"]],"zones":[["process","Process","IEC 61850 · IEC 62271-200"],["field","Field","IEC 62055 · IEC 61850-7-420"],["station","Station","IEC 60870-5-104 · IEEE 1548"],["operation","Operation","IEC 60870-5-104 · IEC 61970-301"],["enterprise","Enterprise","IEC 61968-9 · IEC 62443-2-1"],["market","Market","IEC 62325 series"]],"cells":{"biz|gen":{"t":"PPA · Trading","s":["IEC 62325 series","IEEE 762"]},"biz|tra":{"t":"TSO","s":["IEC 62325 series","IEC SRD 62913-2-1"]},"biz|dis":{"t":"DSO","s":["IEC 61968-1","IEC 61968","IEC TS 62898 series *"]},"biz|der":{"t":"VPP · DERMS","s":["IEC TS 63189-1","IEC TS 63189-2 *"]},"biz|cus":{"t":"HEMS","s":["IEC SRD 62913-2-3 *","IEC 62056-1-0 *"]},"fun|gen":{"t":"EMS (Plant)","s":["IEC 61850-5","IEC 61131-3","IEEE 2800"]},"fun|tra":{"t":"EMS (Grid)","s":["IEC 61850-5","IEC 62255-121","IEEE C37.118"]},"fun|dis":{"t":"DMS · ADMS","s":["IEC 61968-3","IEC 61968-9","IEEE C37.104"]},"fun|der":{"t":"DERMS","s":["IEC 62893-1","IEC 62786-1","IEEE 1547"]},"fun|cus":{"t":"HEMS · DR · EV","s":["IEC 62496-10-1","IEC 2030-5","IEC 61851-1"]},"int|gen":{"t":"AGC · Forecast","s":["IEC TR 63043 *","IEC 61970-456","IEEE 421.5"]},"int|tra":{"t":"Grid Analysis","s":["IEC 61970-456","IEC/IEEE 60255-118-1","IEEE C37.244"]},"int|dis":{"t":"FLISR · Health","s":["IEEE 1854","IEC 27248","IEEE 60699"]},"int|der":{"t":"VPP","s":["IEC TS 63189-1","IEC 2030-11","IEC TR 63443 *"]},"int|cus":{"t":"Load · Energy","s":["IEC 61970-456","ISO 50001","ISO 50006 / ISO 50015"]},"inf|gen":{"t":"CIM (EMS)","s":["IEC 61970-301","IEC 61850-7-4","IEC 61400-25 series"]},"inf|tra":{"t":"CIM (EMS)","s":["IEC 61970-452","IEC 61970-600 (CGMES) *","IEC 61850-6-302"]},"inf|dis":{"t":"CIM (DMS)","s":["IEC 61968-11","IEC 61968-13","IEC 61850-7-420"]},"inf|der":{"t":"DER Data","s":["IEC 61850-7-420","IEC 61850-90-7","IEC 1815.2"]},"inf|cus":{"t":"Meter Data","s":["IEC 62056-6-2","IEC 62056-6-8","IEC 62056-6-1"]},"com|gen":{"t":"Plant ↔ Station","s":["IEC 61850-8-1","IEC 60870-5-104","IEC 62541 (OPC UA)"]},"com|tra":{"t":"TCCP · SV · PMU","s":["IEC 60870-6-503","IEC 61850-9-2","IEEE C37.118.2"]},"com|dis":{"t":"104 · DNP3 · PLC","s":["IEC 60870-5-104","IEC 61850-90-4","IEEE 1901.1"]},"com|der":{"t":"DER · EV","s":["IEEE 2030.5","IEC 61850 (OCPP 2.0.1)","ISO 15118 series"]},"com|cus":{"t":"AMI · HAN","s":["IEC 62056-5-3","IEEE 802.11","IEEE 802.15.4 (SUN)"]},"cyb|gen":{"t":"Security (OT)","s":["IEC 62351-6","IEC 62351-4","IEEE 1686"]},"cyb|tra":{"t":"Security (OT)","s":["IEC 62351-5","IEC 37.240","IEEE 1686"]},"cyb|dis":{"t":"Security (OT)","s":["IEC 62351-5","IEEE TS 6360-5-7 *","IEEE 1686"]},"cyb|der":{"t":"Security (DER)","s":["IEEE 1547.3","IEC TR 63255-12 *","IEEE 2030.5"]},"cyb|cus":{"t":"OT · ISMS","s":["IEC 62443-3-3","ISO/IEC 27001","ISO/IEC 27019"]},"cmp|gen":{"t":"Power Plant","s":["IEC 60034 series","IEC 61850-3","IEC 62933 series"]},"cmp|tra":{"t":"Substation","s":["IEC 62271-200","IEC 61869 series","IEC 60870-2-1"]},"cmp|dis":{"t":"Feeder · TR","s":["IEC 62271-200","IEC 60219","IEC 61851-1"]},"cmp|der":{"t":"Smart Meter","s":["IEC 62052-11","IEC 62053-21, -24","IEC 62055 series"]},"cmp|cus":{"t":"Test · Env.","s":["IEC 61850-10","IEC 60068 series","IEC 60529"]}}},"rami":{"name":"RAMI 4.0","full":"Reference Architecture Model Industrie 4.0","owner":"PEM","color":"#7B4FC9","axX":"Hierarchy Level","axZ":"Layer","axY":"Life Cycle (IEC 62890)","doms":[["prd","Product","ผลิตภัณฑ์"],["fld","Field Device","อุปกรณ์ภาคสนาม"],["ctl","Control Device","อุปกรณ์ควบคุม"],["sta","Station","สถานี / เครื่องจักร"],["wrk","Work Centers","ศูนย์งาน / สายการผลิต"],["ent","Enterprise","องค์กร"],["cnw","Connected World","โลกเชื่อมต่อ"]],"lays":[["biz","Business","ธุรกิจ / โมเดลธุรกิจ"],["fnl","Functional","ฟังก์ชันการทำงาน"],["inf","Information","ข้อมูล / Data model"],["com","Communication","การสื่อสาร"],["itg","Integration","เชื่อมโลกจริง ↔ ดิจิทัล"],["ast","Asset","สินทรัพย์ทางกายภาพ"]],"zones":[["tdev","Type · Development","IEC 81346 · IEC 61360 · VDI 2206 *"],["tmnt","Type · Maintenance / Usage","IEC 62890 · IEC 62402"],["iprd","Instance · Production","IEC 62264 · IEC 62714 · IEC 63278"],["imnt","Instance · Maintenance / Usage","IEC 60300-3-11 · EN 13306 · ISO 55001"]],"cells":{"biz|prd":{"t":"Product Passport · PCF","s":["IEC 63278-1","ISO 14067","IEC 61360-1"]},"biz|fld":{"t":"Device Lifecycle","s":["IEC 62890","IEC 62402"]},"biz|ctl":{"t":"Dependability","s":["IEC 60300-1","IEC 61508-1"]},"biz|sta":{"t":"Maintenance Strategy","s":["EN 13306","IEC 60300-3-11"]},"biz|wrk":{"t":"Production KPIs","s":["ISO 22400-2","IEC 62264-1"]},"biz|ent":{"t":"Management Systems","s":["ISO 9001","ISO 50001","ISO 55001"]},"biz|cnw":{"t":"Supply Chain","s":["ISO 28000","ISO 22095"]},"fnl|prd":{"t":"Product Structure","s":["IEC 81346-1","IEC 81346-2"]},"fnl|fld":{"t":"Function Blocks","s":["IEC 61804-2","IEC 61499-1"]},"fnl|ctl":{"t":"Control Logic","s":["IEC 61131-3","IEC 61499-1","IEC 61508"]},"fnl|sta":{"t":"Batch · Safety","s":["IEC 61512-1","IEC 61511-1","IEC 62061"]},"fnl|wrk":{"t":"MES / MOM","s":["IEC 62264-3","ISO 22400-1"]},"fnl|ent":{"t":"Digital Factory","s":["IEC 62832-1","ISO 23247-1"]},"fnl|cnw":{"t":"Digital Twin","s":["ISO/IEC 30173","ISO 23247-2"]},"inf|prd":{"t":"Properties · Dictionary","s":["IEC 61360-1","IEC 61987-1","ECLASS *"]},"inf|fld":{"t":"Device Description","s":["IEC 62769 (FDI)","IEC 61804-3","IEC 62453"]},"inf|ctl":{"t":"Engineering Data","s":["IEC 62714 (AML)","IEC 61131-10"]},"inf|sta":{"t":"Plant Model","s":["IEC 62424","ISO 15926"]},"inf|wrk":{"t":"Operations Data","s":["IEC 62264-2","IEC 62264-5"]},"inf|ent":{"t":"Master Data","s":["ISO 8000","IEC 62264-2"]},"inf|cnw":{"t":"Asset Admin. Shell","s":["IEC 63278-1","IDTA-01001 *"]},"com|prd":{"t":"Identification","s":["IEC 61406-1","ISO/IEC 15459","ISO/IEC 18000"]},"com|fld":{"t":"Fieldbus · IO-Link","s":["IEC 61158","IEC 61784-1","IEC 61131-9"]},"com|ctl":{"t":"Ind. Ethernet · TSN","s":["IEC 61784-2","IEC/IEEE 60802","IEEE 802.1Q"]},"com|sta":{"t":"Wireless Field","s":["IEC 62591","IEC 62734","IEC 62657-2"]},"com|wrk":{"t":"OPC UA · MQTT","s":["IEC 62541","ISO/IEC 20922"]},"com|ent":{"t":"Level 3 ↔ 4 Exchange","s":["IEC 62264-5","IEC 62541"]},"com|cnw":{"t":"5G · Cloud API","s":["3GPP TS 22.104 *","ISO/IEC 20922"]},"itg|prd":{"t":"Digital Nameplate","s":["IEC 63365","IEC 61406-1"]},"itg|fld":{"t":"Sensors · Transmitters","s":["IEC 60770","IEC 61131-2"]},"itg|ctl":{"t":"PLC · I/O","s":["IEC 61131-2","IEC 61010-2-201"]},"itg|sta":{"t":"HMI · Alarms","s":["IEC 63303","IEC 62682"]},"itg|wrk":{"t":"Machine Data · Edge","s":["OPC 40001 *","ISO 23247-3"]},"itg|ent":{"t":"IT/OT Integration","s":["IEC 62264-1","IEC 62264-4"]},"itg|cnw":{"t":"Cloud · Edge","s":["ISO/IEC 22123-1","ISO/IEC TR 23188"]},"ast|prd":{"t":"Precise Products","s":["IEC 62271 series","IEC 60076 series","IEC 61439 series"]},"ast|fld":{"t":"Instruments","s":["IEC 61869 series","IEC 61010-1"]},"ast|ctl":{"t":"Controllers · EMC","s":["IEC 61131-2","IEC 61000-6-2"]},"ast|sta":{"t":"Machines · Robots","s":["IEC 60204-1","ISO 12100","ISO 10218"]},"ast|wrk":{"t":"Line Safety","s":["ISO 13849-1","IEC 62061"]},"ast|ent":{"t":"Facility · EHS","s":["ISO 14001","ISO 45001","ISO 50001"]},"ast|cnw":{"t":"Logistics Assets","s":["ISO 17363","ISO 28000"]}}},"sfam":{"name":"SFAM","full":"Smart Farming Architecture Model","owner":"PSL","color":"#2E7D32","axX":"Domain","axZ":"Interoperability Layer","axY":"Hierarchical Zone","doms":[["cul","Cultivation Area","พื้นที่เพาะปลูก"],["liv","Livestock","ปศุสัตว์"],["sto","Storage","จัดเก็บ"],["pro","Processing","แปรรูป"],["dst","Distribution","กระจายสินค้า"]],"lays":[["biz","Business","Process Model · KPIs · Operations"],["fun","Function","Functional Modules · Services"],["inf","Information","Data Models · Metadata"],["com","Communication","Protocols · Brokers · Security"],["itg","Integration","Sensors · Actuators · HMI"],["ast","Asset","Machinery · Livestock · Crops"]],"zones":[["phy","Physical Objects","ISO 11783 · ISO 18497 · ISO 25119"],["sen","Sensing & Actuation","ISO 11783 · SensorThings · MQTT · IEC 62443"],["prc","Production Control","ISO 11783-10 · OPC UA · IEC 62264 · IEC 62443"],["ope","Operation Execution","IEC 62264 · ADAPT · OPC UA · GS1 EPCIS"],["mgt","Management Information","IEC 62264 · ADAPT · ISO 22005 · GS1 EPCIS · ISO/IEC 27001"],["cnw","Connected World","SensorThings · MQTT · ISO 22005 · GS1 EPCIS · ISO/IEC 27001"]],"cross":[{"t":"ISO/IEC 27001","d":"Information Security Management — ครอบชั้น governance ข้อมูล และการเชื่อมต่อภายนอก"},{"t":"IEC 62443","d":"OT / Automation Cybersecurity — ครอบชั้นสื่อสาร การเชื่อมต่อ สินทรัพย์ และเทคโนโลยีปฏิบัติการ"}],"cells":{"biz|cul":{"t":"","s":[]},"biz|liv":{"t":"","s":[]},"biz|sto":{"t":"","s":["ISO 22005","GS1 EPCIS"]},"biz|pro":{"t":"","s":["IEC 62264 / ISA-95","ISO 22005","GS1 EPCIS"]},"biz|dst":{"t":"","s":["ISO 22005","GS1 EPCIS"]},"fun|cul":{"t":"","s":["ISO 18497","ISO 25119"]},"fun|liv":{"t":"","s":[]},"fun|sto":{"t":"","s":[]},"fun|pro":{"t":"","s":["IEC 62264 / ISA-95"]},"fun|dst":{"t":"","s":[]},"inf|cul":{"t":"","s":["ISO 11783-10","AgGateway ADAPT","ISO 19156","ISO 28258","OGC SensorThings API"]},"inf|liv":{"t":"","s":["AgGateway ADAPT","ISO 19156","OGC SensorThings API"]},"inf|sto":{"t":"","s":["OGC SensorThings API","IEC 62541 (OPC UA)","ISO 22005","GS1 EPCIS"]},"inf|pro":{"t":"","s":["IEC 62541 (OPC UA)","ISO 22005","GS1 EPCIS"]},"inf|dst":{"t":"","s":["ISO 22005","GS1 EPCIS"]},"com|cul":{"t":"","s":["ISO 11783 (ISOBUS)","ISO 11783-10","OGC SensorThings API"]},"com|liv":{"t":"","s":["OGC SensorThings API","ISO/IEC 20922 (MQTT)"]},"com|sto":{"t":"","s":["OGC SensorThings API","ISO/IEC 20922 (MQTT)","IEC 62541 (OPC UA)"]},"com|pro":{"t":"","s":["IEC 62541 (OPC UA)"]},"com|dst":{"t":"","s":[]},"itg|cul":{"t":"","s":["ISO 11783 (ISOBUS)","ISO 11783-10","AgGateway ADAPT","OGC SensorThings API"]},"itg|liv":{"t":"","s":["AgGateway ADAPT","OGC SensorThings API"]},"itg|sto":{"t":"","s":["OGC SensorThings API","IEC 62541 (OPC UA)"]},"itg|pro":{"t":"","s":["IEC 62264 / ISA-95","IEC 62541 (OPC UA)"]},"itg|dst":{"t":"","s":[]},"ast|cul":{"t":"","s":["ISO 11783 (ISOBUS)","ISO 18497","ISO 25119"]},"ast|liv":{"t":"","s":[]},"ast|sto":{"t":"","s":[]},"ast|pro":{"t":"","s":[]},"ast|dst":{"t":"","s":[]}}},"sciam":{"name":"SCIAM","full":"Smart City Intelligence Architecture Model","owner":"PSP","color":"#C2690A","axX":"Domain","axZ":"Layer","axY":"Zone","note":"ยังไม่มีแผนที่มาตรฐาน — รอจาก PSP","doms":[["mob","Mobility","การเดินทาง"],["eng","Energy","พลังงานเมือง"],["bld","Building","อาคาร"],["env","Environment","สิ่งแวดล้อม"],["gov","Governance","บริหารเมือง"]],"lays":[["biz","Business","ธุรกิจ / การบริหารจัดการ"],["fun","Function","การทำงานของระบบ"],["int","Intelligence","วิเคราะห์ / ตัดสินใจ"],["inf","Information","ข้อมูล / Data model"],["com","Communication","การสื่อสาร"],["cyb","Cyber","ความมั่นคงปลอดภัย"],["cmp","Component","อุปกรณ์ / ทางกายภาพ"]],"zones":[],"cells":{}}}</script>
+<!--CUBE_DATA_END-->
+
+<script>
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2600); }
+var D=JSON.parse($('cube-data').textContent);
+var ORDER=['sgam','sciam','rami','sfam'];
+
+/* รหัสมาตรฐานเขียนไม่เหมือนกันในแต่ละแผนที่ เช่น "IEC 62541" กับ "IEC 62541 (OPC UA)"
+   จึงต้องตัดวงเล็บ ดอกจัน และคำว่า series ออกก่อนเทียบ ไม่งั้นจะนับว่าเป็นคนละตัว */
+function norm(s){
+  return (''+s).toUpperCase().replace(/\(.*?\)/g,' ').replace(/\*/g,' ')
+    .replace(/\bSERIES\b/g,' ').replace(/[,.]/g,' ').replace(/\s+/g,' ').trim();
+}
+var INDEX={};           /* normalised code -> { modelKey: [cellKey,...] } */
+ORDER.forEach(function(mk){
+  var M=D[mk]; if(!M) return;
+  Object.keys(M.cells||{}).forEach(function(ck){
+    (M.cells[ck].s||[]).forEach(function(raw){
+      var k=norm(raw);
+      if(!INDEX[k]) INDEX[k]={raw:raw,by:{}};
+      if(!INDEX[k].by[mk]) INDEX[k].by[mk]=[];
+      if(INDEX[k].by[mk].indexOf(ck)<0) INDEX[k].by[mk].push(ck);
+    });
+  });
+});
+function modelsOf(code){ var e=INDEX[norm(code)]; return e?Object.keys(e.by):[]; }
+
+var cur='sgam', ax=58, az=-26, exploded=false, selLayer=null, selCell=null, query='';
+
+function buildMods(){
+  $('mods').innerHTML=ORDER.map(function(k){
+    var M=D[k], n=Object.keys(M.cells||{}).filter(function(c){return (M.cells[c].s||[]).length;}).length;
+    return '<button data-m="'+k+'"'+(k===cur?' class="on" style="background:'+M.color+'"':'')+'>'+
+      '<i style="background:'+M.color+'"></i>'+esc(M.name)+
+      '<small>'+esc(M.owner)+' · '+n+' ช่อง</small></button>';
+  }).join('');
+}
+$('mods').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-m]'); if(!b) return;
+  cur=b.dataset.m; selLayer=null; selCell=null; buildMods(); build(); side();
+});
+
+function build(){
+  var M=D[cur], L=M.lays, X=M.doms;
+  var CW=Math.max(108,Math.min(150,900/X.length)), PW=CW*X.length+10, PH=74;
+  var gap=exploded?96:62, n=L.length;
+  var h='';
+  L.forEach(function(l,i){
+    var z=(n-1-i)*gap - (n-1)*gap/2;        /* ชั้นบนสุดของแผนที่ = Z สูงสุด */
+    var cells='';
+    X.forEach(function(d){
+      var c=(M.cells||{})[l[0]+'|'+d[0]];
+      var has=c&&(c.s||[]).length;
+      var hit=has&&query&&(c.s||[]).some(function(s){ return norm(s).indexOf(query)>=0; });
+      cells+='<div class="cell'+(has?'':' empty')+(hit?' hit':'')+
+        ((selCell===l[0]+'|'+d[0])?' sel':'')+'" data-c="'+l[0]+'|'+d[0]+'">'+
+        (has?'<b>'+esc(c.t||d[1])+'</b><span>'+c.s.length+' มาตรฐาน</span>':'<b style="color:#B7C7D6">—</b>')+'</div>';
+    });
+    var lc=X.reduce(function(a,d){ var c=(M.cells||{})[l[0]+'|'+d[0]]; return a+((c&&c.s)?c.s.length:0); },0);
+    h+='<div class="plane'+((selLayer&&selLayer!==l[0])?' dim':'')+'" data-l="'+l[0]+'" '+
+       'style="width:'+PW+'px;height:'+PH+'px;left:'+(-PW/2)+'px;top:'+(-PH/2)+'px;transform:translateZ('+z+'px)">'+
+       '<div class="pbase"></div>'+
+       '<div class="pgrid" style="grid-template-columns:repeat('+X.length+',1fr)">'+cells+'</div>'+
+       '<div class="plab"><b>'+esc(l[1])+'</b><span>'+esc(l[2]||'')+'</span>'+
+         '<span class="ct">'+lc+' มาตรฐาน</span></div>'+
+       (i===0?'<div class="xlab" style="grid-template-columns:repeat('+X.length+',1fr)">'+
+         X.map(function(d){ return '<div>'+esc(d[1])+'<small>'+esc(d[2]||'')+'</small></div>'; }).join('')+'</div>':'')+
+       '</div>';
+  });
+  $('cube').innerHTML=h;
+  applyRot();
+  $('yaxis').innerHTML='<h4>'+esc(M.axY)+'</h4>'+
+    ((M.zones||[]).length?(M.zones.map(function(z){
+      return '<div class="z"><b>'+esc(z[1])+'</b><span>'+esc(z[2]||'')+'</span></div>'; }).join(''))
+      :'<div class="z"><span>ยังไม่มีข้อมูลแกนนี้</span></div>');
+  var tot=Object.keys(M.cells||{}).reduce(function(a,k){ return a+((M.cells[k].s||[]).length); },0);
+  $('cnt').textContent=M.name+' · '+M.lays.length+' ชั้น × '+M.doms.length+' '+M.axX+' · '+tot+' รายการมาตรฐาน';
+  $('hudTxt').innerHTML='<b>'+esc(M.full)+'</b><br>เจ้าภาพ '+esc(M.owner)+' · ลากเพื่อหมุน · คลิกชื่อชั้นเพื่อโฟกัส · คลิกช่องเพื่อดูมาตรฐาน'+
+    (M.note?'<br><span style="color:#C0392B">'+esc(M.note)+'</span>':'');
+}
+function applyRot(){
+  var sc=exploded?0.74:1;
+  $('cube').style.transform='scale('+sc+') rotateX('+ax+'deg) rotateZ('+az+'deg)';
+}
+
+$('cube').addEventListener('click',function(e){
+  var c=e.target.closest('.cell[data-c]');
+  if(c&&!c.classList.contains('empty')){ selCell=c.dataset.c; selLayer=c.dataset.c.split('|')[0]; build(); side(); return; }
+  var l=e.target.closest('.plab');
+  if(l){ var key=l.parentNode.dataset.l; selLayer=(selLayer===key)?null:key; selCell=null; build(); side(); }
+});
+
+/* ---------- drag to rotate ---------- */
+var dr=null;
+$('stage').addEventListener('mousedown',function(e){
+  if(e.target.closest('.cell')||e.target.closest('.plab')||e.target.closest('#yaxis')||e.target.closest('#hud')) return;
+  dr={x:e.clientX,y:e.clientY,ax:ax,az:az}; this.classList.add('drag');
+});
+window.addEventListener('mousemove',function(e){
+  if(!dr) return;
+  az=dr.az+(e.clientX-dr.x)*0.35;
+  ax=Math.max(4,Math.min(86,dr.ax-(e.clientY-dr.y)*0.3));
+  applyRot();
+});
+window.addEventListener('mouseup',function(){ dr=null; $('stage').classList.remove('drag'); });
+
+$('bExp').addEventListener('click',function(){ exploded=!exploded; this.classList.toggle('on',exploded); build();
+  tip(exploded?'แยกชั้นออกจากกัน':'ซ้อนชั้นกลับ'); });
+$('bReset').addEventListener('click',function(){ ax=58; az=-26; applyRot(); });
+$('bFlat').addEventListener('click',function(){ ax=6; az=0; applyRot(); });
+
+/* ---------- search ---------- */
+$('q').addEventListener('input',function(){ query=norm(this.value); build(); side(); });
+$('bClear').addEventListener('click',function(){ $('q').value=''; query=''; selCell=null; selLayer=null; build(); side(); });
+
+/* ---------- side panel ---------- */
+function cellName(mk,ck){
+  var M=D[mk], p=ck.split('|');
+  var l=(M.lays||[]).filter(function(x){return x[0]===p[0];})[0];
+  var d=(M.doms||[]).filter(function(x){return x[0]===p[1];})[0];
+  return (l?l[1]:p[0])+' × '+(d?d[1]:p[1]);
+}
+function stdRow(raw){
+  var ms=modelsOf(raw);
+  return '<div class="std'+(ms.length>1?' multi':'')+'" data-s="'+esc(raw)+'">'+
+    '<span class="n">'+ms.map(function(m){return D[m].name;}).join(' · ')+'</span><span>'+esc(raw)+'</span></div>';
+}
+function side(){
+  var M=D[cur], h='';
+  if(query){
+    var hits=[];
+    Object.keys(INDEX).forEach(function(k){ if(k.indexOf(query)>=0) hits.push(INDEX[k]); });
+    h+='<h3>ผลค้นหา — '+hits.length+' มาตรฐาน</h3>';
+    if(!hits.length) h+='<div class="empty-note">ไม่พบมาตรฐานที่ตรงกับคำค้น</div>';
+    hits.slice(0,60).forEach(function(e){
+      h+=stdRow(e.raw);
+      h+='<div class="meta" style="margin:-2px 0 10px 6px">'+
+         Object.keys(e.by).map(function(mk){
+           return '<b style="color:'+D[mk].color+'">'+esc(D[mk].name)+'</b> — '+
+             e.by[mk].map(function(ck){ return esc(cellName(mk,ck)); }).join(' · ');
+         }).join('<br>')+'</div>';
+    });
+  } else if(selCell){
+    var c=M.cells[selCell];
+    h+='<h3>'+esc(c.t||cellName(cur,selCell))+'</h3><div class="meta">'+esc(cellName(cur,selCell))+' · '+esc(M.name)+'</div>'+
+       '<div class="grp"><h4>มาตรฐานในช่องนี้</h4>'+(c.s||[]).map(stdRow).join('')+'</div>';
+  } else if(selLayer){
+    var l=(M.lays||[]).filter(function(x){return x[0]===selLayer;})[0];
+    h+='<h3>'+esc(l[1])+'</h3><div class="meta">'+esc(l[2]||'')+' · '+esc(M.name)+'</div>';
+    (M.doms||[]).forEach(function(d){
+      var c=(M.cells||{})[selLayer+'|'+d[0]]; if(!c||!(c.s||[]).length) return;
+      h+='<div class="grp"><h4>'+esc(d[1])+(c.t?' — '+esc(c.t):'')+'</h4>'+c.s.map(stdRow).join('')+'</div>';
+    });
+  } else {
+    h+='<h3>'+esc(M.full)+'</h3><div class="meta">เจ้าภาพ <b>'+esc(M.owner)+'</b> · แกน X = '+esc(M.axX)+
+       ' · แกน Z = '+esc(M.axZ)+' · แกน Y = '+esc(M.axY)+'</div>';
+    if(M.note) h+='<div class="empty-note" style="margin-top:12px">'+esc(M.note)+'</div>';
+    if((M.cross||[]).length){
+      h+='<div class="grp"><h4>มาตรฐานที่ครอบทุกชั้น</h4>'+M.cross.map(function(x){
+        return '<div class="std"><span class="n">CROSS</span><span>'+esc(x.t)+'<br>'+
+          '<small style="font-family:Sarabun;font-weight:400;color:#5A7391">'+esc(x.d)+'</small></span></div>'; }).join('')+'</div>';
+    }
+    /* มาตรฐานที่ปรากฏมากกว่า 1 แผนที่ = จุดที่ใช้ทีมร่วมกันได้ */
+    var shared=[];
+    Object.keys(INDEX).forEach(function(k){ if(Object.keys(INDEX[k].by).length>1) shared.push(INDEX[k]); });
+    h+='<div class="grp"><h4>ใช้ร่วมกันมากกว่า 1 แผนที่ — '+shared.length+' มาตรฐาน</h4>'+
+       (shared.length?shared.map(function(e){
+         return stdRow(e.raw)+'<div class="meta" style="margin:-2px 0 10px 6px">'+
+           Object.keys(e.by).map(function(mk){ return '<b style="color:'+D[mk].color+'">'+esc(D[mk].name)+'</b>'; }).join(' · ')+'</div>';
+       }).join(''):'<div class="empty-note">ยังไม่พบ</div>')+'</div>';
+    h+='<div class="warnbox"><b>ข้อควรระวัง:</b> รหัสมาตรฐานในหน้านี้ถอดมาจากภาพแผนที่ที่ส่งมา '+
+       'บางรหัสอาจคลาดเคลื่อนจากการอ่าน <b>ต้องตรวจทานกับไฟล์ต้นฉบับก่อนนำไปอ้างอิง</b> '+
+       'เครื่องหมาย * = ข้อกำหนดจากองค์กรนอก IEC/ISO หรือเอกสาร TS/PAS ที่ต้องตรวจ edition ล่าสุด</div>';
+  }
+  $('side').innerHTML=h;
+}
+$('side').addEventListener('click',function(e){
+  var s=e.target.closest('.std[data-s]'); if(!s) return;
+  $('q').value=s.dataset.s; query=norm(s.dataset.s); build(); side();
+});
+
+buildMods(); build(); side();
+</script>
+</body></html>
