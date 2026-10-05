@@ -39,7 +39,7 @@ body{margin:0;background:var(--paper);color:var(--ink);
 
 /* ---------- stage ---------- */
 #stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
-#sheet{position:relative;width:1840px;height:1180px;flex:0 0 auto;transform-origin:center center;
+#sheet{position:relative;width:1840px;height:1440px;flex:0 0 auto;transform-origin:center center;
   background:#FBFDFF;border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 70px rgba(18,35,58,.13);
   overflow:hidden}
 #wires{position:absolute;inset:0;pointer-events:none;z-index:1}
@@ -51,12 +51,13 @@ body{margin:0;background:var(--paper);color:var(--ink);
 #head p{font-size:12.5px;color:var(--mute);margin:8px 0 0;line-height:1.6}
 #legend{right:56px;top:32px;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
 #legend .li{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#41566E;font-weight:600}
-#legend .sw{width:34px;height:0;border-top:3px solid #2E7D32;border-radius:2px}
-#legend .sw.own{border-top:3px solid #7B4FC9}
-#legend .sw.use{border-top:3px dashed #8AA0B6}
+#legend .sw{width:34px;height:0;border-top:3px solid #2E7D32;border-radius:2px;background:none;
+  box-shadow:none;padding:0;border-left:0;border-right:0;border-bottom:0}
+#legend .sw-own{border-top:3px solid #C2690A}
+#legend .sw-use{border-top:3px dashed #8AA0B6}
 
 /* ---------- COE ---------- */
-#coe{left:560px;top:168px;width:720px;background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:20px;
+#coe{left:620px;top:168px;width:600px;background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:20px;
   padding:16px 22px 20px;color:#fff;box-shadow:0 18px 44px rgba(27,94,32,.3)}
 #coe .kd{font:800 9.5px 'Inter',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#BFE3C6}
 #coe h2{font-family:'Inter','Sarabun';font-size:21px;font-weight:900;margin:5px 0 3px}
@@ -68,38 +69,51 @@ body{margin:0;background:var(--paper);color:var(--ink);
 #coe .two b{display:block;font-family:'Inter','Sarabun';font-size:14px;font-weight:800}
 #coe .two span{display:block;font-size:10.5px;color:#CFE8D4;margin-top:3px;line-height:1.5}
 
+/* ---------- owner companies ---------- */
+.own{border-radius:16px;padding:13px 17px 15px;background:#fff;border:1px solid var(--line);
+  border-top:5px solid var(--ds);box-shadow:0 11px 28px rgba(18,35,58,.09)}
+.own .ttl{display:flex;align-items:baseline;gap:9px}
+.own .ttl b{font-family:'Inter',sans-serif;font-size:25px;font-weight:900;color:var(--ds);letter-spacing:.02em}
+.own .ttl span{font-size:11px;color:#6A82A0}
+.own .rl{display:block;font-size:11.5px;color:#41566E;margin-top:7px;line-height:1.55}
+.own .own-tag{display:inline-block;margin-top:9px;font:800 9.5px 'Inter',sans-serif;letter-spacing:.07em;
+  text-transform:uppercase;padding:3px 9px;border-radius:9px;background:#FFF1DB;color:#9A6508}
+
 /* ---------- reference models ---------- */
-.mdl{border-radius:16px;padding:13px 16px 15px;background:#fff;border:1px solid var(--line);
-  border-top:5px solid var(--da);box-shadow:0 10px 26px rgba(18,35,58,.08);text-decoration:none;color:inherit;display:block}
+.mdl{border-radius:15px;padding:12px 15px 14px;background:#fff;border:1px solid var(--line);
+  border-top:5px solid var(--da);box-shadow:0 9px 24px rgba(18,35,58,.08);text-decoration:none;color:inherit;display:block}
 a.mdl:hover{background:#FAFBFE}
-.mdl b{display:block;font-family:'Inter',sans-serif;font-size:19px;font-weight:900;color:var(--da);letter-spacing:-.01em}
-.mdl .en{display:block;font-size:11px;color:#6A82A0;margin-top:2px;line-height:1.45}
-.mdl .sc{display:block;font-size:11px;color:#41566E;margin-top:8px;line-height:1.55;border-top:1px dashed var(--line);padding-top:8px}
+.mdl b{display:block;font-family:'Inter',sans-serif;font-size:18px;font-weight:900;color:var(--da);letter-spacing:-.01em}
+.mdl .en{display:block;font-size:10.5px;color:#6A82A0;margin-top:2px;line-height:1.4}
+.mdl .ax{display:block;font-size:10.5px;color:#41566E;margin-top:7px;line-height:1.5;
+  border-top:1px dashed var(--line);padding-top:7px}
 
-/* ---------- companies ---------- */
-.co{border-radius:14px;padding:11px 13px;background:#fff;border:1px solid var(--line);
-  border-left:5px solid var(--ds);box-shadow:0 7px 18px rgba(18,35,58,.07)}
-.co b{display:block;font-family:'Inter',sans-serif;font-size:20px;font-weight:900;color:var(--ds);letter-spacing:.02em}
-.co .nm{display:block;font-size:10px;color:#6A82A0;margin-top:2px;line-height:1.4;min-height:26px}
-.co .role{display:block;font-size:10.5px;color:#41566E;margin-top:6px;line-height:1.5}
-.co .uses{display:block;margin-top:7px;font:700 9.5px 'Inter',sans-serif;letter-spacing:.04em;color:#8AA0B6}
+/* ---------- stakeholders ---------- */
+.stk{border-radius:13px;padding:10px 13px;background:#F7FBFE;border:1px solid #CFE0EF;border-left:4px solid #8AA0B6}
+.stk .h{display:block;font:800 9.5px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#7D93AA}
+.stk .b{display:block;font-size:11px;color:#41566E;margin-top:5px;line-height:1.55}
 
-.grp{position:absolute;border:2px dashed #C9D7E4;border-radius:16px;z-index:0}
-.grp .lb{position:absolute;top:-11px;left:16px;background:#FBFDFF;padding:0 9px;font:800 10px 'Inter',sans-serif;
-  letter-spacing:.09em;text-transform:uppercase;color:#92A8BD}
-
-/* ---------- bottom band ---------- */
+/* ---------- layer band ---------- */
 .band{border-radius:18px;padding:14px 20px 17px}
 .band>h3{font-family:'Inter','Sarabun';font-size:13.5px;font-weight:800;margin:0 0 11px;letter-spacing:.01em;
   display:flex;align-items:center;gap:9px}
 .band>h3 .pill{font:800 10px 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;
-  padding:3px 9px;border-radius:9px;color:#fff;flex:none;background:var(--fin)}
-.band .cells{display:flex;gap:16px}
-.band .cell{flex:1;border-radius:12px;padding:11px 14px;background:#fff;border:1px solid #EFDDB4;
-  border-left:4px solid var(--fin)}
-.band .cell b{display:block;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;color:#8A6A08;line-height:1.3}
-.band .cell span{display:block;font-size:10.5px;margin-top:4px;line-height:1.5;color:#78684A}
-#bWhy{left:120px;top:960px;width:1600px;background:#FFF9EC;border:1px solid #F0E0BC}
+  padding:3px 9px;border-radius:9px;color:#fff;flex:none;background:var(--da)}
+table.lay{width:100%;border-collapse:collapse;font-size:11.5px}
+table.lay th{background:var(--blue2);color:#fff;font:700 10.5px 'Inter','Sarabun';padding:6px 9px;
+  text-align:left;border:1px solid #14496e}
+table.lay th.c{text-align:center;width:88px}
+table.lay td{border:1px solid var(--line);padding:6px 9px;line-height:1.5;background:#fff}
+table.lay td.c{text-align:center;font-family:'Inter';font-weight:900;font-size:13px}
+table.lay td.y{color:#2E7D32}
+table.lay td.n2{color:#C9D3DE}
+table.lay td.g{font-weight:800;color:var(--blue2);white-space:nowrap}
+table.lay tr.sh td{background:#F3EDFB}
+#bLayer{left:96px;top:930px;width:1648px;background:#F8F5FD;border:1px solid #DDD2EF}
+.teams{display:flex;gap:14px;margin-top:13px}
+.teams .t{flex:1;border-radius:12px;padding:11px 14px;background:#fff;border:1px solid #DDD2EF;border-left:4px solid var(--da)}
+.teams .t b{display:block;font-family:'Inter','Sarabun';font-size:12.5px;font-weight:800;color:#5F39A3;line-height:1.3}
+.teams .t span{display:block;font-size:10.5px;margin-top:4px;line-height:1.5;color:#5A6E88}
 
 @media print{
   @page{size:A3 landscape;margin:8mm}
@@ -138,7 +152,7 @@ a.mdl:hover{background:#FAFBFE}
 
 <div id="stage">
   <div id="sheet">
-    <svg id="wires" width="1840" height="1180" viewBox="0 0 1840 1180"></svg>
+    <svg id="wires" width="1840" height="1440" viewBox="0 0 1840 1440"></svg>
 
     <div id="head">
       <h1 data-k="title"></h1>
@@ -153,24 +167,26 @@ a.mdl:hover{background:#FAFBFE}
       <div class="two" id="coeTwo"></div>
     </div>
 
+    <div id="owners"></div>
     <div id="models"></div>
-    <div id="cos"></div>
+    <div id="stakes"></div>
 
-    <div id="bWhy" class="band"><h3><span class="pill">หลักฐาน</span><span data-k="whyT"></span></h3>
-      <div class="cells" id="whyCells"></div></div>
+    <div id="bLayer" class="band"><h3><span class="pill">ทีมร่วม</span><span data-k="layT"></span></h3>
+      <table class="lay" id="tLayer"></table>
+      <div class="teams" id="teams"></div></div>
   </div>
 </div>
 
 <div class="tip" id="tip"></div>
 
 <!--MOWN_DATA_START-->
-<script id="mown-data" type="application/json">{"savedAt":1791170960579,"title":"โมเดลไหนเป็นของบริษัทไหน — COE เป็นเจ้าของมาตรฐาน บริษัทเป็นผู้รันและผู้ใช้","sub":"ทุกบริษัทใช้ได้ทั้ง 4 โมเดล แต่ต้องมีเจ้าภาพเพียงรายเดียวต่อโมเดล ไม่งั้นจะได้มาตรฐาน 9 ชุดในกลุ่มเดียว","coeT":"Digital Engineering + DBTP","coeS":"ทีมกลางที่เป็นเจ้าของ reference model ทั้ง 4 — กำหนดมาตรฐาน ตรวจรับการออกแบบ และดูแลไม่ให้แต่ละบริษัทแตกมาตรฐานของตัวเอง","coe":[{"t":"Digital Engineering","s":"วิศวกรรมกลาง ออกแบบและตรวจรับงานตาม reference model · เจ้าของ Digital Architect ทั้ง 4 สาขา","href":""},{"t":"DBTP","s":"Digital Business Technology Platform — แพลตฟอร์มกลางที่รองรับ 6 Revenue Stream Type","href":"DBTP_CoE.html"}],"coY":760,"models":[{"k":"SGAM","x":120,"en":"Smart Grid Architecture Model","href":"","sc":"มาตรฐานระบบไฟฟ้าและกริด — ตั้งแต่การผลิต การส่งจ่าย ไปจนถึงการวัดและซื้อขายพลังงาน"},{"k":"SFAM","x":530,"en":"Smart Farming Architecture Model","href":"sfam.html","sc":"มาตรฐานเกษตรแม่นยำ — แปลงปลูก การติดตามต้นไม้ ไปจนถึงการรับรองคาร์บอน"},{"k":"SCIAM","x":940,"en":"Smart City Intelligence Architecture Model","href":"","sc":"มาตรฐานระบบเมืองและโครงสร้างพื้นฐานดิจิทัล — ระบบงานโครงการ ศูนย์ข้อมูล และบริการเมือง"},{"k":"RAMI 4.0","x":1380,"en":"Reference Architecture Model Industrie 4.0","href":"RAMI4.0.html","sc":"มาตรฐานโรงงานและสายการผลิต — เครื่องจักร การเชื่อมต่อ OT และวงจรชีวิตของสินค้า"}],"cos":[{"k":"PPP","x":125,"nm":"ผลิตพลังงานชีวมวล","role":"P2P · CCHP · Pellet","run":"SGAM","use":["SFAM"]},{"k":"SBP","x":300,"nm":"โรงไฟฟ้าชีวมวล","role":"Boiler · WTP · ลานไม้","run":"SGAM","use":["RAMI 4.0"]},{"k":"PSL","x":535,"nm":"ไผ่และห่วงโซ่ชีวมวล","role":"Nursery · Contract Farming","run":"SFAM","use":["SGAM"]},{"k":"PCC","x":710,"nm":"โฮลดิ้งและพื้นที่ศรีเทพ","role":"ที่ดิน · เพาะชำ · ESG","run":"SFAM","use":["SCIAM"]},{"k":"PSP","x":930,"nm":"ซิสเท็ม แอนด์ โปรเจ็ค","role":"EPC · ระบบและโครงการ","run":"SCIAM","use":["RAMI 4.0","SGAM"]},{"k":"PDE","x":1105,"nm":"ดิจิตอล อีโคโนมี่","role":"Data Center · Platform","run":"SCIAM","use":["RAMI 4.0"]},{"k":"PCE","x":1280,"nm":"—","role":"งานประมูลและบริการ","run":"SCIAM","use":[]},{"k":"PEM","x":1455,"nm":"อีเลคตริค แมนูแฟคเจอริ่ง","role":"โรงงานอุปกรณ์ไฟฟ้า","run":"RAMI 4.0","use":["SGAM"]},{"k":"PEMC","x":1630,"nm":"อีเลคตริค แมนูแฟคเจอริ่ง คอร์ป","role":"โรงงานอุปกรณ์ไฟฟ้า","run":"RAMI 4.0","use":["SGAM"]}],"why":[{"t":"ERP Odoo แตกเป็น 7 โครงการใน 6 บริษัท รวม 21.46 ลบ.","s":"PEM 10.55 · PCC 4.00 · PEMC 2.50 · SBP 2.34 · PPP 2.00 · PSL 0.08 — ขึ้นปี 2570 พร้อมกันแต่ต่างคนต่างขอ ต่าง Ranking ต่าง Tactical Plan"},{"t":"ถ้าโครงสร้างองค์กรไม่มีเจ้าภาพกลาง จะได้ผังองค์กร 9 แบบ","s":"อาการเดียวกับ ERP แต่แก้ยากกว่ามาก เพราะเป็นเรื่องคนและตำแหน่ง ไม่ใช่ซอฟต์แวร์ที่รวมสัญญาทีหลังได้"},{"t":"Digital Architect 4 สาขาต้องอยู่ที่ COE ไม่ใช่กระจายตามบริษัท","s":"เป็นเงื่อนไขของแผนระยะที่ 4 (Strategic Management 2578) และเป็นตำแหน่งระดับ 9B–9A สาย Specialist ในโครงสร้างตำแหน่งใหม่"}],"legend":[{"k":"coe","t":"COE เป็นเจ้าของ reference model"},{"k":"own","t":"บริษัทที่เป็นเจ้าภาพ (รัน)"},{"k":"use","t":"บริษัทที่นำไปใช้"}],"mascot":{"src":"","alt":"","w":0,"h":0}}</script>
+<script id="mown-data" type="application/json">{"savedAt":1791172022889,"title":"โมเดลไหนเป็นของบริษัทไหน — 3 เจ้าภาพ 4 โมเดล และทีมที่ใช้ร่วมกันได้","sub":"เจ้าภาพคือผู้วางมาตรฐานและตรวจรับการออกแบบ ส่วนบริษัทอื่นเป็นผู้เกี่ยวข้องที่ต้องเชื่อมเข้ามาตรฐานเดียวกัน","coeT":"Digital Engineering + DBTP","coeS":"ทีมกลางที่ประสานงานระหว่าง 3 เจ้าภาพ ดูแลไม่ให้มาตรฐานแตกกัน และเป็นเจ้าของ Digital Architect ทั้ง 4 สาขา","coe":[{"t":"Digital Engineering","s":"วิศวกรรมกลาง · ตรวจรับการออกแบบตาม reference model · เจ้าของตำแหน่ง Digital Architect","href":"job-architecture.html"},{"t":"DBTP","s":"แพลตฟอร์มกลางที่รองรับ 6 Revenue Stream Type","href":"DBTP_CoE.html"}],"owners":[{"k":"PSP","x":180,"nm":"ซิสเท็ม แอนด์ โปรเจ็ค","models":["SGAM","SCIAM"],"rl":"เจ้าภาพฝั่งระบบและโครงการ — วางมาตรฐานทั้ง Smart Grid และ Smart City ให้ทุกบริษัทในอนาคตที่ต้องเชื่อมโยงเข้ามา"},{"k":"PEM","x":740,"nm":"อีเลคตริค แมนูแฟคเจอริ่ง","models":["RAMI 4.0"],"rl":"เจ้าภาพฝั่งโรงงาน — เป็น\u003cb>ต้นแบบ Factory 4.0\u003c/b> ของกลุ่ม ให้บริษัทอื่นนำแบบไปต่อยอดกับสายการผลิตของตัวเอง"},{"k":"PSL","x":1300,"nm":"ไผ่และห่วงโซ่ชีวมวล","models":["SFAM"],"rl":"เจ้าภาพฝั่งเกษตร — วางมาตรฐานแปลงปลูก การติดตามต้นไม้ และข้อมูลที่ส่งต่อให้โรงไฟฟ้าและการรับรองคาร์บอน"}],"models":[{"id":"sgam","k":"SGAM","x":120,"owner":"PSP","href":"","en":"Smart Grid Architecture Model","ax":"X: Domain 5 ช่อง (Generation → Customer) × Z: Layer 7 ชั้น","stake":"ทุกบริษัทในอนาคตที่ต้องเชื่อมโยง Smart Grid — PEM · PEMC (อุปกรณ์ไฟฟ้า) · PPP · SBP (ผลิตไฟฟ้า)"},{"id":"sciam","k":"SCIAM","x":400,"owner":"PSP","href":"","en":"Smart City Intelligence Architecture Model","ax":"โครงสร้างพื้นฐานดิจิทัลและบริการเมือง","stake":"ทุกบริษัทในอนาคตที่ต้องเชื่อมโยง Smart City — PDE (Data Center) · PCE · PCC"},{"id":"rami","k":"RAMI 4.0","x":795,"owner":"PEM","href":"RAMI4.0.html","en":"Reference Architecture Model Industrie 4.0","ax":"X: Hierarchy 7 ช่อง × Y: Life Cycle (IEC 62890) × Z: Layer 6 ชั้น","stake":"PSL นำต้นแบบ Factory 4.0 ไปต่อยอดกับสายผลิตภัณฑ์จากไผ่ · PEMC · PSP (งาน EPC)"},{"id":"sfam","k":"SFAM","x":1355,"owner":"PSL","href":"sfam.html","en":"Smart Farming Architecture Model","ax":"Layer 6 ชั้น × Domain 5 กลุ่ม × Hierarchical Zone 6 ระดับ","stake":"PPP ที่ทำ Biomass Power Plant (รับวัตถุดิบและข้อมูล) · PCC ในฐานะผู้ลงทุนที่ดินปลูกไผ่"}],"bridge":{"a":"sgam","b":"rami"},"layT":"ชั้น (Layer) ที่ซ้อนกันได้ — จุดที่ใช้ทีมร่วมกันลงรายละเอียดได้","layers":[{"n":"Business","sgam":1,"sciam":1,"rami":1,"sfam":1,"team":"\u003cb>แยกตามเจ้าภาพ\u003c/b> — เป็นเรื่องโมเดลธุรกิจของแต่ละบริษัท ใช้ร่วมกันไม่ได้"},{"n":"Function / Functional","sgam":1,"sciam":1,"rami":1,"sfam":1,"team":"\u003cb>แยกตามเจ้าภาพ\u003c/b> — ฟังก์ชันงานต่างกันตามโดเมน"},{"n":"Intelligence","sgam":1,"sciam":1,"rami":0,"sfam":0,"team":"เฉพาะฝั่ง PSP — ชั้นวิเคราะห์และตัดสินใจที่มีเฉพาะใน SGAM / SCIAM"},{"n":"Information / Data Model","sgam":1,"sciam":1,"rami":1,"sfam":1,"sh":1,"team":"\u003cb>แยกคน แต่ governance ร่วม\u003c/b> — CIM (IEC 61968 / 61970) · ISO 11783 + ADAPT · ECLASS + AAS (IEC 63278) ต้องใช้กติกาตั้งชื่อและเวอร์ชันชุดเดียวกัน"},{"n":"Communication","sgam":1,"sciam":1,"rami":1,"sfam":1,"sh":1,"team":"\u003cb>ทีมร่วมได้เต็มตัว\u003c/b> — OPC UA (IEC 62541) ใช้ทั้ง 3 แผนที่ · MQTT (ISO/IEC 20922) ใช้ใน SFAM และ RAMI 4.0"},{"n":"Integration","sgam":0,"sciam":0,"rami":1,"sfam":1,"sh":1,"team":"\u003cb>ทีมร่วม SFAM ↔ RAMI 4.0\u003c/b> — สองแผนที่นี้ใช้โครงชั้นเหมือนกันทุกประการ"},{"n":"Cyber / Security","sgam":1,"sciam":1,"rami":0,"sfam":1,"sh":1,"team":"\u003cb>ทีมร่วมได้เต็มตัว\u003c/b> — IEC 62443 (OT) และ ISO/IEC 27001 เป็น cross-cutting ของทุกแผนที่"},{"n":"Component / Asset","sgam":"C","sciam":"C","rami":"A","sfam":"A","team":"\u003cb>แยกตามเจ้าภาพ\u003c/b> — C = Component (SGAM) · A = Asset (SFAM / RAMI 4.0) ต่างกันที่นิยามแต่เชื่อมกันผ่าน AAS"}],"teams":[{"t":"ทีม Communication & Integration","s":"ดูแล OPC UA (IEC 62541) · MQTT (ISO/IEC 20922) · TSN / Industrial Ethernet ให้ทั้ง 3 แผนที่ — ทีมเดียวพอ ไม่ต้องมี 3 ชุด"},{"t":"ทีม Cyber / OT Security","s":"ดูแล IEC 62443 และ ISO/IEC 27001 เป็น cross-cutting — ขึ้นตรงกับ COE เพื่อให้บังคับใช้ได้ข้ามบริษัท"},{"t":"ทีม Information / Data Model","s":"แยกคนตามโดเมน แต่ใช้ governance เดียวกัน — Digital Nameplate (IEC 63365) และ AAS (IEC 63278) คือสะพานที่เชื่อมสินค้า PEM เข้ากับกริดของ PSP"}],"legend":[{"k":"coe","t":"COE ประสานงานกับเจ้าภาพ"},{"k":"own","t":"บริษัทเจ้าภาพเป็นเจ้าของโมเดล"},{"k":"use","t":"ผู้เกี่ยวข้อง และสะพานระหว่างโมเดล"}],"mascot":{"src":"","alt":"","w":0,"h":0}}</script>
 <!--MOWN_DATA_END-->
 
 <script>
 var LSK='pcc_mown_v1';
 var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'model-ownership.html'};
-var W=1840, H=1180;
+var W=1840, H=1440;
 function $(id){ return document.getElementById(id); }
 function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
@@ -191,7 +207,7 @@ var pT=null; function schedulePersist(){ clearTimeout(pT); pT=setTimeout(persist
 function render(){
   $('head').querySelector('[data-k="title"]').innerHTML=S.title||'';
   $('head').querySelector('[data-k="sub"]').innerHTML=S.sub||'';
-  ['coeT','coeS','whyT'].forEach(function(k){
+  ['coeT','coeS','layT'].forEach(function(k){
     var el=document.querySelector('[data-k="'+k+'"]'); if(el) el.innerHTML=S[k]||'';
   });
   $('coeTwo').innerHTML=(S.coe||[]).map(function(o,i){
@@ -199,36 +215,41 @@ function render(){
     return o.href?'<a href="'+o.href+'">'+in_+'</a>':'<div>'+in_+'</div>';
   }).join('');
 
-  /* โมเดลวางเป็น 4 คอลัมน์ บริษัทที่เป็นเจ้าภาพวางใต้โมเดลของตัวเอง */
-  var M=S.models||[], mh='', ch='';
-  M.forEach(function(m,i){
-    mh+='<div style="position:absolute;left:'+m.x+'px;top:450px;width:330px">'+
-        (m.href?'<a class="mdl" href="'+m.href+'" id="m_'+m.k+'">':'<div class="mdl" id="m_'+m.k+'">')+
-        '<b data-k="models.'+i+'.k">'+m.k+'</b><span class="en" data-k="models.'+i+'.en">'+m.en+'</span>'+
-        '<span class="sc" data-k="models.'+i+'.sc">'+m.sc+'</span>'+(m.href?'</a>':'</div>')+'</div>';
-    /* กรอบประรอบกลุ่มบริษัทที่รันโมเดลนี้ */
-    var owns=(S.cos||[]).filter(function(c){ return c.run===m.k; });
-    if(owns.length){
-      var x0=Math.min.apply(null,owns.map(function(c){return c.x;}))-14;
-      var x1=Math.max.apply(null,owns.map(function(c){return c.x+160;}))+14;
-      ch+='<div class="grp" style="left:'+x0+'px;top:'+(S.coY-16)+'px;width:'+(x1-x0)+'px;height:172px">'+
-          '<span class="lb">รัน '+esc(m.k)+'</span></div>';
-    }
-  });
-  $('models').innerHTML=mh;
-  (S.cos||[]).forEach(function(c,i){
-    ch+='<div class="co" id="c_'+c.k+'" style="position:absolute;left:'+c.x+'px;top:'+S.coY+'px;width:160px">'+
-        '<b data-k="cos.'+i+'.k">'+c.k+'</b><span class="nm" data-k="cos.'+i+'.nm">'+(c.nm||'')+'</span>'+
-        '<span class="role" data-k="cos.'+i+'.role">'+(c.role||'')+'</span>'+
-        '<span class="uses">ใช้: '+esc((c.use||[]).join(' · ')||'—')+'</span></div>';
-  });
-  $('cos').innerHTML=ch;
-
-  $('whyCells').innerHTML=(S.why||[]).map(function(o,i){
-    return '<div class="cell"><b data-k="why.'+i+'.t">'+o.t+'</b><span data-k="why.'+i+'.s">'+o.s+'</span></div>';
+  $('owners').innerHTML=(S.owners||[]).map(function(o,i){
+    return '<div class="own" id="o_'+o.k+'" style="position:absolute;left:'+o.x+'px;top:400px;width:360px">'+
+      '<div class="ttl"><b data-k="owners.'+i+'.k">'+o.k+'</b><span data-k="owners.'+i+'.nm">'+esc(o.nm)+'</span></div>'+
+      '<span class="rl" data-k="owners.'+i+'.rl">'+o.rl+'</span>'+
+      '<span class="own-tag">เจ้าภาพ '+esc(o.models.join(' · '))+'</span></div>';
   }).join('');
+
+  $('models').innerHTML=(S.models||[]).map(function(m,i){
+    var in_='<b data-k="models.'+i+'.k">'+m.k+'</b><span class="en" data-k="models.'+i+'.en">'+m.en+'</span>'+
+            '<span class="ax" data-k="models.'+i+'.ax">'+m.ax+'</span>';
+    return '<div style="position:absolute;left:'+m.x+'px;top:620px;width:250px">'+
+      (m.href?'<a class="mdl" href="'+m.href+'" id="m_'+m.id+'">'+in_+'</a>'
+             :'<div class="mdl" id="m_'+m.id+'">'+in_+'</div>')+'</div>';
+  }).join('');
+
+  $('stakes').innerHTML=(S.models||[]).map(function(m,i){
+    return '<div class="stk" id="s_'+m.id+'" style="position:absolute;left:'+m.x+'px;top:800px;width:250px">'+
+      '<span class="h">ผู้เกี่ยวข้อง</span><span class="b" data-k="models.'+i+'.stake">'+m.stake+'</span></div>';
+  }).join('');
+
+  var h='<tr><th>Layer</th>'+(S.models||[]).map(function(m){ return '<th class="c">'+esc(m.k)+'</th>'; }).join('')+
+        '<th>ทีมที่ดูแล และมาตรฐานที่ใช้ร่วมกัน</th></tr>';
+  (S.layers||[]).forEach(function(r){
+    h+='<tr'+(r.sh?' class="sh"':'')+'><td class="g">'+esc(r.n)+'</td>'+
+       (S.models||[]).map(function(m){ var v=r[m.id];
+         return '<td class="c '+(v?'y':'n2')+'">'+(v?(v===1?'●':esc(v)):'–')+'</td>'; }).join('')+
+       '<td>'+r.team+'</td></tr>';
+  });
+  $('tLayer').innerHTML=h;
+  $('teams').innerHTML=(S.teams||[]).map(function(t,i){
+    return '<div class="t"><b data-k="teams.'+i+'.t">'+t.t+'</b><span data-k="teams.'+i+'.s">'+t.s+'</span></div>';
+  }).join('');
+
   $('legend').innerHTML=(S.legend||[]).map(function(l){
-    return '<div class="li"><span>'+esc(l.t)+'</span><span class="sw '+(l.k==='flow'?'':l.k)+'"></span></div>';
+    return '<div class="li"><span>'+esc(l.t)+'</span><span class="sw sw-'+l.k+'"></span></div>';
   }).join('');
   setEditable();
   requestAnimationFrame(function(){ drawWires(); fit(); });
@@ -254,7 +275,7 @@ function curve(p1,p2){
   return 'M'+p1[0]+','+p1[1]+' C'+p1[0]+','+(p1[1]+dy)+' '+p2[0]+','+(p2[1]-dy)+' '+p2[0]+','+p2[1];
 }
 function drawWires(){
-  var defs='<defs>'+['own:#7B4FC9','use:#8AA0B6','coe:#2E7D32'].map(function(d){
+  var defs='<defs>'+['own:#C2690A','use:#8AA0B6','coe:#2E7D32'].map(function(d){
       var q=d.split(':');
       return '<marker id="ar-'+q[0]+'" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">'+
              '<path d="M0 0 L10 5 L0 10 z" fill="'+q[1]+'"/></marker>';
@@ -262,20 +283,20 @@ function drawWires(){
     '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%">'+
     '<feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="#0B2447" flood-opacity=".14"/></filter></defs>';
   var g={coe:[],own:[],use:[]};
-  (S.models||[]).forEach(function(m){ g.coe.push(curve(pt(box('coe'),'b'),pt(box('m_'+m.k),'t'))); });
-  (S.cos||[]).forEach(function(c){
-    if(c.run) g.own.push(curve(pt(box('m_'+c.run),'b'),pt(box('c_'+c.k),'t')));
-    (c.use||[]).forEach(function(u){
-      var a=box('m_'+u), b=box('c_'+c.k);
-      /* เส้น "ใช้" อ้อมด้านข้าง ไม่ให้ทับเส้น "รัน" ที่ลงตรง */
-      var p1=[a.x+(b.x>a.x?a.w:0), a.y+a.h*0.78], p2=[b.x+(b.x>a.x?0:b.w), b.y+b.h*0.42];
-      var mx=(p1[0]+p2[0])/2;
-      g.use.push('M'+p1[0]+','+p1[1]+' C'+mx+','+p1[1]+' '+mx+','+p2[1]+' '+p2[0]+','+p2[1]);
-    });
+  (S.owners||[]).forEach(function(o){ g.coe.push(curve(pt(box('coe'),'b'),pt(box('o_'+o.k),'t'))); });
+  (S.models||[]).forEach(function(m){
+    g.own.push(curve(pt(box('o_'+m.owner),'b'),pt(box('m_'+m.id),'t')));
+    g.use.push(curve(pt(box('m_'+m.id),'b'),pt(box('s_'+m.id),'t')));
   });
+  /* สะพาน SGAM ↔ RAMI 4.0 — สินค้า Precise อยู่ทั้งสองแผนที่ */
+  if(S.bridge){
+    var A=box('m_'+S.bridge.a), B=box('m_'+S.bridge.b);
+    var y=A.y+A.h*0.5;
+    g.use.push('M'+(A.x+A.w)+','+y+' C'+(A.x+A.w+60)+','+(y-90)+' '+(B.x-60)+','+(y-90)+' '+B.x+','+y);
+  }
   var style={coe:'stroke:#2E7D32;stroke-width:3.2',
-             own:'stroke:#7B4FC9;stroke-width:3',
-             use:'stroke:#8AA0B6;stroke-width:2;stroke-dasharray:7 7;opacity:.85'};
+             own:'stroke:#C2690A;stroke-width:3',
+             use:'stroke:#8AA0B6;stroke-width:2;stroke-dasharray:7 7;opacity:.9'};
   var h=defs;
   ['use','own','coe'].forEach(function(k){
     h+='<g fill="none" style="'+style[k]+'" stroke-linecap="round" filter="url(#soft)" marker-end="url(#ar-'+k+')">'+
