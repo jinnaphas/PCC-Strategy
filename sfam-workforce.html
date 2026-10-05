@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCC — SFAM Workforce &amp; Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12233A;--mute:#5A7391;--line:#D8E3EE;--blue:#0B2447;--blue2:#13507C;
+  --m:#C2690A;--s:#0077B6;--p:#7B4FC9;--green:#2E7D32;--red:#C0392B;--paper:#F4F7FB}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','Inter',system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;
+  background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06)}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
+.bar a.back,.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;
+  text-decoration:none;cursor:pointer;white-space:nowrap}
+.bar a.back:hover,.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.pub{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
+.bar .sp{flex:1}
+#autosave{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB}
+#autosave.hit{color:var(--green)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:18px 18px 80px}
+.hero{background:linear-gradient(135deg,#0B2447,#13507C 55%,#1C6CA8);color:#fff;border-radius:20px;
+  padding:26px 30px;box-shadow:0 18px 44px rgba(11,36,71,.26)}
+.hero .kd{font:800 9.5px 'Inter';letter-spacing:.2em;text-transform:uppercase;color:#9FC2DE}
+.hero h1{font-family:'Inter','Sarabun';font-size:27px;font-weight:900;margin:7px 0 0;letter-spacing:-.01em}
+.hero .sub{font-size:13.5px;color:#CFE0EE;margin-top:9px;line-height:1.65;max-width:980px}
+.hero .kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .k{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:9px 15px}
+.hero .k b{display:block;font-family:'Inter';font-size:19px;font-weight:900}
+.hero .k span{font-size:10px;opacity:.85}
+
+.sec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;margin-top:16px;
+  box-shadow:0 8px 22px rgba(18,35,58,.06)}
+.sech{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:13px}
+.sech .n{width:27px;height:27px;border-radius:9px;background:var(--blue2);color:#fff;display:flex;
+  align-items:center;justify-content:center;font:900 13px 'Inter';flex:none}
+.sech h2{font-family:'Inter','Sarabun';font-size:19px;font-weight:800;margin:0;letter-spacing:-.01em}
+.sech .cap{font-size:12.5px;color:var(--mute)}
+.sec h3{font-family:'Inter','Sarabun';font-size:14px;font-weight:800;margin:0 0 9px}
+.cap{font-size:12.5px;color:var(--mute);line-height:1.6}
+
+table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:9px}
+table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;
+  padding:7px 10px;text-align:left;border:1px solid #14496e;vertical-align:middle}
+table.t td{border:1px solid var(--line);padding:7px 10px;line-height:1.55;vertical-align:top}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.g{font-weight:700;color:var(--blue2);white-space:nowrap}
+table.t tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+table.t tr:hover td{background:#F8FBFE}
+table.t tr.sum:hover td{background:#EAF3FA}
+td.pos{color:var(--green);font-weight:800}
+td.neg{color:var(--red);font-weight:800}
+th.m,td.hm{background:#FFF3E5}
+th.s,td.hs{background:#EAF4FB}
+th.p,td.hp{background:#F3EDFB}
+table.t th.m{background:var(--m);border-color:#9c5408}
+table.t th.s{background:var(--s);border-color:#055c8c}
+table.t th.p{background:var(--p);border-color:#5f39a3}
+
+table.mx{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:9px}
+table.mx th{background:var(--blue2);color:#fff;font:700 10.5px 'Inter','Sarabun';padding:6px 8px;
+  text-align:center;border:1px solid #14496e}
+table.mx th.l{text-align:left;width:190px}
+table.mx td{border:1px solid var(--line);padding:6px 8px;line-height:1.45;vertical-align:top}
+table.mx td.l{font-weight:800;color:var(--blue2);background:#F7FAFD}
+table.mx td.l small{display:block;font-weight:400;color:#93A6BA;font-size:9.5px;margin-top:1px}
+table.mx td.ok{background:#F1F8F2}
+table.mx td.gap{background:#FFF0F0}
+table.mx td.na{background:#F7FAFD;color:#C3D2E0;text-align:center}
+table.mx .r{display:block;font-weight:700;color:var(--ink)}
+table.mx .n{display:block;font:800 9.5px 'Inter';margin-top:2px}
+table.mx .n.have{color:var(--green)} table.mx .n.miss{color:var(--red)}
+.legend2{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:11px;color:var(--mute)}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px;border:1px solid var(--line)}
+.roles{display:flex;flex-wrap:wrap;gap:13px}
+.role{flex:1;min-width:300px;border:1px solid var(--line);border-top-width:5px;border-radius:14px;padding:13px 16px;background:#FCFDFF}
+.role.n2{border-top-color:#7B4FC9} .role.r2{border-top-color:#C2690A} .role.u2{border-top-color:#0077B6}
+.role .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.role .hd b{font-family:'Inter','Sarabun';font-size:14px;font-weight:800}
+.role .tg{font:800 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:7px;color:#fff}
+.role.n2 .tg{background:#7B4FC9} .role.r2 .tg{background:#C2690A} .role.u2 .tg{background:#0077B6}
+.role .lv{font:700 10px 'Inter';color:#7D93AA}
+.role p{font-size:11.5px;color:#41566E;line-height:1.6;margin:8px 0 0}
+.role .std{margin-top:8px;font-size:10.5px;color:#5A6E88;line-height:1.55;border-top:1px dashed var(--line);padding-top:7px}
+.role .std b{font:800 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:#93A6BA;display:block;margin-bottom:3px}
+.role .cnt{margin-top:8px;font:800 11px 'Inter'}
+.tracks{display:flex;flex-wrap:wrap;gap:14px}
+.tr{flex:1;min-width:290px;border:1px solid var(--line);border-top-width:5px;border-radius:14px;padding:14px 17px;background:#FCFDFF}
+.tr.m{border-top-color:var(--m)} .tr.s{border-top-color:var(--s)} .tr.p{border-top-color:var(--p)}
+.tr .hd{display:flex;align-items:baseline;gap:9px}
+.tr .hd b{font-family:'Inter';font-size:27px;font-weight:900;line-height:1}
+.tr.m .hd b{color:var(--m)} .tr.s .hd b{color:var(--s)} .tr.p .hd b{color:var(--p)}
+.tr .hd span{font-family:'Inter';font-size:13.5px;font-weight:800}
+.tr .q{display:inline-block;margin-top:9px;font:800 10px 'Inter';letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:9px;color:#fff}
+.tr.m .q{background:var(--m)} .tr.s .q{background:var(--s)} .tr.p .q{background:var(--p)}
+.tr p{font-size:12.5px;color:#41566E;line-height:1.65;margin:9px 0 0}
+.tr ul{margin:8px 0 0;padding-left:17px;font-size:12px;color:#41566E;line-height:1.6}
+
+.warnbox{background:#FFF7EC;border:1px solid #F6D9AD;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#6b4a12}
+.okbox{background:#EFF8F1;border:1px solid #BEDFC6;border-radius:12px;padding:12px 16px;margin-top:12px;
+  font-size:12.5px;line-height:1.7;color:#1B5E20}
+.rulebox{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.rule{flex:1;min-width:260px;border:1px solid var(--line);border-left:4px solid var(--blue2);border-radius:11px;
+  padding:11px 14px;background:#FCFDFF}
+.rule b{display:block;font-family:'Inter','Sarabun';font-size:13px;font-weight:800;margin-bottom:4px}
+.rule span{font-size:12px;color:#41566E;line-height:1.6}
+.tip{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(11,36,71,.94);color:#fff;
+  padding:9px 18px;border-radius:11px;font-size:12.5px;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+.tip.show{opacity:1}
+body.edit [data-k]{outline:1px dashed rgba(19,80,124,.45);outline-offset:2px;border-radius:4px}
+#tokPanel{position:fixed;right:16px;top:54px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:14px;box-shadow:0 16px 40px rgba(18,35,58,.18);z-index:70;width:330px}
+#tokPanel[hidden]{display:none}
+#tokPanel h4{margin:0 0 8px;font:800 12px 'Inter';color:var(--blue)}
+#tokPanel p{margin:0 0 9px;font-size:11.5px;color:var(--mute);line-height:1.55}
+#tokPanel input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px}
+#tokPanel .row{display:flex;gap:8px;margin-top:9px}
+#tokPanel button{flex:1;font:700 11px 'Inter';padding:7px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+#tokPanel button.ok{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+@media print{@page{size:A3 portrait;margin:10mm} .bar,.tip,#tokPanel{display:none!important} body{background:#fff} .sec{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand"><b>SFAM Workforce</b><span>PCC Group · Bamboo Value Chain</span></div>
+  <a class="back" href="standards-cube.html">🧊 Standards Cube</a>
+  <a class="back" href="job-architecture.html">👤 Job Architecture</a>
+  <a class="back" href="workforce-present.html">Workforce Present</a>
+  <a class="back" href="strategy-mapping.html">Bamboo Flow</a>
+  <div class="sep"></div>
+  <button id="bEdit">✎ แก้ข้อความ</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
+  <span class="sp"></span>
+  <span id="autosave">● บันทึกอัตโนมัติ</span>
+</div>
+
+<div id="tokPanel" hidden>
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับปุ่ม “บันทึกขึ้นเว็บ” เก็บไว้ในเครื่องนี้เท่านั้น</p>
+  <input id="tokInput" type="password" placeholder="ghp_...">
+  <div class="row"><button class="ok" id="tokSave">บันทึก</button><button id="tokClear">ลบ</button></div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">SFAM Workforce &amp; Training</div>
+    <h1 data-k="h1">กำลังคนและหลักสูตรของห่วงโซ่ไผ่ — ถอดจาก SFAM</h1>
+    <div class="sub" data-k="hsub">เอา Flow ใน Bamboo Supply Chain มาทาบกับชั้นและโดเมนของ SFAM แล้วถามว่าแต่ละช่องต้องมีใคร และคนนั้นต้องรู้มาตรฐานตัวไหน</div>
+    <div class="kpis" id="heroKpi"></div>
+  </div>
+
+  <div class="sec" id="s1">
+    <div class="sech"><span class="n">1</span><h2>ช่องว่างกำลังคนวันนี้</h2>
+      <span class="cap" data-k="c1">ถอดจากงบบุคลากรปี 2570 ที่นำเข้าในหน้า Capex/Opex</span></div>
+    <table class="t" id="tNow"></table>
+    <div class="warnbox" id="nowNote" data-k="nowNote"></div>
+  </div>
+
+  <div class="sec" id="s2">
+    <div class="sech"><span class="n">2</span><h2>Workforce Matrix — ชั้น SFAM × โดเมนของห่วงโซ่ไผ่</h2>
+      <span class="cap" data-k="c2">ใช้แกนเดียวกับ Standards Cube จะได้เห็นว่าชั้นไหนมีมาตรฐานแต่ไม่มีคน</span></div>
+    <table class="mx" id="tMx"></table>
+    <div class="legend2">
+      <span><i style="background:#F1F8F2"></i>มีคนแล้ว</span>
+      <span><i style="background:#FFF0F0"></i>ยังไม่มีคน — ต้องสร้าง</span>
+      <span><i style="background:#F7FAFD"></i>ไม่ใช้ในห่วงโซ่ไผ่</span>
+    </div>
+    <div class="warnbox" id="mxNote" data-k="mxNote"></div>
+  </div>
+
+  <div class="sec" id="s3">
+    <div class="sech"><span class="n">3</span><h2>ตำแหน่งที่ต้องมี</h2>
+      <span class="cap" data-k="c3">เรียงตามชั้นของ SFAM · R = ย้ายอาชีพ · U = ยกระดับ · N = ทักษะใหม่</span></div>
+    <div class="roles" id="roles"></div>
+    <h3 style="margin-top:18px">สรุปจำนวนคน</h3>
+    <table class="t" id="tSum"></table>
+  </div>
+
+  <div class="sec" id="s4">
+    <div class="sech"><span class="n">4</span><h2>แผนหลักสูตร — ผูกกับมาตรฐาน SFAM รายตัว</h2>
+      <span class="cap" data-k="c4">ทุกหลักสูตรอ้างมาตรฐานจริงที่อยู่ในแผนที่ SFAM ไม่ใช่หลักสูตรทั่วไป</span></div>
+    <table class="t" id="tCur"></table>
+  </div>
+
+  <div class="sec" id="s5">
+    <div class="sech"><span class="n">5</span><h2>หลักสูตรเกษตรกรคู่สัญญา — กำลังคนที่ไม่อยู่ในพีระมิด</h2>
+      <span class="cap" data-k="c5">ส่วนที่ยังไม่มีใครรับผิดชอบ แต่เป็นผู้ป้อนข้อมูลเข้าระบบทั้งหมด</span></div>
+    <div class="warnbox" id="farmNote" data-k="farmNote"></div>
+    <table class="t" id="tFarm"></table>
+  </div>
+
+  <div class="sec" id="s6">
+    <div class="sech"><span class="n">6</span><h2>ลำดับการลงมือ และสิ่งที่ยังต้องการ</h2>
+      <span class="cap" data-k="c6">อะไรต้องมาก่อน และข้อมูลอะไรที่ยังขาด</span></div>
+    <div class="rulebox" id="seq"></div>
+    <h3 style="margin-top:18px">ข้อมูลที่ยังต้องการ</h3>
+    <table class="t" id="tNeed"></table>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<!--SFW_DATA_START-->
+<script id="sfw-data" type="application/json">{"savedAt":1791174350756,"kpi":[{"v":"~11 คน","t":"กำลังคน PSL วันนี้ (ประมาณจากงบ)"},{"v":"40 คน","t":"ที่ห่วงโซ่ไผ่ต้องการ"},{"v":"3 ชั้น","t":"ชั้น SFAM ที่ยังไม่มีคนเลย"},{"v":"39 ชม.","t":"หลักสูตรเกษตรกรคู่สัญญา/ราย"}],"now":[{"cc":"PSL101 — โรงงานเยื่อ/เส้นใย","sal":1081032,"wel":725668.67,"hc":"3 – 5"},{"cc":"PSL102 — Nursery / Lab","sal":934092,"wel":389205,"hc":"2 – 4"},{"cc":"PSL103 — ส่งเสริมเกษตร / แปลง","sal":409200,"wel":170500,"hc":"1 – 2"},{"cc":"Center","sal":248000,"wel":850733.33,"hc":"1 – 2"},{"cc":"รวม PSL","sal":2672324,"wel":2136107,"hc":"7 – 16","hi":1}],"nowNote":"\u003cb>วิธีคำนวณ:\u003c/b> ค่าใช้จ่ายบุคลากรรวม 4.81 ลบ. ÷ ค่าเฉลี่ยทั้งกลุ่ม 682,792 บาท/คน/ปี = 7 คน · ถ้าใช้อัตราสายปฏิบัติการ 25,000 บาท/เดือน = 16 คน \u003cb>น่าจะอยู่ราว 10–12 คน\u003c/b>\u003cbr>\u003cb>ข้อควรระวังสำคัญ:\u003c/b> ทีมไผ่บางส่วนอยู่ในบัญชีของ PCC ไม่ใช่ PSL — ในงบ PCC มีศูนย์ต้นทุน PSL101–104 และมีรายการ “ค่าใช้จ่ายสนับสนุนธุรกิจ PSL 23.00 ลบ.” แต่เงินเดือนของ PCC รวมอยู่ในบรรทัดเดียวที่ Center จึงแยกไม่ได้ว่ามีคนไผ่กี่คนอยู่ฝั่ง PCC \u003cb>ตัวเลขข้างบนจึงเป็นขอบล่าง ไม่ใช่กำลังคนทั้งหมดของห่วงโซ่ไผ่\u003c/b>","mx":{"lays":[["biz","Business","ธุรกิจ · KPI · สอบย้อนกลับ"],["fun","Function","วางแผนและสั่งงาน"],["inf","Information","Data model · ID แปลง/ต้นไม้"],["com","Communication","โปรโตคอลรับส่งข้อมูล"],["itg","Integration","เซ็นเซอร์ · ตัวสั่งการ · HMI"],["ast","Asset","เครื่องจักร · แปลง · ต้นไผ่"]],"doms":[["cul","Cultivation","เพาะชำ + แปลงปลูก"],["pro","Processing","แปรรูป + Biochar + Pellet"],["sto","Storage","ลานไม้ + คลัง"],["dst","Distribution","ส่งผู้ซื้อ + P2P"]],"cells":{"biz|cul":{"r":"Traceability & Certification Lead","n":1,"have":0},"biz|pro":{"r":"หัวหน้าหน่วยแปรรูป (เจ้าของ KPI)","n":1,"have":1},"biz|sto":{"r":"หัวหน้าคลังและขนส่ง","n":1,"have":0},"biz|dst":{"r":"ผู้จัดการธุรกิจ / COO PSL","n":1,"have":1},"fun|cul":{"r":"Farm Operations Planner","n":1,"have":0},"fun|pro":{"r":"ผู้วางแผนการผลิตแปรรูป","n":1,"have":0},"fun|dst":{"r":"ผู้วางแผนการส่งมอบ","n":1,"have":0},"inf|cul":{"r":"Agri Data Steward","n":1,"have":0},"inf|pro":{"r":"QC Data / บันทึกชั้นคุณภาพ","n":2,"have":0},"inf|sto":{"r":"เจ้าหน้าที่คลัง (บันทึก EPCIS)","n":2,"have":0},"inf|dst":{"r":"Agri Data Steward (ใช้ร่วม)","n":0,"have":0},"com|cul":{"r":"ใช้ทีมร่วมกับ PSP / PEM","n":0,"have":1},"com|pro":{"r":"ใช้ทีมร่วมกับ PSP / PEM","n":0,"have":1},"itg|cul":{"r":"ช่างเซ็นเซอร์ / IoT ภาคสนาม","n":2,"have":0},"itg|pro":{"r":"ช่างคุมเครื่องและ HMI","n":5,"have":1},"ast|cul":{"r":"หัวหน้าเรือนเพาะชำ · Lab · คนงานแปลง · ส่งเสริมเกษตร","n":15,"have":1},"ast|pro":{"r":"ช่างเครื่องจักรแปรรูป · เตา Biochar · Pellet","n":5,"have":1},"ast|sto":{"r":"คนงานคลังและลานไม้","n":1,"have":0}}},"mxNote":"\u003cb>สิ่งที่ตารางนี้บอก:\u003c/b> ชั้น \u003cb>Information\u003c/b> ว่างทั้งแถว และชั้น \u003cb>Function\u003c/b> ว่างเกือบหมด ขณะที่ชั้น Asset และ Integration มีคนอยู่บ้างแล้ว — แปลว่าเรามีคนทำงานหน้างาน แต่\u003cb>ไม่มีใครเป็นเจ้าของข้อมูล\u003c/b>\u003cbr>ชั้น Communication ตั้งใจให้ว่าง เพราะใช้ทีมร่วมกับ PSP และ PEM ตามที่สรุปไว้ในหน้า Model Ownership (OPC UA · MQTT เป็นมาตรฐานเดียวกันทั้ง 3 แผนที่)","roles":[{"t":"Digital Architect (SFAM)","run":"N","lv":"9B–9A · Specialist","grp":"ชั้นข้อมูลและดิจิทัล","now":0,"need":1,"d":"เจ้าของ reference model SFAM ของทั้งกลุ่ม กำหนดมาตรฐานและตรวจรับการออกแบบ ระยะแรกยืมจาก COE","std":"SFAM reference model · IEC 62264 / ISA-95 · ISO/IEC 27001"},{"t":"Agri Data Steward","run":"N","lv":"7C–7A · Specialist","grp":"ชั้นข้อมูลและดิจิทัล","now":0,"need":1,"d":"นิยาม ID แปลง ID ต้นไม้ หน่วยวัด และเวอร์ชันข้อมูล ถ้าไม่มีคนนี้ เซ็นเซอร์ที่ลงทุนไปจะได้ข้อมูลที่เทียบกันไม่ได้","std":"ISO 11783-10 · AgGateway ADAPT · ISO 19156 · ISO 28258"},{"t":"Traceability & Certification Lead","run":"N","lv":"8C–8A · Specialist","grp":"ชั้นข้อมูลและดิจิทัล","now":0,"need":1,"d":"ระบบสอบย้อนกลับจากแปลงถึงผลิตภัณฑ์ และการรับรองคาร์บอน เป็นเงื่อนไขของราคาพรีเมียมและ Carbon Credit","std":"ISO 22005 · GS1 EPCIS · ISO 14064 / 14067"},{"t":"Farm Operations Planner","run":"U","lv":"7C–7A · Project","grp":"ชั้นข้อมูลและดิจิทัล","now":0,"need":1,"d":"วางแผนปลูก ตัด และขนส่งให้สอดคล้องกับกำลังการผลิตของโรงแปรรูปและโรงไฟฟ้า","std":"IEC 62264 / ISA-95 · ISO 18497"},{"t":"ช่างเซ็นเซอร์ / IoT ภาคสนาม","run":"R","lv":"6B–6A · Specialist","grp":"ชั้นข้อมูลและดิจิทัล","now":0,"need":2,"d":"ติดตั้งและดูแลเซ็นเซอร์ความชื้น ปั๊ม ระบบน้ำอัตโนมัติ — ย้ายมาจากช่างไฟ/ช่างกลสายปฏิบัติการ","std":"ISO 11783 (ISOBUS) · OGC SensorThings API · IEC 62541 (OPC UA)"},{"t":"Agronomist ไผ่","run":"N","lv":"7C–7A · Specialist","grp":"เพาะชำและแปลงปลูก","now":0,"need":1,"d":"เลือกสายพันธุ์ ระยะปลูก และการจัดการแปลงให้ได้ yield ตามแผน 5 สายพันธุ์","std":"ISO 28258 (Soil data) · ISO 19156"},{"t":"นักเพาะเลี้ยงเนื้อเยื่อ (Lab)","run":"N","lv":"6B–6A · Specialist","grp":"เพาะชำและแปลงปลูก","now":1,"need":2,"d":"ผลิตต้นกล้าในสภาวะควบคุม ใช้ตู้ BSC Class II · Autoclave · ระบบน้ำกลั่น ตามที่ลงทุนไว้ในงบ 2570","std":"—"},{"t":"ช่างเทคนิค Lab","run":"R","lv":"5B–6C","grp":"เพาะชำและแปลงปลูก","now":1,"need":2,"d":"งานประจำวันของ Lab และการบันทึกข้อมูลรุ่นกล้า","std":"—"},{"t":"หัวหน้าเรือนเพาะชำ","run":"U","lv":"6B–6A","grp":"เพาะชำและแปลงปลูก","now":1,"need":1,"d":"คุมเรือนเพาะชำ โรงเรือนพลางแสง และลานอนุบาล","std":"ISO 18497"},{"t":"คนงานเรือนเพาะชำและแปลง","run":"R","lv":"1–4","grp":"เพาะชำและแปลงปลูก","now":2,"need":6,"d":"งานเพาะชำ ผสมดิน ปลูก และดูแลแปลง — ย้ายมาจากสายปฏิบัติการที่ต้องลด 228 คน","std":"ISO 18497 (ความปลอดภัย)"},{"t":"นักส่งเสริมเกษตร (Extension)","run":"U","lv":"5B–6C","grp":"เพาะชำและแปลงปลูก","now":1,"need":5,"d":"ดูแลเกษตรกรคู่สัญญา 1 คนต่อราว 200 ไร่ และเป็นผู้สอนหลักสูตรเกษตรกร","std":"ISO 22005 · ISO 11783-10 (บันทึกข้อมูลแปลง)"},{"t":"หัวหน้าหน่วยแปรรูป","run":"U","lv":"6B–6A","grp":"แปรรูปและพลังงาน","now":1,"need":1,"d":"คุมการแปรรูปเบื้องต้น PSL103 และชั้นคุณภาพวัตถุดิบ","std":"IEC 62264 · ISO 22005"},{"t":"ช่างคุมเครื่องสับ / ตัด","run":"R","lv":"1–4","grp":"แปรรูปและพลังงาน","now":2,"need":3,"d":"เดินเครื่องและบำรุงรักษาเครื่องจักรแปรรูป","std":"ISO 18497 · ISO 25119"},{"t":"ช่างคุมเตา Biochar","run":"R","lv":"1–4","grp":"แปรรูปและพลังงาน","now":1,"need":2,"d":"คุมเตาและระบบลำเลียงของ PSL104","std":"IEC 62443 (OT)"},{"t":"ช่างคุมสาย Pellet","run":"R","lv":"1–4","grp":"แปรรูปและพลังงาน","now":0,"need":2,"d":"เดินสายผลิต White Pellet และ Torrefied Pellet","std":"IEC 62443 (OT)"},{"t":"QC วัตถุดิบและผลิตภัณฑ์","run":"U","lv":"5B–6C","grp":"แปรรูปและพลังงาน","now":0,"need":2,"d":"ตรวจความชื้น ขนาด ชั้นคุณภาพ และบันทึกเข้าระบบสอบย้อนกลับ","std":"ISO 22005 · GS1 EPCIS"},{"t":"หัวหน้าคลังและขนส่ง","run":"U","lv":"6B–6A","grp":"คลังและการส่งมอบ","now":0,"need":1,"d":"คุมลานไม้ คลังวัตถุดิบ และการส่งมอบให้ผู้ซื้อและ P2P","std":"GS1 EPCIS"},{"t":"เจ้าหน้าที่คลัง","run":"R","lv":"1–4","grp":"คลังและการส่งมอบ","now":0,"need":2,"d":"รับ-จ่ายวัตถุดิบ และบันทึกเหตุการณ์ตาม EPCIS","std":"GS1 EPCIS"},{"t":"ผู้จัดการธุรกิจ / COO","run":"U","lv":"10–13 · Management","grp":"บริหารและสนับสนุน","now":1,"need":1,"d":"รับผิดชอบ P&L ของ PSL และเป็นเจ้าภาพ SFAM ในระดับบริหาร","std":"—"},{"t":"จัดซื้อ · บัญชี · ธุรการ","run":"U","lv":"5B–6C","grp":"บริหารและสนับสนุน","now":2,"need":3,"d":"งานสนับสนุนธุรกิจ","std":"—"}],"cur":[{"t":"SFAM Architecture — อ่านและใช้ reference model","std":"SFAM · IEC 62264 / ISA-95","who":"Digital Architect · COO · หัวหน้าหน่วย","hr":32,"when":"2570 H1"},{"t":"Agri Data Model พื้นฐาน","std":"ISO 11783-10 · AgGateway ADAPT","who":"Data Steward · Architect · Ops Planner","hr":24,"when":"2570 H1"},{"t":"Traceability อาหารและเกษตร","std":"ISO 22005","who":"Traceability Lead · QC · ส่งเสริมเกษตร","hr":16,"when":"2570 H1"},{"t":"ความปลอดภัยเครื่องจักรเกษตร","std":"ISO 18497 · ISO 25119","who":"ช่างเครื่องจักร · คนงานแปลง · หัวหน้างาน","hr":16,"when":"2570 H1","must":1},{"t":"Observations & Soil Data","std":"ISO 19156 · ISO 28258","who":"Data Steward · Agronomist","hr":16,"when":"2570 H2"},{"t":"GS1 EPCIS & Product Identification","std":"GS1 EPCIS","who":"Traceability Lead · คลัง · ขาย","hr":12,"when":"2570 H2"},{"t":"SensorThings & MQTT ภาคสนาม","std":"OGC SensorThings API · ISO/IEC 20922","who":"ช่างเซ็นเซอร์ / IoT","hr":24,"when":"2570 H2"},{"t":"OT Security พื้นฐาน","std":"IEC 62443 · ISO/IEC 27001","who":"ทุกคนที่แตะระบบควบคุม","hr":8,"when":"2570 H2","must":1},{"t":"Tissue Culture ไผ่","std":"—","who":"ทีม Lab PSL102","hr":80,"when":"2570"},{"t":"ISOBUS และเครื่องจักรเกษตร","std":"ISO 11783 (ISOBUS)","who":"ช่างเครื่องจักรเกษตร","hr":24,"when":"2571"},{"t":"OPC UA สำหรับงานแปรรูป","std":"IEC 62541","who":"ช่างคุมเครื่อง · Ops Planner","hr":16,"when":"2571"},{"t":"ISA-95 สำหรับการวางแผนผลิต","std":"IEC 62264","who":"Ops Planner · หัวหน้าแปรรูป","hr":24,"when":"2571"},{"t":"Carbon Accounting & MRV","std":"ISO 14064 · ISO 14067","who":"Traceability Lead · ESG","hr":24,"when":"2571"}],"farmNote":"\u003cb>ทำไมต้องมีหลักสูตรนี้:\u003c/b> แผนปลูก 1,000 ไร่/ปี ถ้าแปลงละ 10–20 ไร่ จะมีเกษตรกรคู่สัญญา \u003cb>50–100 รายต่อปี\u003c/b> สะสม 4 เฟสเป็นหลายร้อยราย \u003cb>คนเหล่านี้คือผู้ป้อนข้อมูลเข้าระบบทั้งหมด\u003c/b> — ID แปลง ID ต้นไม้ วันปลูก วันตัด ถ้าเขาบันทึกไม่ถูก ระบบสอบย้อนกลับและ Carbon Credit จะใช้ไม่ได้เลย\u003cbr>แต่เกษตรกรไม่ใช่พนักงาน จึงไม่อยู่ในพีระมิด 700 คน และ\u003cb>ยังไม่มีใครรับผิดชอบการสอนกลุ่มนี้ในแผนไหนเลย\u003c/b>\u003cbr>\u003cb>ข้อเสนอ:\u003c/b> นักส่งเสริมเกษตร 5 คนเป็นผู้สอนหลัก จัดรุ่นละ 20 ราย ปีละ 4–5 รุ่น และนับชั่วโมงสอนเป็น KPI","farm":[{"t":"ปฐมนิเทศคู่สัญญา","d":"เงื่อนไขสัญญา · มาตรฐานคุณภาพที่รับซื้อ · ตารางการจ่ายเงิน","by":"นักส่งเสริมเกษตร","hr":6},{"t":"การปลูกและดูแลไผ่ตามสายพันธุ์","d":"5 สายพันธุ์ · ระยะปลูก · การให้น้ำและปุ๋ย · การจัดการโรค","by":"Agronomist","hr":12},{"t":"การบันทึกข้อมูลแปลงบนแอป","d":"ID แปลง · ID ต้นไม้ · บันทึกกิจกรรม — ใช้รูปแบบตาม ISO 11783-10","by":"Data Steward + ส่งเสริมเกษตร","hr":6},{"t":"การตัดและคัดชั้นคุณภาพ","d":"ขนาด · ความชื้น · การวางกอง · การส่งมอบ","by":"หัวหน้าหน่วยแปรรูป","hr":8},{"t":"ความปลอดภัยในงานเกษตร","d":"เครื่องมือตัด · การยกของ · สารเคมี · การปฐมพยาบาล","by":"ESG / HSE","hr":4},{"t":"สอบย้อนกลับและคาร์บอน","d":"ทำไมต้องบันทึก และเกษตรกรได้อะไรกลับจากการบันทึกครบ","by":"Traceability Lead","hr":3}],"seq":[{"t":"1. ตั้ง Agri Data Steward ก่อนขยายเซ็นเซอร์","d":"ในงบ 2570 ลงทุนชั้น Integration ไปแล้ว (เซนเซอร์น้ำใต้ดิน 0.10 · กล้องวงจรปิด 0.18 · ระบบน้ำและปั๊ม 0.43 ลบ.) แต่ชั้น Information ยังไม่มีเจ้าของ — \u003cb>ควรหยุดขยายเซ็นเซอร์จนกว่าจะมีคนนิยาม ID และหน่วยวัด\u003c/b>"},{"t":"2. ยืม Digital Architect จาก COE ก่อน","d":"การเป็นเจ้าภาพ SFAM เป็นงาน architecture คนละสายกับงานปลูกไผ่ ระยะแรกให้ COE ส่งคนมาประจำ แล้วค่อยปั้นคนของ PSL ขึ้นรับช่วง"},{"t":"3. ใช้ห่วงโซ่ไผ่รองรับคนจาก 228 ที่ต้องลด","d":"สายปฏิบัติการที่ต้องลด 228 คนใน 3 ปี กับธุรกิจไผ่-พลังงานที่กำลังขยาย (PSL 21.15 · PPP 50.52 · SBP 47.54 ลบ.) แก้ปัญหาให้กันได้ — ย้ายดีกว่าปล่อยออกแล้วรับใหม่"},{"t":"4. หลักสูตรบังคับ 2 ตัวต้องเสร็จก่อนขยายงาน","d":"ความปลอดภัยเครื่องจักรเกษตร (ISO 18497 · ISO 25119) และ OT Security (IEC 62443) — สองตัวนี้เป็นเงื่อนไขทางกฎหมายและความปลอดภัย ไม่ใช่ทางเลือก"},{"t":"5. ประกาศว่าโดเมน Livestock ไม่ใช้","d":"SFAM มี 5 โดเมน แต่ห่วงโซ่ไผ่ใช้ 4 ถ้าไม่ประกาศให้ชัด จะมีคนพยายามเติมให้ครบและเสียเวลาเปล่า"},{"t":"6. นับชั่วโมงสอนเกษตรกรเป็น KPI","d":"ถ้าไม่วัด นักส่งเสริมเกษตรจะเลือกทำงานที่วัดง่ายกว่า และหลักสูตรเกษตรกรจะไม่เกิด"}],"need":[{"t":"กำลังคนจริงของทีมไผ่ ทั้งฝั่ง PSL และ PCC","u":"แทนการประมาณจากงบบุคลากร และแตก To-Be รายตำแหน่ง","now":"ประมาณจาก Salary + Welfare หารด้วยค่าเฉลี่ยกลุ่ม"},{"t":"จำนวนไร่ต่อเกษตรกรคู่สัญญา 1 ราย","u":"คำนวณจำนวนรุ่นอบรมและจำนวนนักส่งเสริมที่ต้องมี","now":"สมมติ 10–20 ไร่/ราย"},{"t":"แผนกำลังการผลิตรายปีของโรงแปรรูปและ Pellet","u":"กำหนดจำนวนช่างคุมเครื่องและกะการทำงาน","now":"ประมาณจากรายการ Capex ปี 2570"},{"t":"มาตรฐานชั้นคุณภาพไผ่ที่รับซื้อ","u":"ออกแบบหลักสูตรการตัดและคัดคุณภาพให้เกษตรกร","now":"ยังไม่มีข้อมูล"},{"t":"ผู้ให้บริการฝึกอบรมมาตรฐาน ISO 22005 / GS1 EPCIS ในไทย","u":"วางแผนงบและตารางอบรม","now":"ยังไม่ได้สำรวจ"}],"txt":{}}</script>
+<!--SFW_DATA_END-->
+
+<script>
+var LSK='pcc_sfw_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'sfam-workforce.html'};
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function nf(v,d){ return (+v||0).toLocaleString('en-US',{minimumFractionDigits:d===undefined?2:d,maximumFractionDigits:d===undefined?2:d}); }
+function num(v){ return (+v||0).toLocaleString('en-US'); }
+function tip(m){ var t=$('tip'); t.textContent=m; t.classList.add('show'); clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2800); }
+
+function fileData(){ try{ var o=JSON.parse($('sfw-data').textContent); if(o) return o; }catch(e){} return {}; }
+var FD=fileData(), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{ var raw=localStorage.getItem(LSK); if(raw){ var ls=JSON.parse(raw); if(ls&&ls.tracks&&(ls.savedAt||0)>=baseSavedAt) S=ls; } }catch(e){}
+if(!S) S=FD;
+if(!S.txt) S.txt={};
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+function persist(){ try{ localStorage.setItem(LSK,JSON.stringify(S)); var a=$('autosave'); a.classList.add('hit');
+  setTimeout(function(){a.classList.remove('hit')},450); }catch(e){} }
+var pT=null; function schedulePersist(){ clearTimeout(pT); pT=setTimeout(persist,500); }
+
+/* ================= render ================= */
+function render(){
+  var K=S.kpi||[];
+  $('heroKpi').innerHTML=K.map(function(k){ return '<div class="k"><b>'+esc(k.v)+'</b><span>'+esc(k.t)+'</span></div>'; }).join('');
+
+  var h='<tr><th>ศูนย์ต้นทุน</th><th class="n">Salary (บาท/ปี)</th><th class="n">Welfare (บาท/ปี)</th>'+
+        '<th class="n">รวม</th><th class="n">ประมาณการคน</th></tr>';
+  (S.now||[]).forEach(function(r){
+    h+='<tr'+(r.hi?' class="sum"':'')+'><td class="g">'+esc(r.cc)+'</td><td class="n">'+nf(r.sal,0)+'</td>'+
+       '<td class="n">'+nf(r.wel,0)+'</td><td class="n">'+nf(r.sal+r.wel,0)+'</td><td class="n">'+esc(r.hc)+'</td></tr>';
+  });
+  $('tNow').innerHTML=h; $('nowNote').innerHTML=S.nowNote||'';
+
+  var M=S.mx||{}, L=M.lays||[], Dm=M.doms||[];
+  var h2='<tr><th class="l">ชั้น SFAM</th>'+Dm.map(function(d){ return '<th>'+esc(d[1])+'</th>'; }).join('')+'</tr>';
+  L.forEach(function(l){
+    h2+='<tr><td class="l">'+esc(l[1])+'<small>'+esc(l[2]||'')+'</small></td>'+
+      Dm.map(function(d){
+        var c=(M.cells||{})[l[0]+'|'+d[0]];
+        if(!c) return '<td class="na">—</td>';
+        return '<td class="'+(c.have?'ok':'gap')+'"><span class="r">'+esc(c.r)+'</span>'+
+          '<span class="n '+(c.have?'have':'miss')+'">'+esc(c.have?('มีแล้ว '+c.n+' คน'):('ต้องมี '+c.n+' คน'))+'</span></td>';
+      }).join('')+'</tr>';
+  });
+  $('tMx').innerHTML=h2; $('mxNote').innerHTML=S.mxNote||'';
+
+  $('roles').innerHTML=(S.roles||[]).map(function(r){
+    return '<div class="role '+r.run.toLowerCase()+'2"><div class="hd"><b>'+esc(r.t)+'</b>'+
+      '<span class="tg">'+esc(r.run)+'</span><span class="lv">'+esc(r.lv)+'</span></div>'+
+      '<p>'+esc(r.d)+'</p>'+
+      '<div class="std"><b>มาตรฐานที่ต้องรู้</b>'+esc(r.std||'—')+'</div>'+
+      '<div class="cnt" style="color:'+(r.now>=r.need?'#2E7D32':'#C0392B')+'">มีอยู่ '+r.now+' → ต้องมี '+r.need+' คน</div></div>';
+  }).join('');
+
+  var g={}, tn=0, tN=0;
+  (S.roles||[]).forEach(function(r){ if(!g[r.grp]) g[r.grp]={n:0,N:0}; g[r.grp].n+=r.now; g[r.grp].N+=r.need; tn+=r.now; tN+=r.need; });
+  var h3='<tr><th>กลุ่มงาน</th><th class="n">มีอยู่</th><th class="n">ต้องมี</th><th class="n">ต้องเพิ่ม</th></tr>';
+  Object.keys(g).forEach(function(k){
+    var d=g[k].N-g[k].n;
+    h3+='<tr><td class="g">'+esc(k)+'</td><td class="n">'+g[k].n+'</td><td class="n">'+g[k].N+'</td>'+
+        '<td class="n '+(d>0?'neg':'pos')+'">'+(d>0?'+':'')+d+'</td></tr>';
+  });
+  h3+='<tr class="sum"><td class="g">รวม</td><td class="n">'+tn+'</td><td class="n">'+tN+'</td>'+
+      '<td class="n neg">+'+(tN-tn)+'</td></tr>';
+  $('tSum').innerHTML=h3;
+
+  var h4='<tr><th>หลักสูตร</th><th>มาตรฐานที่อ้างอิง</th><th>ให้ใคร</th><th class="n">ชม.</th><th class="n">เมื่อไร</th></tr>';
+  (S.cur||[]).forEach(function(c){
+    h4+='<tr><td class="g">'+esc(c.t)+(c.must?' <span style="color:#C0392B;font-size:10px">บังคับ</span>':'')+'</td>'+
+        '<td>'+esc(c.std)+'</td><td>'+esc(c.who)+'</td><td class="n">'+c.hr+'</td><td class="n">'+esc(c.when)+'</td></tr>';
+  });
+  var th=(S.cur||[]).reduce(function(a,c){ return a+(+c.hr||0); },0);
+  h4+='<tr class="sum"><td class="g">รวม</td><td colspan="2"></td><td class="n">'+th+'</td><td></td></tr>';
+  $('tCur').innerHTML=h4;
+
+  $('farmNote').innerHTML=S.farmNote||'';
+  var h5='<tr><th>หลักสูตร</th><th>เนื้อหา</th><th>ใครสอน</th><th class="n">ชม.</th></tr>';
+  (S.farm||[]).forEach(function(c){
+    h5+='<tr><td class="g">'+esc(c.t)+'</td><td>'+esc(c.d)+'</td><td>'+esc(c.by)+'</td><td class="n">'+c.hr+'</td></tr>';
+  });
+  var fh=(S.farm||[]).reduce(function(a,c){ return a+(+c.hr||0); },0);
+  h5+='<tr class="sum"><td class="g">รวมต่อราย</td><td colspan="2"></td><td class="n">'+fh+'</td></tr>';
+  $('tFarm').innerHTML=h5;
+
+  $('seq').innerHTML=(S.seq||[]).map(function(r){
+    return '<div class="rule"><b>'+esc(r.t)+'</b><span>'+r.d+'</span></div>';
+  }).join('');
+  var h6='<tr><th>ข้อมูลที่ต้องการ</th><th>ใช้ทำอะไร</th><th>ตอนนี้ใช้อะไรแทน</th></tr>';
+  (S.need||[]).forEach(function(r){
+    h6+='<tr><td class="g">'+esc(r.t)+'</td><td>'+esc(r.u)+'</td><td>'+esc(r.now)+'</td></tr>';
+  });
+  $('tNeed').innerHTML=h6;
+
+  applyTxt(); setEditable();
+}
+var NODES=[].slice.call(document.querySelectorAll('[data-k]'));
+function applyTxt(){ NODES.forEach(function(el){ var k=el.dataset.k; if(S.txt[k]!==undefined) el.innerHTML=S.txt[k]; }); }
+
+/* ================= edit ================= */
+var editMode=false;
+function setEditable(){
+  document.body.classList.toggle('edit',editMode);
+  NODES.forEach(function(el){ el.setAttribute('contenteditable',editMode?'true':'false'); });
+}
+$('bEdit').addEventListener('click',function(){
+  editMode=!editMode; this.classList.toggle('on',editMode); setEditable();
+  tip(editMode?'แก้ข้อความได้ — ตารางคำนวณจากข้อมูลในหน้า':'ล็อกแล้ว');
+});
+document.addEventListener('input',function(e){
+  var el=e.target.closest('[data-k]'); if(!el||!editMode) return;
+  S.txt[el.dataset.k]=el.innerHTML; schedulePersist();
+});
+$('bPrint').addEventListener('click',function(){ window.print(); });
+
+/* ================= publish ================= */
+function tokGet(){ try{ return localStorage.getItem('pcc_gh_tok')||''; }catch(e){ return ''; } }
+$('bTok').addEventListener('click',function(){ var p=$('tokPanel'); p.hidden=!p.hidden; if(!p.hidden) $('tokInput').focus(); });
+$('tokSave').addEventListener('click',function(){ var v=$('tokInput').value.trim(); if(!v) return;
+  try{ localStorage.setItem('pcc_gh_tok',v); }catch(e){} $('tokInput').value=''; $('tokPanel').hidden=true; tip('บันทึก token แล้ว'); });
+$('tokClear').addEventListener('click',function(){ try{ localStorage.removeItem('pcc_gh_tok'); }catch(e){} tip('ลบ token แล้ว'); });
+function encodeB64(str){ var b=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<b.length;i+=ch){ var sl=b.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++) bin+=String.fromCharCode(sl[j]); r+=btoa(bin); } return r; }
+var DATA_RE=/<!--SFW_DATA_START-->[\s\S]*?<!--SFW_DATA_END-->/;
+function dataBlock(json){ return '<!--SFW_DATA_START-->\n<script id="sfw-data" type="application/json">'+json+'<\/script>\n<!--SFW_DATA_END-->'; }
+var publishing=false;
+async function publish(){
+  if(publishing) return;
+  var token=tokGet(); if(!token){ $('tokPanel').hidden=false; tip('ใส่ GitHub token ก่อน'); return; }
+  publishing=true; var btn=$('bPublish'), lbl=btn.textContent; btn.disabled=true; btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(), prev=S.savedAt; S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){ var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh}; if(body!=null){ hh['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    return fetch(GH.api+p,o); }
+  async function must(res,label){ if(!res.ok){ var m=''; try{ m=(await res.json()).message||''; }catch(_){}
+    throw new Error(label+' ('+res.status+') '+m); } return res; }
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้'); var text=await rawRes.text();
+    if(!DATA_RE.test(text)) throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){ return dataBlock(safe); });
+    var blobRes=await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'});
+    await must(blobRes,'สร้าง blob ไม่สำเร็จ'); var blob=await blobRes.json();
+    var refRes=await gh('GET',base+'/git/ref/heads/'+GH.branch); await must(refRes,'อ่าน ref ไม่ได้');
+    var ref=await refRes.json(), headSha=ref.object.sha;
+    var hcRes=await gh('GET',base+'/git/commits/'+headSha); await must(hcRes,'อ่าน commit ไม่ได้'); var hc=await hcRes.json();
+    var treeRes=await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]});
+    await must(treeRes,'สร้าง tree ไม่สำเร็จ'); var tree=await treeRes.json();
+    var cmtRes=await gh('POST',base+'/git/commits',{message:'SFAM workforce update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha,parents:[headSha]});
+    await must(cmtRes,'สร้าง commit ไม่สำเร็จ'); var commit=await cmtRes.json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:commit.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp; persist(); tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){ S.savedAt=prev; tip('✗ '+(e&&e.message?e.message:'ผิดพลาด')); }
+  finally{ publishing=false; btn.disabled=false; btn.textContent=lbl; }
+}
+$('bPublish').addEventListener('click',publish);
+
+render();
+</script>
+</body></html>
