@@ -285,6 +285,10 @@ body.connect .card .bd *{pointer-events:none}
   body{overflow:visible;background:#fff}
   #stage{position:static;overflow:visible;background:none}
   .card{box-shadow:none}
+  /* ลายน้ำลับคาดทแยง — ซ้ำทุกหน้าที่พิมพ์ */
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+    background-repeat:repeat;background-size:430px 260px;
+    background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='430' height='260'%3E%3Ctext x='215' y='130' fill='%230B2447' fill-opacity='0.075' font-family='Inter,Arial,sans-serif' font-size='21' font-weight='700' text-anchor='middle' transform='rotate(-20 215 130)'%3EConfidential Precise Property%3C/text%3E%3C/svg%3E")}
   @page{size:A3 landscape;margin:8mm}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -1912,6 +1916,27 @@ document.getElementById('presentExit').addEventListener('click',function(){ setP
 /* ออกจากเต็มจอ (เช่นกด Esc) → ออกจากโหมดนำเสนอ + คืนแถบเครื่องมืออัตโนมัติ */
 document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement && present) setPresent(false); });
 
+/* ---------- ลายน้ำลับ: คาดทแยงจางๆ บน PNG และ PDF ---------- */
+var WM_TEXT='Confidential Precise Property';
+function drawWatermark(ctx,w,h){
+  try{
+    var fs=Math.max(16, Math.round(Math.min(w,h)*0.026));
+    ctx.save();
+    ctx.globalAlpha=0.075;
+    ctx.fillStyle='#0B2447';
+    ctx.font='700 '+fs+'px Inter, Sarabun, Arial, sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    var tw=ctx.measureText(WM_TEXT).width||fs*12;
+    var stepX=tw+fs*4.5, stepY=fs*6.5, diag=Math.sqrt(w*w+h*h);
+    ctx.translate(w/2,h/2); ctx.rotate(-20*Math.PI/180); ctx.translate(-w/2,-h/2);
+    var row=0;
+    for(var y=-(diag-h)/2; y<h+(diag-h)/2; y+=stepY){
+      var off=(row%2)?stepX/2:0; row++;
+      for(var x=-(diag-w)/2+off; x<w+(diag-w)/2; x+=stepX) ctx.fillText(WM_TEXT,x,y);
+    }
+    ctx.restore();
+  }catch(e){}
+}
 /* export PNG (best-effort via SVG foreignObject) */
 /* เรนเดอร์บอร์ดเป็นรูป PNG (ตาม content bbox, 2x) — ใช้ร่วมกันทั้ง PNG และ PDF */
 function renderBoardImage(cb){
@@ -1947,6 +1972,7 @@ function _renderBoardImage(cb, liveImgs){
     try{
       var cv=document.createElement('canvas'); cv.width=Math.round(b.w*scale); cv.height=Math.round(b.h*scale);
       var ctx=cv.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,cv.width,cv.height); ctx.drawImage(img,0,0,cv.width,cv.height);
+      drawWatermark(ctx,cv.width,cv.height);
       cb(cv.toDataURL('image/png'), b);
     }catch(err){ cb(null); }
   };
