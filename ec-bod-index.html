@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EC · BOD 2027 — เด็คแผนกลยุทธ์รายบริษัท</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12233A;--mute:#5A7391;--line:#D8E3EE;--blue:#0B2447;--blue2:#13507C;--paper:#F4F7FB;
+ --green:#2E7D32;--orange:#C2690A;--red:#B0392B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','Inter',system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;
+ background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(18,35,58,.06)}
+.bar .brand{margin-right:6px;line-height:1.15}
+.bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
+.bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
+.bar button,.bar a.back{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+ color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;cursor:pointer;text-decoration:none}
+.bar button:hover,.bar a.back:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar .sp{flex:1}
+#st{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB}
+.wrap{max-width:1360px;margin:0 auto;padding:18px 18px 80px}
+.hero{background:linear-gradient(135deg,#0B2447,#13507C 55%,#1C6CA8);color:#fff;border-radius:20px;
+ padding:26px 30px;box-shadow:0 18px 44px rgba(11,36,71,.26)}
+.hero .kd{font:800 9.5px 'Inter';letter-spacing:.2em;text-transform:uppercase;color:#9FC2DE}
+.hero h1{font-family:'Inter','Sarabun';font-size:27px;font-weight:900;margin:7px 0 0;letter-spacing:-.01em}
+.hero .sub{font-size:13.5px;color:#CFE0EE;margin-top:9px;line-height:1.65;max-width:1000px}
+.hero .kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .k{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:9px 15px}
+.hero .k b{display:block;font-family:'Inter';font-size:19px;font-weight:900}
+.hero .k span{font-size:10px;opacity:.85}
+.sec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;margin-top:16px;
+ box-shadow:0 8px 22px rgba(18,35,58,.06)}
+.sec h2{font-family:'Inter','Sarabun';font-size:19px;font-weight:800;margin:0 0 4px}
+.sec .cap{font-size:12.5px;color:var(--mute);line-height:1.65}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px;margin-top:16px}
+.card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue2);border-radius:15px;
+ padding:15px 17px 14px;box-shadow:0 6px 18px rgba(18,35,58,.06);display:flex;flex-direction:column}
+.card.pcc{border-top-color:var(--orange)}
+.card .hd{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.card .code{font-family:'Inter';font-size:22px;font-weight:900;letter-spacing:-.02em;color:var(--blue)}
+.card .tag{font:800 9px 'Inter';letter-spacing:.07em;text-transform:uppercase;background:#EEF4FA;color:#44627E;
+ border-radius:999px;padding:3px 9px}
+.card.pcc .tag{background:#FDF0E2;color:#8A4A06}
+.card .th{font-size:12.5px;font-weight:700;color:var(--mute);margin-top:2px}
+.card .d{font-size:12px;color:#5B7389;margin-top:3px}
+.card .nums{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}
+.card .n{background:#F6FAFE;border:1px solid #E4EEF7;border-radius:9px;padding:7px 10px}
+.card .n b{display:block;font-family:'Inter';font-size:15px;font-weight:800;color:var(--blue2)}
+.card .n span{font-size:10px;color:#7A8CA0}
+.prog{margin-top:11px}
+.prog .lb{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-bottom:4px}
+.prog .tr{height:7px;background:#E9EFF6;border-radius:999px;overflow:hidden}
+.prog .tr i{display:block;height:100%;background:var(--green);width:0;transition:width .5s}
+.note{font-size:11.5px;color:#6B7F93;line-height:1.55;margin-top:10px;padding-left:10px;border-left:2px solid #E4EEF7}
+.card .go{margin-top:12px;display:block;text-align:center;background:var(--blue2);color:#fff;text-decoration:none;
+ font:700 12px 'Inter','Sarabun';padding:9px;border-radius:9px}
+.card .go:hover{background:#0B2447}
+.card .sp{flex:1}
+table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:11px}
+table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;
+ padding:7px 10px;text-align:left;border:1px solid #14496e;white-space:nowrap}
+table.t td{border:1px solid var(--line);padding:7px 10px;line-height:1.55}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.g{font-weight:700;color:var(--blue2);white-space:nowrap}
+table.t tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
+table.t tr:hover td{background:#F8FBFE}
+table.t td.warn{color:var(--red);font-weight:700}
+ul.pend{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:#41566E;line-height:1.7}
+ul.pend li{margin-bottom:2px}
+.pendgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px;margin-top:12px}
+.pendbox{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:#FCFDFF}
+.pendbox b{font-family:'Inter';font-size:13px;color:var(--blue)}
+@media print{.bar{display:none}body{background:#fff}
+ body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;background-repeat:repeat;
+  background-size:430px 260px;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='430' height='260'%3E%3Ctext x='215' y='130' fill='%230e2c4d' fill-opacity='0.075' font-family='Inter,Arial,sans-serif' font-size='21' font-weight='700' text-anchor='middle' transform='rotate(-20 215 130)'%3EConfidential Precise Property%3C/text%3E%3C/svg%3E")}
+ .card,.sec{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand"><b>EC · BOD 2027</b><span>PCC Group · Strategy Decks</span></div>
+  <button id="bRefresh">↻ ตรวจความคืบหน้าใหม่</button>
+  <button id="bPrint">พิมพ์ / PDF</button>
+  <span class="sp"></span>
+  <span id="st">● พร้อม</span>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <div class="kd">Executive Committee · Board of Directors</div>
+    <h1 id="hT"></h1>
+    <div class="sub" id="hS"></div>
+    <div class="kpis" id="kpi"></div>
+  </div>
+
+  <div class="sec">
+    <h2>เด็คของแต่ละบริษัท</h2>
+    <div class="cap">แถบความคืบหน้าอ่านจากไฟล์จริงบนเว็บ — นับจำนวนโครงการที่กรอกในหน้า 3–14 (12 หัวข้อ × 4 ระยะ = 48 จุด)</div>
+    <div class="grid" id="cards"></div>
+  </div>
+
+  <div class="sec">
+    <h2>ตัวเลขที่เสนอ เทียบกับฐานข้อมูล Capex / Opex ของกลุ่ม</h2>
+    <div class="cap">ช่องที่เป็นสีแดงคือจุดที่สองแหล่งไม่ตรงกัน ต้องยืนยันก่อนรวมเป็นงบกลุ่ม</div>
+    <table class="t" id="tNum"></table>
+  </div>
+
+  <div class="sec">
+    <h2>สิ่งที่ยังรอข้อมูล</h2>
+    <div class="cap">รวมทุกจุดที่ทำเครื่องหมายไว้บนสไลด์ของแต่ละบริษัท</div>
+    <div class="pendgrid" id="pend"></div>
+  </div>
+</div>
+
+<!--IDX_DATA_START-->
+<script id="idx-data" type="application/json">{"savedAt":1793011309086,"co":[{"c":"PCC","th":"พรีไซซ คอร์ปอเรชั่น (Holding)","d":"บริษัทใหญ่ · ที่ดินและการลงทุน","f":"ec-bod-pcc.html","pg":35,"rev":"521.45","npat":"350.00","cxd":"45.00","cxb":"45.00","oxd":"171.45","oxb":"171.45","tag":"Separate","note":"เด็คเต็ม 35 หน้า มี Tactical Plan 1–8 และ Appendix ครบ","pend":["D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEM","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง","d":"หม้อแปลงและอุปกรณ์ไฟฟ้า · RAMI 4.0","f":"ec-bod-pem.html","pg":20,"rev":"2,649.20","npat":"220.07","cxd":"129.34","cxb":"204.34","oxd":"513.80","oxb":"513.80","tag":"","note":"CAPEX ในเด็ค 129.34 ต่างจากฐานข้อมูล 204.34 ลบ.","pend":["CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEMC","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง คอร์ป","d":"ผลิตและทดสอบอุปกรณ์แรงสูง · RAMI 4.0","f":"ec-bod-pemc.html","pg":20,"rev":"—","npat":"—","cxd":"4.15","cxb":"6.46","oxd":"21.73","oxb":"21.73","tag":"","note":"ไม่มีตารางรายได้ / GP / NPAT ในไฟล์ EC ของ PEM","pend":["รายได้ · GP · NPAT","CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PSP","th":"พรีไซซ ซิสเท็ม แอนด์ โปรเจ็ค","d":"ระบบและโครงการไฟฟ้า · SGAM + SCIAM","f":"ec-bod-psp.html","pg":20,"rev":"2,299.00","npat":"189.00","cxd":"26.18","cxb":"26.19","oxd":"265.00","oxb":"265.00","tag":"","note":"NPAT ฐาน 2026 และ NPAT 2027 มีอย่างละ 2 ค่าในไฟล์เดียวกัน","pend":["NPAT ฐาน 2026 (241.40 หรือ 153)","NPAT 2027 (189 หรือ 220)","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PDE","th":"พรีไซซ ดิจิตอล อีโคโนมี่","d":"ดิจิทัลและ Data Center · SCIAM","f":"ec-bod-pde.html","pg":21,"rev":"65.50","npat":"0.35","cxd":"17.05","cxb":"17.05","oxd":"29.00","oxb":"4.96","tag":"","note":"รายได้ลด 70.64% และ OPEX ในฐานข้อมูลมีแค่ 4.96 ลบ. (ไม่รวมค่าคน)","pend":["อธิบายรายได้ที่ลด 70.64%","OPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PPP","th":"พรีไซซ เพาเวอร์ โปรดิวเซอร์","d":"พลังงานและโรงไฟฟ้าชีวมวล · SFAM + SGAM","f":"ec-bod-ppp.html","pg":20,"rev":"506.24","npat":"72.65","cxd":"21.38","cxb":"21.38","oxd":"85.32","oxb":"85.32","tag":"รวม SBP + PCE","note":"ตัวเลขการเงินเป็นระดับกลุ่ม PPP + SBP + PCE","pend":["ยืนยันขอบเขต Consolidate / Separate","D/E Ratio","%Growth Equity","Income statement"]},{"c":"SBP","th":"สระบุรี ไบโอ เพาเวอร์","d":"พลังงานชีวมวล · SFAM","f":"ec-bod-sbp.html","pg":20,"rev":"—","npat":"—","cxd":"10.84","cxb":"10.84","oxd":"36.70","oxb":"36.70","tag":"","note":"CAPEX และ OPEX แยกได้ แต่รายได้อยู่รวมในเด็ค PPP","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PCE","th":"พรีไซซ คอนสตรัคชั่น เอ็นจิเนียริ่ง","d":"วิศวกรรมและบริการ · SGAM","f":"ec-bod-pce.html","pg":20,"rev":"—","npat":"—","cxd":"1.04","cxb":"1.04","oxd":"7.60","oxb":"7.60","tag":"","note":"ค่าคน 75.3% ของ OPEX สูงที่สุดในกลุ่ม","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PBI","th":"เดิมชื่อ PSL","d":"สายไผ่ครบวงจร · SFAM · BCG และ ESG","f":"ec-bod-pbi.html","pg":20,"rev":"67.09","npat":"12.32","cxd":"0.50","cxb":"0.50","oxd":"20.65","oxb":"20.65","tag":"ชื่อใหม่","note":"กำไรปี 2027 มาจากเงินสนับสนุนของ PCC 23.00 ลบ.","pend":["ชื่อนิติบุคคลเต็ม","Total Revenue 2028 ไม่ลงตัว","D/E Ratio","%Growth Equity","Income statement"]}],"title":"EC · BOD 2027 — เด็คแผนกลยุทธ์รายบริษัท","sub":"รวมลิงก์เด็คของทั้ง 9 บริษัทไว้ที่เดียว · หน้า 3–14 ของทุกเด็คเป็น Key Action Plan ที่แต่ละบริษัทกรอกเอง · หน้าการเงินกรอกจากไฟล์ EC ที่ส่งมาแล้ว","txt":{}}</script>
+<!--IDX_DATA_END-->
+<script>
+function $(i){return document.getElementById(i)}
+function esc(s){return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+var S=JSON.parse($('idx-data').textContent);
+var CO=S.co;
+$('hT').textContent=S.title; $('hS').textContent=S.sub;
+$('kpi').innerHTML=
+ '<div class="k"><b>'+CO.length+'</b><span>บริษัท</span></div>'+
+ '<div class="k"><b>48</b><span>จุดกรอกต่อบริษัท</span></div>'+
+ '<div class="k"><b id="kDone">–</b><span>บริษัทที่เริ่มกรอกแล้ว</span></div>'+
+ '<div class="k"><b>2027</b><span>ปีงบประมาณ</span></div>';
+
+function card(x){
+  return '<div class="card'+(x.c==='PCC'?' pcc':'')+'" data-f="'+x.f+'">'+
+   '<div class="hd"><span class="code">'+esc(x.c)+'</span>'+(x.tag?'<span class="tag">'+esc(x.tag)+'</span>':'')+
+   '<span class="tag" style="background:#F1F5F9;color:#5B7389">'+x.pg+' หน้า</span></div>'+
+   '<div class="th">'+esc(x.th)+'</div><div class="d">'+esc(x.d)+'</div>'+
+   '<div class="nums">'+
+     '<div class="n"><b>'+esc(x.rev)+'</b><span>รายได้ 2027 (ลบ.)</span></div>'+
+     '<div class="n"><b>'+esc(x.npat)+'</b><span>NPAT 2027 (ลบ.)</span></div>'+
+     '<div class="n"><b>'+esc(x.cxd)+'</b><span>CAPEX 2027 (ลบ.)</span></div>'+
+     '<div class="n"><b>'+esc(x.oxd)+'</b><span>OPEX 2027 (ลบ.)</span></div></div>'+
+   '<div class="prog"><div class="lb"><span>Key Action Plan (หน้า 3–14)</span><b class="pv">กำลังอ่าน…</b></div>'+
+     '<div class="tr"><i></i></div></div>'+
+   '<div class="note">'+esc(x.note)+'</div><div class="sp"></div>'+
+   '<a class="go" href="'+x.f+'">เปิดเด็คของ '+esc(x.c)+' →</a></div>';
+}
+$('cards').innerHTML=CO.map(card).join('');
+
+var rows='<tr><th>บริษัท</th><th>CAPEX ตามเด็ค</th><th>CAPEX ตามฐานข้อมูล</th><th>OPEX ตามเด็ค</th><th>OPEX ตามฐานข้อมูล</th></tr>';
+var sum={cxd:0,cxb:0,oxd:0,oxb:0};
+CO.forEach(function(x){
+  var dup=(x.c==='SBP'||x.c==='PCE');
+  var cxd=parseFloat(x.cxd)||0, cxb=parseFloat(x.cxb)||0, oxd=parseFloat(x.oxd)||0, oxb=parseFloat(x.oxb)||0;
+  if(x.c!=='PPP'){ sum.cxd+=cxd; sum.cxb+=cxb; sum.oxd+=oxd; sum.oxb+=oxb; }
+  else { sum.cxd+=9.50; sum.cxb+=9.50; sum.oxd+=41.02; sum.oxb+=41.02; }
+  function cell(a,b){ return '<td class="n'+(a!==b?' warn':'')+'">'+a.toFixed(2)+'</td>'; }
+  rows+='<tr><td class="g">'+esc(x.c)+(x.c==='PPP'?' <small style="font-weight:400;color:#7A8CA0">(ตัวเลขรวม SBP+PCE)</small>':'')+'</td>'+
+        cell(cxd,cxb)+'<td class="n">'+cxb.toFixed(2)+'</td>'+cell(oxd,oxb)+'<td class="n">'+oxb.toFixed(2)+'</td></tr>';
+});
+rows+='<tr class="sum"><td>รวมทั้งกลุ่ม (ไม่นับซ้ำ)</td><td class="n">'+sum.cxd.toFixed(2)+'</td><td class="n">'+sum.cxb.toFixed(2)+
+      '</td><td class="n">'+sum.oxd.toFixed(2)+'</td><td class="n">'+sum.oxb.toFixed(2)+'</td></tr>';
+$('tNum').innerHTML=rows;
+
+$('pend').innerHTML=CO.map(function(x){
+  return '<div class="pendbox"><b>'+esc(x.c)+'</b><ul class="pend">'+
+    x.pend.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></div>';
+}).join('');
+
+/* ---- อ่านความคืบหน้าจากไฟล์จริง ---- */
+function setProg(el,txt,pct,color){
+  el.querySelector('.pv').textContent=txt;
+  var bar=el.querySelector('.tr i'); bar.style.width=(pct||0)+'%';
+  if(color) bar.style.background=color;
+}
+async function scan(){
+  var cards=[].slice.call(document.querySelectorAll('.card')), started=0, ok=0;
+  $('st').textContent='● กำลังอ่าน…';
+  for(var i=0;i<cards.length;i++){
+    var el=cards[i], f=el.dataset.f;
+    try{
+      var r=await fetch(f,{cache:'no-store'});
+      if(!r.ok) throw new Error(r.status);
+      var t=await r.text(), m=t.match(/<script id="ka-data"[^>]*>([\s\S]*?)<\/script>/);
+      ok++;
+      var d=null; try{ d=JSON.parse(m[1]); }catch(e){}
+      if(!d||!d.d){ setProg(el,'0 / 48 จุด',0,'#C9D4E0'); continue; }
+      var n=0, topics=0;
+      Object.keys(d.d).forEach(function(k){
+        var any=0; (d.d[k]||[]).forEach(function(lane){ n+=(lane||[]).length; any+=(lane||[]).length; });
+        if(any) topics++;
+      });
+      if(n>0) started++;
+      var pct=Math.min(100,Math.round(n/48*100));
+      setProg(el, n+' โครงการ · '+topics+'/12 หัวข้อ', pct, n?'#2E7D32':'#C9D4E0');
+    }catch(e){ setProg(el,'อ่านไม่ได้ (เปิดผ่านเว็บจึงจะอ่านได้)',0,'#C9D4E0'); }
+  }
+  $('kDone').textContent=started+' / '+cards.length;
+  $('st').textContent= ok? '● อ่านครบ '+ok+' ไฟล์' : '● อ่านไม่ได้ — ต้องเปิดผ่านเว็บ';
+}
+$('bRefresh').addEventListener('click',scan);
+$('bPrint').addEventListener('click',function(){window.print()});
+scan();
+</script>
+</body></html>
