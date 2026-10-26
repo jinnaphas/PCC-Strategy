@@ -1,0 +1,997 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EC · PBI แผนกลยุทธ์ 2027 · Key Action Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;600;700&display=swap">
+<style>
+/* =====================================================================
+   PRECISE HTML DECK · ENGINE v2
+   Brand tokens → type scale → page shell → components (C1–C13) → nav/notes → motion
+   v2: slides move left/right, on-screen ‹ › buttons, larger type (floor = --t-min ≈ 20px at 1080p), inline Lucide icons,
+   calm by default (every slide shows all its content at once, no timer/notes buttons).
+   Opt-in classes on the body element: "builds" = click-steps reveal content, "motion" = staggered entry animation.
+   Write slides; the engine rarely needs changes.
+   ===================================================================== */
+:root{
+ --blue:#009fdf;--blue-ink:#0077b3;--navy:#0e2c4d;--navy2:#153a63;--navy3:#1d4a7a;
+ --orange:#f6851f;--green:#51af4e;
+ --ink:#15191e;--body:#3d4550;--muted:#7a8390;--hair:#e4e8ee;--soft:#f4f6f9;--canvas:#fff;--ok:#22c55e;
+ --f:"Poppins","IBM Plex Sans Thai","Leelawadee UI","Noto Sans Thai",Tahoma,system-ui,sans-serif;
+ --u:min(1vw,1.78vh);color-scheme:light;
+ /* type scale — never set content text below --t-min (≈20px on a 1080p projector) */
+ --t-min:calc(var(--u)*1.05);--t-sm:calc(var(--u)*1.2);--t-body:calc(var(--u)*1.4);--t-lead:calc(var(--u)*1.7)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--canvas)}
+body{color:var(--body);font-family:var(--f);font-weight:300;font-size:var(--t-body);line-height:1.5}
+body:not(.flow){overflow:hidden}
+h1,h2,h3,p{margin:0}h1,h2,h3,b{font-weight:700;color:var(--ink)}
+#stage{position:relative;display:flex;height:100%;will-change:transform;transition:transform 0ms cubic-bezier(.77,0,.18,1)}
+.flow #stage{display:block;width:auto!important;height:auto!important;transform:none!important}.flow .pg{width:auto!important;height:auto!important;min-height:100vh}
+#prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--blue);transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.77,0,.18,1);z-index:30}
+
+/* ---------- page shell ---------- */
+.pg{position:relative;flex:none;height:100%;overflow:hidden;display:grid;grid-template-rows:auto 1fr;background:var(--canvas)}
+.pg.soft{background:var(--soft)}.pg.dark{background:var(--navy);color:#c9d4e2}
+.pg.dark h1,.pg.dark h2,.pg.dark h3,.pg.dark b{color:#fff}
+.bar{position:relative;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:calc(var(--u)*4.6);padding:0 calc(var(--u)*5)}
+.brand{display:flex;align-items:center;gap:calc(var(--u)*1.1);font-weight:700;color:var(--ink);font-size:calc(var(--u)*1.05)}
+.brand img{height:calc(var(--u)*1.55);display:block}
+.brand em{font-style:normal;padding-left:calc(var(--u)*1.1);border-left:1px solid var(--hair);line-height:1}
+.brand em i{font-style:normal;color:var(--blue)}
+.pg.dark .brand{color:#fff}.pg.dark .brand em{border-color:#35557c}
+.tabs{display:flex;gap:calc(var(--u)*2.4);height:100%}
+.tabs span{display:flex;align-items:center;font-size:calc(var(--u)*.95);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a3acb8;border-bottom:2px solid transparent}
+.tabs span.on{color:var(--ink);border-color:var(--blue)}
+.pg.dark .tabs span{color:#5f7593}.pg.dark .tabs span.on{color:#fff}
+.pgno{font-size:calc(var(--u)*.95);letter-spacing:.08em;color:var(--muted)}
+.wrap{position:relative;z-index:2;align-self:center;width:100%;max-width:calc(var(--u)*152);margin:0 auto;padding:calc(var(--u)*2.5) calc(var(--u)*5) calc(var(--u)*3.5);display:grid;gap:calc(var(--u)*2.4)}
+/* .pg.dense: a slide that must keep its whole content on one screen (e.g. a fixed company template) may relax the floor a little — use sparingly */
+.pg.dense{--t-min:calc(var(--u)*.92);--t-sm:calc(var(--u)*1.02);--t-body:calc(var(--u)*1.15);--t-lead:calc(var(--u)*1.4)}
+
+/* ---------- type ---------- */
+.eyebrow{font-size:var(--t-min);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pg.dark .eyebrow{color:#8fa6c2}
+.h1{font-size:calc(var(--u)*5.6);line-height:1.02}
+.h2{font-size:calc(var(--u)*3.4);line-height:1.15}
+.c{color:var(--blue)}
+.lead{font-size:var(--t-lead);max-width:52ch}
+.sm{font-size:var(--t-min)}.muted{color:var(--muted)}
+.vtab{position:absolute;z-index:3;background:var(--blue);color:#fff;writing-mode:vertical-rl;font-size:calc(var(--u)*.85);font-weight:600;letter-spacing:.3em;text-transform:uppercase;padding:calc(var(--u)*1.6) calc(var(--u)*.9)}
+.mark{position:absolute;right:calc(var(--u)*-8);bottom:calc(var(--u)*-10);height:95%;opacity:0;pointer-events:none;transform:rotate(-6deg);transition:opacity 1.6s ease .3s;z-index:1}
+.pg.in .mark{opacity:.06}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--ink);color:#fff;font-size:var(--t-min);font-weight:600;letter-spacing:.06em;padding:calc(var(--u)*.25) calc(var(--u)*.6)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-weight:600;font-size:var(--t-sm);letter-spacing:.04em;padding:calc(var(--u)*1.1) calc(var(--u)*2.4);white-space:nowrap}
+
+/* ---------- C1 cover (dark) ---------- */
+.cover{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:calc(var(--u)*5);align-items:center}
+.cover .left{display:grid;gap:calc(var(--u)*2)}
+.def{display:grid;gap:calc(var(--u)*.6);border-left:3px solid var(--blue);padding-left:calc(var(--u)*1.4)}
+.def .dl{font-size:var(--t-lead);color:#fff;font-weight:500}
+.def .dd{font-size:var(--t-body);color:#c9d4e2;max-width:40ch}
+.path{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:calc(var(--u)*.8)}
+.node{background:var(--navy2);padding:calc(var(--u)*1.1);text-align:center;display:grid;gap:calc(var(--u)*.3)}
+.node small{font-size:var(--t-min);letter-spacing:.14em;text-transform:uppercase;color:#8fa6c2}
+.node b{font-size:var(--t-body);line-height:1.2}
+.node.end{background:var(--blue)}.node.end small{color:rgba(255,255,255,.8)}
+.arrow{width:calc(var(--u)*2.4);height:2px;background:#5f7593;position:relative}
+.arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid #5f7593;border-right:0}
+
+/* ---------- C2 card grid (team / items) ---------- */
+.band{position:absolute;left:0;right:0;bottom:0;height:44%;background:var(--navy);z-index:0;transform:scaleY(0);transform-origin:bottom;transition:transform 1s cubic-bezier(.77,0,.18,1) .1s}
+.pg.in .band{transform:none}
+.trow{position:relative;z-index:1;display:grid;grid-template-columns:calc(var(--u)*13) 1fr;gap:calc(var(--u)*1.6);align-items:center}
+.glabel{font-size:var(--t-sm);font-weight:600;line-height:1.4;color:var(--ink);border-left:3px solid var(--orange);padding-left:calc(var(--u)*1)}
+.trow.dk .glabel{color:#fff;border-left-color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));gap:calc(var(--u)*1)}
+.mc{position:relative;cursor:pointer;background:#fff;box-shadow:0 12px 32px rgba(14,44,77,.14);padding:calc(var(--u)*1.3) calc(var(--u)*1.1);display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*.9);align-items:center;min-height:calc(var(--u)*8.4);transition:opacity .35s}
+.av{width:calc(var(--u)*4.6);height:calc(var(--u)*4.6);border-radius:50%;display:grid;place-items:center;background:var(--soft);border:2px solid var(--blue);font-size:calc(var(--u)*1.8);font-weight:600;color:var(--navy2);overflow:hidden;position:relative;transition:background .35s,color .35s}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.mc .nm{font-size:var(--t-body);font-weight:700;color:var(--ink);line-height:1.2}
+.mc .dm{font-size:var(--t-min);font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-ink);line-height:1.3;margin-top:3px}
+.mc .chip{position:absolute;top:0;right:0}
+.mc:hover .av,.mc.lit .av{background:var(--blue);color:#fff}
+
+/* ---------- C3 person / feature slide ---------- */
+.person{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:calc(var(--u)*6);align-items:center}
+.person.rev{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}.person.rev .photo{order:2}
+.photo{position:relative;aspect-ratio:4/5;height:calc(var(--u)*40);max-width:100%;justify-self:center;background:linear-gradient(160deg,var(--navy3),var(--navy));display:grid;place-items:center}
+.photo::before{content:"";position:absolute;inset:calc(var(--u)*2.2) calc(var(--u)*-2.2) calc(var(--u)*-2.2) calc(var(--u)*2.2);background:var(--blue);z-index:-1;transform:scale(.6);opacity:0;transition:transform 1s cubic-bezier(.2,.75,.2,1) .3s,opacity .6s ease .3s}
+.person.rev .photo::before{inset:calc(var(--u)*2.2) calc(var(--u)*2.2) calc(var(--u)*-2.2) calc(var(--u)*-2.2)}
+.pg.in .photo::before{transform:none;opacity:1}
+.photo .ini{font-size:calc(var(--u)*14);font-weight:700;color:rgba(255,255,255,.14);line-height:1}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.photo .vtab{top:calc(var(--u)*3);left:calc(var(--u)*-1.8)}
+.person.rev .photo .vtab{left:auto;right:calc(var(--u)*-1.8)}
+.pinfo{display:grid;gap:calc(var(--u)*1.5);align-content:center}
+.kicker{font-size:calc(var(--u)*3.3);font-weight:700;line-height:1.05;color:var(--blue)}
+.kicker span{color:var(--navy3)}
+.pname{font-size:calc(var(--u)*3.8);line-height:1.05}
+.prole{margin-top:calc(var(--u)*.5);font-size:var(--t-min);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink)}
+.exp{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*.7) calc(var(--u)*2)}
+.exp li{position:relative;padding-left:calc(var(--u)*1.6);font-size:var(--t-sm);line-height:1.45;color:var(--ink)}
+.exp li::before{content:"";position:absolute;left:0;top:.5em;width:calc(var(--u)*.6);height:calc(var(--u)*.6);background:var(--blue)}
+.when{border-top:1px solid var(--hair);padding-top:calc(var(--u)*1);font-size:var(--t-sm)}
+.when b{color:var(--ink);font-weight:600;margin-right:.4em}
+.box{background:var(--navy);color:#c9d4e2;padding:calc(var(--u)*1.3) calc(var(--u)*1.6);display:grid;gap:calc(var(--u)*.8)}
+.box .hd{display:flex;align-items:center;gap:calc(var(--u)*1)}.box .hd b{color:#fff;font-size:var(--t-body)}
+.pills{display:flex;flex-wrap:wrap;gap:calc(var(--u)*.5)}
+.pills i{font-style:normal;border:1px solid #35557c;color:#fff;padding:calc(var(--u)*.3) calc(var(--u)*.9);font-size:var(--t-min)}
+.pills i:first-child{background:var(--blue);border-color:var(--blue)}
+
+/* ---------- C4 two-column compare / model ---------- */
+.model{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1.6)}
+.mcol{display:grid;grid-template-rows:auto auto 1fr;background:#fff;box-shadow:0 14px 40px rgba(14,44,77,.1)}
+.mhead{background:var(--navy);color:#fff;padding:calc(var(--u)*1.4) calc(var(--u)*2);display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*1.4);align-items:center}
+.mcol.b .mhead{background:var(--blue)}
+.mhead .n{font-size:calc(var(--u)*3);font-weight:700;line-height:1;opacity:.5}
+.mhead h3{font-size:calc(var(--u)*1.9);color:#fff}.mhead p{font-size:var(--t-min);color:rgba(255,255,255,.85)}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);padding:calc(var(--u)*1.3) calc(var(--u)*2) calc(var(--u)*.6);gap:calc(var(--u)*.8)}
+.steps4 div{display:grid;gap:calc(var(--u)*.3);align-content:start;font-size:var(--t-min);line-height:1.4;color:var(--muted)}
+.steps4 div b{font-size:var(--t-sm);color:var(--ink);font-weight:600}
+.steps4 div::before{content:attr(data-k);font-size:calc(var(--u)*1.7);font-weight:700;color:var(--blue);line-height:1}
+.facts{padding:calc(var(--u)*.4) calc(var(--u)*2) calc(var(--u)*1.4);display:grid;gap:calc(var(--u)*.3)}
+.facts div{display:grid;grid-template-columns:calc(var(--u)*10) 1fr;gap:calc(var(--u)*1);font-size:var(--t-min);border-top:1px solid var(--hair);padding-top:calc(var(--u)*.5)}
+.facts span{color:var(--muted)}.facts b{font-weight:600}
+.door{display:flex;align-items:center;justify-content:center;gap:calc(var(--u)*1.2);background:var(--soft);border:1px dashed #c4ccd6;padding:calc(var(--u)*1) calc(var(--u)*1.6);font-size:var(--t-sm)}
+.pg.soft .door{background:#fff}.door b{color:var(--blue-ink)}
+
+/* ---------- C5 stepped tabs (click-through inside one slide) ---------- */
+.tabs2{display:grid;grid-template-columns:repeat(var(--cols,2),1fr);gap:calc(var(--u)*.8)}
+.tb{all:unset;cursor:pointer;display:flex;gap:calc(var(--u)*1);align-items:center;padding:calc(var(--u)*.9) calc(var(--u)*1.1);background:var(--soft);border-top:4px solid transparent;opacity:.6;transition:background .5s,border-color .5s,opacity .5s}
+.pg.dark .tb{background:var(--navy2)}.pg.dark .tb b{color:#fff}
+.tb .num{display:grid;place-items:center;width:calc(var(--u)*2.6);height:calc(var(--u)*2.6);background:#a3acb8;color:#fff;font-weight:700;font-size:calc(var(--u)*1.3);flex:none;transition:background .5s}
+.tb b{font-size:var(--t-body);line-height:1.15;transition:color .5s}
+.tb .k{display:block;font-size:var(--t-min);font-weight:700;letter-spacing:.1em;color:var(--blue-ink)}
+.pg.dark .tb .k{color:#6fcaf0}
+.tb.on{background:#fff!important;border-color:var(--blue);opacity:1;box-shadow:0 8px 22px rgba(14,44,77,.1)}
+.tb.on b{color:var(--ink)!important}.tb.on .num{background:var(--blue)}.tb.on .k{color:var(--blue-ink)!important}
+.tb:focus-visible,.sbtn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.panes{display:grid}
+.pane{grid-area:1/1;display:grid;gap:calc(var(--u)*.8);align-content:start;opacity:0;visibility:hidden;transform:translateX(calc(var(--u)*2));transition:opacity .6s ease,transform .8s cubic-bezier(.2,.75,.2,1),visibility 0s .6s}
+.pane.on{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease .15s,transform .8s cubic-bezier(.2,.75,.2,1) .15s,visibility 0s}
+.pane svg{width:100%;height:auto;max-height:calc(100vh - var(--u)*24);display:block}
+/* cumulative build: [data-upto="k"] lights up once step >= k */
+body.builds [data-upto]{opacity:.12;filter:grayscale(1);transition:opacity .6s,filter .6s}
+body.builds [data-upto].on{opacity:1;filter:none}
+
+/* ---------- C6 timeline / roadmap (dark) ---------- */
+.years{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:calc(var(--u)*1.4);position:relative}
+.years::before{content:"";position:absolute;left:calc(var(--u)*1.2);right:0;top:calc(var(--u)*1.2);height:2px;background:#35557c;transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.77,0,.18,1) .4s}
+.pg.in .years::before{transform:scaleX(1)}
+.yr{display:grid;gap:calc(var(--u)*.8);align-content:start;position:relative;padding-top:calc(var(--u)*3.4)}
+.yr .dot{position:absolute;top:0;left:0;width:calc(var(--u)*2.4);height:calc(var(--u)*2.4);border-radius:50%;background:var(--navy);border:3px solid #5f7593;z-index:2}
+.yr.now .dot{border-color:var(--blue);background:var(--blue)}
+.yr .y{font-size:var(--t-min);font-weight:600;letter-spacing:.14em;color:#8fa6c2}.yr.now .y{color:var(--blue)}
+.yr h3{font-size:calc(var(--u)*2)}
+.yr ul{margin:0;padding-left:1.05em;font-size:var(--t-sm);line-height:1.6}
+.yr .kpi{margin-top:calc(var(--u)*.4);font-size:var(--t-min);border-top:1px solid #35557c;padding-top:calc(var(--u)*.6);color:#fff}
+.yr .kpi b{color:var(--blue)}
+
+/* ---------- C7 selector (list left, who-is-involved right) ---------- */
+.sel{display:grid;grid-template-columns:calc(var(--u)*26) 1fr;gap:calc(var(--u)*2.4);align-items:start}
+.slist{display:grid;gap:calc(var(--u)*.7)}
+.sbtn{all:unset;cursor:pointer;background:var(--soft);border-left:4px solid transparent;padding:calc(var(--u)*1) calc(var(--u)*1.3);display:grid;gap:2px;transition:background .3s,border-color .3s}
+.sbtn .pn{font-size:var(--t-min);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sbtn b{font-size:var(--t-sm);line-height:1.3}
+.sbtn.on{background:var(--navy);border-left-color:var(--blue)}.sbtn.on b{color:#fff}.sbtn.on .pn{color:#8fa6c2}
+.sright{display:grid;gap:calc(var(--u)*1.4)}
+.sgrid{display:grid;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));gap:calc(var(--u)*.9)}
+.scard{position:relative;background:#fff;border:2px solid var(--hair);padding:calc(var(--u)*1.2) calc(var(--u)*.6);display:grid;justify-items:center;text-align:center;gap:calc(var(--u)*.5);opacity:.3;filter:grayscale(1);transition:opacity .45s,filter .45s,border-color .45s,transform .45s,background .45s}
+.scard .av{width:calc(var(--u)*4);height:calc(var(--u)*4);font-size:calc(var(--u)*1.6)}
+.scard .nm{font-size:var(--t-sm);font-weight:700;color:var(--ink)}
+.scard .dm{font-size:var(--t-min);font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-ink)}
+.scard.w{opacity:1;filter:none;border-color:var(--blue)}
+.scard.l{opacity:1;filter:none;border-color:var(--navy);background:var(--navy);transform:translateY(calc(var(--u)*-.5))}
+.scard.l .nm{color:#fff}.scard.l .dm{color:var(--blue)}.scard.l .av{background:var(--blue);color:#fff}
+.sdesc{display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*1.4);align-items:center;border-top:1px solid var(--hair);padding-top:calc(var(--u)*1.1)}
+.sdesc .k{font-size:calc(var(--u)*2.2);font-weight:700;color:var(--blue)}.sdesc p{font-size:var(--t-body);color:var(--ink)}
+
+/* ---------- C8 KPI tiles + closing (dark) ---------- */
+.kpis{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:2px}
+.kp{background:var(--navy2);padding:calc(var(--u)*2) calc(var(--u)*1.9);display:grid;gap:calc(var(--u)*.7);align-content:start;border-top:4px solid var(--blue)}
+.kp.g{border-top-color:var(--green)}.kp.o{border-top-color:var(--orange)}
+.kp .k{font-size:calc(var(--u)*2.8);font-weight:700;color:var(--blue);line-height:1}
+.kp.g .k{color:var(--green)}.kp.o .k{color:var(--orange)}
+.kp b{font-size:var(--t-lead);line-height:1.3}.kp p{font-size:var(--t-min)}
+.endrow{display:flex;justify-content:space-between;align-items:center;gap:calc(var(--u)*2);border-top:1px solid #35557c;padding-top:calc(var(--u)*2)}
+.endrow p{font-size:calc(var(--u)*2.2);font-weight:700;color:#fff}
+
+/* ---------- layout helper: .cols2 two columns (set --c to e.g. 1.2fr 1fr) ---------- */
+.cols2{display:grid;grid-template-columns:var(--c,1fr 1fr);gap:calc(var(--u)*2);align-items:start;min-height:0}
+
+/* ---------- C9 data table ---------- */
+.tscroll{overflow-x:auto;min-width:0}
+.tbl{width:100%;border-collapse:collapse;font-size:var(--t-min);font-variant-numeric:tabular-nums;line-height:1.35}
+.tbl th{background:var(--navy);color:#fff;font-weight:600;padding:calc(var(--u)*.5) calc(var(--u)*.7);text-align:right;white-space:nowrap}
+.tbl td{padding:calc(var(--u)*.45) calc(var(--u)*.7);border-bottom:1px solid var(--hair);text-align:right;color:var(--ink);white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child,.tbl .l{text-align:left;white-space:normal}
+.tbl th.hl{background:var(--blue)}.tbl td.hl{background:rgba(0,159,223,.08);font-weight:600}
+.tbl tr.sum td{font-weight:700;background:var(--soft);border-top:2px solid var(--navy)}
+.tbl tr.sec td{background:#e9eef5;font-weight:600;color:var(--navy)}
+.tbl tr.sub td:first-child{padding-left:2em}
+.tbl .neg{color:#c0392b}.tbl .mut{color:var(--muted);font-weight:400}
+.pg.dark .tbl td{color:#fff;border-color:#35557c}.pg.dark .tbl tr.sum td{background:var(--navy2)}
+
+/* ---------- C10 horizontal bar list ---------- */
+.hbars{display:grid;gap:calc(var(--u)*.45)}
+.hb{display:grid;grid-template-columns:minmax(0,var(--lw,15em)) minmax(0,1fr) auto;gap:calc(var(--u)*.8);align-items:center;font-size:var(--t-min);color:var(--ink)}
+.hb>span:first-child{line-height:1.25}
+.hb i{display:block;height:calc(var(--u)*1.05);background:var(--blue);width:var(--w,0%);transform-origin:left;transform:scaleX(0);transition:transform 1s cubic-bezier(.2,.75,.2,1) .4s}
+.pg.in .hb i{transform:none}
+/* column bars in inline-SVG charts: give each <rect> class="cbar" and it grows up when the slide comes in */
+.cbar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.75,.2,1) .3s}.pg.in .cbar{transform:none}
+.hb.alt i{background:var(--navy3)}.hb.o i{background:var(--orange)}.hb.g i{background:var(--green)}
+.hb b{font-weight:600;font-variant-numeric:tabular-nums;text-align:right;min-width:4.5em}
+.split{display:flex;height:calc(var(--u)*2.4);font-size:var(--t-min);font-weight:600;color:#fff}
+.split>div{display:flex;align-items:center;padding:0 calc(var(--u)*.8);white-space:nowrap;overflow:hidden}
+
+/* ---------- C11 stat cards ---------- */
+.stats{display:grid;grid-template-columns:repeat(var(--cols,4),minmax(0,1fr));gap:calc(var(--u)*1)}
+.st{background:#fff;border-top:4px solid var(--blue);padding:calc(var(--u)*.9) calc(var(--u)*1.2);display:grid;gap:2px;align-content:start;box-shadow:0 8px 22px rgba(14,44,77,.08)}
+.st span{font-size:var(--t-min);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.st strong{font-size:calc(var(--u)*2.6);font-weight:700;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.st strong small{font-size:.42em;font-weight:600;color:var(--muted);margin-left:.35em;letter-spacing:.02em}
+.st em{font-style:normal;font-size:var(--t-min);color:var(--body)}
+.st.g{border-top-color:var(--green)}.st.o{border-top-color:var(--orange)}.st.n{border-top-color:var(--navy)}
+.pg.dark .st{background:var(--navy2);box-shadow:none}.pg.dark .st strong{color:#fff}.pg.dark .st em{color:#c9d4e2}
+
+/* ---------- C12 figure (image of a table/infographic) · click to zoom ---------- */
+.fig{margin:0;display:grid;gap:calc(var(--u)*.5);min-height:0;justify-items:start}
+.fig img{display:block;max-width:100%;max-height:var(--fh,calc(100vh - var(--u)*17));width:auto;height:auto;cursor:zoom-in;background:#fff;box-shadow:0 10px 28px rgba(14,44,77,.12)}
+.fig figcaption{font-size:var(--t-min);color:var(--muted)}
+#zoom{position:fixed;inset:0;z-index:40;background:rgba(14,44,77,.95);display:none;place-items:center;padding:2vh 2vw;cursor:zoom-out}
+body.zooming #zoom{display:grid}#zoom img{max-width:100%;max-height:96vh;background:#fff}
+
+/* ---------- C13 icons (Lucide sprite at the top of the body) ---------- */
+.ic{width:1.1em;height:1.1em;flex:none;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ib{display:inline-grid;place-items:center;flex:none;width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);background:var(--blue);color:#fff}
+.ib .ic{width:58%;height:58%}
+.ib.n{background:var(--navy)}.ib.o{background:var(--orange)}.ib.g{background:var(--green)}
+.ib.soft{background:rgba(0,159,223,.12);color:var(--blue-ink)}.pg.dark .ib.soft{background:var(--navy2);color:#6fcaf0}
+.ib.sm{width:calc(var(--u)*2.1);height:calc(var(--u)*2.1)}
+.ihead{display:flex;align-items:center;gap:calc(var(--u)*.8)}
+.ihead b,.ihead h3{font-size:var(--t-sm);color:var(--navy)}.pg.dark .ihead b,.pg.dark .ihead h3{color:#fff}
+.st{position:relative}.st>.ib{position:absolute;top:calc(var(--u)*.9);right:calc(var(--u)*.9)}
+
+/* ---------- marker for data the owner still has to supply ---------- */
+.todo{background:#fff6c7;border:1px dashed #d9a800;color:#6b5000;padding:calc(var(--u)*.6) calc(var(--u)*.9);font-size:var(--t-min)}
+
+/* ---------- nav / notes (notes: press N — presenter aid, no on-screen button) ---------- */
+.pnav{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:9px}
+.pnav a{width:11px;height:11px;border:1.5px solid #a3acb8;display:block;position:relative;background:#fff;transition:background .2s,border-color .2s}
+.pnav a:hover{border-color:var(--blue)}.pnav a.on{background:var(--blue);border-color:var(--blue)}
+.pnav a span{position:absolute;right:20px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:13px;background:var(--ink);color:#fff;padding:3px 8px;opacity:0;pointer-events:none}
+.pnav a:hover span{opacity:1}
+.pgr{justify-self:end;display:flex;align-items:center;gap:calc(var(--u)*.6)}
+.nb{display:grid;place-items:center;width:max(40px,calc(var(--u)*2.5));height:max(40px,calc(var(--u)*2.5));padding:0;cursor:pointer;background:#fff;border:1px solid #c4ccd6;color:var(--navy);transition:background .2s,color .2s,opacity .2s}
+.pg.dark .nb{background:var(--navy2);border-color:#35557c;color:#fff}
+.nb:hover:not(:disabled){background:var(--blue);border-color:var(--blue);color:#fff}
+.nb:disabled{opacity:.3;cursor:default}.nb:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nb .ic{width:55%;height:55%;stroke-width:2.4}
+.tabs span[data-go]{cursor:pointer}.tabs span[data-go]:hover{color:var(--blue-ink)}
+.notes{display:none}
+body.show-notes .pg.on .notes{display:block;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(50px + env(safe-area-inset-bottom,0px));width:min(92vw,940px);max-height:40vh;overflow:auto;z-index:15;background:#fff;border:1px solid #c4ccd6;border-top:3px solid var(--blue);padding:14px 20px;font-size:15px;line-height:1.65;color:var(--body)}
+.notes .t{font-weight:700;color:var(--blue-ink);margin-right:10px}
+
+/* ---------- motion ---------- */
+[data-a]{opacity:0;transform:translate3d(0,calc(var(--u)*2.2),0);transition:opacity .75s ease,transform 1s cubic-bezier(.2,.75,.2,1)}
+.pg.in [data-a]{opacity:1;transform:none}
+.vtab{clip-path:inset(0 0 100% 0);transition:clip-path .9s cubic-bezier(.77,0,.18,1) .5s}
+.pg.in .vtab{clip-path:inset(0 0 0 0)}
+/* calm (default): content is simply there — no rise-in or drawing lines; charts (.hb bars, .cbar columns) still grow in on every slide entry */
+body:not(.motion) [data-a]{opacity:1;transform:none;transition:none}
+body:not(.motion) .band,body:not(.motion) .vtab,body:not(.motion) .years::before,body:not(.motion) .photo::before,body:not(.motion) .mark{transition:none!important}
+body:not(.motion) .band,body:not(.motion) .photo::before{transform:none}body:not(.motion) .photo::before{opacity:1}
+body:not(.motion) .vtab{clip-path:none}body:not(.motion) .years::before{transform:scaleX(1)}body:not(.motion) .mark{opacity:.06}
+@media (prefers-reduced-motion:reduce){[data-a],.band,.vtab,.mark,#stage,#prog,.years::before,.pane,.hb i,.cbar{transition:none!important}[data-a],.hb i,.cbar{opacity:1;transform:none}.band{transform:none}.vtab{clip-path:none}.years::before{transform:none}}
+
+/* ---------- small screens: the deck scrolls like a document ---------- */
+@media screen and (max-width:820px){
+ :root{--u:10px}.bar{padding:0 18px;grid-template-columns:1fr auto}.tabs{display:none}.wrap{padding:40px 18px}
+ .cover,.cards,.trow,.person,.person.rev,.model,.steps4,.years,.sel,.sgrid,.kpis,.path,.tabs2,.exp,.stats,.cols2{grid-template-columns:1fr}.hb{grid-template-columns:1fr auto}.hb i{grid-column:1/-1;grid-row:2}
+ .person.rev .photo{order:0}.photo{height:auto;width:70%}.trow.dk .glabel{color:var(--ink)}.arrow,.band,.mark,.vtab,.nb,.pnav{display:none}.endrow{flex-direction:column;align-items:flex-start}
+ .h1{font-size:44px}.h2{font-size:30px}.st span,.tbl,.hb{font-size:14px}
+}
+@media print{body{overflow:visible}.flow #stage,#stage{display:block;width:auto!important;height:auto!important;transform:none!important}.pg{width:auto!important;height:100vh!important;page-break-after:always}.nb,.pnav,#prog{display:none}.hb i,.cbar{transform:none!important}[data-a]{opacity:1;transform:none}}
+/* ===== deck-specific overrides go below this line ===== */
+.pg .wrap{max-width:calc(var(--u)*160);padding:calc(var(--u)*1.4) calc(var(--u)*4) calc(var(--u)*2.2);gap:calc(var(--u)*1.4)}
+.ttl{display:grid;gap:2px}.ttl .h2{font-size:calc(var(--u)*2.6)}
+.sec-h{font-size:var(--t-sm);font-weight:700;color:var(--navy)}
+.sec-h small{font-weight:400;color:var(--muted);font-size:var(--t-min);margin-left:.5em}
+.bh{background:var(--navy);color:#fff;font-weight:600;font-size:var(--t-sm);padding:calc(var(--u)*.5) calc(var(--u)*1);display:flex;align-items:center;gap:calc(var(--u)*.7)}
+.tbl .fc{background:#fff6c7;font-style:italic}
+.tbl tr.b td{font-weight:700}
+.tbl.sm{font-size:var(--t-min)}
+/* cover */
+/* cover: artwork edge to edge under the bar, one-line title strip below */
+.pg.cover-full .wrap{max-width:none;padding:0;align-self:start;gap:0}
+.covart{display:grid;gap:0}
+.covart img{width:100%;height:auto;max-height:calc(100vh - var(--u)*10.4);object-fit:contain;display:block}
+.covart .ct{display:grid;gap:calc(var(--u)*.2);padding:calc(var(--u)*.8) calc(var(--u)*4) 0}
+.covart .ct h1{font-size:calc(var(--u)*1.8);line-height:1.2;white-space:nowrap}
+.covart .ct p{font-size:var(--t-min);color:var(--orange);font-weight:600}
+/* DOA */
+.doa-ref{display:grid;gap:calc(var(--u)*.4);font-size:var(--t-body);color:var(--ink)}
+.doa-ref b{color:var(--blue-ink);margin-right:.6em}
+/* contents */
+.toc{display:grid;grid-template-columns:1.3fr 1fr;gap:calc(var(--u)*3)}
+.toc ol{margin:0;padding:0;list-style:none;display:grid;gap:calc(var(--u)*1)}
+.toc li{display:grid;grid-template-columns:calc(var(--u)*3.4) 1fr;gap:calc(var(--u)*1);align-items:start}
+.toc .n{display:grid;place-items:center;height:calc(var(--u)*3.4);background:var(--blue);color:#fff;font-weight:700;font-size:calc(var(--u)*1.5)}
+.toc .apx .n{background:var(--navy3)}
+.toc b{font-size:calc(var(--u)*1.45);display:block;line-height:1.3;padding-top:calc(var(--u)*.4)}
+.toc span.s{display:block;font-size:var(--t-sm);color:var(--body)}
+.toc h3{font-size:var(--t-min);letter-spacing:.16em;color:var(--muted);margin-bottom:calc(var(--u)*.6)}
+/* strategy */
+.vm{display:grid;gap:calc(var(--u)*.6)}
+.vm>div{display:grid;grid-template-columns:calc(var(--u)*7.5) 1fr;gap:calc(var(--u)*.6)}
+.vm .k{background:var(--navy);color:#fff;font-weight:700;font-size:var(--t-min);display:grid;place-items:center;align-content:center;gap:calc(var(--u)*.4);text-align:center;padding:calc(var(--u)*.6);line-height:1.2}
+.vm p{background:var(--soft);font-size:var(--t-min);line-height:1.4;padding:calc(var(--u)*.6) calc(var(--u)*.9);color:var(--ink)}
+.chev{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.chev div{color:#fff;text-align:center;padding:calc(var(--u)*.45) calc(var(--u)*1.6) calc(var(--u)*.45) calc(var(--u)*1.2);clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%,8% 50%);line-height:1.25}
+.chev div:first-child{clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%)}
+.chev b{display:block;color:#fff;font-size:var(--t-min)}.chev span{font-size:var(--t-min);opacity:.85}
+.st.sm{padding:calc(var(--u)*.5) calc(var(--u)*1)}.st.sm strong{font-size:calc(var(--u)*2)}
+.tbl.sm td{padding:calc(var(--u)*.3) calc(var(--u)*.6)}.tbl.sm th{padding:calc(var(--u)*.35) calc(var(--u)*.6)}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto auto auto;gap:calc(var(--u)*.4) calc(var(--u)*.8)}
+.ph{display:grid;grid-row:span 3;grid-template-rows:subgrid}
+.ph .hd{background:var(--navy);color:#fff;text-align:center;padding:calc(var(--u)*.4);font-size:var(--t-min);line-height:1.3}
+.ph:nth-child(even) .hd{background:var(--blue)}
+.ph .hd b{display:block;color:#fff;font-size:var(--t-min)}
+.ph ul{margin:0;padding:calc(var(--u)*.4) calc(var(--u)*.6) calc(var(--u)*.4) calc(var(--u)*1.8);border:1px solid var(--hair);font-size:var(--t-min);line-height:1.3;color:var(--ink)}
+.ph .kp2{border:1px solid var(--hair);text-align:center;font-size:var(--t-min);padding:calc(var(--u)*.3);color:var(--ink);line-height:1.3;background:var(--soft)}
+/* revenue */
+.colchart svg{width:100%;height:auto;display:block}
+.txt{border:1px solid var(--hair);padding:calc(var(--u)*.7) calc(var(--u)*1.1);font-size:var(--t-min);line-height:1.45;color:var(--ink)}
+.txt ul{margin:calc(var(--u)*.3) 0 0;padding-left:1.2em}.txt li b{color:var(--navy)}
+.txt li.cont{list-style:none}.txt li.lv1{margin-left:1.4em;list-style:circle}.txt li.lv2{margin-left:2.8em;list-style:square}
+.ph ul.span2{grid-row:span 2}
+.rich{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--u)*.25)}
+.rich .hh{font-weight:700;color:var(--navy);margin-top:calc(var(--u)*.3)}.rich .hh:first-child{margin-top:0}
+.rich .nn{padding-left:1.6em;text-indent:-1.6em}.rich .nn b{color:var(--blue-ink);display:inline-block;width:1.4em;text-indent:0}
+.fundrow{display:flex;gap:calc(var(--u)*.8)}
+.fullfig{display:grid;place-items:center}.fullfig img{max-width:100%;max-height:calc(100vh - var(--u)*9);display:block;cursor:zoom-in;box-shadow:0 10px 28px rgba(14,44,77,.12)}
+.pg.full .wrap{max-width:none;padding:calc(var(--u)*.6) calc(var(--u)*4) calc(var(--u)*1.4)}
+.tbl.wrap1 td:first-child{white-space:normal}
+.tbl.list td,.tbl.list th{text-align:left}.tbl.list td:nth-last-child(-n+2),.tbl.list th:nth-last-child(-n+2){text-align:right}
+.tbl.tac th{text-align:center}
+.tbl.list td{white-space:normal;vertical-align:top}.tbl.list td:first-child{white-space:nowrap}
+.endsl{display:grid;place-items:center;gap:calc(var(--u)*2);text-align:center}.endsl h2{font-size:calc(var(--u)*7);letter-spacing:.08em;color:#fff}
+/* capex / opex */
+.fund{display:inline-grid;background:var(--soft);padding:calc(var(--u)*.5) calc(var(--u)*1.2)}
+.fund strong{font-size:calc(var(--u)*1.6);color:var(--navy)}.fund strong i{font-style:normal;font-weight:400;color:var(--blue);font-size:.7em;margin-left:.4em}
+.take{display:grid;gap:calc(var(--u)*.6)}
+.take>div{display:grid;grid-template-columns:calc(var(--u)*9) 1fr;gap:calc(var(--u)*.8);align-items:center;background:var(--soft);padding:calc(var(--u)*.7) calc(var(--u)*1)}
+.take strong{font-size:calc(var(--u)*2);color:var(--navy);font-variant-numeric:tabular-nums}
+.take p{font-size:var(--t-min);color:var(--ink)}
+.blist{margin:0;padding:calc(var(--u)*.7) calc(var(--u)*1) calc(var(--u)*.7) calc(var(--u)*2.2);background:var(--soft);font-size:var(--t-min);line-height:1.45;color:var(--ink)}
+.blist b{color:var(--navy)}
+.hbars.sm .hb{font-size:var(--t-min)}
+/* figures / appendix */
+.figtag{display:flex;gap:calc(var(--u)*1.2);align-items:baseline}
+.figtag .tg{background:#ffd83a;color:var(--navy);font-weight:700;padding:2px 10px;font-size:var(--t-min)}
+.figtag b{font-size:calc(var(--u)*1.4);color:var(--blue-ink)}.figtag span{margin-left:auto;font-size:var(--t-min);color:var(--muted)}
+.fig{justify-items:center}
+.apxl{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--u)*1.1)}
+.apxl li{font-size:calc(var(--u)*1.8);color:#5f7593;font-weight:600;display:flex;gap:calc(var(--u)*1.2);align-items:center}
+.apxl li i{font-style:normal;display:grid;place-items:center;width:calc(var(--u)*3);height:calc(var(--u)*3);border:2px solid #35557c;font-size:calc(var(--u)*1.3)}
+.apxl li.on{color:#fff}.apxl li.on i{background:var(--blue);border-color:var(--blue)}
+.st>.ib~span{padding-right:calc(var(--u)*2.6)}
+.ph .hd .ic{color:#fff;margin-right:.2em}
+.st span{letter-spacing:.02em}.tbl td:first-child{white-space:nowrap}
+.pg.dense .wrap{gap:calc(var(--u)*.8)}.pg.dense .kp2{line-height:1.15;padding:calc(var(--u)*.2)}.pg.dense .ph ul{line-height:1.2}
+.pg.dense .st.sm{padding:calc(var(--u)*.4) calc(var(--u)*.9)}.pg.dense .st.sm strong{font-size:calc(var(--u)*1.8)}.pg.dense .txt{padding:calc(var(--u)*.5) calc(var(--u)*.9)}.pg.dense .ttl .h2{font-size:calc(var(--u)*2.3)}.pg.dense .vm{gap:calc(var(--u)*.45)}
+.pg.soft .take>div,.pg.soft .blist,.pg.soft .vm p,.pg.soft .fund,.pg.soft .txt{background:#fff}
+.tbl tr.sup td{background:#fde3cf}.tbl tr.sup td:first-child{white-space:normal;font-size:var(--t-min)}
+.ph .kp2.kl{text-align:left;padding:calc(var(--u)*.3) calc(var(--u)*.6) calc(var(--u)*.3) calc(var(--u)*1.8)}.ph .kp2.kl ul{border:0;padding:0;margin:0}
+.pg.rev .txt{line-height:1.28;padding:calc(var(--u)*.45) calc(var(--u)*.9)}.pg.rev .rich{gap:calc(var(--u)*.1)}.pg.rev .wrap{gap:calc(var(--u)*.6)}
+.pg.rev .bh{padding:calc(var(--u)*.35) calc(var(--u)*1)}
+.rich .pp{background:#fff27a;font-weight:600;color:var(--ink);padding:0 .3em;justify-self:start}
+.rich .bb{padding-left:1em;text-indent:-1em}.rich .bb::before{content:"•";color:var(--blue);display:inline-block;width:1em;text-indent:0}.rich .bb b{color:var(--navy)}
+.rich .ss{padding-left:2.4em;text-indent:-1em;color:var(--body)}.rich .ss::before{content:"◦";display:inline-block;width:1em;text-indent:0;color:var(--blue)}.rich .ss.i{font-style:italic}
+.figtag .tg{margin-left:0}.figtag.big{align-items:center}.figtag.big .tg{font-size:calc(var(--u)*1.5);padding:2px 16px}.figtag.big b{font-size:calc(var(--u)*2.4)}
+.figlabel{font-size:calc(var(--u)*2.4);font-weight:700;color:var(--blue-ink);line-height:1.1}
+.ph ul li.pl{list-style:none;margin-left:-1.1em;margin-bottom:.15em}.kp2.dash ul{list-style:"- "}
+.tbl.cs td,.tbl.cs th{white-space:normal}.tbl.cs td:not(:first-child),.tbl.cs th:not(:first-child){text-align:right}.tbl.cs tr.sum td{background:var(--navy);color:#fff;font-weight:700}
+.tbl.cs{font-size:var(--t-body)}.tbl.cs td{padding:calc(var(--u)*.7) calc(var(--u)*.9)}
+.figwide-h{display:flex;align-items:baseline;gap:calc(var(--u)*1.4)}.figwide-h .h2{font-size:calc(var(--u)*2)}
+.tbl.dt{font-size:var(--t-min);table-layout:fixed;width:100%}.tbl.dt td,.tbl.dt th{padding:0 5px;line-height:1.15;white-space:normal}.tbl.dt td:not(:first-child),.tbl.dt th{text-align:center}.tbl.dt td:not(:first-child){text-align:right}
+.tbl.dt tr.g td{background:#cfe6f2;font-weight:700}.tbl.dt td.it{padding-left:1em}.tbl.dt th{font-size:1em;padding:0 1px;font-weight:600;letter-spacing:-.01em;hyphens:auto;-webkit-hyphens:auto}.tbl.dt tr.ft td{background:#eef3fa;font-weight:600}.tbl.dt tr.ft td.nt{text-align:left;font-weight:400;color:var(--body)}
+.pg.dtl .wrap{max-width:none;padding:calc(var(--u)*.4) calc(var(--u)*2.6) calc(var(--u)*.6) calc(var(--u)*1.4);gap:calc(var(--u)*.4)}
+.figlabel.sm{font-size:calc(var(--u)*1.6)}
+.tbl.tac td{vertical-align:middle}.tbl.tac tr.grp td{background:#dbe6f3;font-weight:700}.tbl.tac tr.tp th{background:#5b9bd5}.tbl.tac tr.gl td{background:#eef3fa}
+.tbl.tac td.nl{white-space:pre-line}.tbl.tac{table-layout:fixed;width:100%;font-size:var(--t-sm)}.tbl.tac.big{font-size:var(--t-body)}
+.tbl.tac td,.tbl.tac th{padding:calc(var(--u)*.55) calc(var(--u)*.7)}.tbl.tac tr.tp th{font-size:1.15em}.tbl.tac tr.tp th:first-child{white-space:nowrap;font-size:1em}.tbl.tac th{white-space:normal;vertical-align:middle;line-height:1.25}
+.todo{background:#fff6c7;border:1px dashed #d9a800;color:#6b5000;padding:calc(var(--u)*.6) calc(var(--u)*.9);font-size:var(--t-min)}
+@media screen and (max-width:820px){.toc,.chev,.phases,.vm>div,.take>div{grid-template-columns:1fr}}
+
+.vmo3{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:calc(var(--u)*.8)}
+.vmo3>div{display:grid;grid-template-rows:auto 1fr}
+.vmo3 .k{background:var(--navy);color:#fff;font-weight:700;font-size:var(--t-min);text-align:center;padding:calc(var(--u)*.35)}
+.vmo3 p{background:var(--soft);font-size:var(--t-min);line-height:1.35;padding:calc(var(--u)*.5) calc(var(--u)*.8);color:var(--ink)}
+.objrow{display:grid;grid-template-columns:calc(var(--u)*15) 1fr;gap:calc(var(--u)*.8);align-items:stretch}
+.objrow .o1{background:var(--navy);color:#fff;display:grid;place-items:center;text-align:center;font-weight:700;font-size:var(--t-min);line-height:1.25;padding:calc(var(--u)*.4)}
+.pf{display:grid;grid-template-columns:calc(var(--u)*15) repeat(4,1fr);gap:calc(var(--u)*.45) calc(var(--u)*.6)}
+.pf .ph4{background:#0f6e72;color:#fff;text-align:center;font-size:var(--t-min);line-height:1.25;padding:calc(var(--u)*.35)}
+.pf .ph4:nth-child(odd){background:#0d5f63}.pf .ph4 b{display:block;color:#fff}
+.pf .lab{border:1px solid var(--hair);padding:calc(var(--u)*.4) calc(var(--u)*.6);font-size:var(--t-min);line-height:1.3}
+.pf .lab u{display:block;color:var(--blue-ink);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.pf .lab b{display:block;color:var(--ink);margin-top:calc(var(--u)*.2)}
+.pf ul{margin:0;border:1px solid var(--hair);padding:calc(var(--u)*.35) calc(var(--u)*.5) calc(var(--u)*.35) calc(var(--u)*1.6);font-size:var(--t-min);line-height:1.28;color:var(--ink)}
+.pf ul.phx{list-style:none;padding-left:calc(var(--u)*.6);color:var(--muted);font-style:italic}
+.finl{display:grid;grid-template-columns:.85fr 1.6fr;gap:calc(var(--u)*1.6);align-items:start}
+.o2{border:2px solid var(--navy);text-align:center;font-weight:700;color:var(--navy);font-size:var(--t-sm);line-height:1.25;padding:calc(var(--u)*.35)}
+.prt{display:grid;place-items:center;width:max(40px,calc(var(--u)*2.5));height:max(40px,calc(var(--u)*2.5));padding:0;margin-right:calc(var(--u)*.5);cursor:pointer;background:#fff;border:1px solid #c4ccd6;color:var(--navy);transition:background .2s,color .2s}.prt.on{background:var(--orange);border-color:var(--orange);color:#fff}.prt .ic{width:55%;height:55%;stroke-width:2.4}.prt:hover{background:var(--navy);color:#fff}.pg.dark .prt{background:var(--navy2);border-color:#35557c;color:#fff}
+@page{size:1920px 1080px;margin:0}
+@media print{:root{--u:19.2px}.kadd,.kdel,.ked,.ksv,.edbtn,.edtoast{display:none!important}[data-edf]{outline:none!important}.ka .kt{outline:none!important;background:none!important}html,body{width:1920px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.pg{width:100vw!important;height:100vh!important;break-after:page}.pg:last-child{break-after:auto}.pnav,#prog,.nb,.prt,.notes{display:none!important}.fig figcaption{display:none}}
+.tbl.fin{table-layout:fixed;width:100%}
+.tbl.fin tr.pins td{padding:0 0 calc(var(--u)*.35);border:0;background:transparent;vertical-align:bottom;overflow:visible;position:relative}
+.pin{display:flex;align-items:center;justify-content:flex-end;gap:calc(var(--u)*.5);white-space:nowrap;padding-right:calc(var(--u)*.2)}
+.pin .tx{text-align:right;line-height:1.1}
+.pin .tx b{display:block;font-size:var(--t-min);color:var(--c)}
+.pin .dot{position:relative;flex:none;display:grid;place-items:center;width:calc(var(--u)*2);height:calc(var(--u)*2);border-radius:50%;background:var(--c);color:#fff;font-weight:700;font-size:var(--t-sm);box-shadow:0 3px 8px rgba(14,44,77,.25)}
+.pin .dot::after{content:"";position:absolute;left:50%;bottom:calc(var(--u)*-.55);transform:translateX(-50%);border:calc(var(--u)*.35) solid transparent;border-top:calc(var(--u)*.45) solid var(--c);border-bottom:0}
+.vmo3.big{grid-template-columns:1fr 1.15fr 1fr;gap:calc(var(--u)*1.2)}.vmo3.big .k{font-size:var(--t-sm);padding:calc(var(--u)*.6)}
+.vmo3.big p{font-size:var(--t-body);line-height:1.5;padding:calc(var(--u)*1.1) calc(var(--u)*1.3);min-height:calc(var(--u)*17)}
+.vmo3 mark{background:#fff27a;color:inherit;padding:0 .15em}
+.vlink{justify-self:end;font-size:var(--t-min);color:var(--blue-ink);text-decoration:underline;text-underline-offset:3px}
+.p4,.p4c{display:grid;grid-template-columns:calc(var(--u)*15) 2.3fr 3.3fr 2.1fr 2.7fr;gap:calc(var(--u)*.35) calc(var(--u)*.6)}
+.p4 .mf{grid-row:1/3}.p4c{grid-template-columns:calc(var(--u)*15) 1fr;align-items:stretch}.p4c .mf{align-content:stretch;gap:calc(var(--u)*.35)}.p4c .mfh{background:none;color:#4a90d9;padding:0;font-size:var(--t-min)}
+.mf{display:grid;align-content:center;gap:calc(var(--u)*.6)}
+.mfh{background:#4a90d9;color:#fff;font-weight:700;font-size:var(--t-min);line-height:1.25;padding:calc(var(--u)*.5) calc(var(--u)*.7)}
+.grp{background:var(--g);color:#fff;font-weight:700;font-size:var(--t-min);line-height:1.25;padding:calc(var(--u)*.5) calc(var(--u)*.7)}
+.p4h{color:#fff;text-align:center;font-size:var(--t-min);line-height:1.25;padding:calc(var(--u)*.35)}.p4h b{display:block;color:#fff}
+.p4 ol{margin:0;border:1px solid var(--hair);background:#fff;padding:calc(var(--u)*.4) calc(var(--u)*.6) calc(var(--u)*.4) calc(var(--u)*2);font-size:var(--t-min);line-height:1.3;color:var(--ink)}
+.p4 ol li.mk{color:var(--orange);font-weight:600}
+.p4strip{display:grid;grid-template-columns:2.3fr 3.3fr 2.1fr 2.7fr;gap:calc(var(--u)*.6)}
+.p4s{display:grid;align-content:center;gap:2px;border-top:calc(var(--u)*.35) solid var(--c);background:#fff;padding:calc(var(--u)*.35) calc(var(--u)*.6);font-size:var(--t-min);line-height:1.2}
+.p4s span{color:var(--muted)}.p4s b{color:var(--c)}
+.secs{display:grid;gap:calc(var(--u)*.6);flex:1;min-height:0}
+.secs.n2{grid-template-rows:1fr 1fr}.secs.n1{grid-template-rows:1fr}
+.sec{display:grid;grid-template-columns:calc(var(--u)*15) 1fr;gap:calc(var(--u)*.6);min-height:calc(var(--u)*8)}
+.sh{border:1px solid var(--hair);border-left:calc(var(--u)*.35) solid var(--g);background:#fff;font-weight:700;font-size:var(--t-sm);color:var(--ink);padding:calc(var(--u)*.6) calc(var(--u)*.8)}
+.lines{border:1px solid var(--hair);background:#fff repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--u)*2.9),#c9d6e6 calc(var(--u)*2.9),#c9d6e6 calc(var(--u)*2.9 + 1px));background-origin:content-box;padding:calc(var(--u)*.2) calc(var(--u)*1.2)}
+.pg.p4pg .wrap{display:flex;flex-direction:column;align-self:stretch;justify-content:flex-start;padding-top:calc(var(--u)*1.2);padding-bottom:calc(var(--u)*2.4)}
+.kpis5{display:grid;gap:calc(var(--u)*.45)}
+.kpi{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:calc(var(--u)*.7);background:#fff;border-left:calc(var(--u)*.3) solid var(--blue);padding:calc(var(--u)*.45) calc(var(--u)*.8);box-shadow:0 2px 8px rgba(14,44,77,.06)}
+.kpi .kt b{display:block;font-size:var(--t-min);color:var(--ink)}.kpi .kt small{display:block;font-size:var(--t-min);color:var(--muted);line-height:1.2}
+.kpi strong{font-size:var(--t-sm);color:var(--navy);text-align:right;max-width:9.5em;line-height:1.15}.kpi{padding:calc(var(--u)*.3) calc(var(--u)*.8)}.kpi .kt b{line-height:1.2}
+.pg.finpg .finl{grid-template-columns:1fr 1.3fr;gap:calc(var(--u)*1.4)}.pg.finpg .wrap{gap:calc(var(--u)*.9)}.pg.finpg .ttl{margin-bottom:0}
+.gnote{display:grid;grid-template-columns:auto 1fr;gap:calc(var(--u)*1);align-items:center;background:#fff8d6;border:1.5px dashed #d9a800;padding:calc(var(--u)*.8) calc(var(--u)*1.2)}
+.gnote .gl{display:flex;align-items:center;gap:calc(var(--u)*.5);font-weight:700;color:#8a6500;font-size:var(--t-sm)}
+.gnote p{font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.cmts{display:grid;gap:calc(var(--u)*1.2)}
+.cmt{background:#fff;border-left:calc(var(--u)*.4) solid var(--orange);box-shadow:0 2px 10px rgba(14,44,77,.06);padding:calc(var(--u)*1) calc(var(--u)*1.6)}
+.cmt .ch{display:flex;align-items:center;gap:calc(var(--u)*.7);font-weight:700;color:var(--navy);font-size:var(--t-lead);margin-bottom:calc(var(--u)*.6)}
+.cmt ol{margin:0;padding-left:0;list-style:none;display:grid;gap:calc(var(--u)*.6);font-size:var(--t-body);line-height:1.45;color:var(--ink)}
+.cmt ol b{color:var(--navy)}
+.lanes{display:grid;grid-template-columns:2.3fr 3.3fr 2.1fr 2.7fr;column-gap:calc(var(--u)*.6);row-gap:calc(var(--u)*.5);grid-auto-rows:1fr}
+.lane{position:relative;display:flex;flex-direction:column;min-height:0;background:color-mix(in srgb,var(--lc) 10%,#fff);border:1px solid color-mix(in srgb,var(--lc) 28%,#fff);border-left:calc(var(--u)*.35) solid var(--lc);padding:calc(var(--u)*.45) calc(var(--u)*2.4) calc(var(--u)*.45) calc(var(--u)*.9);overflow:hidden}
+.lane::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--lc);opacity:.55}
+.lpin{position:absolute;right:calc(var(--u)*-1.05);top:50%;transform:translateY(-50%);display:grid;place-items:center;width:calc(var(--u)*2.1);height:calc(var(--u)*2.1);border-radius:50%;background:var(--lc);color:#fff;font-weight:700;font-size:var(--t-sm);box-shadow:0 3px 8px rgba(14,44,77,.25);z-index:2}
+.lane{overflow:visible}
+.ka{margin:0;padding:0;list-style:none;counter-reset:k;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,calc(var(--u)*17)),1fr));column-gap:calc(var(--u)*1.4);row-gap:2px;align-content:start;font-size:var(--t-min);line-height:1.35;color:var(--ink);font-weight:600}
+.ka li{position:relative;padding:0 1.3em 0 1.5em;counter-increment:k;min-height:1.35em}.ka li::before{content:counter(k) ".";position:absolute;left:0;color:var(--lc);font-weight:700}
+.kadd{display:none;align-self:flex-start;margin-top:auto;border:1px dashed var(--lc);background:#fff;color:var(--lc);font:inherit;font-size:var(--t-min);font-weight:700;padding:1px 10px;cursor:pointer}
+.kdel{display:none;position:absolute;right:0;top:0;border:0;background:none;color:#c0392b;font-weight:700;cursor:pointer;font-size:1em;line-height:1}
+body.kaedit .kadd{display:inline-block}body.kaedit .kdel{display:inline}body.kaedit .ka .kt{display:block;min-height:1.3em;outline:1px dashed color-mix(in srgb,var(--lc) 45%,transparent);outline-offset:1px;background:#fff;cursor:text}
+body.kaedit .ka .kt:focus{outline:2px solid var(--lc)}
+.ka-sec{grid-template-rows:minmax(0,1fr);min-height:0}.pg.p4pg .secs{min-height:0}.lanes{grid-auto-rows:minmax(0,1fr)}
+.pg.p4pg .wrap{gap:calc(var(--u)*.55);padding-top:calc(var(--u)*.6);padding-bottom:calc(var(--u)*1.6);height:calc(100vh - var(--u)*4.6);min-height:0}
+.pg.p4pg .ttl .h2{font-size:calc(var(--u)*2)}.pg.p4pg .eyebrow{font-size:var(--t-min)}
+.pg.p4pg .p4{grid-template-columns:calc(var(--u)*12) minmax(0,2.2fr) minmax(0,3.3fr) minmax(0,2.2fr) minmax(0,3fr);gap:calc(var(--u)*.3) calc(var(--u)*.6)}
+.pg.p4pg .sec{grid-template-columns:calc(var(--u)*12) minmax(0,1fr)}
+.pg.p4pg .lanes{grid-template-columns:minmax(0,2.2fr) minmax(0,3.3fr) minmax(0,2.2fr) minmax(0,3fr);row-gap:calc(var(--u)*.4)}
+.pg.p4pg .p4h{padding:calc(var(--u)*.2) calc(var(--u)*.3);line-height:1.15}
+.pg.p4pg .p4 ol{line-height:1.18;padding:calc(var(--u)*.3) calc(var(--u)*.5) calc(var(--u)*.3) calc(var(--u)*1.7)}
+.pg.p4pg .mfh,.pg.p4pg .grp{padding:calc(var(--u)*.35) calc(var(--u)*.5);font-size:var(--t-min)}
+.pg.p4pg .sh{font-size:var(--t-min);padding:calc(var(--u)*.5) calc(var(--u)*.6)}
+.pg.p4pg .ka{line-height:1.22}.pg.p4pg .lane{padding:calc(var(--u)*.3) calc(var(--u)*1.9) calc(var(--u)*.3) calc(var(--u)*.7)}
+.pg.p4pg .lpin{width:calc(var(--u)*1.8);height:calc(var(--u)*1.8);right:calc(var(--u)*-.9)}
+.apxbox{display:grid;place-items:center;min-height:calc(100vh - var(--u)*17);border:2px dashed #c4ccd6;background:#fff}
+.apxbox{position:relative;align-content:start;justify-items:stretch;padding:calc(var(--u)*1.2)}.apxbox .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:var(--t-body);pointer-events:none}
+.apxbox.has .ph{display:none}.apxbox img{max-width:100%;max-height:calc(100vh - var(--u)*22);display:block;margin:0 auto}.apxtxt{font-size:var(--t-body);line-height:1.5;color:var(--ink);white-space:pre-wrap}
+.edbtn{display:none}body.kaedit .edbtn{display:inline-flex;align-items:center;gap:.4em;border:1px dashed var(--blue);background:#fff;color:var(--blue-ink);font:inherit;font-size:var(--t-min);font-weight:700;padding:2px 10px;cursor:pointer;margin-top:calc(var(--u)*.4)}
+.edimg{position:absolute;right:calc(var(--u)*.6);top:calc(var(--u)*.6);z-index:3}.fig{position:relative}
+body.kaedit [data-edf]{outline:1px dashed rgba(0,159,223,.55);outline-offset:2px;cursor:text;min-width:1em}body.kaedit [data-edf]:focus{outline:2px solid var(--blue);background:#fff}
+body.kaedit .apxtxt{min-height:3em}
+.edtoast{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:8px 16px;font-size:15px;z-index:30;display:none}
+.tbl.tpl{table-layout:fixed;width:100%;font-size:var(--t-body)}.tbl.tpl th{white-space:normal;text-align:center;vertical-align:middle;line-height:1.25}
+.tbl.tpl tr.tp th{background:#5b9bd5}.tbl.tpl tr.gl td{background:#eef3fa;height:calc(var(--u)*3)}
+.tbl.tpl tbody td{height:calc(var(--u)*4.6);text-align:center;background:#fff}.tbl.tpl tr.sum td{height:auto}
+.vmo3.big.vmo4{grid-template-columns:1fr 1.25fr;gap:calc(var(--u)*.8) calc(var(--u)*1)}.vmo3.big.vmo4 p{min-height:0;font-size:var(--t-sm);line-height:1.45;padding:calc(var(--u)*.7) calc(var(--u)*1.1)}.vmo3.big.vmo4 .k{padding:calc(var(--u)*.4)}
+.vmo3 .vfin{display:grid;grid-template-rows:auto 1fr}.vfl{display:grid;gap:calc(var(--u)*.3);background:var(--soft);padding:calc(var(--u)*.6) calc(var(--u)*.8)}.pg.soft .vfl{background:#fff}
+.vf{display:grid;grid-template-columns:1fr auto;gap:calc(var(--u)*.8);align-items:center;background:#eef3fa;padding:calc(var(--u)*.25) calc(var(--u)*.7);border-left:calc(var(--u)*.25) solid var(--blue)}
+.vfn b{display:block;font-size:var(--t-min);color:var(--ink);line-height:1.25}.vfn small{display:block;font-size:var(--t-min);color:var(--muted);line-height:1.2}
+.vfv{font-size:var(--t-sm);color:var(--navy);white-space:nowrap}
+.pg.ccpg .wrap{gap:calc(var(--u)*.5)}
+.pg.ccpg .ttl.cct{display:flex;align-items:baseline;gap:calc(var(--u)*1.4)}.pg.ccpg .ttl .h2{font-size:calc(var(--u)*1.7)}.pg.ccpg .cct .eyebrow{margin:0}
+.cc{display:grid;grid-template-columns:minmax(0,1fr) calc(var(--u)*20);gap:calc(var(--u)*.8);flex:1;min-height:0}
+.ccl{display:flex;flex-direction:column;gap:calc(var(--u)*.35);min-width:0;min-height:0}
+.ccv{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.9fr) minmax(0,1.05fr) minmax(0,1.35fr);gap:calc(var(--u)*.55)}
+.ccc{background:#fff;border-top:calc(var(--u)*.22) solid var(--blue);box-shadow:0 2px 8px rgba(14,44,77,.08);display:flex;flex-direction:column}.ccfo{border-top-color:var(--green)}
+.cch{background:var(--navy);color:#fff;display:flex;align-items:center;gap:calc(var(--u)*.45);padding:calc(var(--u)*.3) calc(var(--u)*.6);font-weight:700;font-size:var(--t-min);letter-spacing:.04em;line-height:1.2}.cch .ib{color:#fff;background:none}
+.ccb{padding:calc(var(--u)*.3) calc(var(--u)*.55);font-size:var(--t-min);line-height:1.3;color:var(--ink)}
+.ccfl{list-style:none;margin:0;padding:calc(var(--u)*.35) calc(var(--u)*.5);display:grid;gap:calc(var(--u)*.2)}
+.ccfl li{display:flex;align-items:center;gap:calc(var(--u)*.4);font-size:var(--t-min);font-weight:600;color:var(--navy);background:#f2f8f2;padding:1px calc(var(--u)*.35);line-height:1.2}
+.ccfl i{font-style:normal;flex:0 0 auto;width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);display:grid;place-items:center;background:var(--green);color:#fff;font-size:var(--t-min)}
+.ccfn{flex:1}.ccfv{color:var(--blue);white-space:nowrap}
+.ccde{margin:auto 0 0;padding:0 calc(var(--u)*.5) calc(var(--u)*.25);text-align:right;font-size:var(--t-min);font-weight:600;color:var(--orange)}
+.ccmn{display:flex;gap:calc(var(--u)*.5);align-items:center;background:#fff7ec;border-left:calc(var(--u)*.25) solid var(--orange);padding:calc(var(--u)*.25) calc(var(--u)*.7);font-size:var(--t-min);color:#7a4510;line-height:1.3}.ccmn b{color:var(--orange)}.ccmn .ib{color:var(--orange);background:none}
+.ccband{background:linear-gradient(90deg,var(--navy),#1e8c80);color:#fff;text-align:center;padding:calc(var(--u)*.2);font-weight:700;font-size:var(--t-sm)}
+.ccps{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,3.3fr) minmax(0,2.2fr) minmax(0,3fr);gap:calc(var(--u)*.5);flex:1;min-height:0}
+.ccp{background:#fff;box-shadow:0 2px 8px rgba(14,44,77,.08);border-bottom:calc(var(--u)*.2) solid var(--c);display:flex;flex-direction:column;min-height:0}
+.ccph{background:var(--c);color:#fff;padding:calc(var(--u)*.25) calc(var(--u)*.5);line-height:1.15}.ccph span{display:block;letter-spacing:0}.ccph b{display:block;color:#fff;font-size:var(--t-sm)}.ccph span{font-size:var(--t-min);font-weight:600;opacity:.9}
+.ccp ul{list-style:none;margin:0;padding:calc(var(--u)*.3) calc(var(--u)*.5);display:grid;gap:calc(var(--u)*.2);align-content:start}
+.ccp li{font-size:var(--t-min);line-height:1.22;color:var(--ink);padding-left:calc(var(--u)*.8);position:relative}.ccp li::before{content:"";position:absolute;left:0;top:.5em;width:calc(var(--u)*.38);height:calc(var(--u)*.38);background:var(--c)}
+.ccgs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:calc(var(--u)*.55)}
+.ccg{background:#fff;box-shadow:0 2px 8px rgba(14,44,77,.08)}
+.ccgh{background:var(--g);color:#fff;display:flex;align-items:center;gap:calc(var(--u)*.45);padding:calc(var(--u)*.3) calc(var(--u)*.6);font-weight:700;font-size:var(--t-min);line-height:1.2;min-height:calc(var(--u)*3)}.ccgh .ib{color:#fff;background:none}
+.ccg ul{list-style:none;margin:0;padding:calc(var(--u)*.35) calc(var(--u)*.55);display:grid;gap:calc(var(--u)*.2) calc(var(--u)*.6)}.ccg.g2 ul{grid-template-columns:1fr 1fr}
+.ccg li{font-size:var(--t-min);color:var(--ink);font-weight:600;border-left:calc(var(--u)*.16) solid var(--g);padding:0 calc(var(--u)*.4);background:#f7f9fb;line-height:1.25}
+.ccn{background:#fff;box-shadow:0 2px 8px rgba(14,44,77,.08);border-top:calc(var(--u)*.3) solid var(--navy);display:flex;flex-direction:column;gap:calc(var(--u)*.45);padding:calc(var(--u)*.6) calc(var(--u)*.8);min-height:0}
+.ccnh{display:flex;align-items:center;gap:calc(var(--u)*.5);color:var(--navy);font-size:var(--t-lead);font-weight:700}
+.ccns{background:#e6f5fc;color:var(--navy);font-weight:600;font-size:var(--t-min);padding:calc(var(--u)*.35) calc(var(--u)*.55);line-height:1.35}
+.ccni{display:flex;gap:calc(var(--u)*.5);align-items:flex-start;border-left:calc(var(--u)*.2) solid var(--n);background:#fafbfc;padding:calc(var(--u)*.35) calc(var(--u)*.45)}
+.ccni i{font-style:normal;flex:0 0 auto;width:calc(var(--u)*1.5);height:calc(var(--u)*1.5);background:var(--n);color:#fff;font-weight:700;font-size:var(--t-min);display:grid;place-items:center}
+.ccni p{font-size:var(--t-min);line-height:1.38;color:var(--ink);margin:0}
+@media screen and (max-width:820px){.cc,.ccv,.ccps,.ccgs,.vmo3.big.vmo4{grid-template-columns:1fr}.ccg.g2 ul{grid-template-columns:1fr}}
+.tbl.fin td.pe{background-image:linear-gradient(var(--c),var(--c));background-size:100% calc(var(--u)*.28);background-repeat:no-repeat;background-position:top}
+
+</style></head>
+<!-- data-minutes = talk length (check_deck.py budgets the notes' time ranges against it) · class="builds" / "motion" are opt-in · data-tabs = section names in the top bar; each slide's data-tab must match one of them -->
+<body data-tabs="Strategy|CAPEX|OPEX|IS|วิธีกรอก">
+<!-- icons: Lucide (ISC licence) · markup: svg.ic containing a use element pointing at #i-name · names + markup in references/components.md -->
+<svg id="icons" width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></symbol><symbol id="i-chart-bar" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M7 16h8"></path><path d="M7 11h12"></path><path d="M7 6h3"></path></symbol><symbol id="i-chart-line" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3"></path></symbol><symbol id="i-chart-pie" viewBox="0 0 24 24"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"></path><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></symbol><symbol id="i-trending-down" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></symbol><symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></symbol><symbol id="i-piggy-bank" viewBox="0 0 24 24"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"></path><path d="M2 9v1c0 1.1.9 2 2 2h1"></path><path d="M16 11h.01"></path></symbol><symbol id="i-dollar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></symbol><symbol id="i-percent" viewBox="0 0 24 24"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></symbol><symbol id="i-landmark" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></symbol><symbol id="i-milestone" viewBox="0 0 24 24"><path d="M12 13v8"></path><path d="M12 3v3"></path><path d="M4 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h13a2 2 0 0 0 1.152-.365l3.424-2.317a1 1 0 0 0 0-1.635l-3.424-2.318A2 2 0 0 0 17 6z"></path></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></symbol><symbol id="i-compass" viewBox="0 0 24 24"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path><circle cx="12" cy="12" r="10"></circle></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol><symbol id="i-user-check" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></symbol><symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect width="20" height="14" x="2" y="6" rx="2"></rect></symbol><symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></symbol><symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M17 18h1"></path><path d="M12 18h1"></path><path d="M7 18h1"></path></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path><path d="M2 7h20"></path><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"></path></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"></path><path d="m7.5 4.27 9 5.15"></path></symbol><symbol id="i-boxes" viewBox="0 0 24 24"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"></path><path d="m7 16.5-4.74-2.85"></path><path d="m7 16.5 5-3"></path><path d="M7 16.5v5.17"></path><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"></path><path d="m17 16.5-5-3"></path><path d="m17 16.5 4.74-2.85"></path><path d="M17 16.5v5.17"></path><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"></path><path d="M12 8 7.26 5.15"></path><path d="m12 8 4.74-2.85"></path><path d="M12 13.5V8"></path></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="17" cy="18" r="2"></circle><circle cx="7" cy="18" r="2"></circle></symbol><symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"></rect><rect width="6" height="6" x="9" y="9" rx="1"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></symbol><symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></symbol><symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></symbol><symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></symbol><symbol id="i-workflow" viewBox="0 0 24 24"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></symbol><symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"></path></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></symbol><symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"></path><path d="M9 8V2"></path><path d="M15 8V2"></path><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></symbol><symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"></path><path d="M10 20c5.5-2.5.8-6.4 3-10"></path><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"></path><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"></path></symbol><symbol id="i-recycle" viewBox="0 0 24 24"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"></path><path d="m14 16-3 3 3 3"></path><path d="M8.293 13.596 7.196 9.5 3.1 10.598"></path><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"></path><path d="m13.378 9.633 4.096 1.098 1.097-4.096"></path></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></symbol><symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></symbol><symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></symbol><symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></symbol><symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"></path><path d="m3 7 2 2 4-4"></path><path d="M13 6h8"></path><path d="M13 12h8"></path><path d="M13 18h8"></path></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path><path d="M7 3v4a1 1 0 0 0 1 1h7"></path></symbol><symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"></path><rect x="6" y="14" width="12" height="8" rx="1"></rect></symbol></svg>
+<template id="bar-tpl"><div class="bar"><span class="brand"><img src="data:image/png;base64,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" alt="Precise"><em>EC <i>PBI</i></em></span><nav class="tabs" aria-hidden="true"></nav><span class="pgr"><span class="pgno"></span><button class="prt ked" aria-label="โหมดแก้ไข Key action" title="โหมดแก้ไข Key action (E)"><svg class="ic"><use href="#i-pencil"/></svg></button><button class="prt ksv" aria-label="บันทึกเป็นไฟล์" title="บันทึกเป็นไฟล์ HTML (ฝังรายการที่แก้ไว้)"><svg class="ic"><use href="#i-save"/></svg></button><button class="prt kgh" aria-label="บันทึกขึ้นเว็บ" title="บันทึกขึ้นเว็บ (GitHub)"><svg class="ic"><use href="#i-cloud"/></svg></button><button class="prt" aria-label="พิมพ์ / บันทึกเป็น PDF" title="พิมพ์ / บันทึกเป็น PDF (P)"><svg class="ic"><use href="#i-printer"/></svg></button><button class="nb prev" aria-label="ย้อนกลับ (←)" title="ย้อนกลับ (←)"><svg class="ic"><use href="#i-chevron-left"/></svg></button><button class="nb next" aria-label="ถัดไป (→)" title="ถัดไป (→)"><svg class="ic"><use href="#i-chevron-right"/></svg></button></span></div></template>
+<div id="prog" aria-hidden="true"></div>
+<div id="stage"><section class="pg dense p4pg ccpg" data-name="Strategy Concept" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl cct"><h2 class="h2">Strategy Concept <span class="c">· 2027–2034</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2><p class="eyebrow">PBI (เดิม PSL) · สายไผ่ครบวงจร · SFAM · BCG และ ESG</p></div>
+<div class="cc"><div class="ccl">
+<div class="ccv"><div class="ccc"><div class="cch"><span class="ib sm"><svg class="ic"><use href="#i-eye"/></svg></span><span>VISION</span></div><div class="ccb">To be Leading Engineering Firm for Social Innovation Business in Thailand  and Energizing Shared Prosperity for Thai Society</div></div><div class="ccc"><div class="cch"><span class="ib sm"><svg class="ic"><use href="#i-flag"/></svg></span><span>MISSION</span></div><div class="ccb">พรีไซซเป็นผู้ให้บริการโซลูชั่นนวัตกรรมด้านดิจิทัลกริดอัจฉริยะ (Smart Grid Digitalization), ขับเคลื่อนห่วงโซ่อุปทานไผ่ครบวงจรอย่างยั่งยืน (Addressing the Overall Supply Chain of Bamboo), โซลูชั่นดิจิทัล ปัญญาประดิษฐ์ และระบบอัตโนมัติ (Digital, AI &amp; Automation Solutions) โดยร่วมกับกลุ่มนวัตกรรมเป้าหมาย(Innovative Cluster)เพื่อขับเคลื่อนการเติบโตที่รุ่งเรืองร่วมกันกับผู้มีส่วนได้ส่วนเสียทุกฝ่าย</div></div><div class="ccc"><div class="cch"><span class="ib sm"><svg class="ic"><use href="#i-target"/></svg></span><span>BROAD CORPORATE OBJECTIVE</span></div><div class="ccb">มุ่งสู่การเป็นองค์กรที่เติบโตอย่างยั่งยืน มีคุณภาพสูง ผสานประโยชน์สุขทุกฝ่ายที่เกี่ยวข้อง และพัฒนาร่วมกัน โดยมีการบริหารแบบธรรมาภิบาล</div></div><div class="ccc ccfo"><div class="cch"><span class="ib sm"><svg class="ic"><use href="#i-trending-up"/></svg></span><span>FINANCIAL OBJECTIVE</span></div><ol class="ccfl"><li><i>1</i><span class="ccfn">% NPAT Growth</span><b class="ccfv">≥ 10%</b></li><li><i>2</i><span class="ccfn">อัตรากำไรขั้นต้น (GP)</span><b class="ccfv">เพิ่มขึ้น 2% จาก Y2026</b></li><li><i>3</i><span class="ccfn">%SG&amp;A</span><b class="ccfv">ลดลง 1% จาก Y2026</b></li><li><i>4</i><span class="ccfn">D/E Ratio</span><b class="ccfv">&lt; 1 เท่า*</b></li><li><i>5</i><span class="ccfn">%Growth Equity</span><b class="ccfv">&gt; 4%</b></li></ol><p class="ccde">* D/E Ratio แล้วแต่บริษัท</p></div></div>
+<div class="ccband">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div>
+<div class="ccps"><div class="ccp" style="--c:#1e8c80"><div class="ccph"><b>ระยะที่ 1 (2027)</b><span>WAY TO ACHIEVE - BUDGETING</span></div><ul><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ul></div><div class="ccp" style="--c:#197a70"><div class="ccph"><b>ระยะที่ 2 (2027-2030)</b><span>WAY TO ACHIEVE-FORECASTING</span></div><ul><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ul></div><div class="ccp" style="--c:#136359"><div class="ccph"><b>ระยะที่ 3 (2027-2032)</b><span>WAY TO COMPLETE-REACTIVE</span></div><ul><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ul></div><div class="ccp" style="--c:#0d4d45"><div class="ccph"><b>ระยะที่ 4 (2027-2034)</b><span>WAY TO BE LEADER-PROACTIVE</span></div><ul><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ul></div></div>
+<div class="ccgs"><div class="ccg g1" style="--g:#3cc14c"><div class="ccgh"><span class="ib sm"><svg class="ic"><use href="#i-briefcase"/></svg></span><span>1.Business plan(Wealth Creation) by key action plan</span></div><ul><li>1.1 From Investing</li><li>1.2 From Leasing</li><li>1.3 From Land</li></ul></div><div class="ccg g2" style="--g:#f6851f"><div class="ccgh"><span class="ib sm"><svg class="ic"><use href="#i-brain"/></svg></span><span>2.Intangible (ICM) by item with with broad action plan</span></div><ul><li>2.1 Information Capital</li><li>2.2 Human Capital</li><li>2.3 Digital Process Capital</li><li>2.4 Customer Capital</li><li>2.5 Relationship Capital</li><li>2.6 Innovation Capital</li></ul></div><div class="ccg g3" style="--g:#7c4dbe"><div class="ccgh"><span class="ib sm"><svg class="ic"><use href="#i-building"/></svg></span><span>3.Tangible with with broad action plan</span></div><ul><li>3.1 Land</li><li>3.2 Building</li><li>3.3 Machinery &amp; Equipment</li></ul></div></div>
+</div>
+<div class="ccn"><div class="ccnh"><span class="ib sm"><svg class="ic"><use href="#i-clipboard"/></svg></span>Note</div><div class="ccns">ทุก Action Plan ต้องมีรายละเอียดดังต่อไปนี้  (ใส่ที่ Appendix)</div><div class="ccni" style="--n:#009fdf"><i>1</i><p>1.รายการ รายได้ GP ที่ได้รับ : อยู่ในงบไหน ,นิติกรรมเกิดเมื่อไหร่ , GL Ledger ไหน ,ส่งงานเมื่อไหร่เหลือค้างส่ง(Backlog)ในปีงบประมานนั้นเท่าไหร่, ได้รับเงินเมื่อไหร่, BU/Core product RST/ผู้ซื้อไหน/ผู้ใช้ใคร</p></div><div class="ccni" style="--n:#f6851f"><i>2</i><p>2.รายการรายจ่าย และการลงทุน CAPEX นำไปสู่Depreciation เมื่อไหร่ เท่าไหร่ อย่างไร /OPEX /SG&amp;A/ต้นทุนทางการเงินและทั้งหมด  อยู่ในงบไหน , GL Ledger ไหน  เมื่อไหร่ เท่าไหร่ อย่างไร</p></div><div class="ccni" style="--n:#51af4e"><i>3</i><p>3.ในกรณีโครงการสร้างโอกาสในธุรกิจใหม่ และต้องทำ Feasibility Study ต้องเชื่อมโยงข้อมูลต่างๆทางการเงินของFinancial Model ในโครงการนั้นและสามารถลงในงบจนจบโครงการ</p></div><div class="ccni" style="--n:#7c4dbe"><i>4</i><p>4.จากรายการAction planข้อ 1-3 นำไปจัดลำดับการลงทุน โดยเลือก Prioirity ตามแนวทาง Low Hanging Fruit (priority management) แล้วนำตัวเลข ทุก Action Plan ไป Simulate ด้วย AI แล้วออกงบทั้ง3 งบ พร้อมทั้งความเสี่ยงที่เกิดจากRatio ที่เราต้องการควบคุมทางการเงินตลอดเวลาของแผน   เพื่อสร้างรายได้และลดรายจ่าย และเพื่อความยั่งยื่น</p></div></div>
+</div></div>
+<aside class="notes">ภาพรวมแนวคิดการทำ Strategy: Vision · Mission · Objective · Financial Objective → แผน 4 ระยะ → หัวข้อ Business plan / Intangible / Tangible และ Note สิ่งที่ทุก Action Plan ต้องมี (ใส่ที่ Appendix)</aside>
+</section>
+
+<section class="pg soft" data-name="Vision · Mission · Objective" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="vmo3 big vmo4"><div><span class="k">VISION</span><p>To be Leading Engineering Firm for Social Innovation Business in Thailand  and Energizing Shared Prosperity for Thai Society</p></div><div><span class="k">MISSION</span><p>พรีไซซเป็นผู้ให้บริการโซลูชั่นนวัตกรรมด้านดิจิทัลกริดอัจฉริยะ (Smart Grid Digitalization), ขับเคลื่อนห่วงโซ่อุปทานไผ่ครบวงจรอย่างยั่งยืน (Addressing the Overall Supply Chain of Bamboo), โซลูชั่นดิจิทัล ปัญญาประดิษฐ์ และระบบอัตโนมัติ (Digital, AI &amp; Automation Solutions) โดยร่วมกับกลุ่มนวัตกรรมเป้าหมาย(Innovative Cluster)เพื่อขับเคลื่อนการเติบโตที่รุ่งเรืองร่วมกันกับผู้มีส่วนได้ส่วนเสียทุกฝ่าย</p></div><div><span class="k">BROAD CORPORATE OBJECTIVE</span><p>มุ่งสู่การเป็นองค์กรที่เติบโตอย่างยั่งยืน มีคุณภาพสูง ผสานประโยชน์สุขทุกฝ่ายที่เกี่ยวข้อง และพัฒนาร่วมกัน โดยมีการบริหารแบบธรรมาภิบาล</p></div><div class="vfin"><span class="k">FINANCIAL OBJECTIVE</span><div class="vfl"><div class="vf"><span class="vfn"><b>1. % NPAT Growth</b></span><strong class="vfv">≥ 10%</strong></div><div class="vf"><span class="vfn"><b>2. อัตรากำไรขั้นต้น (GP)</b></span><strong class="vfv">เพิ่มขึ้น 2% จาก Y2026</strong></div><div class="vf"><span class="vfn"><b>3. %SG&amp;A</b></span><strong class="vfv">ลดลง 1% จาก Y2026</strong></div><div class="vf"><span class="vfn"><b>4. D/E Ratio</b><small>Total Debt / Total Equity</small></span><strong class="vfv">&lt; 1 เท่า</strong></div><div class="vf"><span class="vfn"><b>5. %Growth Equity</b><small>(NPAT - Dividend) / Average Equity</small></span><strong class="vfv">&gt; 4%</strong></div></div></div></div>
+</div>
+<aside class="notes">Corporate Level Strategy (PCC): Vision, Mission และ Broad Corporate Objective · คำอธิบายจาก template — VISION = วิสัยทัศน์: องค์กรอยากเป็นอะไรในอนาคต ภาพปลายทางระยะยาว 5–10 ปี ตอบว่า “จะไปที่ไหน” · MISSION = พันธกิจ: องค์กรจะทำอะไร ให้ใคร และทำอย่างไร เพื่อไปให้ถึง Vision ตอบคำถามว่า “จะไปอย่างไร” · ลำดับถูกต้องแล้ว Vision → Mission → Objective: ภาพปลายทาง → วิธีไป → ผลลัพธ์ที่วัดได้</aside>
+</section>
+
+<section class="pg dense p4pg first" data-name="4 ระยะ · 1.1" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#3cc14c">1.Business plan(Wealth Creation) by key action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="1.1"><div class="sh" style="--g:#3cc14c">1.1 From Investing</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 1.Business plan(Wealth Creation) by key action plan: 1.1 From Investing</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 1.2" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#3cc14c">1.Business plan(Wealth Creation) by key action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="1.2"><div class="sh" style="--g:#3cc14c">1.2 From Leasing</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 1.Business plan(Wealth Creation) by key action plan: 1.2 From Leasing</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 1.3" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#3cc14c">1.Business plan(Wealth Creation) by key action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="1.3"><div class="sh" style="--g:#3cc14c">1.3  From Land</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 1.Business plan(Wealth Creation) by key action plan: 1.3 From Land</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.1" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.1"><div class="sh" style="--g:#f6851f">2.1 Information Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.1 Information Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.2" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.2"><div class="sh" style="--g:#f6851f">2.2 Human Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.2 Human Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.3" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.3"><div class="sh" style="--g:#f6851f">2.3 Digital Process Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.3 Digital Process Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.4" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.4"><div class="sh" style="--g:#f6851f">2.4 Customer Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.4 Customer Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.5" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.5"><div class="sh" style="--g:#f6851f">2.5 Relationship Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.5 Relationship Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 2.6" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#f6851f">2.Intangible (ICM) by item with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="2.6"><div class="sh" style="--g:#f6851f">2.6 Innovation Capital</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 2.Intangible (ICM) by item with with broad action plan: 2.6 Innovation Capital</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 3.1" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#7c4dbe">3.Tangible with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="3.1"><div class="sh" style="--g:#7c4dbe">3.1 Land</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 3.Tangible with with broad action plan: 3.1 Land</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 3.2" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#7c4dbe">3.Tangible with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="3.2"><div class="sh" style="--g:#7c4dbe">3.2 Building</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 3.Tangible with with broad action plan: 3.2 Building</aside>
+</section>
+
+<section class="pg dense p4pg" data-name="4 ระยะ · 3.3" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Vision, Mission, Objective, <span class="c">แผนกลยุทธ์ 4 ระยะ</span></h2></div>
+<div class="p4"><div class="mf"><div class="mfh">Mission of the Firm and Way to Achieve Competitive Leadership (Porter model)</div><div class="grp" style="--g:#7c4dbe">3.Tangible with with broad action plan</div></div><div class="p4h" style="background:#1e8c80">ระยะที่ 1 (2027)<b>WAY TO ACHIEVE - BUDGETING</b></div><div class="p4h" style="background:#197a70">ระยะที่ 2 (2027-2030)<b>WAY TO ACHIEVE-FORECASTING</b></div><div class="p4h" style="background:#136359">ระยะที่ 3 (2027-2032)<b>WAY TO COMPLETE-REACTIVE</b></div><div class="p4h" style="background:#0d4d45">ระยะที่ 4 (2027-2034)<b>WAY TO BE LEADER-PROACTIVE</b></div><ol><li>บริหาร BG (PO received) ให้ได้</li><li>บริหาร DS  ให้ RRC ได้ตามเป้าและให้ได้ QCDS ทุก PO</li><li>บริหาร SG&amp;A และ cost of fund ตาม budget เพื่อให้ได้ NPAT = หรือ &gt; Base Case</li></ol><ol><li>ขยาย product &amp; customer scope (Ansoff Model), และแผนขยาย RST และ พัฒนาธุรกิจแต่ละ RST เพื่อ growth และทดแทน GP สินค้าเดิม หรือลูกค้าเดิมที่หายไปเพื่อ….....</li><li>พัฒนา distinctive competence สินค้าเก่าเพื่อ extend life cycle</li><li>Forecasting NPAT Growth จาก Sale &gt; GP Growth และ SG&amp;A และต้นทุนทางการเงิน ที่เกิดขึ้นจาก tangible &amp; intangible ตามข้อ1 และ 2</li><li>Improvement of Cost, Speed and Quality, and Fast Responsiveness to Customers</li><li>Develop new business units to increase scope of business</li></ol><ol><li>พัฒนา business unit ของแต่ละ RS ที่ ตกต่ำ (BCG Model –Dog,?)  ให้มี distinctive competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><ol><li>สร้างให้เป็น leader ด้วยSTEM &amp; DEและ addressing &amp; manageable overall supply chain</li><li>พัฒนากลยุทธ์ในการสร้าง moat ด้วยการสร้าง core competence ด้วย complexity (Hamel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS  successful, must plan for scale up</li></ol></div><div class="secs n1"><div class="sec ka-sec" data-key="3.3"><div class="sh" style="--g:#7c4dbe">3.3 Machinery &amp; Equipment</div><div class="lanes"><div class="lane" style="--lc:#14a38b;grid-column:1/2" data-lane="0"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 1 (2027)">1</span></div><div class="lane" style="--lc:#1f8ad1;grid-column:1/3" data-lane="1"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 2 (2027-2030)">2</span></div><div class="lane" style="--lc:#5b6cd6;grid-column:1/4" data-lane="2"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 3 (2027-2032)">3</span></div><div class="lane" style="--lc:#8a4fc4;grid-column:1/5" data-lane="3"><ol class="ka"></ol><button class="kadd" type="button">+ เพิ่มโครงการ</button><span class="lpin" title="ระยะที่ 4 (2027-2034)">4</span></div></div></div></div>
+</div>
+<aside class="notes">แผนกลยุทธ์ 4 ระยะ (ระยะที่ 1 Budgeting ถึงระยะที่ 4 Leader-Proactive) และ Mission of the Firm and Way to Achieve Competitive Leadership — 3.Tangible with with broad action plan: 3.3 Machinery &amp; Equipment</aside>
+</section>
+
+
+<section class="pg soft finpg" data-name="Financial Objective" data-tab="Strategy">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">1. Business Level Strategy (Company) · PBI</span><h2 class="h2">Objective No.2 <span class="c">Financial Corporate Objective</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
+<div class="cols2" style="--c:1fr 1.3fr;gap:calc(var(--u)*1.6)">
+<div style="display:grid;gap:calc(var(--u)*.7);align-content:start"><div class="o2">Objective No.2<br>Financial Objective</div><div class="kpis5"><div class="kpi"><span class="ib sm soft"><svg class="ic"><use href="#i-trending-up"/></svg></span><span class="kt"><b>1. % NPAT Growth <span style="font-weight:400;font-size:.82em">· <span style="color:#c0392b">ต้องดูที่มา</span></span></b><small>เป้า ≥ 10% · แผนปี 2027 = +402.9% (2.45 → 12.32) แต่มาจากเงินสนับสนุน</small></span><strong>≥ 10%</strong></div><div class="kpi"><span class="ib sm soft"><svg class="ic"><use href="#i-percent"/></svg></span><span class="kt"><b>2. อัตรากำไรขั้นต้น (GP) <span style="font-weight:400;font-size:.82em">· <span style="color:#c0392b">สวนทางเป้าปี 2027</span></span></b><small>เป้า +2% · %GP ลดจาก 32.27% เหลือ 14.85% ก่อนกลับขึ้นเป็น 29.52% ปี 2033</small></span><strong>เพิ่มขึ้น 2%</strong></div><div class="kpi"><span class="ib sm soft"><svg class="ic"><use href="#i-receipt"/></svg></span><span class="kt"><b>3. %SG&amp;A <span style="font-weight:400;font-size:.82em">· <span style="color:#c0392b">สูง</span></span></b><small>เป้าลด 1% · OPEX ÷ Total Revenue = 22.92% · ถ้าหารด้วยรายได้จริง 67.09 = 30.78%</small></span><strong>ลดลง 1%</strong></div><div class="kpi"><span class="ib sm soft"><svg class="ic"><use href="#i-scale"/></svg></span><span class="kt"><b>4. D/E Ratio <span style="font-weight:400;font-size:.82em">· รอข้อมูล</span></b><small>Total Debt / Total Equity — รองบแสดงฐานะการเงิน</small></span><strong>&lt; 1 เท่า</strong></div><div class="kpi"><span class="ib sm soft"><svg class="ic"><use href="#i-piggy-bank"/></svg></span><span class="kt"><b>5. %Growth Equity <span style="font-weight:400;font-size:.82em">· รอข้อมูล</span></b><small>(NPAT − Dividend) / Average Equity</small></span><strong>&gt; 4%</strong></div></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-alert"/></svg></span><span>ประเด็นที่ต้องตรวจก่อนเสนอบอร์ด</span></div><ul class="blist"><li><b>กำไรปี 2027 มาจากเงินสนับสนุนของ PCC ทั้งหมด</b> — GP 9.96 − OPEX 20.65 = ขาดทุนจากการดำเนินงาน 10.69 ลบ. บวกเงินสนับสนุน 23.00 ลบ. จึงเป็น NPAT 12.32 ลบ.</li><li><b>ปี 2028 เงินสนับสนุนเหลือ 10.00 ลบ. NPAT เหลือ 3.60 ลบ.</b> ตั้งแต่ปี 2029 ไม่มีเงินสนับสนุน ธุรกิจต้องยืนได้เอง</li><li><b>Total Revenue ปี 2028 ไม่ลงตัว</b> 79.09 + 10.00 = 89.09 แต่ตารางเขียน 94.09 — ต่าง 5.00 ลบ.</li><li><b>รายได้กระโดด 2 ครั้ง</b> ปี 2027 +566% และปี 2029 +148% — ต้องมีแผนรองรับกำลังผลิตและเงินทุน</li></ul></div></div>
+<div style="display:grid;gap:calc(var(--u)*.7);align-content:start">
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-chart-column"/></svg></span><span>รายได้จากการขายและบริการ (Base)<small>ล้านบาท</small></span></div><div class="colchart"><svg viewBox="0 0 640 140" role="img" aria-label="รายได้ (Base)"><line x1="40" y1="112" x2="640" y2="112" stroke="#c4ccd6"/><rect x="57.5" y="109.2" width="40" height="2.8" fill="#a3acb8"/><text x="77.5" y="103.2" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">10.07</text><text x="77.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2026 ML</text><rect x="132.5" y="93.3" width="40" height="18.7" fill="#0e2c4d"/><text x="152.5" y="87.3" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">67.09</text><text x="152.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2027</text><rect x="207.5" y="90.0" width="40" height="22.0" fill="#0e2c4d"/><text x="227.5" y="84.0" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">79.09</text><text x="227.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2028</text><rect x="282.5" y="57.4" width="40" height="54.6" fill="#0e2c4d"/><text x="302.5" y="51.4" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">195.80</text><text x="302.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2029</text><rect x="357.5" y="49.1" width="40" height="62.9" fill="#0e2c4d"/><text x="377.5" y="43.1" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">225.80</text><text x="377.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2030</text><rect x="432.5" y="40.7" width="40" height="71.3" fill="#7fa7d6"/><text x="452.5" y="34.7" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">255.80</text><text x="452.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2031</text><rect x="507.5" y="32.4" width="40" height="79.6" fill="#7fa7d6"/><text x="527.5" y="26.4" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">285.80</text><text x="527.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2032</text><rect x="582.5" y="24.0" width="40" height="88.0" fill="#7fa7d6"/><text x="602.5" y="18.0" text-anchor="middle" font-size="14" font-weight="700" fill="#15191e" style="font-family:var(--f)">315.80</text><text x="602.5" y="132" text-anchor="middle" font-size="14" fill="#3d4550" style="font-family:var(--f)">2033</text></svg></div></div>
+<div class="stats" style="--cols:4"><div class="st sm"><span class="ib sm soft"><svg class="ic"><use href="#i-trending-up"/></svg></span><span>CAGR รายได้ 2027–2033</span><strong>29.50%</strong><em>Base</em></div><div class="st sm"><span class="ib sm soft"><svg class="ic"><use href="#i-dollar"/></svg></span><span>NPAT 2027 (Base)</span><strong>12.32</strong><em>2026 ML = 2.45</em></div><div class="st sm"><span class="ib sm soft"><svg class="ic"><use href="#i-coins"/></svg></span><span>GP 2027 (Base)</span><strong>9.96</strong><em>2026 ML = 3.25</em></div><div class="st sm"><span class="ib sm soft"><svg class="ic"><use href="#i-percent"/></svg></span><span>%GP 2027 (Base)</span><strong>14.85%</strong><em>2026 ML = 32.27%</em></div></div>
+<div class="tscroll"><table class="tbl sm" style="font-size:calc(var(--u)*0.8)"><thead><tr><th>ล้านบาท</th><th>2026 ML</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th><th>2031</th><th>2032</th><th>2033</th></tr></thead><tbody><tr class=""><td>Revenue (Base)</td><td class="">10.07</td><td class="">67.09</td><td class="">79.09</td><td class="">195.80</td><td class="">225.80</td><td class="fc">255.80</td><td class="fc">285.80</td><td class="fc">315.80</td></tr><tr class=""><td>Revenue-YoY</td><td class="">–</td><td class="">566.24%</td><td class="">17.89%</td><td class="">147.57%</td><td class="">15.32%</td><td class="fc">13.29%</td><td class="fc">11.73%</td><td class="fc">10.50%</td></tr><tr class=""><td>GP (Base)</td><td class="">3.25</td><td class="">9.96</td><td class="">13.66</td><td class="">54.65</td><td class="">64.31</td><td class="fc">73.95</td><td class="fc">83.58</td><td class="fc">93.22</td></tr><tr class=""><td>GP%</td><td class="">32.27%</td><td class="">14.85%</td><td class="">17.27%</td><td class="">27.91%</td><td class="">28.48%</td><td class="fc">28.91%</td><td class="fc">29.24%</td><td class="fc">29.52%</td></tr><tr class="b"><td>NPAT (Base)</td><td class="">2.45</td><td class="">12.32</td><td class="">3.60</td><td class="">17.26</td><td class="">24.12</td><td class="fc">30.93</td><td class="fc">37.55</td><td class="fc">41.16</td></tr><tr class="b"><td>NPAT (Contingency)</td><td class="">2.45</td><td class="">12.32</td><td class="">8.10</td><td class="">32.46</td><td class="">46.92</td><td class="fc">61.33</td><td class="fc">75.55</td><td class="fc">89.70</td></tr></tbody></table></div>
+</div></div>
+</div>
+<aside class="notes">Objective No.2 Financial Corporate Objective ของ PBI</aside>
+</section>
+<section class="pg dense" data-name="CAPEX 2027" data-tab="CAPEX">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">2. Capital Expenditure · PBI</span><h2 class="h2">Capital Expenditure <span class="c">ปี 2027</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
+<div class="cols2" style="--c:1fr 1.05fr;gap:calc(var(--u)*2)">
+<div style="display:grid;gap:calc(var(--u)*.7);align-content:start">
+<div class="stats" style="--cols:3"><div class="st "><span class="ib sm soft"><svg class="ic"><use href="#i-coins"/></svg></span><span>Total CAPEX Requested</span><strong>0.50</strong><em>Million THB</em></div><div class="st n"><span class="ib sm soft"><svg class="ic"><use href="#i-list-checks"/></svg></span><span>Projects</span><strong>2</strong><em>Projects</em></div><div class="st o"><span class="ib sm soft"><svg class="ic"><use href="#i-chart-column"/></svg></span><span>Year 1 Depreciation</span><strong>0.09</strong><em>Million THB · ปีถัดไป 0.09</em></div></div>
+<div class="tscroll"><table class="tbl sm"><thead><tr><th>Type</th><th>CAPEX (ลบ.)</th><th>%Share</th></tr></thead><tbody><tr><td class="l" style="white-space:normal">1. Digital, AI, Automation</td><td>0.08</td><td>16.00</td></tr><tr><td class="l" style="white-space:normal">2. New Products, New Customers, New Business Process Development</td><td>0.00</td><td>0.00</td></tr><tr><td class="l" style="white-space:normal">3. Development of Platform and Ecosystem Capitalism</td><td>0.00</td><td>0.00</td></tr><tr><td class="l" style="white-space:normal">4. Operation system serve Demand Satisfaction</td><td>0.00</td><td>0.00</td></tr><tr><td class="l" style="white-space:normal">5. Investment to Build the Future</td><td>0.00</td><td>0.00</td></tr><tr><td class="l" style="white-space:normal">6. Maintenance or Renovate old building</td><td>0.42</td><td>84.00</td></tr><tr class="sum"><td>รวม CAPEX 2027</td><td>0.50</td><td>100.00</td></tr><tr class="mut"><td>จำนวนโครงการ</td><td>2</td><td>–</td></tr><tr class="mut"><td>ค่าเสื่อมปีแรก (P&amp;L 2027)</td><td>0.09</td><td>–</td></tr><tr class="mut"><td>ค่าเสื่อมปีถัดไป</td><td>0.09</td><td>–</td></tr></tbody></table></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-alert"/></svg></span><span>ข้อสังเกต</span></div><ul class="blist"><li><b>ตรงกับฐานข้อมูล Capex/Opex ของกลุ่ม</b> — 0.50 ลบ. 2 รายการ</li><li><b>CAPEX 0.50 ลบ. น้อยผิดสังเกตเมื่อเทียบกับแผนรายได้ที่โตจาก 67 เป็น 316 ลบ.</b> — เงินลงทุนสายไผ่ (เพาะเนื้อเยื่อ · สับชิป · แปรรูป) ไปอยู่ที่บริษัทใด ต้องชี้แจง</li><li><b>ทั้งสองโครงการเป็นประเภทลด Cost</b> และระบุ Impact เป็น 0 — ไม่มีโครงการเพิ่มรายได้ในงบ CAPEX ปีนี้</li></ul></div></div>
+<div style="display:grid;gap:calc(var(--u)*.8);align-content:start">
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-list-checks"/></svg></span><span>การจัดลำดับความสำคัญโครงการ (Prioritization)</span></div><div class="tscroll"><table class="tbl sm"><thead><tr><th>โครงการ</th><th>ลบ.</th><th colspan="2" style="text-align:center">Impact (ลบ./ปี)</th></tr></thead><tbody><tr><td class="l" style="white-space:normal">Implement ERP Odoo Phase 2</td><td>0.08</td><td style="text-align:center;font-weight:600;white-space:nowrap">ลด Cost</td><td>–</td></tr><tr><td class="l" style="white-space:normal">ค่าเครื่องมืออุปกรณ์และงบสำรองฉุกเฉิน (Contingency)</td><td>0.42</td><td style="text-align:center;font-weight:600;white-space:nowrap">ลด Cost</td><td>–</td></tr></tbody></table></div></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-wallet"/></svg></span><span>แหล่งเงิน (ล้านบาท)</span></div><div class="funds"><div class="fund"><strong>0.50<i>100.00%</i></strong><span class="sm muted">Operating</span></div><div class="fund"><strong>0.00<i>0.00%</i></strong><span class="sm muted">Financing</span></div></div></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-chart-bar"/></svg></span><span>CAPEX 2027 แยกตาม Type (ล้านบาท)</span></div><div class="hbars sm" style="--lw:14em"><div class="hb"><span>Maintenance or Renovate old buildi</span><i style="--w:100.0%"></i><b>0.42</b></div><div class="hb alt"><span>Digital, AI, Automation</span><i style="--w:19.0%"></i><b>0.08</b></div><div class="hb alt"><span>New Products, New Customers, New B</span><i style="--w:0.0%"></i><b>0.00</b></div><div class="hb alt"><span>Development of Platform and Ecosys</span><i style="--w:0.0%"></i><b>0.00</b></div><div class="hb alt"><span>Operation system serve Demand Sati</span><i style="--w:0.0%"></i><b>0.00</b></div><div class="hb alt"><span>Investment to Build the Future</span><i style="--w:0.0%"></i><b>0.00</b></div></div></div>
+</div></div></div>
+<aside class="notes">CAPEX 2027 ของ PBI รวม 0.50 ลบ. 2 โครงการ ค่าเสื่อมปีแรก 0.09 ลบ.</aside>
+</section>
+<section class="pg soft dense" data-name="OPEX 2027" data-tab="OPEX">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">3. Operational Expenditure · PBI</span><h2 class="h2">Operational Expenditure <span class="c">ปี 2027</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
+<div class="stats" style="--cols:4"><div class="st "><span class="ib sm soft"><svg class="ic"><use href="#i-wallet"/></svg></span><span>Total OPEX 2027</span><strong>20.65<small>MB</small></strong><em>22.92% ของ Total Revenue 90.09 ลบ. · 30.78% ถ้าหารด้วยรายได้จริง 67.09</em></div><div class="st n"><span class="ib sm soft"><svg class="ic"><use href="#i-megaphone"/></svg></span><span>2.4 Selling</span><strong>2.37<small>MB</small></strong><em>11.48% ของ OPEX</em></div><div class="st n"><span class="ib sm soft"><svg class="ic"><use href="#i-building"/></svg></span><span>2.5 Administrative</span><strong>17.35<small>MB</small></strong><em>84.01% ของ OPEX</em></div><div class="st n"><span class="ib sm soft"><svg class="ic"><use href="#i-landmark"/></svg></span><span>2.8 Finance cost</span><strong>0.93<small>MB</small></strong><em>4.51% ของ OPEX</em></div></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-chart-bar"/></svg></span><span>ค่าใช้จ่ายตามหมวด (Top 10)<small>ล้านบาท (% ของ OPEX รวม)</small></span></div><div class="hbars sm" style="--lw:19em"><div class="hb alt"><span>1. Salary &amp; Wages (12.93%)</span><i style="--w:100.0%"></i><b>2.67</b></div><div class="hb alt"><span>2. Selling &amp; Marketing (11.48%)</span><i style="--w:88.8%"></i><b>2.37</b></div><div class="hb alt"><span>3. Operating Expenses (11.43%)</span><i style="--w:88.4%"></i><b>2.36</b></div><div class="hb alt"><span>4. Domestic &amp; Overseas Travel (10.41%)</span><i style="--w:80.5%"></i><b>2.15</b></div><div class="hb alt"><span>5. Employee Welfare &amp; Benefits (10.36%)</span><i style="--w:80.1%"></i><b>2.14</b></div><div class="hb alt"><span>6. Service Expenses (8.33%)</span><i style="--w:64.4%"></i><b>1.72</b></div><div class="hb alt"><span>7. Other Expense (6.54%)</span><i style="--w:50.6%"></i><b>1.35</b></div><div class="hb alt"><span>8. Professional &amp; Consultant Fees (5.57%)</span><i style="--w:43.1%"></i><b>1.15</b></div><div class="hb alt"><span>9. Repairs &amp; Maintenance (5.08%)</span><i style="--w:39.3%"></i><b>1.05</b></div><div class="hb alt"><span>10. Rental &amp; Utility Expenses (4.99%)</span><i style="--w:38.6%"></i><b>1.03</b></div></div></div>
+<div class="cols2">
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-scale"/></svg></span><span>Cost Review Focus<small>ประเด็นที่ต้องพิจารณา</small></span></div><ul class="blist"><li><b>ค่าคน:</b> เงินเดือน + สวัสดิการ 4.81 MB = 23.29% ของ OPEX</li><li><b>ค่าเดินทางและที่ปรึกษา 3.30 MB = 15.99%</b> สูงผิดปกติเมื่อเทียบกับบริษัทอื่นในกลุ่ม</li><li><b>OPEX 20.65 ลบ. มากกว่า GP 9.96 ลบ. กว่าเท่าตัว</b> — ต้องรอให้รายได้ปี 2029 เข้ามาจึงจะกลับมาเป็นบวกจากการดำเนินงาน</li></ul></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-shield-check"/></svg></span><span>มาตรการคุมต้นทุน</span></div><ul class="blist"><li><b>ควบคุม SG&amp;A:</b> บริหารสัดส่วน OPEX ต่อ Revenue ให้เหมาะกับการเติบโต</li><li><b>ควบคุม Workforce:</b> เพิ่มกำลังคนตามแผนขยายกำลังผลิตและรายได้</li><li><b>ควบคุมค่าเดินทางและที่ปรึกษา:</b> Pre-approval ทุกรายการ</li></ul></div></div>
+</div>
+<aside class="notes">OPEX 2027 ของ PBI</aside>
+</section>
+<section class="pg " data-name="IS 2027" data-tab="IS">
+<div class="wrap"><div class="ttl"><h2 class="h2">4.Income statement <span class="c">(แผนระยะที่ 1 ปี 2027)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph">IS 2027<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></div></div>
+<aside class="notes">IS 2027 ของ PBI — รอข้อมูลงบการเงิน</aside>
+</section>
+<section class="pg " data-name="IS 2028–30" data-tab="IS">
+<div class="wrap"><div class="ttl"><h2 class="h2">4.Income statement <span class="c">(แผนระยะที่ 2 ปี 2028-2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph">IS 2028–30<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></div></div>
+<aside class="notes">IS 2028–30 ของ PBI — รอข้อมูลงบการเงิน</aside>
+</section>
+<section class="pg soft" data-name="วิธีกรอกแผน" data-tab="วิธีกรอก">
+<div class="wrap">
+<div class="ttl"><span class="eyebrow">สำหรับผู้กรอกแผน</span><h2 class="h2">วิธีกรอก <span class="c">Key Action Plan ทั้ง 12 หัวข้อ</span></h2></div>
+<div class="cols2" style="--c:1fr 1.25fr;gap:calc(var(--u)*1.8)">
+<div style="display:grid;gap:calc(var(--u)*.7);align-content:start">
+<div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-pencil"/></svg></span><span>4 ขั้นตอนการกรอก</span></div><ul class="blist">
+<li><b>1 · เข้าโหมดแก้ไข</b> — กดปุ่ม <b>ดินสอ</b> บนแถบด้านบน หรือกดปุ่ม <b>E</b> บนคีย์บอร์ด</li>
+<li><b>2 · เพิ่มโครงการ</b> — ไปที่หน้า 3–14 แล้วกด <b>+ เพิ่มโครงการ</b> ในแถบระยะที่ต้องการ · กด <b>Enter</b> เพื่อขึ้นรายการใหม่ · กด <b>×</b> เพื่อลบ</li>
+<li><b>3 · ระบบบันทึกให้อัตโนมัติ</b> — บันทึกไว้ในเครื่องนี้ทันทีที่พิมพ์ ไม่ต้องกดอะไรเพิ่ม</li>
+<li><b>4 · ส่งกลับ</b> — กดปุ่ม <b>เมฆ</b> เพื่อบันทึกขึ้นเว็บ หรือปุ่ม <b>แผ่นดิสก์</b> เพื่อบันทึกเป็นไฟล์ HTML แล้วส่งไฟล์กลับ</li>
+</ul>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-lightbulb"/></svg></span><span>ข้อแนะนำในการเขียน</span></div><ul class="blist"><li>เขียน <b>1 บรรทัดต่อ 1 โครงการ</b> ให้สั้นและอ่านจบในบรรทัดเดียว</li><li>ถ้ามีตัวเลขให้ใส่ด้วย เช่น งบประมาณ จำนวน หรือเป้าหมาย</li><li>หัวข้อไหนไม่มีแผนในปีนี้ ให้เว้นว่างไว้ ไม่ต้องใส่คำว่า “ไม่มี”</li></ul></div>
+</div>
+<div style="display:grid;gap:calc(var(--u)*.7);align-content:start">
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-layers"/></svg></span><span>4 แถบในแต่ละหน้าหมายถึงอะไร</span></div><div class="tscroll"><table class="tbl sm"><thead><tr><th>แถบ</th><th>ระยะ</th><th>ช่วงเวลา</th><th>ความหมาย</th></tr></thead><tbody>
+<tr><td class="g">แถบที่ 1</td><td>ระยะที่ 1</td><td>2027</td><td style="white-space:normal">งบประมาณปีนี้ — ทำได้จริงภายในปี 2027</td></tr>
+<tr><td class="g">แถบที่ 2</td><td>ระยะที่ 1–2</td><td>2027–2030</td><td style="white-space:normal">เริ่มปีนี้ ต่อเนื่องถึงปี 2030</td></tr>
+<tr><td class="g">แถบที่ 3</td><td>ระยะที่ 1–3</td><td>2027–2032</td><td style="white-space:normal">เริ่มปีนี้ ต่อเนื่องถึงปี 2032</td></tr>
+<tr><td class="g">แถบที่ 4</td><td>ระยะที่ 1–4</td><td>2027–2034</td><td style="white-space:normal">เริ่มปีนี้ ต่อเนื่องถึงปี 2034</td></tr>
+</tbody></table></div><p class="cap" style="font-size:var(--t-sm);color:var(--muted);margin-top:calc(var(--u)*.4)">แถบยาวกว่า = โครงการกินเวลายาวกว่า ไม่ใช่โครงการที่เริ่มทีหลัง</p></div>
+<div><div class="sec-h ihead"><span class="ib sm soft"><svg class="ic"><use href="#i-list-checks"/></svg></span><span>เช็กลิสต์ 12 หัวข้อ<small>ติ๊กเมื่อกรอกครบในแต่ละระยะ</small></span></div><div class="tscroll"><table class="tbl sm" style="font-size:calc(var(--u)*0.92)"><thead><tr><th>หัวข้อ</th><th>ชื่อ</th><th>ระยะ 1</th><th>ระยะ 2</th><th>ระยะ 3</th><th>ระยะ 4</th></tr></thead><tbody><tr><td class="g">1.1</td><td style="white-space:normal">From Investing</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">1.2</td><td style="white-space:normal">From Leasing</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">1.3</td><td style="white-space:normal">From Land</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.1</td><td style="white-space:normal">Information Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.2</td><td style="white-space:normal">Human Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.3</td><td style="white-space:normal">Digital Process Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.4</td><td style="white-space:normal">Customer Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.5</td><td style="white-space:normal">Relationship Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">2.6</td><td style="white-space:normal">Innovation Capital</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">3.1</td><td style="white-space:normal">Land</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">3.2</td><td style="white-space:normal">Building</td><td></td><td></td><td></td><td></td></tr><tr><td class="g">3.3</td><td style="white-space:normal">Machinery &amp; Equipment</td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
+</div></div>
+</div>
+<aside class="notes">วิธีกรอก Key Action Plan — เข้าโหมดแก้ไขด้วยปุ่มดินสอหรือกด E แล้วกด + เพิ่มโครงการ ในแถบระยะที่ต้องการ เสร็จแล้วกดบันทึกขึ้นเว็บหรือบันทึกเป็นไฟล์</aside>
+</section>
+
+</div>
+<script>
+/* ===== PRECISE HTML DECK · ENGINE v2 (no edits needed) =====
+   ‹ › buttons, swipe left/right, or keys: → ↓ Space PgDn = next slide (next step with body.builds) · ← ↑ PgUp = back · Home/End · N notes · 1–9 jump to step (builds) · Esc clear spotlight / close zoom
+   Auto-built: brand bar on every slide with page number + ‹ › buttons, clickable section tabs, page dots on the right edge (click to jump), progress bar, #N deep link. */
+(function(){
+  var body=document.body, stage=document.getElementById('stage'), prog=document.getElementById('prog');
+  var pages=[].slice.call(document.querySelectorAll('.pg')), N=pages.length;
+  var tabs=(body.dataset.tabs||'').split('|').filter(Boolean);
+  var tpl=document.getElementById('bar-tpl');
+  var nav=document.querySelector('.pnav');if(!nav){nav=document.createElement('nav');nav.className='pnav';nav.setAttribute('aria-label','หน้า');body.appendChild(nav);}
+  var mobile=matchMedia('(max-width:820px)').matches, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var builds=body.classList.contains('builds');
+  var DUR=reduce?0:550, cur=-1, lock=false;
+  function pad(n){return String(n).padStart(2,'0')}
+  pages.forEach(function(p,i){
+    p.id=p.id||('p'+(i+1));
+    if(tpl&&!p.querySelector('.bar')){var b=tpl.content.firstElementChild.cloneNode(true);p.insertBefore(b,p.querySelector('.wrap'));}
+    var bar=p.querySelector('.bar');
+    if(bar){var no=bar.querySelector('.pgno');if(no)no.textContent=pad(i+1)+' / '+pad(N);
+      var t=bar.querySelector('.tabs');if(t){t.innerHTML='';tabs.forEach(function(x){var s=document.createElement('span');s.textContent=x;if(x===p.dataset.tab)s.className='on';
+        var first=pages.findIndex(function(q){return q.dataset.tab===x});if(first>=0){s.dataset.go=first;s.title=x+' → '+(pages[first].dataset.name||'')}t.appendChild(s);});}}
+    var a=document.createElement('a');a.href='#'+(i+1);var sp=document.createElement('span');sp.textContent=pad(i+1)+' · '+(p.dataset.name||('Slide '+(i+1)));a.appendChild(sp);nav.appendChild(a);
+  });
+  var dots=[].slice.call(nav.querySelectorAll('a'));
+  dots.forEach(function(d,j){d.addEventListener('click',function(e){e.preventDefault();go(j)})});
+  var LEAF='.eyebrow,h1,h2,.lead,.def,.path,.mc,.trow,.kicker,.pname,.prole,.exp li,.when,.box,.mcol,.door,.tabs2,.panes,.yr,.sel,.kpis,.endrow,.stats,.tscroll,.hbars,.fig,.cols2>*';
+  pages.forEach(function(p){var k=0;[].forEach.call(p.querySelectorAll(LEAF),function(el){
+    if(el.closest('.notes'))return;var par=el.parentElement&&el.parentElement.closest('[data-a]');if(par&&p.contains(par))return;
+    el.setAttribute('data-a','');el.style.transitionDelay=(200+Math.min(k,14)*70)+'ms';k++;});});
+  function setStep(st,i){st.dataset.i=i;if(typeof syncBtns==='function')setTimeout(syncBtns,0);
+    [].forEach.call(st.querySelectorAll('[data-s]'),function(e){e.classList.toggle('on',+e.dataset.s===i)});
+    [].forEach.call(st.querySelectorAll('[data-upto]'),function(e){e.classList.toggle('on',i>=+e.dataset.upto)});
+    if(st.hasAttribute('data-select')){var b=st.querySelector('.sbtn[data-s="'+i+'"]');if(b){var lead=b.dataset.lead,w=(b.dataset.with||'').split(' ');
+      [].forEach.call(st.querySelectorAll('.scard'),function(c){c.classList.toggle('l',c.dataset.k===lead);c.classList.toggle('w',w.indexOf(c.dataset.k)>=0)});
+      var d=st.querySelector('.sdesc');if(d){d.querySelector('.k').textContent='P'+(i+1);d.querySelector('p').textContent=b.dataset.desc||'';}}}}
+  [].forEach.call(document.querySelectorAll('[data-steps]'),function(st){setStep(st,+st.dataset.i||0);
+    [].forEach.call(st.querySelectorAll('button[data-s]'),function(b){b.addEventListener('click',function(e){e.stopPropagation();setStep(st,+b.dataset.s)})});});
+  function stepperOf(k){return builds&&pages[k]?pages[k].querySelector('[data-steps]'):null} // calm: Next always changes slide; tabs stay clickable
+  function syncBtns(){var st=stepperOf(cur),i=st?+st.dataset.i:0,n=st?+st.dataset.n:1;
+    [].forEach.call(document.querySelectorAll('.nb.prev'),function(b){b.disabled=cur<=0&&i<=0});[].forEach.call(document.querySelectorAll('.nb.next'),function(b){b.disabled=cur>=N-1&&i>=n-1});}
+  function mark(k){pages.forEach(function(p,j){p.classList.toggle('on',j===k)});dots.forEach(function(d,j){d.classList.toggle('on',j===k)});prog.style.transform='scaleX('+((k+1)/N)+')';syncBtns();}
+  function enter(k){var p=pages[k];p.classList.remove('in');void p.offsetWidth;p.classList.add('in');}
+  function go(k,instant){k=Math.max(0,Math.min(N-1,k));if(k===cur)return;var prev=cur;cur=k;mark(k);
+    if(mobile){pages[k].scrollIntoView({behavior:instant?'auto':'smooth'});}
+    else{stage.style.transitionDuration=instant?'0ms':DUR+'ms';stage.style.transform='translate3d('+(-k*100/N)+'%,0,0)';
+      lock=true;setTimeout(function(){lock=false;if(prev>=0&&prev!==cur)pages[prev].classList.remove('in');},instant?0:DUR*.85);
+      setTimeout(function(){enter(k)},instant?0:DUR*.35);}
+    history.replaceState(null,'','#'+(k+1));}
+  function step(d){if(lock)return;var st=stepperOf(cur);
+    if(st){var n=+st.dataset.n,i=+st.dataset.i;if(d>0&&i<n-1){setStep(st,i+1);return}if(d<0&&i>0){setStep(st,i-1);return}}
+    var ts=stepperOf(cur+d);if(ts)setStep(ts,d<0?(+ts.dataset.n-1):0);go(cur+d);}
+  if(mobile){body.classList.add('flow');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var k=pages.indexOf(e.target);cur=k;mark(k);if(!e.target.classList.contains('in'))enter(k);}})},{threshold:.35});
+    pages.forEach(function(p){io.observe(p)});
+  }else{stage.style.width=(N*100)+'%';pages.forEach(function(p){p.style.width=(100/N)+'%'});
+    var acc=0,wt=null;
+    addEventListener('wheel',function(e){if(body.classList.contains('show-notes')&&e.target.closest('.notes'))return;e.preventDefault();if(lock)return;acc+=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;clearTimeout(wt);wt=setTimeout(function(){acc=0},160);if(Math.abs(acc)>40){step(acc>0?1:-1);acc=0;}},{passive:false});
+    var tx=null,ty=null;addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+    addEventListener('touchend',function(e){if(tx===null)return;var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY,d=Math.abs(dx)>Math.abs(dy)?dx:dy;if(Math.abs(d)>50)step(d>0?1:-1);tx=ty=null},{passive:true});}
+  document.addEventListener('click',function(e){var b=e.target.closest('.nb');if(b){e.stopPropagation();step(b.classList.contains('next')?1:-1);return}
+    var g=e.target.closest('.tabs span[data-go]');if(g)go(+g.dataset.go);});
+  var zl=document.createElement('div');zl.id='zoom';zl.innerHTML='<img alt="">';body.appendChild(zl);
+  [].forEach.call(document.querySelectorAll('.fig img'),function(im){im.addEventListener('click',function(e){e.stopPropagation();zl.firstChild.src=im.src;zl.firstChild.alt=im.alt;body.classList.add('zooming')})});
+  zl.addEventListener('click',function(){body.classList.remove('zooming')});
+  function clearSpot(){[].forEach.call(document.querySelectorAll('.cards>*'),function(x){x.classList.remove('lit');x.style.opacity=''})}
+  [].forEach.call(document.querySelectorAll('.cards'),function(g){[].forEach.call(g.children,function(c){c.addEventListener('click',function(){var on=c.classList.contains('lit');clearSpot();if(!on){c.classList.add('lit');[].forEach.call(g.children,function(x){if(x!==c)x.style.opacity='.3'})}})})});
+  document.addEventListener('keydown',function(e){var k=e.key;
+    if(body.classList.contains('zooming')){if(k==='Escape'||k===' '||k==='Enter'){e.preventDefault();body.classList.remove('zooming')}return}
+    if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(k)>=0){e.preventDefault();step(1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(k)>=0){e.preventDefault();step(-1)}
+    else if(k==='Home'){e.preventDefault();go(0)}else if(k==='End'){e.preventDefault();go(N-1)}
+    else if(k==='n'||k==='N'){body.classList.toggle('show-notes')}
+    else if(/^[1-9]$/.test(k)){var st=stepperOf(cur);if(st&&+k<=+st.dataset.n)setStep(st,+k-1)}
+    else if(k==='Escape'){clearSpot()}});
+  var start=Math.max(0,(parseInt(location.hash.slice(1))||1)-1);
+  if(mobile){cur=start;mark(start);}else{go(start,true);}
+})();
+</script>
+<script>
+document.addEventListener('click',function(e){var pb=e.target.closest('.prt');if(pb&&!pb.classList.contains('ked')&&!pb.classList.contains('ksv')){e.preventDefault();window.print();}});
+document.addEventListener('keydown',function(e){if(e.target.closest&&e.target.closest('[contenteditable=true]'))return;if((e.key==='p'||e.key==='P')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();window.print();}});
+</script>
+<script id="ed-data" type="application/json">null</script>
+<script>
+/* Generic fill-in fields on every slide: edit mode = body.kaedit (pencil / E). Fields, lists, table rows and images are
+   stored per slide in this browser and embedded by the "save as file" button. */
+(function(){
+  var KEY='ed:'+document.title;
+  var FIELDS=['.vmo3 p','.kpi .kt b','.kpi .kt small','.kpi strong','.tbl.fin tbody td','.st > span:not(.ib)','.st strong','.st em',
+    '.pg[data-tab="CAPEX"] .tbl tbody td','.fund strong','.fund > span','.hb span','.hb b','.take strong','.take p',
+    '.figtag .tg','.figtag b','.figtag > span:last-child','.tbl.tpl tr.gl td:nth-child(2)','.apxtxt','.cmt .ch span',
+    '.vfn b','.vfn small','.vfv','.ccb','.ccfn','.ccfv','.ccde','.ccmn > span','.ccp li','.ccg li','.ccni p','.ccns'];
+  var LISTS=['.blist','.cmt ol','.tbl.tpl tbody'];
+  var IMGS=['.pg[data-tab="IS"] .fig','.apxbox'];
+  function all(sel){return [].slice.call(document.querySelectorAll(sel))}
+  function regions(){var r=[];FIELDS.forEach(function(s,i){all(s).forEach(function(el,n){if(!el.closest('.ka'))r.push(['f'+i+'.'+n,el])})});
+    LISTS.forEach(function(s,i){all(s).forEach(function(el,n){r.push(['l'+i+'.'+n,el])})});return r}
+  function imgs(){var r=[];IMGS.forEach(function(s,i){all(s).forEach(function(el,n){r.push(['i'+i+'.'+n,el])})});return r}
+  function clean(el){var c=el.cloneNode(true);[].forEach.call(c.querySelectorAll('[contenteditable],[data-edf]'),function(x){x.removeAttribute('contenteditable');x.removeAttribute('data-edf')});
+    c.removeAttribute&&c.removeAttribute('contenteditable');[].forEach.call(c.querySelectorAll('.edbtn'),function(x){x.remove()});return c.innerHTML}
+  var R=regions(), I=imgs(), state={f:{},i:{}};
+  function snapshot(){var f={};R.forEach(function(p){if(p[1].tagName==='TBODY'||p[1].tagName==='OL'||p[1].tagName==='UL'){pruneEmpty(p[1])}f[p[0]]=clean(p[1])});
+    var im={};I.forEach(function(p){var g=p[1].querySelector('img[data-user]');if(g)im[p[0]]=g.src});return {f:f,i:im}}
+  function pruneEmpty(list){[].slice.call(list.children).forEach(function(it){if(document.activeElement&&it.contains(document.activeElement))return;
+    if(!it.textContent.replace(/ /g,' ').trim()&&!it.querySelector('img')&&list.children.length>1)it.remove()})}
+  function setImg(box,src){var g=box.querySelector('img[data-user]')||box.querySelector('.fig img, img');
+    if(box.classList.contains('apxbox')){g=box.querySelector('img');if(!g){g=document.createElement('img');box.insertBefore(g,box.firstChild)}box.classList.add('has')}
+    g.src=src;g.setAttribute('data-user','1')}
+  function apply(d){if(!d)return;R.forEach(function(p){if(d.f&&d.f[p[0]]!=null)p[1].innerHTML=d.f[p[0]]});I.forEach(function(p){if(d.i&&d.i[p[0]])setImg(p[1],d.i[p[0]])});
+    all('.apxbox').forEach(function(b){if(b.querySelector('.apxtxt').textContent.trim())b.classList.add('has')});recalc()}
+  function num(t){var v=parseFloat(String(t).replace(/[^0-9.\-]/g,''));return isNaN(v)?0:v}
+  function recalc(){
+    all('.hbars').forEach(function(h){var bs=[].slice.call(h.querySelectorAll('.hb')),mx=Math.max.apply(null,bs.map(function(b){return num(b.querySelector('b').textContent)}).concat([0.0001]));
+      bs.forEach(function(b){var v=num(b.querySelector('b').textContent),w=v?Math.max(.5,v/mx*100):0;var i=b.querySelector('i');if(i)i.style.setProperty('--w',w.toFixed(1)+'%')})});
+    all('svg.finchart').forEach(function(svg){var tb=svg.closest('.pg').querySelector('.tbl.fin tbody tr');if(!tb)return;var cells=[].slice.call(tb.querySelectorAll('td')).slice(1);
+      var base=+svg.dataset.base,top=+svg.dataset.top,rs=svg.querySelectorAll('rect.cbar'),ts=svg.querySelectorAll('text.cv');var v=cells.map(function(c){return num(c.textContent)}),mx=Math.max.apply(null,v.concat([0.0001]));
+      [].forEach.call(rs,function(r,i){var h=(base-top)*(v[i]||0)/mx;r.setAttribute('y',(base-h).toFixed(1));r.setAttribute('height',h.toFixed(1));if(ts[i]){ts[i].setAttribute('y',(base-h-6).toFixed(1));ts[i].textContent=cells[i]?cells[i].textContent.trim():''}})})}
+  var emb=null;try{emb=JSON.parse(document.getElementById('ed-data').textContent)}catch(e){}
+  var st=null;try{st=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  var src=(st&&(!emb||st.t>=emb.t))?st:emb;if(src&&src.d)apply(src.d);
+  var toast=document.createElement('div');toast.className='edtoast';document.body.appendChild(toast);
+  function say(t){toast.textContent=t;toast.style.display='block';clearTimeout(say.t);say.t=setTimeout(function(){toast.style.display='none'},2600)}
+  function save(){var d=snapshot();try{localStorage.setItem(KEY,JSON.stringify({t:Date.now(),d:d}))}catch(e){say('รูปใหญ่เกินที่เบราว์เซอร์เก็บได้ — กดปุ่มบันทึกเป็นไฟล์เพื่อเก็บข้อมูล')}}
+  window.__edState=function(){return {t:Date.now(),d:snapshot()}};
+  window.__edEmbed=function(doc){var d=snapshot();var x=doc.querySelector('#ed-data');if(x)x.textContent=JSON.stringify({t:Date.now(),d:d});
+    [].forEach.call(doc.querySelectorAll('.edbtn,.edtoast,input.edfile'),function(n){n.remove()});[].forEach.call(doc.querySelectorAll('[data-edf]'),function(n){n.removeAttribute('data-edf');n.removeAttribute('contenteditable')})};
+  function editables(){var r=[];R.forEach(function(p){var el=p[1];if(el.tagName==='OL'||el.tagName==='UL')[].forEach.call(el.children,function(li){r.push(li)});
+      else if(el.tagName==='TBODY')[].forEach.call(el.querySelectorAll('tr:not(.sum) td'),function(td){r.push(td)});else r.push(el)});
+    all('.tbl.tpl tr.sum td:nth-child(5)').forEach(function(x){r.push(x)});return r}
+  function on(v){editables().forEach(function(el){if(v){el.setAttribute('contenteditable','true');el.setAttribute('data-edf','')}else{el.removeAttribute('contenteditable');el.removeAttribute('data-edf')}});
+    all('.edbtn').forEach(function(b){b.remove()});
+    if(v){R.forEach(function(p){var el=p[1];if(['OL','UL','TBODY'].indexOf(el.tagName)<0)return;var b=document.createElement('button');b.type='button';b.className='edbtn edadd';b.textContent='+ เพิ่ม'+(el.tagName==='TBODY'?'แถว':'รายการ');
+        b.onclick=function(){var it;if(el.tagName==='TBODY'){var rows=el.querySelectorAll('tr:not(.sum)'),last=rows[rows.length-1];it=last.cloneNode(true);[].forEach.call(it.children,function(td,i){td.textContent=i===0?String(rows.length+1):''});
+            var sum=el.querySelector('tr.sum');el.insertBefore(it,sum)}else{it=document.createElement('li');el.appendChild(it)}on(true);(it.querySelector('td:nth-child(2)')||it).focus()};
+        var host=el.tagName==='TBODY'?el.closest('.tscroll'):el;host.parentNode.insertBefore(b,host.nextSibling)});
+      I.forEach(function(p){var box=p[1],b=document.createElement('button');b.type='button';b.className='edbtn edimg';b.textContent='เปลี่ยน / ใส่รูป';
+        b.onclick=function(){var f=document.createElement('input');f.type='file';f.accept='image/*';f.className='edfile';f.onchange=function(){var r=new FileReader();r.onload=function(){setImg(box,r.result);save()};if(f.files[0])r.readAsDataURL(f.files[0])};f.click()};box.appendChild(b)})}
+  }
+  new MutationObserver(function(){var v=document.body.classList.contains('kaedit');if(v!==on.v){on.v=v;on(v);if(!v)save()}}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('input',function(e){if(e.target.closest&&e.target.closest('[data-edf]')){recalc();var b=e.target.closest('.apxbox');if(b)b.classList.toggle('has',!!b.querySelector('.apxtxt').textContent.trim()||!!b.querySelector('img'));save()}});
+  document.addEventListener('keydown',function(e){var t=e.target;if(t.closest&&t.closest('[data-edf]')){e.stopPropagation();
+    if(e.key==='Enter'&&t.tagName==='LI'){e.preventDefault();var li=document.createElement('li');t.after(li);on(true);li.focus()}
+    else if(e.key==='Escape')t.blur()}},true);
+  document.addEventListener('focusout',function(e){if(e.target.closest&&e.target.closest('[data-edf]')){var l=e.target.closest('ol,ul,tbody');setTimeout(function(){if(l)pruneEmpty(l);save()},0)}});
+})();
+</script>
+<script id="ka-data" type="application/json">null</script>
+<script>
+/* Key-action lanes: edit mode (E / pencil), autosave in this browser, "save as file" embeds the lists into a new HTML copy. */
+(function(){
+  var KEY='ka:'+document.title, secs=[].slice.call(document.querySelectorAll('.ka-sec'));
+  function read(){var d={};secs.forEach(function(s){d[s.dataset.key]=[].map.call(s.querySelectorAll('.lane'),function(l){
+    return [].map.call(l.querySelectorAll('.ka .kt'),function(x){return x.textContent.trim()}).filter(Boolean)})});return d}
+  function li(t){var x=document.createElement('li'),k=document.createElement('span');k.className='kt';k.textContent=t||'';if(on)k.contentEditable='true';x.appendChild(k);var b=document.createElement('button');b.type='button';b.className='kdel';b.title='ลบ';b.textContent='×';x.appendChild(b);return x}
+  function render(d){secs.forEach(function(s){var v=d[s.dataset.key];if(!v)return;[].forEach.call(s.querySelectorAll('.lane'),function(l,i){var ol=l.querySelector('.ka');ol.innerHTML='';(v[i]||[]).forEach(function(t){ol.appendChild(li(t))})})})}
+  function editable(v){[].forEach.call(document.querySelectorAll('.ka .kt'),function(x){if(v)x.contentEditable='true';else x.removeAttribute('contenteditable')})}
+  var emb=null;try{emb=JSON.parse(document.getElementById('ka-data').textContent)}catch(e){}
+  var st=null;try{st=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  var src=(st&&(!emb||st.t>=emb.t))?st:emb;
+  var on=false;[].forEach.call(document.querySelectorAll('.ka'),function(ol){var v=[].map.call(ol.children,function(x){return x.textContent});ol.innerHTML='';v.forEach(function(t){ol.appendChild(li(t))})});
+  if(src&&src.d)render(src.d);
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({t:Date.now(),d:read()}))}catch(e){}}
+  window.__kaState=function(){return {t:Date.now(),d:read()}};
+  function toggle(){on=!on;document.body.classList.toggle('kaedit',on);editable(on);[].forEach.call(document.querySelectorAll('.ked'),function(b){b.classList.toggle('on',on)})}
+  document.addEventListener('input',function(e){if(e.target.closest&&e.target.closest('.ka'))save()});
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('.kadd');if(a){var ol=a.parentNode.querySelector('.ka'),x=li('');ol.appendChild(x);x.firstChild.focus();return}
+    var d=e.target.closest('.kdel');if(d){d.parentNode.remove();save();return}
+    if(e.target.closest('.ked')){e.preventDefault();toggle();return}
+    if(e.target.closest('.ksv')){e.preventDefault();download();return}});
+  document.addEventListener('keydown',function(e){
+    var t=e.target;if(t.closest&&t.closest('.ka .kt')){e.stopPropagation();
+      if(e.key==='Enter'){e.preventDefault();var x=li('');t.closest('li').after(x);x.firstChild.focus();save()}
+      else if(e.key==='Backspace'&&!t.textContent){e.preventDefault();var p=t.closest('li').previousElementSibling;t.closest('li').remove();if(p)p.firstChild.focus();save()}
+      else if(e.key==='Escape'){t.blur()}
+      return}
+    if(t.isContentEditable)return;if((e.key==='e'||e.key==='E')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();toggle()}},true);
+  document.addEventListener('focusout',function(e){if(e.target.closest&&e.target.closest('.ka'))save()});
+  function download(){save();var c=document.documentElement.cloneNode(true);
+    [].forEach.call(c.querySelectorAll('.pg .bar,.pnav,#zoom'),function(x){x.remove()});
+    var b=c.querySelector('body');b.classList.remove('kaedit','show-notes');
+    [].forEach.call(c.querySelectorAll('[contenteditable]'),function(x){x.removeAttribute('contenteditable')});
+    [].forEach.call(c.querySelectorAll('.ka'),function(x){x.innerHTML=''});
+    c.querySelector('#ka-data').textContent=JSON.stringify({t:Date.now(),d:read()});if(window.__edEmbed)window.__edEmbed(c);
+    var html='<!doctype html>\n'+c.outerHTML,f=new Blob([html],{type:'text/html'}),u=URL.createObjectURL(f),l=document.createElement('a');
+    var dt=new Date(),p=function(n){return String(n).padStart(2,'0')};
+    l.href=u;l.download=(document.title.replace(/[^\w฀-๿.-]+/g,'_'))+'_'+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate())+'-'+p(dt.getHours())+p(dt.getMinutes())+'.html';document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(u);l.remove()},500)}
+})();
+</script>
+
+<style>
+@media print{
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+    background-repeat:repeat;background-size:430px 260px;
+    background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='430' height='260'%3E%3Ctext x='215' y='130' fill='%230e2c4d' fill-opacity='0.07' font-family='Poppins,Arial,sans-serif' font-size='21' font-weight='700' text-anchor='middle' transform='rotate(-20 215 130)'%3EConfidential Precise Property%3C/text%3E%3C/svg%3E")}
+}
+.ghtoast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#0e2c4d;color:#fff;
+  padding:9px 18px;border-radius:999px;font:600 13px 'IBM Plex Sans Thai',sans-serif;z-index:120;display:none;
+  box-shadow:0 10px 26px rgba(14,44,77,.3)}
+</style>
+<script>
+/* บันทึกขึ้นเว็บ (GitHub) — แทนที่เฉพาะบล็อกข้อมูล ed-data / ka-data ไม่แตะโค้ด */
+(function(){
+  var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'ec-bod-pbi.html'};
+  var toast=document.createElement('div');toast.className='ghtoast';document.body.appendChild(toast);
+  function say(m,ms){toast.textContent=m;toast.style.display='block';clearTimeout(say.t);
+    say.t=setTimeout(function(){toast.style.display='none'},ms||3200);}
+  function tok(){try{return localStorage.getItem('pcc_gh_tok')||''}catch(e){return ''}}
+  function encodeB64(str){var b=new TextEncoder().encode(str),r='',ch=3*1024;
+    for(var i=0;i<b.length;i+=ch){var sl=b.subarray(i,i+ch),bin='';
+      for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]);r+=btoa(bin)}return r}
+  function block(id,obj){return '<script id="'+id+'" type="application/json">'+
+    JSON.stringify(obj).replace(/</g,'\\u003c')+'<\/script>'}
+  var busy=false;
+  async function publish(){
+    if(busy)return;
+    var t=tok();
+    if(!t){t=(prompt('ใส่ GitHub token (เก็บไว้ในเครื่องนี้เท่านั้น)')||'').trim();
+      if(!t){say('ยกเลิก');return} try{localStorage.setItem('pcc_gh_tok',t)}catch(e){}}
+    busy=true;say('กำลังบันทึกขึ้นเว็บ…',60000);
+    var base='/repos/'+GH.owner+'/'+GH.repo;
+    function gh(m,p,body,accept){var hh={Authorization:'token '+t,Accept:accept||'application/vnd.github+json'};
+      var o={method:m,headers:hh};if(body!=null){hh['Content-Type']='application/json';o.body=JSON.stringify(body)}
+      return fetch(GH.api+p,o)}
+    async function must(r,l){if(!r.ok){var m='';try{m=(await r.json()).message||''}catch(_){}
+      throw new Error(l+' ('+r.status+') '+m)}return r}
+    try{
+      var raw=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+      await must(raw,'อ่านไฟล์ไม่ได้');var text=await raw.text();
+      var RE_ED=/<script id="ed-data"[\s\S]*?<\/script>/, RE_KA=/<script id="ka-data"[\s\S]*?<\/script>/;
+      if(!RE_ED.test(text)||!RE_KA.test(text))throw new Error('ไม่พบบล็อกข้อมูลในไฟล์');
+      var ed=window.__edState?window.__edState():null, ka=window.__kaState?window.__kaState():null;
+      if(ed)text=text.replace(RE_ED,function(){return block('ed-data',ed)});
+      if(ka)text=text.replace(RE_KA,function(){return block('ka-data',ka)});
+      var blob=await(await must(await gh('POST',base+'/git/blobs',{content:encodeB64(text),encoding:'base64'}),'สร้าง blob ไม่สำเร็จ')).json();
+      var ref=await(await must(await gh('GET',base+'/git/ref/heads/'+GH.branch),'อ่าน ref ไม่ได้')).json();
+      var head=ref.object.sha;
+      var hc=await(await must(await gh('GET',base+'/git/commits/'+head),'อ่าน commit ไม่ได้')).json();
+      var tree=await(await must(await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,
+        tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}),'สร้าง tree ไม่สำเร็จ')).json();
+      var cm=await(await must(await gh('POST',base+'/git/commits',{message:'EC BOD deck update via browser ['+new Date().toISOString().slice(0,16)+']',
+        tree:tree.sha,parents:[head]}),'สร้าง commit ไม่สำเร็จ')).json();
+      await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:cm.sha}),'อัปเดต ref ไม่สำเร็จ');
+      say('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+    }catch(e){say('✗ '+(e&&e.message?e.message:'ผิดพลาด'),6000)}
+    finally{busy=false}
+  }
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.kgh');
+    if(b){e.preventDefault();e.stopPropagation();publish()}},true);
+})();
+</script>
+
+</body></html>
