@@ -17,11 +17,15 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','In
 .bar .brand{margin-right:6px;line-height:1.15}
 .bar .brand b{display:block;font-family:'Inter';font-size:13.5px;font-weight:800;color:var(--blue)}
 .bar .brand span{font-family:'Inter';font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#93A6BA}
-.bar button,.bar a.back{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
- color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;cursor:pointer;text-decoration:none}
-.bar button:hover,.bar a.back:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button{font:600 11px 'Inter','Sarabun',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+ color:#41566E;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:#fff;cursor:pointer}
+.bar button:hover{background:#F2F8FD;border-color:#B9D3E8}
+.bar button.pub{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar button.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.bar .sep{width:1px;height:20px;background:var(--line);margin:0 3px}
 .bar .sp{flex:1}
 #st{font:700 9px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A9BACB}
+#st.hit{color:var(--green)}
 .wrap{max-width:1360px;margin:0 auto;padding:18px 18px 80px}
 .hero{background:linear-gradient(135deg,#0B2447,#13507C 55%,#1C6CA8);color:#fff;border-radius:20px;
  padding:26px 30px;box-shadow:0 18px 44px rgba(11,36,71,.26)}
@@ -37,8 +41,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','In
 .sec h2{font-family:'Inter','Sarabun';font-size:19px;font-weight:800;margin:0 0 4px}
 .sec .cap{font-size:12.5px;color:var(--mute);line-height:1.65}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px;margin-top:16px}
-.card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue2);border-radius:15px;
- padding:15px 17px 14px;box-shadow:0 6px 18px rgba(18,35,58,.06);display:flex;flex-direction:column}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue2);
+ border-radius:15px;padding:15px 17px 14px;box-shadow:0 6px 18px rgba(18,35,58,.06);display:flex;flex-direction:column}
 .card.pcc{border-top-color:var(--orange)}
 .card .hd{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .card .code{font-family:'Inter';font-size:22px;font-weight:900;letter-spacing:-.02em;color:var(--blue)}
@@ -60,10 +64,16 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun','In
  font:700 12px 'Inter','Sarabun';padding:9px;border-radius:9px}
 .card .go:hover{background:#0B2447}
 .card .sp{flex:1}
+.delco{display:none;position:absolute;top:8px;right:9px;width:22px;height:22px;border-radius:7px;border:1px solid var(--line);
+ background:#fff;color:#B0392B;font:700 12px 'Inter';cursor:pointer;line-height:1}
+body.edit .delco{display:block}
+#addco{display:none;align-items:center;justify-content:center;min-height:160px;border:2px dashed #BBD0E2;border-radius:15px;
+ background:#FAFCFE;color:var(--blue2);font:700 13px 'Inter','Sarabun';cursor:pointer}
+body.edit #addco{display:flex}
 table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:11px}
-table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11.5px;
- padding:7px 10px;text-align:left;border:1px solid #14496e;white-space:nowrap}
-table.t td{border:1px solid var(--line);padding:7px 10px;line-height:1.55}
+table.t th{background:var(--blue2);color:#fff;font-family:'Inter','Sarabun';font-weight:700;font-size:11px;
+ padding:7px 8px;text-align:left;border:1px solid #14496e;white-space:nowrap}
+table.t td{border:1px solid var(--line);padding:7px 8px;line-height:1.55}
 table.t td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 table.t td.g{font-weight:700;color:var(--blue2);white-space:nowrap}
 table.t tr.sum td{background:#EAF3FA;font-weight:800;border-top:2px solid var(--blue2)}
@@ -74,7 +84,28 @@ ul.pend li{margin-bottom:2px}
 .pendgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px;margin-top:12px}
 .pendbox{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:#FCFDFF}
 .pendbox b{font-family:'Inter';font-size:13px;color:var(--blue)}
-@media print{.bar{display:none}body{background:#fff}
+.addpend{display:none;margin-top:7px;font:700 11px 'Inter','Sarabun';border:1px dashed #BBD0E2;background:#fff;
+ color:var(--blue2);border-radius:7px;padding:4px 10px;cursor:pointer}
+body.edit .addpend{display:inline-block}
+body.edit [contenteditable="true"]{outline:1px dashed #B9D3E8;outline-offset:2px;border-radius:4px}
+body.edit [contenteditable="true"]:empty::before{content:"แก้ที่นี่";color:#BBD0E2;font-size:.85em}
+body.edit .card .code[contenteditable],body.edit .card .tag[contenteditable],
+body.edit .card .n b[contenteditable]{display:inline-block;min-width:1.5em;margin-right:.4em}
+body.edit [contenteditable="true"]:focus{outline:2px solid var(--blue2);background:#FFFDF4}
+body.edit .card .go{opacity:.5;pointer-events:none}
+#tokPanel{position:fixed;top:54px;right:16px;z-index:40;background:#fff;border:1px solid var(--line);
+ border-radius:12px;padding:14px 16px;width:300px;box-shadow:0 14px 34px rgba(18,35,58,.18)}
+#tokPanel h4{margin:0 0 6px;font:800 13px 'Inter'}
+#tokPanel p{margin:0 0 9px;font-size:11.5px;color:var(--mute);line-height:1.5}
+#tokPanel input{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-size:12px}
+#tokPanel .row{display:flex;gap:7px;margin-top:9px}
+#tokPanel button{flex:1;padding:6px;border:1px solid var(--line);background:#fff;border-radius:7px;font:600 11px 'Inter';cursor:pointer}
+#tokPanel button.ok{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+#tip{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);background:var(--blue);
+ color:#fff;padding:9px 18px;border-radius:999px;font:600 12px 'Sarabun','Inter';opacity:0;pointer-events:none;
+ transition:.22s;z-index:60;box-shadow:0 10px 26px rgba(11,36,71,.3)}
+#tip.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media print{.bar,#tokPanel,#tip,.delco,#addco,.addpend{display:none!important}body{background:#fff}
  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;background-repeat:repeat;
   background-size:430px 260px;
   background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='430' height='260'%3E%3Ctext x='215' y='130' fill='%230e2c4d' fill-opacity='0.075' font-family='Inter,Arial,sans-serif' font-size='21' font-weight='700' text-anchor='middle' transform='rotate(-20 215 130)'%3EConfidential Precise Property%3C/text%3E%3C/svg%3E")}
@@ -84,123 +115,252 @@ ul.pend li{margin-bottom:2px}
 <body>
 <div class="bar">
   <div class="brand"><b>EC · BOD 2027</b><span>PCC Group · Strategy Decks</span></div>
-  <button id="bRefresh">↻ ตรวจความคืบหน้าใหม่</button>
+  <button id="bEdit">✎ แก้ไข</button>
+  <button id="bRefresh">↻ ตรวจความคืบหน้า</button>
   <button id="bPrint">พิมพ์ / PDF</button>
+  <div class="sep"></div>
+  <button id="bPublish" class="pub">💾 บันทึกขึ้นเว็บ</button>
+  <button id="bTok" title="GitHub token">⚙</button>
   <span class="sp"></span>
   <span id="st">● พร้อม</span>
+</div>
+<div id="tokPanel" hidden>
+  <h4>GitHub Token</h4>
+  <p>ใช้สำหรับปุ่ม “บันทึกขึ้นเว็บ” เก็บไว้ในเครื่องนี้เท่านั้น</p>
+  <input id="tokInput" type="password" placeholder="ghp_...">
+  <div class="row"><button class="ok" id="tokSave">บันทึก</button><button id="tokClear">ลบ</button></div>
 </div>
 <div class="wrap">
   <div class="hero">
     <div class="kd">Executive Committee · Board of Directors</div>
-    <h1 id="hT"></h1>
-    <div class="sub" id="hS"></div>
+    <h1 id="hT" data-f="title"></h1>
+    <div class="sub" id="hS" data-f="sub"></div>
     <div class="kpis" id="kpi"></div>
   </div>
 
   <div class="sec">
     <h2>เด็คของแต่ละบริษัท</h2>
-    <div class="cap">แถบความคืบหน้าอ่านจากไฟล์จริงบนเว็บ — นับจำนวนโครงการที่กรอกในหน้า 3–14 (12 หัวข้อ × 4 ระยะ = 48 จุด)</div>
+    <div class="cap">แถบความคืบหน้าอ่านจากไฟล์จริงบนเว็บ — นับจำนวนโครงการที่กรอกในหน้า 3–14 (12 หัวข้อ × 4 ระยะ = 48 จุด) · กดปุ่ม ✎ แก้ไข เพื่อแก้ข้อความและตัวเลขได้ทุกช่อง</div>
     <div class="grid" id="cards"></div>
   </div>
 
   <div class="sec">
     <h2>ตัวเลขที่เสนอ เทียบกับฐานข้อมูล Capex / Opex ของกลุ่ม</h2>
-    <div class="cap">ช่องที่เป็นสีแดงคือจุดที่สองแหล่งไม่ตรงกัน ต้องยืนยันก่อนรวมเป็นงบกลุ่ม</div>
+    <div class="cap">ช่องสีแดงคือจุดที่สองแหล่งไม่ตรงกัน · สองคอลัมน์แรกของแต่ละฝั่งรวมกันตรงๆ ไม่ได้เพราะ PPP รวม SBP และ PCE ไว้แล้ว จึงใช้คอลัมน์ “นับเข้ากลุ่ม” คำนวณยอดรวมแทน</div>
     <table class="t" id="tNum"></table>
+    <p class="cap" id="tFoot" data-f="foot" style="margin-top:10px"></p>
   </div>
 
   <div class="sec">
     <h2>สิ่งที่ยังรอข้อมูล</h2>
-    <div class="cap">รวมทุกจุดที่ทำเครื่องหมายไว้บนสไลด์ของแต่ละบริษัท</div>
+    <div class="cap">กดปุ่มแก้ไขแล้วพิมพ์ทับได้ · กด Enter เพื่อขึ้นรายการใหม่ · ลบข้อความจนหมดแล้วกด Backspace เพื่อลบรายการ</div>
     <div class="pendgrid" id="pend"></div>
   </div>
 </div>
+<div id="tip"></div>
 
 <!--IDX_DATA_START-->
-<script id="idx-data" type="application/json">{"savedAt":1793011309086,"co":[{"c":"PCC","th":"พรีไซซ คอร์ปอเรชั่น (Holding)","d":"บริษัทใหญ่ · ที่ดินและการลงทุน","f":"ec-bod-pcc.html","pg":35,"rev":"521.45","npat":"350.00","cxd":"45.00","cxb":"45.00","oxd":"171.45","oxb":"171.45","tag":"Separate","note":"เด็คเต็ม 35 หน้า มี Tactical Plan 1–8 และ Appendix ครบ","pend":["D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEM","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง","d":"หม้อแปลงและอุปกรณ์ไฟฟ้า · RAMI 4.0","f":"ec-bod-pem.html","pg":20,"rev":"2,649.20","npat":"220.07","cxd":"129.34","cxb":"204.34","oxd":"513.80","oxb":"513.80","tag":"","note":"CAPEX ในเด็ค 129.34 ต่างจากฐานข้อมูล 204.34 ลบ.","pend":["CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEMC","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง คอร์ป","d":"ผลิตและทดสอบอุปกรณ์แรงสูง · RAMI 4.0","f":"ec-bod-pemc.html","pg":20,"rev":"—","npat":"—","cxd":"4.15","cxb":"6.46","oxd":"21.73","oxb":"21.73","tag":"","note":"ไม่มีตารางรายได้ / GP / NPAT ในไฟล์ EC ของ PEM","pend":["รายได้ · GP · NPAT","CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PSP","th":"พรีไซซ ซิสเท็ม แอนด์ โปรเจ็ค","d":"ระบบและโครงการไฟฟ้า · SGAM + SCIAM","f":"ec-bod-psp.html","pg":20,"rev":"2,299.00","npat":"189.00","cxd":"26.18","cxb":"26.19","oxd":"265.00","oxb":"265.00","tag":"","note":"NPAT ฐาน 2026 และ NPAT 2027 มีอย่างละ 2 ค่าในไฟล์เดียวกัน","pend":["NPAT ฐาน 2026 (241.40 หรือ 153)","NPAT 2027 (189 หรือ 220)","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PDE","th":"พรีไซซ ดิจิตอล อีโคโนมี่","d":"ดิจิทัลและ Data Center · SCIAM","f":"ec-bod-pde.html","pg":21,"rev":"65.50","npat":"0.35","cxd":"17.05","cxb":"17.05","oxd":"29.00","oxb":"4.96","tag":"","note":"รายได้ลด 70.64% และ OPEX ในฐานข้อมูลมีแค่ 4.96 ลบ. (ไม่รวมค่าคน)","pend":["อธิบายรายได้ที่ลด 70.64%","OPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PPP","th":"พรีไซซ เพาเวอร์ โปรดิวเซอร์","d":"พลังงานและโรงไฟฟ้าชีวมวล · SFAM + SGAM","f":"ec-bod-ppp.html","pg":20,"rev":"506.24","npat":"72.65","cxd":"21.38","cxb":"21.38","oxd":"85.32","oxb":"85.32","tag":"รวม SBP + PCE","note":"ตัวเลขการเงินเป็นระดับกลุ่ม PPP + SBP + PCE","pend":["ยืนยันขอบเขต Consolidate / Separate","D/E Ratio","%Growth Equity","Income statement"]},{"c":"SBP","th":"สระบุรี ไบโอ เพาเวอร์","d":"พลังงานชีวมวล · SFAM","f":"ec-bod-sbp.html","pg":20,"rev":"—","npat":"—","cxd":"10.84","cxb":"10.84","oxd":"36.70","oxb":"36.70","tag":"","note":"CAPEX และ OPEX แยกได้ แต่รายได้อยู่รวมในเด็ค PPP","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PCE","th":"พรีไซซ คอนสตรัคชั่น เอ็นจิเนียริ่ง","d":"วิศวกรรมและบริการ · SGAM","f":"ec-bod-pce.html","pg":20,"rev":"—","npat":"—","cxd":"1.04","cxb":"1.04","oxd":"7.60","oxb":"7.60","tag":"","note":"ค่าคน 75.3% ของ OPEX สูงที่สุดในกลุ่ม","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PBI","th":"เดิมชื่อ PSL","d":"สายไผ่ครบวงจร · SFAM · BCG และ ESG","f":"ec-bod-pbi.html","pg":20,"rev":"67.09","npat":"12.32","cxd":"0.50","cxb":"0.50","oxd":"20.65","oxb":"20.65","tag":"ชื่อใหม่","note":"กำไรปี 2027 มาจากเงินสนับสนุนของ PCC 23.00 ลบ.","pend":["ชื่อนิติบุคคลเต็ม","Total Revenue 2028 ไม่ลงตัว","D/E Ratio","%Growth Equity","Income statement"]}],"title":"EC · BOD 2027 — เด็คแผนกลยุทธ์รายบริษัท","sub":"รวมลิงก์เด็คของทั้ง 9 บริษัทไว้ที่เดียว · หน้า 3–14 ของทุกเด็คเป็น Key Action Plan ที่แต่ละบริษัทกรอกเอง · หน้าการเงินกรอกจากไฟล์ EC ที่ส่งมาแล้ว","txt":{}}</script>
+<script id="idx-data" type="application/json">{"savedAt":1793170265506,"co":[{"c":"PCC","th":"พรีไซซ คอร์ปอเรชั่น (Holding)","d":"บริษัทใหญ่ · ที่ดินและการลงทุน","f":"ec-bod-pcc.html","pg":35,"rev":"521.45","npat":"350.00","cxd":"45.00","cxb":"45.00","oxd":"171.45","oxb":"171.45","cxg":"45.00","oxg":"171.45","tag":"Separate","note":"เด็คเต็ม 35 หน้า มี Tactical Plan 1–8 และ Appendix ครบ","pend":["D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEM","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง","d":"หม้อแปลงและอุปกรณ์ไฟฟ้า · RAMI 4.0","f":"ec-bod-pem.html","pg":20,"rev":"2,649.20","npat":"220.07","cxd":"129.34","cxb":"204.34","oxd":"513.80","oxb":"513.80","cxg":"129.34","oxg":"513.80","tag":"","note":"CAPEX ในเด็ค 129.34 ต่างจากฐานข้อมูล 204.34 ลบ.","pend":["CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PEMC","th":"พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง คอร์ป","d":"ผลิตและทดสอบอุปกรณ์แรงสูง · RAMI 4.0","f":"ec-bod-pemc.html","pg":20,"rev":"—","npat":"—","cxd":"4.15","cxb":"6.46","oxd":"21.73","oxb":"21.73","cxg":"4.15","oxg":"21.73","tag":"","note":"ไม่มีตารางรายได้ / GP / NPAT ในไฟล์ EC ของ PEM","pend":["รายได้ · GP · NPAT","CAPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PSP","th":"พรีไซซ ซิสเท็ม แอนด์ โปรเจ็ค","d":"ระบบและโครงการไฟฟ้า · SGAM + SCIAM","f":"ec-bod-psp.html","pg":20,"rev":"2,299.00","npat":"189.00","cxd":"26.18","cxb":"26.19","oxd":"265.00","oxb":"265.00","cxg":"26.18","oxg":"265.00","tag":"","note":"NPAT ฐาน 2026 และ NPAT 2027 มีอย่างละ 2 ค่าในไฟล์เดียวกัน","pend":["NPAT ฐาน 2026 (241.40 หรือ 153)","NPAT 2027 (189 หรือ 220)","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PDE","th":"พรีไซซ ดิจิตอล อีโคโนมี่","d":"ดิจิทัลและ Data Center · SCIAM","f":"ec-bod-pde.html","pg":21,"rev":"65.50","npat":"0.35","cxd":"17.05","cxb":"17.05","oxd":"29.00","oxb":"4.96","cxg":"17.05","oxg":"29.00","tag":"","note":"รายได้ลด 70.64% และ OPEX ในฐานข้อมูลมีแค่ 4.96 ลบ. (ไม่รวมค่าคน)","pend":["อธิบายรายได้ที่ลด 70.64%","OPEX 2 ชุดไม่ตรงกัน","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PPP","th":"พรีไซซ เพาเวอร์ โปรดิวเซอร์","d":"พลังงานและโรงไฟฟ้าชีวมวล · SFAM + SGAM","f":"ec-bod-ppp.html","pg":20,"rev":"506.24","npat":"72.65","cxd":"21.38","cxb":"21.38","oxd":"85.32","oxb":"85.32","cxg":"9.50","oxg":"41.02","tag":"รวม SBP + PCE","note":"ตัวเลขการเงินเป็นระดับกลุ่ม PPP + SBP + PCE · ช่องนับเข้ากลุ่มจึงใส่เฉพาะส่วนของ PPP","pend":["ยืนยันขอบเขต Consolidate / Separate","D/E Ratio","%Growth Equity","Income statement"]},{"c":"SBP","th":"สระบุรี ไบโอ เพาเวอร์","d":"พลังงานชีวมวล · SFAM","f":"ec-bod-sbp.html","pg":20,"rev":"—","npat":"—","cxd":"10.84","cxb":"10.84","oxd":"36.70","oxb":"36.70","cxg":"10.84","oxg":"36.70","tag":"","note":"CAPEX และ OPEX แยกได้ แต่รายได้อยู่รวมในเด็ค PPP","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PCE","th":"พรีไซซ คอนสตรัคชั่น เอ็นจิเนียริ่ง","d":"วิศวกรรมและบริการ · SGAM","f":"ec-bod-pce.html","pg":20,"rev":"—","npat":"—","cxd":"1.04","cxb":"1.04","oxd":"7.60","oxb":"7.60","cxg":"1.04","oxg":"7.60","tag":"","note":"ค่าคน 75.3% ของ OPEX สูงที่สุดในกลุ่ม","pend":["รายได้ · GP · NPAT","D/E Ratio","%Growth Equity","Income statement"]},{"c":"PBI","th":"เดิมชื่อ PSL","d":"สายไผ่ครบวงจร · SFAM · BCG และ ESG","f":"ec-bod-pbi.html","pg":20,"rev":"67.09","npat":"12.32","cxd":"0.50","cxb":"0.50","oxd":"20.65","oxb":"20.65","cxg":"0.50","oxg":"20.65","tag":"ชื่อใหม่","note":"กำไรปี 2027 มาจากเงินสนับสนุนของ PCC 23.00 ลบ.","pend":["ชื่อนิติบุคคลเต็ม","Total Revenue 2028 ไม่ลงตัว","D/E Ratio","%Growth Equity","Income statement"]}],"title":"EC · BOD 2027 — เด็คแผนกลยุทธ์รายบริษัท","foot":"ยอดรวมที่ไม่นับซ้ำตามฐานข้อมูล Capex / Opex ของกลุ่ม = CAPEX 320.92 ลบ. · OPEX 1,082.91 ลบ. (ผลต่างจากคอลัมน์ “นับเข้ากลุ่ม” คือจุดที่เด็คกับฐานข้อมูลยังไม่ตรงกัน)","sub":"รวมลิงก์เด็คของทั้ง 9 บริษัทไว้ที่เดียว · หน้า 3–14 ของทุกเด็คเป็น Key Action Plan ที่แต่ละบริษัทกรอกเอง · หน้าการเงินกรอกจากไฟล์ EC ที่ส่งมาแล้ว","txt":{}}</script>
 <!--IDX_DATA_END-->
 <script>
 function $(i){return document.getElementById(i)}
 function esc(s){return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-var S=JSON.parse($('idx-data').textContent);
-var CO=S.co;
-$('hT').textContent=S.title; $('hS').textContent=S.sub;
-$('kpi').innerHTML=
- '<div class="k"><b>'+CO.length+'</b><span>บริษัท</span></div>'+
- '<div class="k"><b>48</b><span>จุดกรอกต่อบริษัท</span></div>'+
- '<div class="k"><b id="kDone">–</b><span>บริษัทที่เริ่มกรอกแล้ว</span></div>'+
- '<div class="k"><b>2027</b><span>ปีงบประมาณ</span></div>';
+function tip(m){var t=$('tip');t.textContent=m;t.classList.add('show');clearTimeout(tip._t);
+  tip._t=setTimeout(function(){t.classList.remove('show')},2800)}
+var LSK='pcc_idx_v1';
+var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'ec-bod-index.html'};
+var FD=JSON.parse($('idx-data').textContent), baseSavedAt=(typeof FD.savedAt==='number')?FD.savedAt:0;
+var S=null;
+try{var raw=localStorage.getItem(LSK); if(raw){var ls=JSON.parse(raw);
+  if(ls&&ls.co&&(ls.savedAt||0)>=baseSavedAt) S=ls;}}catch(e){}
+if(!S) S=FD;
+if(typeof S.savedAt!=='number') S.savedAt=baseSavedAt;
+function persist(){try{localStorage.setItem(LSK,JSON.stringify(S));var a=$('st');
+  a.classList.add('hit');a.textContent='● บันทึกในเครื่องแล้ว';
+  setTimeout(function(){a.classList.remove('hit')},600)}catch(e){}}
+var pT=null;function schedulePersist(){clearTimeout(pT);pT=setTimeout(persist,500)}
+function num(v){var x=parseFloat(String(v).replace(/,/g,''));return isNaN(x)?0:x}
+function fmt(x){return x.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
-function card(x){
-  return '<div class="card'+(x.c==='PCC'?' pcc':'')+'" data-f="'+x.f+'">'+
-   '<div class="hd"><span class="code">'+esc(x.c)+'</span>'+(x.tag?'<span class="tag">'+esc(x.tag)+'</span>':'')+
-   '<span class="tag" style="background:#F1F5F9;color:#5B7389">'+x.pg+' หน้า</span></div>'+
-   '<div class="th">'+esc(x.th)+'</div><div class="d">'+esc(x.d)+'</div>'+
-   '<div class="nums">'+
-     '<div class="n"><b>'+esc(x.rev)+'</b><span>รายได้ 2027 (ลบ.)</span></div>'+
-     '<div class="n"><b>'+esc(x.npat)+'</b><span>NPAT 2027 (ลบ.)</span></div>'+
-     '<div class="n"><b>'+esc(x.cxd)+'</b><span>CAPEX 2027 (ลบ.)</span></div>'+
-     '<div class="n"><b>'+esc(x.oxd)+'</b><span>OPEX 2027 (ลบ.)</span></div></div>'+
-   '<div class="prog"><div class="lb"><span>Key Action Plan (หน้า 3–14)</span><b class="pv">กำลังอ่าน…</b></div>'+
-     '<div class="tr"><i></i></div></div>'+
-   '<div class="note">'+esc(x.note)+'</div><div class="sp"></div>'+
-   '<a class="go" href="'+x.f+'">เปิดเด็คของ '+esc(x.c)+' →</a></div>';
+function render(){
+  $('hT').textContent=S.title||''; $('hS').textContent=S.sub||'';
+  var n=(S.co||[]).length;
+  $('kpi').innerHTML='<div class="k"><b>'+n+'</b><span>บริษัท</span></div>'+
+   '<div class="k"><b>48</b><span>จุดกรอกต่อบริษัท</span></div>'+
+   '<div class="k"><b id="kDone">–</b><span>บริษัทที่เริ่มกรอกแล้ว</span></div>'+
+   '<div class="k"><b>2027</b><span>ปีงบประมาณ</span></div>';
+  $('cards').innerHTML=(S.co||[]).map(function(x,i){
+    function F(f,cls,txt){return '<span class="'+cls+'" data-f="co.'+i+'.'+f+'">'+esc(txt)+'</span>'}
+    return '<div class="card'+(x.c==='PCC'?' pcc':'')+'" data-f-file="'+esc(x.f)+'" data-i="'+i+'">'+
+     '<button class="delco" data-del="'+i+'" title="ลบบริษัทนี้">✕</button>'+
+     '<div class="hd">'+F('c','code',x.c)+
+       '<span class="tag" data-f="co.'+i+'.tag">'+esc(x.tag||'—')+'</span>'+
+       '<span class="tag" style="background:#F1F5F9;color:#5B7389"><span data-f="co.'+i+'.pg">'+esc(x.pg)+'</span> หน้า</span></div>'+
+     '<div class="th" data-f="co.'+i+'.th">'+esc(x.th)+'</div>'+
+     '<div class="d" data-f="co.'+i+'.d">'+esc(x.d)+'</div>'+
+     '<div class="nums">'+
+       '<div class="n"><b data-f="co.'+i+'.rev">'+esc(x.rev)+'</b><span>รายได้ 2027 (ลบ.)</span></div>'+
+       '<div class="n"><b data-f="co.'+i+'.npat">'+esc(x.npat)+'</b><span>NPAT 2027 (ลบ.)</span></div>'+
+       '<div class="n"><b data-f="co.'+i+'.cxd">'+esc(x.cxd)+'</b><span>CAPEX 2027 (ลบ.)</span></div>'+
+       '<div class="n"><b data-f="co.'+i+'.oxd">'+esc(x.oxd)+'</b><span>OPEX 2027 (ลบ.)</span></div></div>'+
+     '<div class="prog"><div class="lb"><span>Key Action Plan (หน้า 3–14)</span><b class="pv">–</b></div>'+
+       '<div class="tr"><i></i></div></div>'+
+     '<div class="note" data-f="co.'+i+'.note">'+esc(x.note)+'</div><div class="sp"></div>'+
+     '<a class="go" href="'+esc(x.f)+'">เปิดเด็คของ '+esc(x.c)+' →</a></div>';
+  }).join('')+'<div id="addco">+ เพิ่มบริษัท</div>';
+  renderTable(); renderPend(); setEditable();
 }
-$('cards').innerHTML=CO.map(card).join('');
-
-var rows='<tr><th>บริษัท</th><th>CAPEX ตามเด็ค</th><th>CAPEX ตามฐานข้อมูล</th><th>OPEX ตามเด็ค</th><th>OPEX ตามฐานข้อมูล</th></tr>';
-var sum={cxd:0,cxb:0,oxd:0,oxb:0};
-CO.forEach(function(x){
-  var dup=(x.c==='SBP'||x.c==='PCE');
-  var cxd=parseFloat(x.cxd)||0, cxb=parseFloat(x.cxb)||0, oxd=parseFloat(x.oxd)||0, oxb=parseFloat(x.oxb)||0;
-  if(x.c!=='PPP'){ sum.cxd+=cxd; sum.cxb+=cxb; sum.oxd+=oxd; sum.oxb+=oxb; }
-  else { sum.cxd+=9.50; sum.cxb+=9.50; sum.oxd+=41.02; sum.oxb+=41.02; }
-  function cell(a,b){ return '<td class="n'+(a!==b?' warn':'')+'">'+a.toFixed(2)+'</td>'; }
-  rows+='<tr><td class="g">'+esc(x.c)+(x.c==='PPP'?' <small style="font-weight:400;color:#7A8CA0">(ตัวเลขรวม SBP+PCE)</small>':'')+'</td>'+
-        cell(cxd,cxb)+'<td class="n">'+cxb.toFixed(2)+'</td>'+cell(oxd,oxb)+'<td class="n">'+oxb.toFixed(2)+'</td></tr>';
+function renderTable(){
+  var h='<tr><th>บริษัท</th><th>CAPEX เด็ค</th><th>CAPEX ฐานข้อมูล</th><th>CAPEX นับเข้ากลุ่ม</th>'+
+        '<th>OPEX เด็ค</th><th>OPEX ฐานข้อมูล</th><th>OPEX นับเข้ากลุ่ม</th></tr>';
+  var a=0,b=0,c=0,d=0;
+  (S.co||[]).forEach(function(x,i){
+    var cxd=num(x.cxd),cxb=num(x.cxb),oxd=num(x.oxd),oxb=num(x.oxb),cxg=num(x.cxg),oxg=num(x.oxg);
+    a+=cxd;b+=cxb;c+=oxd;d+=oxb;
+    h+='<tr><td class="g">'+esc(x.c)+'</td>'+
+       '<td class="n'+(cxd!==cxb?' warn':'')+'">'+esc(x.cxd)+'</td>'+
+       '<td class="n" data-f="co.'+i+'.cxb">'+esc(x.cxb)+'</td>'+
+       '<td class="n" data-f="co.'+i+'.cxg">'+esc(x.cxg)+'</td>'+
+       '<td class="n'+(oxd!==oxb?' warn':'')+'">'+esc(x.oxd)+'</td>'+
+       '<td class="n" data-f="co.'+i+'.oxb">'+esc(x.oxb)+'</td>'+
+       '<td class="n" data-f="co.'+i+'.oxg">'+esc(x.oxg)+'</td></tr>';
+  });
+  var g1=(S.co||[]).reduce(function(s,x){return s+num(x.cxg)},0);
+  var g2=(S.co||[]).reduce(function(s,x){return s+num(x.oxg)},0);
+  h+='<tr class="sum"><td>รวมทั้งกลุ่ม (ไม่นับซ้ำ)</td><td class="n">–</td><td class="n">–</td>'+
+     '<td class="n">'+fmt(g1)+'</td><td class="n">–</td><td class="n">–</td>'+
+     '<td class="n">'+fmt(g2)+'</td></tr>';
+  $('tNum').innerHTML=h;
+  var ft=$('tFoot'); if(ft) ft.textContent=S.foot||'';
+  if(editMode) markEditable($('tNum'));
+}
+function renderPend(){
+  $('pend').innerHTML=(S.co||[]).map(function(x,i){
+    return '<div class="pendbox" data-i="'+i+'"><b>'+esc(x.c)+'</b><ul class="pend">'+
+      (x.pend||[]).map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+
+      '</ul><button class="addpend">+ เพิ่มรายการ</button></div>';
+  }).join('');
+  if(editMode) markEditable($('pend'));
+}
+function setPath(p,v){var a=p.split('.'),o=S;for(var i=0;i<a.length-1;i++){o=o[a[i]]}o[a[a.length-1]]=v}
+var editMode=false;
+function markEditable(root){
+  [].forEach.call(root.querySelectorAll('[data-f]'),function(el){
+    if(editMode) el.setAttribute('contenteditable','true'); else el.removeAttribute('contenteditable')});
+  [].forEach.call(root.querySelectorAll('.pend li'),function(el){
+    if(editMode) el.setAttribute('contenteditable','true'); else el.removeAttribute('contenteditable')});
+}
+function setEditable(){document.body.classList.toggle('edit',editMode);markEditable(document)}
+$('bEdit').addEventListener('click',function(){editMode=!editMode;this.classList.toggle('on',editMode);
+  setEditable();tip(editMode?'แก้ได้ทุกช่องที่มีกรอบประ — กดอีกครั้งเพื่อล็อก':'ล็อกแล้ว')});
+document.addEventListener('input',function(e){
+  if(!editMode)return;
+  var el=e.target.closest('[data-f]');
+  if(el){setPath(el.dataset.f,el.textContent.trim());schedulePersist();return}
+  var li=e.target.closest('.pend li');
+  if(li){syncPend(li.closest('.pendbox'));schedulePersist()}
 });
-rows+='<tr class="sum"><td>รวมทั้งกลุ่ม (ไม่นับซ้ำ)</td><td class="n">'+sum.cxd.toFixed(2)+'</td><td class="n">'+sum.cxb.toFixed(2)+
-      '</td><td class="n">'+sum.oxd.toFixed(2)+'</td><td class="n">'+sum.oxb.toFixed(2)+'</td></tr>';
-$('tNum').innerHTML=rows;
-
-$('pend').innerHTML=CO.map(function(x){
-  return '<div class="pendbox"><b>'+esc(x.c)+'</b><ul class="pend">'+
-    x.pend.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul></div>';
-}).join('');
+document.addEventListener('focusout',function(e){
+  if(!editMode)return;
+  var el=e.target.closest('[data-f]');
+  if(el&&/\.(cxd|oxd|cxb|oxb|cxg|oxg)$/.test(el.dataset.f)) renderTable();
+});
+function syncPend(box){var i=+box.dataset.i;
+  S.co[i].pend=[].map.call(box.querySelectorAll('.pend li'),function(l){return l.textContent.trim()}).filter(Boolean)}
+document.addEventListener('keydown',function(e){
+  if(!editMode)return;
+  var li=e.target.closest&&e.target.closest('.pend li'); if(!li)return;
+  var box=li.closest('.pendbox');
+  if(e.key==='Enter'){e.preventDefault();var n=document.createElement('li');n.contentEditable='true';
+    li.after(n);n.focus();syncPend(box);schedulePersist()}
+  else if(e.key==='Backspace'&&!li.textContent.trim()){e.preventDefault();var pv=li.previousElementSibling;
+    li.remove();if(pv)pv.focus();syncPend(box);schedulePersist()}
+});
+document.addEventListener('click',function(e){
+  if(e.target.closest('.card .go')&&editMode){e.preventDefault();return}
+  var ap=e.target.closest('.addpend');
+  if(ap&&editMode){var box=ap.closest('.pendbox'),ul=box.querySelector('.pend'),n=document.createElement('li');
+    n.contentEditable='true';ul.appendChild(n);n.focus();return}
+  var dl=e.target.closest('.delco');
+  if(dl&&editMode){var i=+dl.dataset.del;
+    if(confirm('ลบ “'+S.co[i].c+'” ออกจากหน้านี้?')){S.co.splice(i,1);render();persist();scan()}return}
+  if(e.target.closest('#addco')&&editMode){
+    S.co.push({c:'ใหม่',th:'ชื่อบริษัท',d:'คำอธิบาย',f:'ec-bod-xxx.html',pg:'20',rev:'—',npat:'—',
+      cxd:'0.00',cxb:'0.00',oxd:'0.00',oxb:'0.00',cxg:'0.00',oxg:'0.00',tag:'',note:'',pend:['รอข้อมูล']});
+    render();persist();tip('เพิ่มแล้ว — แก้ชื่อไฟล์ในช่อง “คำอธิบาย” ยังไม่ได้ ต้องแก้ที่ JSON (บอกผมได้)')}
+});
 
 /* ---- อ่านความคืบหน้าจากไฟล์จริง ---- */
-function setProg(el,txt,pct,color){
-  el.querySelector('.pv').textContent=txt;
-  var bar=el.querySelector('.tr i'); bar.style.width=(pct||0)+'%';
-  if(color) bar.style.background=color;
-}
+function setProg(el,txt,pct,color){el.querySelector('.pv').textContent=txt;
+  var bar=el.querySelector('.tr i');bar.style.width=(pct||0)+'%';if(color)bar.style.background=color}
 async function scan(){
-  var cards=[].slice.call(document.querySelectorAll('.card')), started=0, ok=0;
+  var cards=[].slice.call(document.querySelectorAll('.card')),started=0,ok=0;
   $('st').textContent='● กำลังอ่าน…';
   for(var i=0;i<cards.length;i++){
-    var el=cards[i], f=el.dataset.f;
+    var el=cards[i],f=el.getAttribute('data-f-file');
+    setProg(el,'กำลังอ่าน…',0,'#C9D4E0');
     try{
-      var r=await fetch(f,{cache:'no-store'});
-      if(!r.ok) throw new Error(r.status);
-      var t=await r.text(), m=t.match(/<script id="ka-data"[^>]*>([\s\S]*?)<\/script>/);
-      ok++;
-      var d=null; try{ d=JSON.parse(m[1]); }catch(e){}
-      if(!d||!d.d){ setProg(el,'0 / 48 จุด',0,'#C9D4E0'); continue; }
-      var n=0, topics=0;
-      Object.keys(d.d).forEach(function(k){
-        var any=0; (d.d[k]||[]).forEach(function(lane){ n+=(lane||[]).length; any+=(lane||[]).length; });
-        if(any) topics++;
-      });
-      if(n>0) started++;
-      var pct=Math.min(100,Math.round(n/48*100));
-      setProg(el, n+' โครงการ · '+topics+'/12 หัวข้อ', pct, n?'#2E7D32':'#C9D4E0');
-    }catch(e){ setProg(el,'อ่านไม่ได้ (เปิดผ่านเว็บจึงจะอ่านได้)',0,'#C9D4E0'); }
+      var r=await fetch(f,{cache:'no-store'}); if(!r.ok) throw new Error(r.status);
+      var t=await r.text(),m=t.match(/<script id="ka-data"[^>]*>([\s\S]*?)<\/script>/); ok++;
+      var d=null; try{d=JSON.parse(m[1])}catch(e){}
+      if(!d||!d.d){setProg(el,'0 / 48 จุด',0,'#C9D4E0');continue}
+      var cnt=0,topics=0;
+      Object.keys(d.d).forEach(function(k){var any=0;
+        (d.d[k]||[]).forEach(function(l){cnt+=(l||[]).length;any+=(l||[]).length});if(any)topics++});
+      if(cnt>0)started++;
+      setProg(el,cnt+' โครงการ · '+topics+'/12 หัวข้อ',Math.min(100,Math.round(cnt/48*100)),cnt?'#2E7D32':'#C9D4E0');
+    }catch(e){setProg(el,'อ่านไม่ได้ (ต้องเปิดผ่านเว็บ)',0,'#C9D4E0')}
   }
-  $('kDone').textContent=started+' / '+cards.length;
-  $('st').textContent= ok? '● อ่านครบ '+ok+' ไฟล์' : '● อ่านไม่ได้ — ต้องเปิดผ่านเว็บ';
+  var kd=$('kDone'); if(kd) kd.textContent=started+' / '+cards.length;
+  $('st').textContent= ok? '● อ่านครบ '+ok+' ไฟล์':'● อ่านไม่ได้ — ต้องเปิดผ่านเว็บ';
 }
 $('bRefresh').addEventListener('click',scan);
 $('bPrint').addEventListener('click',function(){window.print()});
-scan();
+
+/* ---- publish ---- */
+function tokGet(){try{return localStorage.getItem('pcc_gh_tok')||''}catch(e){return ''}}
+$('bTok').addEventListener('click',function(){var p=$('tokPanel');p.hidden=!p.hidden;if(!p.hidden)$('tokInput').focus()});
+$('tokSave').addEventListener('click',function(){var v=$('tokInput').value.trim();if(!v)return;
+  try{localStorage.setItem('pcc_gh_tok',v)}catch(e){}$('tokInput').value='';$('tokPanel').hidden=true;tip('บันทึก token แล้ว')});
+$('tokClear').addEventListener('click',function(){try{localStorage.removeItem('pcc_gh_tok')}catch(e){}tip('ลบ token แล้ว')});
+function encodeB64(str){var b=new TextEncoder().encode(str),r='',ch=3*1024;
+  for(var i=0;i<b.length;i+=ch){var sl=b.subarray(i,i+ch),bin='';
+    for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]);r+=btoa(bin)}return r}
+var DATA_RE=/<!--IDX_DATA_START-->[\s\S]*?<!--IDX_DATA_END-->/;
+function dataBlock(json){return '<!--IDX_DATA_START-->\n<script id="idx-data" type="application/json">'+json+'<\/script>\n<!--IDX_DATA_END-->'}
+var publishing=false;
+async function publish(){
+  if(publishing)return;
+  var token=tokGet(); if(!token){$('tokPanel').hidden=false;tip('ใส่ GitHub token ก่อน');return}
+  publishing=true;var btn=$('bPublish'),lbl=btn.textContent;btn.disabled=true;btn.textContent='⏳ กำลังบันทึก…';
+  var stamp=Date.now(),prev=S.savedAt;S.savedAt=stamp;
+  var base='/repos/'+GH.owner+'/'+GH.repo;
+  function gh(m,p,body,accept){var hh={Authorization:'token '+token,Accept:accept||'application/vnd.github+json'};
+    var o={method:m,headers:hh};if(body!=null){hh['Content-Type']='application/json';o.body=JSON.stringify(body)}
+    return fetch(GH.api+p,o)}
+  async function must(r,l){if(!r.ok){var m='';try{m=(await r.json()).message||''}catch(_){}
+    throw new Error(l+' ('+r.status+') '+m)}return r}
+  try{
+    var rawRes=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+    await must(rawRes,'อ่านไฟล์ไม่ได้');var text=await rawRes.text();
+    if(!DATA_RE.test(text))throw new Error('ไม่พบจุดฝังข้อมูลในไฟล์');
+    var safe=JSON.stringify(S).replace(/</g,'\\u003c');
+    var out=text.replace(DATA_RE,function(){return dataBlock(safe)});
+    var blob=await(await must(await gh('POST',base+'/git/blobs',{content:encodeB64(out),encoding:'base64'}),'สร้าง blob ไม่สำเร็จ')).json();
+    var ref=await(await must(await gh('GET',base+'/git/ref/heads/'+GH.branch),'อ่าน ref ไม่ได้')).json();
+    var head=ref.object.sha;
+    var hc=await(await must(await gh('GET',base+'/git/commits/'+head),'อ่าน commit ไม่ได้')).json();
+    var tree=await(await must(await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,
+      tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}),'สร้าง tree ไม่สำเร็จ')).json();
+    var cm=await(await must(await gh('POST',base+'/git/commits',{message:'EC BOD index update via browser ['+new Date().toISOString().slice(0,16)+']',
+      tree:tree.sha,parents:[head]}),'สร้าง commit ไม่สำเร็จ')).json();
+    await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:cm.sha}),'อัปเดต ref ไม่สำเร็จ');
+    baseSavedAt=stamp;persist();tip('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+  }catch(e){S.savedAt=prev;tip('✗ '+(e&&e.message?e.message:'ผิดพลาด'))}
+  finally{publishing=false;btn.disabled=false;btn.textContent=lbl}
+}
+$('bPublish').addEventListener('click',publish);
+
+render(); scan();
 </script>
 </body></html>
