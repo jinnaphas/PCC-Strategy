@@ -116,6 +116,25 @@ body.edit [data-k]:hover{outline-color:rgba(0,159,223,.9)}
 body.edit [data-k]:focus{outline:2px solid var(--blue);background:#f0fbff}
 body.edit .pg.cover [data-k]{outline-color:rgba(255,255,255,.55)}
 body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255,255,.12)}
+/* รูปที่แทรกเอง */
+.csfig{margin:0 0 3mm;position:relative}
+.csfig img{display:block;width:var(--w,100%);margin:0 auto;border:1px solid var(--hair)}
+.csfig figcaption{font-size:8.2pt;color:var(--muted);text-align:center;margin-top:1.3mm;line-height:1.4}
+.csfig .tools{display:none;position:absolute;right:2px;top:2px;gap:3px;z-index:6}
+body.edit .csfig .tools{display:flex}
+.csfig .tools button{font:600 10.5px var(--f);border:1px solid var(--hair);background:rgba(255,255,255,.96);
+  color:var(--navy);padding:2px 6px;border-radius:4px;cursor:pointer;line-height:1.4}
+.csfig .tools button:hover{background:var(--soft)}
+.csfig .tools button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.csfig .tools button.del{color:var(--red);border-color:#f0c4bd}
+.csadd{display:none}
+body.edit .csadd{display:inline-flex;align-items:center;gap:5px;margin:1mm 0 0;
+  border:1px dashed var(--blue);background:#fff;color:var(--blue-ink);font:600 11px var(--f);
+  padding:3px 11px;border-radius:5px;cursor:pointer}
+.csover{display:none}
+body.edit .pg.spill .csover{display:block;position:absolute;left:17mm;top:5mm;background:var(--red);color:#fff;
+  font:700 10px var(--f);padding:3px 9px;border-radius:4px;z-index:9}
+@media print{.csfig .tools,.csadd,.csover{display:none!important}}
 .cstoast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;
   padding:9px 18px;border-radius:999px;font:600 13px var(--f);z-index:200;display:none;
   box-shadow:0 10px 26px rgba(14,44,77,.32)}
@@ -158,7 +177,7 @@ body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255
 บริษัท พรีไซซ คอร์ปอเรชั่น จำกัด (มหาชน) — PCC<br>
 <span style="color:#7fd4f5">ในฐานะบริษัทโฮลดิ้งของกลุ่ม 9 บริษัท</span></p>
 <div class="cvbox">
-<p><b style="color:#fff">เอกสารนี้คืออะไร</b> — ฉบับย่อของ Corporate Strategy เล่มเดิม (2026–2029) เหลือ 21 หน้า
+<p><b style="color:#fff">เอกสารนี้คืออะไร</b> — ฉบับย่อของ Corporate Strategy เล่มเดิม (2026–2029) เหลือ 22 หน้า
 สำหรับผู้บริหารระดับสูงและกรรมการใช้สื่อสารทิศทางเดียวกันทั้งกลุ่ม</p>
 <p>ตัดส่วนทฤษฎี ตารางเปล่า และเอกสารแนบออก เก็บไว้เฉพาะสองเรื่อง คือ
 <b style="color:#fff">กระบวนทัศน์ (Paradigm) ที่กลุ่มใช้จริง</b> และ
@@ -171,7 +190,7 @@ body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255
 <div><s>ขอบเขต</s><b>PCC Separate + ภาพกลุ่ม</b></div>
 </div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">1 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">1 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -194,25 +213,26 @@ body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255
 <div><span>8</span><span>ทุน 4 ประเภทและการวัดมูลค่า</span><span>8</span></div>
 <div><span>9</span><span>C-O-T และสถาปัตยกรรมดิจิทัล 4 โมเดล</span><span>9</span></div>
 <div class="sec"><span>ภาค 2</span><span>ตัวตนและบทบาทของ PCC</span><span></span></div>
-<div><span>10</span><span>Vision · Mission · Objective · Values</span><span>10</span></div>
-<div><span>11</span><span>PCC ทำอะไร และไม่ทำอะไร</span><span>11</span></div>
-<div><span>12</span><span>กลุ่ม 9 บริษัท · Horizontal &amp; Vertical</span><span>12</span></div>
+<div><span>10</span><span>Vision · Mission · Objective — สามคำที่ต้องแยกให้ออก</span><span>10</span></div>
+<div><span>11</span><span>Corporate Philosophy และค่านิยมองค์กร</span><span>11</span></div>
+<div><span>12</span><span>PCC ทำอะไร และไม่ทำอะไร</span><span>12</span></div>
+<div><span>13</span><span>กลุ่ม 9 บริษัท · Horizontal &amp; Vertical</span><span>13</span></div>
 </div>
 </div>
 <div>
 <h3 style="margin-top:0">&nbsp;</h3>
 <div class="toc">
 <div class="sec"><span>ภาค 3</span><span>เป้าหมายรายระยะของ PCC</span><span></span></div>
-<div><span>13</span><span>ภาพรวม 4 ระยะในหน้าเดียว</span><span>13</span></div>
-<div><span>14</span><span>ระยะที่ 1 · 2570 — Budgeting</span><span>14</span></div>
-<div><span>15</span><span>ระยะที่ 2 · 2571–2573 — Forecasting</span><span>15</span></div>
-<div><span>16</span><span>ระยะที่ 3 · ถึง 2575 — Reactive</span><span>16</span></div>
-<div><span>17</span><span>ระยะที่ 4 · ถึง 2577 — Proactive</span><span>17</span></div>
-<div><span>18</span><span>เป้าหมายการเงินและหลักการทำงบ</span><span>18</span></div>
+<div><span>14</span><span>ภาพรวม 4 ระยะในหน้าเดียว</span><span>14</span></div>
+<div><span>15</span><span>ระยะที่ 1 · 2570 — Budgeting</span><span>15</span></div>
+<div><span>16</span><span>ระยะที่ 2 · 2571–2573 — Forecasting</span><span>16</span></div>
+<div><span>17</span><span>ระยะที่ 3 · ถึง 2575 — Reactive</span><span>17</span></div>
+<div><span>18</span><span>ระยะที่ 4 · ถึง 2577 — Proactive</span><span>18</span></div>
+<div><span>19</span><span>เป้าหมายการเงินและหลักการทำงบ</span><span>19</span></div>
 <div class="sec"><span>ภาค 4</span><span>การขับเคลื่อน</span><span></span></div>
-<div><span>19</span><span>โครงสร้างการบริหารและการกำกับ</span><span>19</span></div>
-<div><span>20</span><span>กำลังคนและขีดความสามารถ</span><span>20</span></div>
-<div><span>21</span><span>ความเสี่ยงและรายการที่ยังรอข้อมูล</span><span>21</span></div>
+<div><span>20</span><span>โครงสร้างการบริหารและการกำกับ</span><span>20</span></div>
+<div><span>21</span><span>กำลังคนและขีดความสามารถ</span><span>21</span></div>
+<div><span>22</span><span>ความเสี่ยงและรายการที่ยังรอข้อมูล</span><span>22</span></div>
 </div>
 </div>
 </div>
@@ -221,7 +241,7 @@ body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255
 <table>
 <tr><th style="width:34%">เล่มเดิม (2026–2029)</th><th style="width:33%">ทำอย่างไรในเล่มนี้</th><th>เหตุผล</th></tr>
 <tr><td>บทที่ 1–2 ทฤษฎีกลยุทธ์ ~16 หน้า (Hax &amp; Majluf, Mintzberg)</td><td>ย่อเหลือ 2 หน้าในภาค 1 เก็บเฉพาะกรอบที่ใช้ตัดสินใจจริง</td><td>ทฤษฎีไม่ใช่สิ่งที่ต้องสื่อสารทั้งกลุ่ม กรอบที่ใช้ตัดสินใจคือสิ่งที่ต้องสื่อสาร</td></tr>
-<tr><td>ตารางวิเคราะห์ที่ยังไม่ได้กรอก (Horizontal/Vertical Integration, SOAR, Portfolio Matrix)</td><td>ยกไปหน้า 21 เป็นรายการ “ยังรอข้อมูล” พร้อมผู้รับผิดชอบ</td><td>ตารางเปล่าในเล่มทำให้อ่านแล้วไม่รู้ว่าอะไรเสร็จ อะไรยังไม่เสร็จ</td></tr>
+<tr><td>ตารางวิเคราะห์ที่ยังไม่ได้กรอก (Horizontal/Vertical Integration, SOAR, Portfolio Matrix)</td><td>ยกไปหน้า 22 เป็นรายการ “ยังรอข้อมูล” พร้อมผู้รับผิดชอบ</td><td>ตารางเปล่าในเล่มทำให้อ่านแล้วไม่รู้ว่าอะไรเสร็จ อะไรยังไม่เสร็จ</td></tr>
 <tr><td>แผนระยะที่ 3 และ 4 ระบุว่า “ยังไม่ได้ดำเนินการ”</td><td>เติมเป้าหมายและ Key Action จาก Strategy Mapping และเด็ค EC/BOD 2027</td><td>สองระยะหลังคือส่วนที่ตัดสินความอยู่รอด ปล่อยว่างไม่ได้</td></tr>
 <tr><td>อ้างอิงบริษัทในกลุ่ม 8 บริษัท (รวม PSL, PPD)</td><td>ปรับเป็นโครงสร้างปัจจุบัน 9 บริษัท ตามเด็ค EC/BOD</td><td>ชื่อและขอบเขตบริษัทเปลี่ยนไปแล้ว</td></tr>
 <tr><td>ปีฐาน 2025 / แผน 2026–2029</td><td>เลื่อนเป็นปีฐาน 2569 (2026 ML) และแผน 2570–2577 (2027–2034)</td><td>ให้ตรงกับงบประมาณและเด็คที่เสนอคณะกรรมการบริหารรอบนี้</td></tr>
@@ -233,7 +253,7 @@ Elevator Pitch, Pitch ย่อ, ต้นกล้าไผ่ → Data Center)
 &nbsp;③ <b>Glossary &amp; Keywords</b> 218 คำ ใช้เป็นภาษากลาง &nbsp;④ เล่ม <b>Corporate Strategy 2026–2029</b> ฉบับเดิม</p>
 </div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">2 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">2 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -283,7 +303,7 @@ Elevator Pitch, Pitch ย่อ, ต้นกล้าไผ่ → Data Center)
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ดพาดหัว, การ์ด “Direction” และ “Platform &amp; Ecosystem Capitalism”;
 ชีต Platform Flow — กลุ่มที่ 1 “เปลี่ยนธุรกิจจาก Industrial → Platform Capitalism”</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">3 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">3 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -333,7 +353,7 @@ Elevator Pitch, Pitch ย่อ, ต้นกล้าไผ่ → Data Center)
 <div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 2.1–2.2 (Levels of Strategy, The Four Phases of Strategic Planning) และ
 Hax &amp; Majluf, <i>The Strategy Concept &amp; Process</i>; หน้า Strategy Mapping — การ์ด “แผนกลยุทธ์ 4 ระยะ” และแถบระยะ 1–4</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">4 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">4 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -382,7 +402,7 @@ Hax &amp; Majluf, <i>The Strategy Concept &amp; Process</i>; หน้า Strate
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — หัวคอลัมน์ 1–4, การ์ด “ความสัมพันธ์ระหว่างกลยุทธ์กับโมเดลธุรกิจ”,
 “Business Model Canvas → Business Plan”, “Business Distinctive Competencies”; เล่มเดิมหัวข้อ 2.7, 2.11, 2.12</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">5 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">5 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -433,7 +453,7 @@ CoE จึงต้องอยู่ที่ PCC ไม่ใช่ที่�
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด 3.1–3.4 และ “Target: หาเงินได้ · ส่งของได้ · เก็บเงินได้ · ลูกค้าซื้อซ้ำ”;
 ชีต Platform Flow — A/B/C; เล่มเดิมหัวข้อ 5.3 Promise (Philosophy of Business 8 ประการ)</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">6 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">6 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -482,7 +502,7 @@ CoE จึงต้องอยู่ที่ PCC ไม่ใช่ที่�
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — แถบ RST1–RST6 และการ์ด “6 Revenue Stream Type”;
 เด็ค EC/BOD · PCC หัวข้อ 1.1 ระยะที่ 3 (สัดส่วนรายได้เป้าหมาย) และ Appendix 1; เล่มเดิมหัวข้อ 6.2</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">7 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">7 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -544,7 +564,7 @@ CoE จึงต้องอยู่ที่ PCC ไม่ใช่ที่�
 <div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 5.2 (Corporate Broad Objective), 6.3 (พัฒนาระบบบริหารจัดการ — 7 ทีม), 2.13 (Performance Criteria);
 Stewart, <i>Intellectual Capital: The New Wealth of Organizations</i></div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">8 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">8 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -603,20 +623,53 @@ Stewart, <i>Intellectual Capital: The New Wealth of Organizations</i></div>
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “Corporate Strategy: C-O-T Model”, “1. Digital Architecture Model — 4 Industries”,
 “Precise LLM &amp; Opensource AI”; เล่มเดิมหัวข้อ 6.1 (Innovation 7 ด้าน) และ 5.3 (Digital Business Organization)</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">9 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">9 / 22</span></div>
 </section>
 
-<section class="pg tight">
+<section class="pg">
 <div class="fill">
 <span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
-<h2 class="t">ตัวตนของ PCC — <em>Vision · Mission · Objective</em></h2>
-<p class="lead">ภาคที่ 2 ตอบว่า PCC คือใครในกลุ่ม ใช้ถ้อยคำชุดเดียวกับเด็ค EC/BOD และหน้า Strategy Mapping</p>
+<h2 class="t"><em>Vision · Mission · Objective</em> — สามคำที่ต้องแยกให้ออก</h2>
+<p class="lead">ก่อนจะอ่านถ้อยคำของ PCC ต้องเข้าใจก่อนว่าสามคำนี้ตอบคนละคำถาม และต้องเรียงตามลำดับ
+ความสับสนที่พบบ่อยในองค์กรคือเอาทั้งสามคำมาปนกันจนกลายเป็นข้อความสวย ๆ ที่ไม่มีใครเอาไปใช้ตัดสินใจได้</p>
 
-<div class="grid2" style="margin-bottom:4mm">
+<div class="chain">
+<div style="background:var(--navy)"><b>VISION</b>จะไปที่ไหน</div>
+<div style="background:var(--navy2)"><b>MISSION</b>จะไปอย่างไร</div>
+<div style="background:var(--blue-ink)"><b>BROAD CORPORATE OBJECTIVE</b>ไปถึงแล้วต้องได้อะไร</div>
+<div style="background:var(--blue)"><b>FINANCIAL OBJECTIVE</b>วัดเป็นตัวเลขอย่างไร</div>
+</div>
+
+<h3>สามคำนี้ต่างกันอย่างไร</h3>
+<table>
+<tr><th style="width:16%"></th><th style="width:22%">ตอบคำถามว่า</th><th style="width:14%">กรอบเวลา</th><th style="width:20%">ใครใช้และใช้ทำอะไร</th><th>ถ้าเขียนผิดจะเป็นอย่างไร</th></tr>
+<tr><td><b>Vision</b><br><span class="mut">วิสัยทัศน์</span></td>
+<td>องค์กรอยากเป็นอะไรในอนาคต — ภาพปลายทาง</td><td>5–10 ปี</td>
+<td>คณะกรรมการและผู้บริหารสูงสุด ใช้ตัดสินว่าจะเข้าหรือออกจากธุรกิจใด</td>
+<td>ถ้าเขียนเป็นสิ่งที่ทำอยู่แล้ววันนี้ จะไม่มีแรงดึงให้เปลี่ยนอะไรเลย</td></tr>
+<tr><td><b>Mission</b><br><span class="mut">พันธกิจ</span></td>
+<td>จะทำอะไร ให้ใคร และทำอย่างไร เพื่อไปให้ถึง Vision</td><td>3–5 ปี</td>
+<td>ผู้บริหารทุกบริษัท ใช้กำหนดขอบเขตสินค้า ลูกค้า พื้นที่ และวิธีแข่งขัน</td>
+<td>ถ้ากว้างเกินไปจะกลายเป็นใบอนุญาตให้ทำทุกอย่าง และทรัพยากรจะกระจายจนไม่ชนะที่ไหนเลย</td></tr>
+<tr><td><b>Broad Corporate<br>Objective</b><br><span class="mut">วัตถุประสงค์รวม</span></td>
+<td>เมื่อทำตามพันธกิจแล้ว องค์กรต้องได้ผลลัพธ์แบบไหน</td><td>ต่อเนื่องทุกปี</td>
+<td>ทุกระดับ ใช้เป็นเกณฑ์ตัดสินว่าสิ่งที่ทำอยู่ถูกทางหรือไม่</td>
+<td>ถ้าเป็นถ้อยคำลอย ๆ ที่วัดไม่ได้ จะกลายเป็นคำขวัญติดผนัง ไม่ใช่เครื่องมือบริหาร</td></tr>
+</table>
+
+<div class="box"><h4>ลำดับที่ถูกต้องและเหตุผล</h4>
+<p class="sm"><b>Vision → Mission → Objective → Financial Objective</b> คือ
+ภาพปลายทาง → วิธีไป → ผลลัพธ์ที่ต้องได้ → ตัวเลขที่ใช้วัด<br>
+ข้อผูกพันคือทุกชั้นต้องสาวขึ้นไปหาชั้นบนได้ — เป้าหมายการเงินข้อใดที่อธิบายไม่ได้ว่ารับใช้วัตถุประสงค์รวมข้อไหน
+แปลว่าตั้งเป้าผิดที่ และพันธกิจข้อใดที่ไม่พาไปสู่วิสัยทัศน์ แปลว่ากำลังใช้ทรัพยากรผิดทาง
+เอกสารนี้จึงเรียงภาคที่ 2 ตามลำดับนี้ และเรียงเป้าหมายรายระยะในภาคที่ 3 ให้ต่อจากกัน</p></div>
+
+<h3>ถ้อยคำของ PCC</h3>
+<div class="grid2" style="margin-bottom:3mm">
 <div class="card" style="border-top-color:var(--navy)"><span class="tag">Vision · วิสัยทัศน์</span>
-<p class="sm" style="font-size:9.8pt">To be Leading Engineering Firm for Social Innovation Business in Thailand
+<p class="sm" style="font-size:9.4pt">To be Leading Engineering Firm for Social Innovation Business in Thailand
 and Energizing Shared Prosperity for Thai Society</p>
-<p class="sm mut">ภาพปลายทางระยะยาว 5–10 ปี ตอบว่า “จะไปที่ไหน”</p></div>
+<p class="sm mut">มุ่งสู่การเป็นบริษัทวิศวกรรมชั้นนำด้านธุรกิจนวัตกรรมเพื่อสังคมในประเทศไทย และจุดพลังความรุ่งเรืองร่วมกันให้สังคมไทย</p></div>
 <div class="card" style="border-top-color:var(--blue)"><span class="tag">Mission · พันธกิจ</span>
 <p class="sm">พรีไซซเป็นผู้ให้บริการโซลูชั่นนวัตกรรมด้าน <b>ดิจิทัลกริดอัจฉริยะ</b> (Smart Grid Digitalization),
 <b>ขับเคลื่อนห่วงโซ่อุปทานไผ่ครบวงจรอย่างยั่งยืน</b> (Addressing the Overall Supply Chain of Bamboo),
@@ -624,14 +677,29 @@ and Energizing Shared Prosperity for Thai Society</p>
 เพื่อขับเคลื่อนการเติบโตที่รุ่งเรืองร่วมกันกับผู้มีส่วนได้ส่วนเสียทุกฝ่าย</p></div>
 </div>
 
-<div class="box"><h4>Broad Corporate Objective</h4>
-<p style="font-size:10.4pt;color:var(--navy);font-weight:600;margin-bottom:1.5mm">
+<div class="box g"><h4>Broad Corporate Objective</h4>
+<p style="font-size:10pt;color:var(--navy);font-weight:600;margin-bottom:1.2mm">
 “มุ่งสู่การเป็นองค์กรที่ เติบโต ยั่งยืน มีคุณภาพสูง ผสานประโยชน์สุขทุกฝ่ายที่เกี่ยวข้อง และพัฒนาร่วมกัน โดยมีการบริหารแบบธรรมาภิบาล”</p>
-<p class="sm mut">ลำดับคือ Vision → Mission → Objective : ภาพปลายทาง → วิธีไป → ผลลัพธ์ที่วัดได้</p></div>
+<p class="sm">สี่คำในวัตถุประสงค์นี้ไม่ใช่คำขยาย แต่ผูกกับทุนสี่ประเภทในหน้า 8 แบบหนึ่งต่อหนึ่ง —
+<b>เติบโต</b> = Financial Capital · <b>ยั่งยืน</b> = EVM/EP และ Intellectual Capital ·
+<b>มีคุณภาพสูง</b> = Performance Criteria 7 ข้อ · <b>ผสานประโยชน์สุขทุกฝ่าย</b> = ESG และการมีส่วนร่วมของผู้มีส่วนได้เสีย</p></div>
 
-<h3>Corporate Philosophy — สามคำที่ใช้สื่อสารภายนอก</h3>
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หน้า Strategy Concept และ Vision · Mission · Objective
+(รวมคำอธิบายในหมายเหตุประกอบสไลด์); เล่มเดิมหัวข้อ 1.3 The Mission Statement of Corporate</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">10 / 22</span></div>
+</section>
+
+<section class="pg tight">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">Corporate Philosophy และ<em>ค่านิยมองค์กร</em></h2>
+<p class="lead">ถ้า Vision กับ Mission ตอบว่าจะไปไหนและไปอย่างไร Corporate Philosophy ตอบว่า
+<b>องค์กรนี้มีความสัมพันธ์กับผู้มีส่วนได้เสียแบบไหน</b> — เป็นส่วนที่ใช้สื่อสารกับคนนอกและใช้หล่อหลอมคนใน</p>
+
+<h3>สามคำที่ใช้สื่อสารภายนอก</h3>
 <table>
-<tr><th style="width:16%"></th><th style="width:42%">ข้อความ</th><th>ใช้เมื่อไร</th></tr>
+<tr><th style="width:16%"></th><th style="width:44%">ข้อความ</th><th>ใช้เมื่อไร</th></tr>
 <tr><td><b>Positioning</b><br><span class="mut">ตำแหน่งขององค์กร</span></td>
 <td>พันธมิตรที่คุณเชื่อถือในด้านดิจิทัลกริดอัจฉริยะ ผลิตภัณฑ์นวัตกรรมจากไผ่ และโซลูชั่นดิจิทัลกับระบบอัตโนมัติ
 ที่ประสานความร่วมมือสู่การพัฒนาที่ยั่งยืนในภูมิภาค</td>
@@ -645,7 +713,7 @@ and Energizing Shared Prosperity for Thai Society</p>
 </table>
 
 <h3>Values — ค่านิยม “PCC”</h3>
-<div class="grid3" style="margin-bottom:4mm">
+<div class="grid3" style="margin-bottom:3mm">
 <div class="card" style="border-top-color:var(--p1)"><h4>P — Professionalism</h4>
 <p class="sm">10 ประการ: ความสามารถ · ความน่าเชื่อถือ · ความซื่อสัตย์ · คิดไปข้างหน้า · เคารพผู้อื่น ·
 พัฒนาตนเอง · เชิงรุก · สร้างสรรค์ · ตัดสินใจเร็ว · ฟังอย่างมีประสิทธิผล</p></div>
@@ -665,10 +733,14 @@ and Energizing Shared Prosperity for Thai Society</p>
 <tr><td>5</td><td><b>%Growth Equity</b></td><td>&gt; 4%</td><td>(NPAT − เงินปันผล) ÷ ส่วนของเจ้าของเฉลี่ย</td></tr>
 </table>
 
-<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หน้า Strategy Concept และ Vision · Mission · Objective;
-เล่มเดิมหัวข้อ 1.3 (Mission Statement), 5.1–5.5 (Corporate Philosophy)</div>
+<div class="box w"><h4>เหตุผลที่ต้องมี Financial Objective แยกจาก Broad Corporate Objective</h4>
+<p class="sm">Broad Corporate Objective บอกทิศ แต่วัดไม่ได้ด้วยตัวเอง — Financial Objective คือการแปลทิศนั้นเป็นตัวเลข
+ที่ทุกบริษัทในกลุ่มใช้ชุดเดียวกัน จึงเปรียบเทียบข้ามบริษัทได้ และเป็นฐานของการจัดสรรทรัพยากรในภาคที่ 3</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 5.1–5.5 (Corporate Philosophy: Positioning, Essence, Promise, Values, Vision);
+เด็ค EC/BOD · PCC หน้า Vision · Mission · Objective</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">10 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">11 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -719,7 +791,7 @@ and Energizing Shared Prosperity for Thai Society</p>
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หัวข้อ 1.1 From Investing, 1.2 From Leasing, 1.3 From Land และ Appendix 1;
 หน้า Strategy Mapping — การ์ด “PCC Console” และ “3.4 CoE R&amp;D PCC Team”</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">11 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">12 / 22</span></div>
 </section>
 
 <section class="pg tight">
@@ -768,7 +840,7 @@ and Energizing Shared Prosperity for Thai Society</p>
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Appendix 1; หน้า Strategy Mapping ชีต “Pitch (ย่อ)” และ “ต้นกล้าไผ่ → Data Center”;
 เล่มเดิมหัวข้อ 3 (Horizontal Strategy) และ 4 (Vertical Integration)</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">12 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">13 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -828,7 +900,7 @@ and Energizing Shared Prosperity for Thai Society</p>
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — แถบระยะ 1–4 และการ์ด “แผนกลยุทธ์ 4 ระยะ”;
 เด็ค EC/BOD · PCC หัวข้อ 1.1–3.3 ทั้ง 4 ระยะ</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">13 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">14 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -893,7 +965,7 @@ and Energizing Shared Prosperity for Thai Society</p>
 
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หน้า Financial Objective, CAPEX 2027, OPEX 2027 และ Key Action ระยะที่ 1 ทั้ง 12 หัวข้อ</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">14 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">15 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -958,7 +1030,7 @@ Hurdle Rate ถูกใช้จริงในการอนุมัติ�
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 2 ทั้ง 12 หัวข้อ;
 หน้า Strategy Mapping — การ์ดโจทย์ระยะที่ 2 และแถบ “แผนกลยุทธ์ระยะที่ 2”</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">15 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">16 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1024,7 +1096,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 3 ทั้ง 12 หัวข้อ;
 หน้า Strategy Mapping — แถบ “แผนกลยุทธ์ระยะที่ 3” และ “Reactive”; ชีต Hyperscale Data Center</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">16 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">17 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1084,7 +1156,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 4 ทั้ง 12 หัวข้อ;
 หน้า Strategy Mapping — แถบ “แผนกลยุทธ์ระยะที่ 4”, “Proactive”, “Way to be Leader” และการ์ด Scale up</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">17 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">18 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1135,7 +1207,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “หลักการทำงบประมาณ”;
 เด็ค EC/BOD · PCC หน้า Financial Objective, OPEX 2027 และ Appendix 1</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">18 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">19 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1196,7 +1268,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 9.1–9.4 (Organizational Structure, Administrative Systems, Management Control, Culture)
 และ 5.3 (Organic Sustainable Growth); หน้า Strategy Mapping — การ์ด “PCC Console”</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">19 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">20 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1255,7 +1327,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “Workforce Planning และ Performance Management” และ “6. Training”;
 เด็ค EC/BOD · PCC หัวข้อ 2.2 Human Capital ทั้ง 4 ระยะ; เล่มเดิมหัวข้อ 10.1–10.4</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">20 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">21 / 22</span></div>
 </section>
 
 <section class="pg">
@@ -1296,7 +1368,7 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 <div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD ทั้ง 9 บริษัทและหน้ารวมเด็ค; เด็ค EC/BOD · PCC Appendix 1;
 หน้า Strategy Mapping ทุกชีต; เล่ม Corporate Strategy 2026–2029 ฉบับเดิม</div>
 </div>
-<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">21 / 21</span></div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">22 / 22</span></div>
 </section>
 
 </div>
@@ -1319,7 +1391,9 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
       });
     });
   }
-  function snapshot(){var d={};items.forEach(function(el){d[el.getAttribute('data-k')]=el.innerHTML});return {t:Date.now(),d:d}}
+  var imgs={};
+  function snapshot(){var d={};items.forEach(function(el){d[el.getAttribute('data-k')]=el.innerHTML});
+    return {t:Date.now(),d:d,imgs:imgs}}
   function apply(d){if(!d)return;items.forEach(function(el){var k=el.getAttribute('data-k');
     if(d[k]!=null)el.innerHTML=d[k]})}
   window.__csState=snapshot;
@@ -1328,8 +1402,10 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
   var ls=null;try{ls=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
   var src=(ls&&(!emb||ls.t>=emb.t))?ls:emb;
   if(src&&src.d)apply(src.d);
+  if(src&&src.imgs)imgs=src.imgs;
   var tmr;function save(){clearTimeout(tmr);tmr=setTimeout(function(){
-    try{localStorage.setItem(KEY,JSON.stringify(snapshot()))}catch(e){}},400)}
+    try{localStorage.setItem(KEY,JSON.stringify(snapshot()))}
+    catch(e){if(window.__csSay)window.__csSay('รูปใหญ่เกินกว่าที่เบราว์เซอร์จะเก็บชั่วคราวได้ — กด “บันทึกขึ้นเว็บ” เลยเพื่อไม่ให้งานหาย',7000)}},400)}
   function toggle(v){
     on=(v==null)?!on:v;
     document.body.classList.toggle('edit',on);
@@ -1359,6 +1435,121 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
     if((e.key==='e'||e.key==='E')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();toggle()}
     if((e.key==='p'||e.key==='P')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();window.print()}
   });
+
+  /* ---------- แทรกรูปในหน้า ---------- */
+  var WIDTHS=['100%','75%','50%','35%'], lastKey=null, pendingPage=null;
+  document.addEventListener('focusin',function(e){var el=e.target.closest&&e.target.closest('[data-k]');
+    if(el)lastKey=el.getAttribute('data-k')});
+  function pages(){return [].slice.call(document.querySelectorAll('section.pg'))}
+  function topChild(pg,el){var f=pg.querySelector('.fill')||pg;var n=el;
+    while(n&&n.parentNode!==f)n=n.parentNode;return n}
+  function figure(pk,idx,e){
+    var fg=document.createElement('figure');fg.className='csfig';
+    if(e.w)fg.style.setProperty('--w',e.w);
+    var im=document.createElement('img');im.alt=e.cap||'รูปประกอบ';
+    im.onload=function(){spill()};im.src=e.src;fg.appendChild(im);
+    var cap=document.createElement('figcaption');cap.setAttribute('data-ci',pk+':'+idx);
+    cap.textContent=e.cap||'';if(on)cap.setAttribute('contenteditable','true');fg.appendChild(cap);
+    var tl=document.createElement('div');tl.className='tools';
+    WIDTHS.forEach(function(w){var b=document.createElement('button');b.type='button';b.textContent=w;
+      b.className=((e.w||'100%')===w?'on':'');b.onclick=function(ev){ev.preventDefault();
+        imgs[pk][idx].w=w;render();save();
+        setTimeout(function(){var pg=pages()[+pk.slice(1)-1];
+          if(pg&&pg.classList.contains('spill')&&window.__csSay)
+            window.__csSay('ยังล้นกรอบอยู่ — ลองย่อลงอีกขั้น',4000)},600)};tl.appendChild(b)});
+    var d=document.createElement('button');d.type='button';d.className='del';d.textContent='ลบ';
+    d.onclick=function(ev){ev.preventDefault();if(!confirm('ลบรูปนี้?'))return;
+      imgs[pk].splice(idx,1);if(!imgs[pk].length)delete imgs[pk];render();save()};
+    tl.appendChild(d);fg.appendChild(tl);
+    return fg;
+  }
+  function render(){
+    pages().forEach(function(pg,pi){
+      var pk='p'+(pi+1), fill=pg.querySelector('.fill');if(!fill)return;
+      [].forEach.call(pg.querySelectorAll('.csfig'),function(x){x.remove()});
+      var list=imgs[pk]||[];
+      list.forEach(function(e,i){
+        var fg=figure(pk,i,e), anchor=e.after&&e.after!=='end'?fill.querySelector('[data-k="'+e.after+'"]'):null;
+        var host=anchor?topChild(pg,anchor):null;
+        if(host&&host.parentNode===fill)fill.insertBefore(fg,host.nextSibling);
+        else{var sc=fill.querySelector('.src');if(sc)fill.insertBefore(fg,sc);else fill.appendChild(fg)}
+      });
+      if(!pg.querySelector('.csadd')){
+        var btn=document.createElement('button');btn.type='button';btn.className='csadd';
+        btn.innerHTML='＋ แทรกรูปในหน้านี้';
+        btn.onclick=function(ev){ev.preventDefault();pendingPage=pk;fileInput.value='';fileInput.click()};
+        var sc=fill.querySelector('.src');if(sc)fill.insertBefore(btn,sc);else fill.appendChild(btn);
+      }
+      if(!pg.querySelector('.csover')){
+        var ov=document.createElement('div');ov.className='csover';ov.textContent='เนื้อหาเกินหน้า — ย่อรูปหรือลดข้อความ';
+        pg.appendChild(ov);
+      }
+    });
+    spill();
+  }
+  function spill(){var A4=297/25.4*96;
+    pages().forEach(function(pg){pg.classList.toggle('spill',pg.getBoundingClientRect().height>A4+2)})}
+  var fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='image/*';
+  fileInput.style.display='none';document.body.appendChild(fileInput);
+  fileInput.addEventListener('change',function(){var f=fileInput.files&&fileInput.files[0];
+    if(f&&pendingPage)addImage(pendingPage,f);pendingPage=null});
+  function readImage(file,cb){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var MAX=1600,w=im.naturalWidth,h=im.naturalHeight;
+        if(w>MAX){h=Math.round(h*MAX/w);w=MAX}
+        try{
+          var c=document.createElement('canvas');c.width=w;c.height=h;
+          var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);
+          var png=(file.type==='image/png'&&file.size<700*1024);
+          cb(c.toDataURL(png?'image/png':'image/jpeg',0.9));
+        }catch(err){cb(fr.result)}
+      };
+      im.onerror=function(){cb(fr.result)};
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  }
+  function addImage(pk,file){
+    if(!/^image\//.test(file.type)){if(window.__csSay)window.__csSay('ไฟล์นี้ไม่ใช่รูปภาพ');return}
+    if(window.__csSay)window.__csSay('กำลังเตรียมรูป…',8000);
+    readImage(file,function(src){
+      var after='end';
+      if(lastKey&&lastKey.indexOf(pk+'.')===0)after=lastKey;
+      imgs[pk]=imgs[pk]||[];imgs[pk].push({src:src,cap:'',w:'100%',after:after});
+      render();save();
+      setTimeout(function(){
+        var pg=pages()[+pk.slice(1)-1];
+        if(pg&&pg.classList.contains('spill')&&window.__csSay)
+          window.__csSay('แทรกรูปแล้ว แต่เนื้อหาหน้านี้ล้นกรอบ A4 — กดปุ่ม 75% / 50% / 35% เพื่อย่อรูป มิฉะนั้นส่วนที่ล้นจะหายไปตอนพิมพ์',8000);
+        else if(window.__csSay)
+          window.__csSay('แทรกรูปแล้ว — ปรับขนาดด้วยปุ่ม 100/75/50/35% แล้วกด “บันทึกขึ้นเว็บ”');
+      },700);
+    });
+  }
+  document.addEventListener('paste',function(e){
+    if(!on)return;
+    var it=e.clipboardData&&e.clipboardData.items;if(!it)return;
+    for(var i=0;i<it.length;i++){if(it[i].type&&it[i].type.indexOf('image')===0){
+      var f=it[i].getAsFile();if(!f)continue;
+      var pg=document.activeElement&&document.activeElement.closest?document.activeElement.closest('section.pg'):null;
+      var pk=pg?'p'+(pages().indexOf(pg)+1):(lastKey?lastKey.split('.')[0]:'p1');
+      e.preventDefault();addImage(pk,f);return}}
+  });
+  document.addEventListener('input',function(e){var c=e.target.closest&&e.target.closest('[data-ci]');
+    if(c){var a=c.getAttribute('data-ci').split(':');if(imgs[a[0]]&&imgs[a[0]][+a[1]]){
+      imgs[a[0]][+a[1]].cap=c.textContent;save()}}});
+  var _toggle=toggle;
+  toggle=function(v){_toggle(v);
+    [].forEach.call(document.querySelectorAll('.csfig figcaption'),function(c){
+      if(on)c.setAttribute('contenteditable','true');else c.removeAttribute('contenteditable')});
+    spill()};
+  window.__csEdit=toggle;
+  document.addEventListener('click',function(e){if(e.target.closest('.csedit'))setTimeout(spill,60)});
+  addEventListener('resize',function(){clearTimeout(spill.t);spill.t=setTimeout(spill,200)});
+  render();
 })();
 </script>
 <script>
