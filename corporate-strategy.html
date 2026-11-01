@@ -107,12 +107,30 @@ table.k th{background:var(--soft);color:var(--navy);border-bottom:2px solid var(
 .cvmeta s{display:block;text-decoration:none;font-size:8pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 .cvmeta b{display:block;font-size:10.5pt;color:#fff;font-weight:600;margin-top:1mm}
 .conf{margin-top:6mm;font-size:9pt;color:#ffd9d2;border-left:3px solid #ff8f7a;padding-left:4mm}
+/* โหมดแก้ไขบนเว็บ */
+.bar button.on{background:#fff;color:var(--navy);border-color:#fff}
+.bar .gh{display:none}
+body.edit .bar .gh{display:inline-block}
+body.edit [data-k]{outline:1px dashed rgba(0,159,223,.5);outline-offset:2px;min-height:1em}
+body.edit [data-k]:hover{outline-color:rgba(0,159,223,.9)}
+body.edit [data-k]:focus{outline:2px solid var(--blue);background:#f0fbff}
+body.edit .pg.cover [data-k]{outline-color:rgba(255,255,255,.55)}
+body.edit .pg.cover [data-k]:focus{outline-color:#7fd4f5;background:rgba(255,255,255,.12)}
+.cstoast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;
+  padding:9px 18px;border-radius:999px;font:600 13px var(--f);z-index:200;display:none;
+  box-shadow:0 10px 26px rgba(14,44,77,.32)}
+.csbadge{position:fixed;right:16px;bottom:16px;z-index:150;background:var(--blue);color:#fff;
+  border:0;border-radius:999px;font:700 13.5px var(--f);padding:10px 18px;cursor:pointer;
+  box-shadow:0 8px 22px rgba(0,159,223,.4);display:flex;align-items:center;gap:7px}
+.csbadge:hover{background:var(--blue-ink)}
+@media print{.cstoast,.csbadge{display:none!important}
+  body.edit [data-k]{outline:none!important;background:none!important}}
 @media print{
   @page{size:A4;margin:0}
   body{background:#fff}
   .bar{display:none}
   .doc{padding:0}
-  .pg{margin:0;box-shadow:none;break-after:page;page-break-after:always;width:210mm;min-height:297mm}
+  .pg{margin:0;box-shadow:none;break-after:page;page-break-after:always;width:210mm;height:296.6mm;min-height:0;overflow:hidden}
   .pg:last-child{break-after:auto;page-break-after:auto}
   .pg.cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -126,8 +144,11 @@ table.k th{background:var(--soft);color:var(--navy);border-bottom:2px solid var(
 </head>
 <body>
 <div class="bar"><b>CORPORATE STRATEGY</b> <span>2570–2577 · PCC Holding Company · ร่าง 1</span><span class="sp"></span>
-<span style="opacity:.72;font-weight:500">For Internal Use Only</span>
-<button type="button" onclick="window.print()">พิมพ์ / บันทึก PDF</button></div>
+<span style="opacity:.72;font-weight:500" class="iuo">For Internal Use Only</span>
+<button type="button" class="csedit" title="แก้ไขข้อความในเอกสาร (กด E)">✎ แก้ไข</button>
+<button type="button" class="gh csgh" title="บันทึกการแก้ไขขึ้นเว็บ">☁ บันทึกขึ้นเว็บ</button>
+<button type="button" class="gh cstok" title="ตั้งค่า GitHub token">⚙</button>
+<button type="button" class="csprint" title="พิมพ์หรือบันทึกเป็นไฟล์ PDF">🖨 พิมพ์ / บันทึก PDF</button></div>
 <div class="doc">
 <section class="pg cover">
 <div style="display:flex;flex-direction:column;flex:1;min-height:0;width:100%">
@@ -1279,5 +1300,125 @@ Colocation DC มีผู้เช่าจริงและวัด ARR ไ�
 </section>
 
 </div>
+<button type="button" class="csbadge csprint" title="พิมพ์หรือบันทึกเป็นไฟล์ PDF">🖨 บันทึกเป็น PDF</button>
+<script id="cs-data" type="application/json">null</script>
+<script>
+/* แก้ไขข้อความบนเว็บ: กดปุ่ม ✎ แก้ไข หรือปุ่ม E — เก็บอัตโนมัติในเบราว์เซอร์นี้ */
+(function(){
+  var SEL='h1,h2.t,h3,h4,p,li,td,th,.tag,.kpi s,.kpi strong,.kpi em,.chain div,.phz span,'
+         +'.toc span,.cvtag,.cvmeta s,.cvmeta b,.conf,.src';
+  var KEY='cs:'+document.title, on=false, items=[];
+  function collect(){
+    items=[];
+    [].forEach.call(document.querySelectorAll('section.pg'),function(pg,pi){
+      var n=0;
+      [].forEach.call(pg.querySelectorAll(SEL),function(el){
+        if(el.closest('.ft'))return;
+        el.setAttribute('data-k','p'+(pi+1)+'.'+(n++));
+        items.push(el);
+      });
+    });
+  }
+  function snapshot(){var d={};items.forEach(function(el){d[el.getAttribute('data-k')]=el.innerHTML});return {t:Date.now(),d:d}}
+  function apply(d){if(!d)return;items.forEach(function(el){var k=el.getAttribute('data-k');
+    if(d[k]!=null)el.innerHTML=d[k]})}
+  window.__csState=snapshot;
+  collect();
+  var emb=null;try{emb=JSON.parse(document.getElementById('cs-data').textContent)}catch(e){}
+  var ls=null;try{ls=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  var src=(ls&&(!emb||ls.t>=emb.t))?ls:emb;
+  if(src&&src.d)apply(src.d);
+  var tmr;function save(){clearTimeout(tmr);tmr=setTimeout(function(){
+    try{localStorage.setItem(KEY,JSON.stringify(snapshot()))}catch(e){}},400)}
+  function toggle(v){
+    on=(v==null)?!on:v;
+    document.body.classList.toggle('edit',on);
+    items.forEach(function(el){if(on)el.setAttribute('contenteditable','true');else el.removeAttribute('contenteditable')});
+    [].forEach.call(document.querySelectorAll('.csedit'),function(b){b.classList.toggle('on',on);
+      b.textContent=on?'✓ เสร็จแล้ว':'✎ แก้ไข'});
+    if(window.__csSay)window.__csSay(on?'โหมดแก้ไข — คลิกที่ข้อความเพื่อพิมพ์ทับ แล้วกด “บันทึกขึ้นเว็บ”':'ออกจากโหมดแก้ไขแล้ว');
+  }
+  window.__csEdit=toggle;
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.csedit')){e.preventDefault();toggle();return}
+    if(e.target.closest('.csprint')){e.preventDefault();if(on)toggle(false);setTimeout(function(){window.print()},60);return}
+  });
+  document.addEventListener('input',function(e){if(e.target.closest('[data-k]'))save()});
+  document.addEventListener('keydown',function(e){
+    var t=e.target;
+    if(t&&t.isContentEditable){
+      if(e.key==='Escape'){t.blur();return}
+      if(e.key==='Enter'&&t.tagName==='LI'){e.preventDefault();
+        var li=document.createElement('li');li.setAttribute('contenteditable','true');
+        t.after(li);collect();li.focus();save();return}
+      if(e.key==='Backspace'&&t.tagName==='LI'&&!t.textContent.trim()){
+        var prev=t.previousElementSibling;
+        if(prev||t.parentNode.children.length>1){e.preventDefault();t.remove();collect();
+          if(prev)prev.focus();save()}return}
+      return}
+    if((e.key==='e'||e.key==='E')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();toggle()}
+    if((e.key==='p'||e.key==='P')&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();window.print()}
+  });
+})();
+</script>
+<script>
+/* บันทึกขึ้นเว็บ (GitHub) — แทนที่เฉพาะบล็อก cs-data ไม่แตะโค้ด */
+(function(){
+  var GH={owner:'jinnaphas',repo:'PCC-Strategy',branch:'main',api:'https://api.github.com',file:'corporate-strategy.html'};
+  var toast=document.createElement('div');toast.className='cstoast';document.body.appendChild(toast);
+  function say(m,ms){toast.textContent=m;toast.style.display='block';clearTimeout(say.t);
+    say.t=setTimeout(function(){toast.style.display='none'},ms||3600)}
+  window.__csSay=say;
+  function tok(){try{return localStorage.getItem('pcc_gh_tok')||''}catch(e){return ''}}
+  function askTok(){var cur=tok();
+    var v=prompt('ใส่ GitHub Personal Access Token (เก็บไว้ในเบราว์เซอร์นี้เท่านั้น ไม่ถูกบันทึกลงไฟล์)',cur||'');
+    if(v===null)return;v=v.trim();
+    try{if(v)localStorage.setItem('pcc_gh_tok',v);else localStorage.removeItem('pcc_gh_tok')}catch(e){}
+    say(v?'เก็บ token แล้ว':'ลบ token ออกแล้ว')}
+  function encodeB64(str){var b=new TextEncoder().encode(str),r='',ch=3*1024;
+    for(var i=0;i<b.length;i+=ch){var sl=b.subarray(i,i+ch),bin='';
+      for(var j=0;j<sl.length;j++)bin+=String.fromCharCode(sl[j]);r+=btoa(bin)}return r}
+  function block(id,obj){return '<script id="'+id+'" type="application/json">'+
+    JSON.stringify(obj).replace(/</g,'\\u003c')+'<\/script>'}
+  var busy=false;
+  async function publish(){
+    if(busy)return;
+    var t=tok();
+    if(!t){t=(prompt('ใส่ GitHub token (เก็บไว้ในเครื่องนี้เท่านั้น)')||'').trim();
+      if(!t){say('ยกเลิก');return}try{localStorage.setItem('pcc_gh_tok',t)}catch(e){}}
+    busy=true;say('กำลังบันทึกขึ้นเว็บ…',60000);
+    var base='/repos/'+GH.owner+'/'+GH.repo;
+    function gh(m,p,body,accept){var hh={Authorization:'token '+t,Accept:accept||'application/vnd.github+json'};
+      var o={method:m,headers:hh};if(body!=null){hh['Content-Type']='application/json';o.body=JSON.stringify(body)}
+      return fetch(GH.api+p,o)}
+    async function must(r,l){if(!r.ok){var m='';try{m=(await r.json()).message||''}catch(_){}
+      throw new Error(l+' ('+r.status+') '+m)}return r}
+    try{
+      var raw=await gh('GET',base+'/contents/'+GH.file+'?ref='+GH.branch,null,'application/vnd.github.raw');
+      await must(raw,'อ่านไฟล์ไม่ได้');var text=await raw.text();
+      var RE=/<script id="cs-data"[\s\S]*?<\/script>/;
+      if(!RE.test(text))throw new Error('ไม่พบบล็อกข้อมูลในไฟล์');
+      var st=window.__csState?window.__csState():null;
+      if(!st)throw new Error('อ่านข้อมูลหน้านี้ไม่ได้');
+      text=text.replace(RE,function(){return block('cs-data',st)});
+      var blob=await(await must(await gh('POST',base+'/git/blobs',{content:encodeB64(text),encoding:'base64'}),'สร้าง blob ไม่สำเร็จ')).json();
+      var ref=await(await must(await gh('GET',base+'/git/ref/heads/'+GH.branch),'อ่าน ref ไม่ได้')).json();
+      var head=ref.object.sha;
+      var hc=await(await must(await gh('GET',base+'/git/commits/'+head),'อ่าน commit ไม่ได้')).json();
+      var tree=await(await must(await gh('POST',base+'/git/trees',{base_tree:hc.tree.sha,
+        tree:[{path:GH.file,mode:'100644',type:'blob',sha:blob.sha}]}),'สร้าง tree ไม่สำเร็จ')).json();
+      var cm=await(await must(await gh('POST',base+'/git/commits',{message:'Corporate Strategy update via browser ['+new Date().toISOString().slice(0,16)+']',
+        tree:tree.sha,parents:[head]}),'สร้าง commit ไม่สำเร็จ')).json();
+      await must(await gh('PATCH',base+'/git/refs/heads/'+GH.branch,{sha:cm.sha}),'อัปเดต ref ไม่สำเร็จ');
+      say('✓ บันทึกขึ้นเว็บแล้ว — live ใน ~1 นาที');
+    }catch(e){say('✗ '+(e&&e.message?e.message:'ผิดพลาด'),7000)}
+    finally{busy=false}
+  }
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.csgh')){e.preventDefault();publish();return}
+    if(e.target.closest('.cstok')){e.preventDefault();askTok();return}
+  },true);
+})();
+</script>
 </body>
 </html>
