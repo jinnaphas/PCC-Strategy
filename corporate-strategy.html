@@ -1,0 +1,1283 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corporate Strategy 2570–2577 · PCC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2c4d; --navy2:#13395f; --blue:#009fdf; --blue-ink:#0b6f9c;
+  --ink:#15191e; --body:#2d343d; --muted:#5d6672; --hair:#dfe4ea; --soft:#f3f6f9;
+  --green:#14a38b; --amber:#d9a800; --red:#c0392b;
+  --p1:#14a38b; --p2:#1f8ad1; --p3:#5b6cd6; --p4:#8a4fc4;
+  --f:'IBM Plex Sans Thai','Inter',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#8a93a0;font-family:var(--f);color:var(--body);-webkit-font-smoothing:antialiased}
+.bar{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff;display:flex;align-items:center;
+  gap:14px;padding:9px 18px;font-size:13.5px;font-weight:600;letter-spacing:.01em}
+.bar .sp{flex:1}
+.bar b{font-weight:700;letter-spacing:.06em}
+.bar button{font:inherit;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.4);
+  background:transparent;color:#fff;padding:5px 13px;border-radius:999px;cursor:pointer}
+.bar button:hover{background:rgba(255,255,255,.14)}
+.doc{padding:22px 0 60px}
+.pg{width:210mm;min-height:297mm;background:#fff;margin:0 auto 22px;padding:15mm 17mm 19mm;
+  position:relative;box-shadow:0 10px 30px rgba(0,0,0,.26);display:flex;flex-direction:column}
+.pg > .fill{flex:1;min-height:0;display:flex;flex-direction:column}
+.pg > .fill > *{flex:none}
+.ft{position:absolute;left:17mm;right:17mm;bottom:8mm;display:flex;align-items:center;gap:10px;
+  border-top:1px solid var(--hair);padding-top:4mm;font-size:8.6pt;color:var(--muted)}
+.ft .sp{flex:1}
+.ft b{color:var(--navy);font-weight:600}
+/* typography */
+h1,h2,h3,h4{margin:0;color:var(--navy);line-height:1.2}
+.eyebrow{font-size:8.6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
+h2.t{font-size:17.5pt;font-weight:700;margin:1.4mm 0 .8mm}
+h2.t em{font-style:normal;color:var(--blue)}
+.lead{font-size:9.4pt;line-height:1.5;color:var(--muted);margin:0 0 3.6mm;max-width:158mm}
+h3{font-size:11pt;font-weight:700;margin:4.2mm 0 1.8mm;padding-bottom:1.1mm;border-bottom:2px solid var(--navy)}
+h3:first-of-type{margin-top:1mm}
+h4{font-size:9.6pt;font-weight:700;margin:3mm 0 1.3mm;color:var(--navy2)}
+p{margin:0 0 2.1mm;font-size:9pt;line-height:1.5}
+ul,ol{margin:0 0 2.4mm;padding-left:4.8mm;font-size:9pt;line-height:1.46}
+li{margin-bottom:.9mm}
+li::marker{color:var(--blue-ink)}
+b,strong{color:var(--ink);font-weight:600}
+.sm{font-size:8.4pt;line-height:1.44}
+.mut{color:var(--muted)}
+/* building blocks */
+table{width:100%;border-collapse:collapse;font-size:8.2pt;line-height:1.34;margin:0 0 2.4mm}
+th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:1.5mm 2mm;vertical-align:top}
+td{padding:1.5mm 2mm;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:nth-child(even) td{background:#fafcfe}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.k th{background:var(--soft);color:var(--navy);border-bottom:2px solid var(--navy)}
+.box{background:var(--soft);border-left:3px solid var(--blue);padding:2.4mm 3.2mm;margin:0 0 2.8mm}
+.box.w{background:#fff8e4;border-left-color:var(--amber)}
+.box.g{background:#eefaf7;border-left-color:var(--green)}
+.box h4{margin-top:0}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:3.2mm}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.8mm}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4mm}
+.card{border:1px solid var(--hair);border-top:3px solid var(--blue);padding:2.3mm 2.8mm}
+.card h4{margin:0 0 1.4mm}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.tag{display:inline-block;font-size:7.8pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.9mm 2.2mm;border-radius:999px;background:var(--soft);color:var(--blue-ink);margin-bottom:1.4mm}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0 0 3.5mm}
+.chain div{padding:2.2mm 2.6mm;color:#fff;font-size:8.3pt;line-height:1.3;position:relative}
+.chain div b{display:block;font-size:9.6pt;color:#fff}
+.phz{display:grid;gap:1.2mm;margin:0 0 3.5mm}
+.phz span{color:#fff;font-weight:700;font-size:8.6pt;padding:1.3mm 3mm}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:2.6mm;margin:0 0 2.8mm}
+.kpi div{border:1px solid var(--hair);padding:2.2mm 2.6mm;background:#fff}
+.kpi s{display:block;text-decoration:none;font-size:8.2pt;color:var(--muted);line-height:1.3}
+.kpi strong{display:block;font-size:14pt;color:var(--navy);font-weight:700;line-height:1.15;margin:.6mm 0}
+.kpi em{display:block;font-style:normal;font-size:8pt;color:var(--muted);line-height:1.3}
+.src{font-size:7.9pt;color:var(--muted);border-top:1px dotted var(--hair);padding-top:1.6mm;margin-top:auto;line-height:1.4}
+.src b{color:var(--navy2);font-weight:600}
+.toc{font-size:8.8pt;line-height:1.4}
+.toc div{display:flex;gap:3mm;padding:1.1mm 0;border-bottom:1px dotted var(--hair)}
+.toc div span:first-child{width:11mm;color:var(--blue-ink);font-weight:700;font-variant-numeric:tabular-nums}
+.toc div span:last-child{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+.toc .sec{font-weight:700;color:var(--navy);border-bottom:none;padding-bottom:.4mm;padding-top:4mm}
+.pg.tight table{font-size:7.8pt;line-height:1.3}
+.pg.tight td,.pg.tight th{padding:1.2mm 1.7mm}
+.pg.tight .box{padding:2mm 2.8mm;margin-bottom:2.4mm}
+/* cover */
+.cv{display:flex;flex-direction:column;height:100%;color:#fff}
+.pg.cover{background:linear-gradient(160deg,#0a2340 0%,#13395f 55%,#0b6f9c 100%);color:#fff;padding:22mm 18mm 14mm}
+.pg.cover h1{color:#fff;font-size:30pt;font-weight:700;line-height:1.12;letter-spacing:-.01em}
+.pg.cover h1 em{font-style:normal;color:#7fd4f5}
+.pg.cover .ft{border-top-color:rgba(255,255,255,.28);color:rgba(255,255,255,.72)}
+.pg.cover .ft b{color:#fff}
+.cvtag{display:inline-block;border:1px solid rgba(255,255,255,.5);border-radius:999px;
+  padding:1.6mm 4mm;font-size:8.6pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.cvbox{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:5mm 6mm;margin-top:8mm}
+.cvbox p{color:rgba(255,255,255,.92);font-size:9.6pt;margin-bottom:2mm}
+.cvbox p:last-child{margin-bottom:0}
+.cvmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin-top:auto;margin-bottom:5mm}
+.cvmeta s{display:block;text-decoration:none;font-size:8pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.cvmeta b{display:block;font-size:10.5pt;color:#fff;font-weight:600;margin-top:1mm}
+.conf{margin-top:6mm;font-size:9pt;color:#ffd9d2;border-left:3px solid #ff8f7a;padding-left:4mm}
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .bar{display:none}
+  .doc{padding:0}
+  .pg{margin:0;box-shadow:none;break-after:page;page-break-after:always;width:210mm;min-height:297mm}
+  .pg:last-child{break-after:auto;page-break-after:auto}
+  .pg.cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (max-width:860px){
+  .pg{width:auto;min-height:0;padding:14mm 7mm 12mm;margin:0 0 14px;box-shadow:none}
+  .ft{position:static;left:auto;right:auto;bottom:auto;margin-top:8mm}
+  .grid2,.grid3,.grid4,.kpi,.chain{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="bar"><b>CORPORATE STRATEGY</b> <span>2570–2577 · PCC Holding Company · ร่าง 1</span><span class="sp"></span>
+<span style="opacity:.72;font-weight:500">For Internal Use Only</span>
+<button type="button" onclick="window.print()">พิมพ์ / บันทึก PDF</button></div>
+<div class="doc">
+<section class="pg cover">
+<div style="display:flex;flex-direction:column;flex:1;min-height:0;width:100%">
+<span class="cvtag">For Internal Use Only · ร่างเพื่อพิจารณา</span>
+<h1 style="margin-top:12mm">CORPORATE<br>STRATEGY<br><em>2570 – 2577</em></h1>
+<p style="color:rgba(255,255,255,.88);font-size:12pt;margin-top:5mm;max-width:130mm;line-height:1.5">
+บริษัท พรีไซซ คอร์ปอเรชั่น จำกัด (มหาชน) — PCC<br>
+<span style="color:#7fd4f5">ในฐานะบริษัทโฮลดิ้งของกลุ่ม 9 บริษัท</span></p>
+<div class="cvbox">
+<p><b style="color:#fff">เอกสารนี้คืออะไร</b> — ฉบับย่อของ Corporate Strategy เล่มเดิม (2026–2029) เหลือ 21 หน้า
+สำหรับผู้บริหารระดับสูงและกรรมการใช้สื่อสารทิศทางเดียวกันทั้งกลุ่ม</p>
+<p>ตัดส่วนทฤษฎี ตารางเปล่า และเอกสารแนบออก เก็บไว้เฉพาะสองเรื่อง คือ
+<b style="color:#fff">กระบวนทัศน์ (Paradigm) ที่กลุ่มใช้จริง</b> และ
+<b style="color:#fff">เป้าหมายของ PCC ในแผนกลยุทธ์แต่ละระยะ</b></p>
+</div>
+<div class="conf" style="margin-bottom:10mm">ห้ามเผยแพร่ภายนอกก่อนได้รับอนุมัติจากคณะกรรมการบริษัท PCC — เนื้อหามีตัวเลขงบประมาณและแผนการลงทุนที่ยังไม่ประกาศ</div>
+<div class="cvmeta">
+<div><s>สถานะ</s><b>ร่าง 1 — รอพิจารณา</b></div>
+<div><s>อ้างอิงหลัก</s><b>Strategy Mapping · EC/BOD 2027</b></div>
+<div><s>ขอบเขต</s><b>PCC Separate + ภาพกลุ่ม</b></div>
+</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">1 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">สารบัญและวิธีอ่านเอกสารนี้</h2>
+<p class="lead">เอกสารแบ่งเป็น 4 ภาค ภาคที่ 1 ตอบว่า “เราคิดด้วยกรอบอะไร” ภาคที่ 2 ตอบว่า “PCC คือใครในกลุ่ม”
+ภาคที่ 3 ตอบว่า “แต่ละระยะต้องได้อะไร” และภาคที่ 4 ตอบว่า “ใครขับเคลื่อนและวัดอย่างไร”</p>
+
+<div class="grid2">
+<div>
+<h3 style="margin-top:0">สารบัญ</h3>
+<div class="toc">
+<div class="sec"><span>ภาค 1</span><span>Paradigm ที่กลุ่มใช้</span><span></span></div>
+<div><span>3</span><span>จาก Industrial สู่ Ecosystem Capitalism</span><span>3</span></div>
+<div><span>4</span><span>กลยุทธ์ 3 ระดับ × แผน 4 ระยะ</span><span>4</span></div>
+<div><span>5</span><span>แกนกลางการวางแผน 4 คอลัมน์</span><span>5</span></div>
+<div><span>6</span><span>Wealth Creation 3 ขา + CoE</span><span>6</span></div>
+<div><span>7</span><span>6 Revenue Stream Types</span><span>7</span></div>
+<div><span>8</span><span>ทุน 4 ประเภทและการวัดมูลค่า</span><span>8</span></div>
+<div><span>9</span><span>C-O-T และสถาปัตยกรรมดิจิทัล 4 โมเดล</span><span>9</span></div>
+<div class="sec"><span>ภาค 2</span><span>ตัวตนและบทบาทของ PCC</span><span></span></div>
+<div><span>10</span><span>Vision · Mission · Objective · Values</span><span>10</span></div>
+<div><span>11</span><span>PCC ทำอะไร และไม่ทำอะไร</span><span>11</span></div>
+<div><span>12</span><span>กลุ่ม 9 บริษัท · Horizontal &amp; Vertical</span><span>12</span></div>
+</div>
+</div>
+<div>
+<h3 style="margin-top:0">&nbsp;</h3>
+<div class="toc">
+<div class="sec"><span>ภาค 3</span><span>เป้าหมายรายระยะของ PCC</span><span></span></div>
+<div><span>13</span><span>ภาพรวม 4 ระยะในหน้าเดียว</span><span>13</span></div>
+<div><span>14</span><span>ระยะที่ 1 · 2570 — Budgeting</span><span>14</span></div>
+<div><span>15</span><span>ระยะที่ 2 · 2571–2573 — Forecasting</span><span>15</span></div>
+<div><span>16</span><span>ระยะที่ 3 · ถึง 2575 — Reactive</span><span>16</span></div>
+<div><span>17</span><span>ระยะที่ 4 · ถึง 2577 — Proactive</span><span>17</span></div>
+<div><span>18</span><span>เป้าหมายการเงินและหลักการทำงบ</span><span>18</span></div>
+<div class="sec"><span>ภาค 4</span><span>การขับเคลื่อน</span><span></span></div>
+<div><span>19</span><span>โครงสร้างการบริหารและการกำกับ</span><span>19</span></div>
+<div><span>20</span><span>กำลังคนและขีดความสามารถ</span><span>20</span></div>
+<div><span>21</span><span>ความเสี่ยงและรายการที่ยังรอข้อมูล</span><span>21</span></div>
+</div>
+</div>
+</div>
+
+<h3>เอกสารนี้ต่างจากเล่มเดิมอย่างไร</h3>
+<table>
+<tr><th style="width:34%">เล่มเดิม (2026–2029)</th><th style="width:33%">ทำอย่างไรในเล่มนี้</th><th>เหตุผล</th></tr>
+<tr><td>บทที่ 1–2 ทฤษฎีกลยุทธ์ ~16 หน้า (Hax &amp; Majluf, Mintzberg)</td><td>ย่อเหลือ 2 หน้าในภาค 1 เก็บเฉพาะกรอบที่ใช้ตัดสินใจจริง</td><td>ทฤษฎีไม่ใช่สิ่งที่ต้องสื่อสารทั้งกลุ่ม กรอบที่ใช้ตัดสินใจคือสิ่งที่ต้องสื่อสาร</td></tr>
+<tr><td>ตารางวิเคราะห์ที่ยังไม่ได้กรอก (Horizontal/Vertical Integration, SOAR, Portfolio Matrix)</td><td>ยกไปหน้า 21 เป็นรายการ “ยังรอข้อมูล” พร้อมผู้รับผิดชอบ</td><td>ตารางเปล่าในเล่มทำให้อ่านแล้วไม่รู้ว่าอะไรเสร็จ อะไรยังไม่เสร็จ</td></tr>
+<tr><td>แผนระยะที่ 3 และ 4 ระบุว่า “ยังไม่ได้ดำเนินการ”</td><td>เติมเป้าหมายและ Key Action จาก Strategy Mapping และเด็ค EC/BOD 2027</td><td>สองระยะหลังคือส่วนที่ตัดสินความอยู่รอด ปล่อยว่างไม่ได้</td></tr>
+<tr><td>อ้างอิงบริษัทในกลุ่ม 8 บริษัท (รวม PSL, PPD)</td><td>ปรับเป็นโครงสร้างปัจจุบัน 9 บริษัท ตามเด็ค EC/BOD</td><td>ชื่อและขอบเขตบริษัทเปลี่ยนไปแล้ว</td></tr>
+<tr><td>ปีฐาน 2025 / แผน 2026–2029</td><td>เลื่อนเป็นปีฐาน 2569 (2026 ML) และแผน 2570–2577 (2027–2034)</td><td>ให้ตรงกับงบประมาณและเด็คที่เสนอคณะกรรมการบริหารรอบนี้</td></tr>
+</table>
+
+<div class="box"><h4>แหล่งข้อมูลที่ใช้</h4>
+<p class="sm">① หน้า <b>Strategy Mapping</b> (7 ชีต: Strategy Mapping, Platform Flow, Bamboo Supply Chain, Hyperscale Data Center,
+Elevator Pitch, Pitch ย่อ, ต้นกล้าไผ่ → Data Center) &nbsp;② <b>เด็ค EC/BOD ปี 2027</b> ทั้ง 9 บริษัท
+&nbsp;③ <b>Glossary &amp; Keywords</b> 218 คำ ใช้เป็นภาษากลาง &nbsp;④ เล่ม <b>Corporate Strategy 2026–2029</b> ฉบับเดิม</p>
+</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">2 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">จาก Industrial Capitalism สู่ <em>Ecosystem Capitalism</em></h2>
+<p class="lead">นี่คือกระบวนทัศน์ตั้งต้นของทั้งเล่ม ประโยคที่พาดหัวหน้า Strategy Mapping คือ
+“แผนพัฒนาธุรกิจก้าวกระโดดโดยเปลี่ยนจาก Industrial Capitalism ไปสู่ Ecosystem Capitalism เพื่อความอยู่รอดของ Precise
+ปี 2570–2578 ด้วยนโยบาย ถูก เร็ว ดี มาก” — คำว่า <b>เพื่อความอยู่รอด</b> ไม่ใช่คำขยาย แต่เป็นเหตุผลของการเปลี่ยน</p>
+
+<div class="chain">
+<div style="background:#6b7584"><b>Industrial</b>ขายของเป็นชิ้น แข่งที่ต้นทุนและกำลังผลิต</div>
+<div style="background:var(--p2)"><b>Platform</b>ขายการเข้าถึงและการจับคู่ แข่งที่ข้อมูลและกระบวนการ</div>
+<div style="background:var(--p3)"><b>Ecosystem</b>ขายผลลัพธ์ร่วมของหลายฝ่าย แข่งที่การวางมาตรฐานและการเชื่อมโยง</div>
+<div style="background:var(--p4)"><b>บทบาท PCC</b>จากเจ้าของโรงงาน → เจ้าของแพลตฟอร์ม → ผู้วางกติกาของระบบนิเวศ</div>
+</div>
+
+<h3>ทำไมอยู่แบบเดิมไม่ได้</h3>
+<div class="grid3">
+<div class="card"><span class="tag">แรงกดดันที่ 1</span><h4>ต้นทุนการผลิตแข่งกับจีนไม่ได้</h4>
+<p class="sm">สินค้าที่แข่งด้วยต้นทุนล้วนจะถูกกดราคาต่อเนื่อง ทางออกคือย้ายจุดแข่งขันขึ้นไปที่สถาปัตยกรรมระบบและการเชื่อมโยง
+ซึ่งลอกเลียนยากกว่าตัวสินค้า</p></div>
+<div class="card"><span class="tag">แรงกดดันที่ 2</span><h4>รายได้แบบประมูลไม่ต่อเนื่อง</h4>
+<p class="sm">รายได้จาก Tendering ขึ้นกับรอบงบประมาณของลูกค้า ทำให้กระแสเงินสดไม่สม่ำเสมอ
+จึงต้องสร้างรายได้ประเภทอื่นให้เป็น “สายน้ำ” ที่ไหลเข้ามาทุกวัน</p></div>
+<div class="card"><span class="tag">แรงกดดันที่ 3</span><h4>สินทรัพย์ที่มียังไม่ถูกใช้เต็มที่</h4>
+<p class="sm">ที่ดิน อาคาร เครื่องจักร และความรู้ของกลุ่มยังทำงานแยกกันเป็นบริษัท ๆ
+การรวมให้ใช้ร่วมกันคือกำไรที่ได้โดยไม่ต้องลงทุนใหม่</p></div>
+</div>
+
+<h3>สามขั้นนี้ต่างกันตรงไหนในทางปฏิบัติ</h3>
+<table>
+<tr><th style="width:20%"></th><th>Industrial Capitalism</th><th>Platform Capitalism</th><th>Ecosystem Capitalism</th></tr>
+<tr><td><b>แหล่งกำไร</b></td><td>ส่วนต่างราคาขายกับต้นทุนผลิตต่อหน่วย</td><td>ส่วนแบ่งจากทุกธุรกรรมที่วิ่งผ่านแพลตฟอร์ม</td><td>ส่วนแบ่งจากมูลค่าที่ระบบนิเวศสร้างร่วมกัน</td></tr>
+<tr><td><b>สินทรัพย์หลัก</b></td><td>โรงงาน เครื่องจักร สต็อก</td><td>ข้อมูล กระบวนการดิจิทัล ฐานลูกค้า</td><td>มาตรฐาน พันธมิตร และสิทธิ์ในการเชื่อมต่อ</td></tr>
+<tr><td><b>ตัวชี้วัด</b></td><td>กำลังผลิต · ยอดขาย · GP%</td><td>Attach Rate · ARR · Churn · Repeat</td><td>Synergy Realized · Dividend Yield · มูลค่าร่วมของกลุ่ม</td></tr>
+<tr><td><b>ความเร็วที่ต้องการ</b></td><td>รอบปีงบประมาณ</td><td>รายสัปดาห์</td><td>ต่อเนื่อง ตามข้อมูลที่ไหลเข้ามา</td></tr>
+<tr><td><b>สิ่งที่ PCC ต้องทำ</b></td><td>คุมงบและวินัยการเงิน</td><td>ลงทุนในข้อมูลและกระบวนการกลาง</td><td>ถือที่ดิน ถือหุ้น วางมาตรฐาน และเลือกพันธมิตร</td></tr>
+</table>
+
+<div class="box g"><h4>นโยบาย “ถูก เร็ว ดี มาก” แปลเป็นงานอย่างไร</h4>
+<p class="sm"><b>ถูก</b> — ต้นทุนต่อหน่วยลดลงจากการใช้สินทรัพย์และกระบวนการร่วมกันทั้งกลุ่ม ไม่ใช่จากการกดราคาคู่ค้า ·
+<b>เร็ว</b> — ข้อมูลไหลพร้อมของและพร้อมงาน ทำให้ตัดสินใจได้ภายในสัปดาห์ไม่ใช่ภายในไตรมาส ·
+<b>ดี</b> — ส่งมอบครบ QCDS ทุกคำสั่งซื้อจนลูกค้าซื้อซ้ำ ·
+<b>มาก</b> — ขยายจากฐานเดิมไปยังลูกค้าและผลิตภัณฑ์ใหม่ผ่าน 6 Revenue Stream</p></div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ดพาดหัว, การ์ด “Direction” และ “Platform &amp; Ecosystem Capitalism”;
+ชีต Platform Flow — กลุ่มที่ 1 “เปลี่ยนธุรกิจจาก Industrial → Platform Capitalism”</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">3 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">กลยุทธ์ <em>3 ระดับ</em> × แผน <em>4 ระยะ</em></h2>
+<p class="lead">กลุ่มพรีไซซวางแผนบนตารางสองแกนเสมอ แกนตั้งคือระดับของกลยุทธ์ (ใครรับผิดชอบ) แกนนอนคือระยะของแผน
+(มองไกลแค่ไหน) ทุกเอกสาร ทุกเด็ค และทุกงบประมาณ ต้องระบุได้ว่าอยู่ช่องไหนของตารางนี้</p>
+
+<h3>แกนตั้ง — กลยุทธ์ 3 ระดับ</h3>
+<div class="grid3">
+<div class="card" style="border-top-color:var(--navy)"><span class="tag">ระดับที่ 1</span><h4>Corporate Strategy</h4>
+<p class="sm">ทิศทางรวมของกลุ่มและการบริหารพอร์ตธุรกิจ — <b>PCC รับผิดชอบ</b><br>
+ตอบคำถาม: เราจะอยู่ในธุรกิจอะไร ลงทุนที่ไหน และให้บริษัทไหนทำอะไร</p></div>
+<div class="card" style="border-top-color:var(--blue)"><span class="tag">ระดับที่ 2</span><h4>Business Level Strategy</h4>
+<p class="sm">ตำแหน่งการแข่งขันของสินค้าและหน่วยธุรกิจในอุตสาหกรรมนั้น — <b>แต่ละบริษัทรับผิดชอบ</b><br>
+ตอบคำถาม: เราจะชนะใคร ด้วยอะไร ในตลาดไหน</p></div>
+<div class="card" style="border-top-color:var(--green)"><span class="tag">ระดับที่ 3</span><h4>Functional Level Strategy</h4>
+<p class="sm">ทำให้ทรัพยากรมีผลิตภาพสูงสุด — <b>หน่วยงานตามสายฟังก์ชันรับผิดชอบ</b><br>
+ตอบคำถาม: ทำงานเดิมให้ถูกลง เร็วขึ้น และดีขึ้นได้อย่างไร</p></div>
+</div>
+
+<h3>แกนนอน — แผน 4 ระยะ (The Four Phases of Strategic Planning)</h3>
+<table>
+<tr><th style="width:6%">ระยะ</th><th style="width:22%">ชื่อตามหลักวิชา</th><th style="width:14%">ช่วงปี</th><th style="width:28%">คำถามหลักของระยะ</th><th>สิ่งที่ต้องได้เมื่อจบระยะ</th></tr>
+<tr><td><b>1</b></td><td>Basic Financial Planning<br><span class="mut">(Budgeting)</span></td><td>2570<br><span class="mut">(2027)</span></td><td>ปีนี้จะทำกำไรได้ตามงบที่ตั้งไว้หรือไม่</td><td>คุมได้ตามงบ มีวินัยการเงิน และวางฐานข้อมูล/กระบวนการให้พร้อมสำหรับระยะถัดไป</td></tr>
+<tr><td><b>2</b></td><td>Forecast-Based Planning</td><td>2571–2573<br><span class="mut">(2028–2030)</span></td><td>ถ้ามองไป 3 ปี เราจะโตจากอะไร</td><td>ขยาย Product/Customer Scope ได้จริง และเปลี่ยนองค์กรเป็น Digital + Agentic</td></tr>
+<tr><td><b>3</b></td><td>Externally-Oriented<br>(Strategic) Planning</td><td>ถึง 2575<br><span class="mut">(2032)</span></td><td>ตลาดและคู่แข่งเปลี่ยนไปแล้วเราตามทันหรือไม่</td><td>ตอบสนองตลาดได้ทัน (Reactive) และแพลตฟอร์มเริ่มดึงลูกค้าเข้ามาเอง</td></tr>
+<tr><td><b>4</b></td><td>Strategic Management</td><td>ถึง 2577<br><span class="mut">(2034)</span></td><td>เราเป็นผู้กำหนดกติกาของตลาดได้หรือยัง</td><td>เป็นผู้นำเชิงรุก (Proactive) มี moat จากสถาปัตยกรรมและระบบนิเวศ</td></tr>
+</table>
+
+<div class="box w"><h4>ข้อที่ต้องตัดสินใจ — ปีสิ้นสุดของระยะที่ 3 และ 4 ยังไม่ตรงกัน</h4>
+<p class="sm">ในหน้า Strategy Mapping แถบระยะระบุ <b>ระยะที่ 3 ถึง 2575</b> และ <b>ระยะที่ 4 ถึง 2577</b>
+ซึ่งตรงกับเด็ค EC/BOD ทั้ง 9 บริษัท (2027–2032 และ 2027–2034) แต่การ์ด “แผนกลยุทธ์ 4 ระยะ” ในหน้าเดียวกัน
+เขียนเป็น <b>2576</b> และ <b>2578</b> ส่วนพาดหัวของหน้าเขียนช่วงแผนว่า <b>2570–2578</b> — ต่างกันสามชุด<br>
+เอกสารฉบับนี้ใช้ <b>2575 และ 2577</b> ตามเด็ค EC/BOD เพื่อให้ทุกบริษัทนับระยะเดียวกัน
+และตั้งชื่อเล่มว่า <b>2570–2577</b> ให้ตรงกับปลายระยะที่ 4 — ขอให้ยืนยันและแก้ที่การ์ดต้นทางกับพาดหัวให้ตรงกัน</p></div>
+
+<h3>ช่องตารางที่ต้องกรอกให้ครบ</h3>
+<table class="k">
+<tr><th style="width:22%"></th><th>ระยะ 1 · 2570</th><th>ระยะ 2 · 2571–2573</th><th>ระยะ 3 · ถึง 2575</th><th>ระยะ 4 · ถึง 2577</th></tr>
+<tr><td><b>Corporate (PCC)</b></td><td>งบลงทุนและเกณฑ์การลงทุนกลุ่ม</td><td>Hurdle Rate · ROIC · พอร์ตการลงทุน</td><td>เลือกพันธมิตรระบบนิเวศ</td><td>วางมาตรฐานและขยายขนาด</td></tr>
+<tr><td><b>Business (9 บริษัท)</b></td><td>งบรายบริษัท + Key Action 12 หัวข้อ</td><td>ขยาย Scope สินค้า/ลูกค้า</td><td>แข่งด้วยแพลตฟอร์ม</td><td>Scale up ข้ามประเทศ</td></tr>
+<tr><td><b>Functional</b></td><td>คุม SG&amp;A และต้นทุนทางการเงิน</td><td>Shared Service และกระบวนการกลาง</td><td>อัตโนมัติและ AI รับงานซ้ำ</td><td>ผลิตภาพสูงสุดด้วยคนเท่าเดิม</td></tr>
+</table>
+
+<div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 2.1–2.2 (Levels of Strategy, The Four Phases of Strategic Planning) และ
+Hax &amp; Majluf, <i>The Strategy Concept &amp; Process</i>; หน้า Strategy Mapping — การ์ด “แผนกลยุทธ์ 4 ระยะ” และแถบระยะ 1–4</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">4 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">แกนกลางของการวางแผน — <em>4 คอลัมน์</em></h2>
+<p class="lead">หน้า Strategy Mapping วางงานทั้งหมดไว้บนสี่คอลัมน์เรียงจากซ้ายไปขวา นี่คือลำดับที่ห้ามข้าม
+ถ้าข้ามคอลัมน์ใดไป ตัวเลขในคอลัมน์สุดท้ายจะเป็นเพียงความหวัง ไม่ใช่แผน</p>
+
+<div class="chain">
+<div style="background:var(--navy)"><b>1 · Strategy</b>Vision · Mission · Broad Action Program<br>เราจะไปไหน และไปอย่างไร</div>
+<div style="background:var(--navy2)"><b>2 · Business Model → Business Process</b>รายได้และต้นทุนไหลออกมาจากกลยุทธ์อย่างไร</div>
+<div style="background:var(--blue-ink)"><b>3 · Business Plan &amp; Execution</b>ใครทำ ทำเมื่อไร วัดอย่างไร</div>
+<div style="background:var(--blue)"><b>4 · Financial Budgeting / Target</b>งบประมาณและงบกำไรขาดทุน</div>
+</div>
+
+<h3>ความสัมพันธ์ระหว่างกลยุทธ์กับโมเดลธุรกิจ</h3>
+<div class="box"><p class="sm">
+<b>Strategy</b> ว่าด้วยการริเริ่มเชิงแข่งขันและแนวทางธุรกิจของบริษัท —
+<b>Business Model</b> ว่าด้วยว่ารายได้และต้นทุนที่ไหลออกมาจากกลยุทธ์นั้น ทำให้ธุรกิจมีกำไรและอยู่รอดได้จริงหรือไม่<br>
+กลยุทธ์ที่ดีแต่โมเดลธุรกิจไม่คุ้ม คือแผนที่เผาเงิน · โมเดลธุรกิจที่คุ้มแต่ไม่มีกลยุทธ์ คือกำไรที่ลอกเลียนได้ภายในปีเดียว</p></div>
+
+<h3>เครื่องมือประจำแต่ละคอลัมน์</h3>
+<table>
+<tr><th style="width:17%">คอลัมน์</th><th style="width:36%">เครื่องมือที่ใช้</th><th>ผลลัพธ์ที่ต้องส่งมอบ</th></tr>
+<tr><td><b>1 · Strategy</b></td><td>Levels of Strategy · แผน 4 ระยะ · Mission of the Firm (Porter) · SOAR</td><td>Vision / Mission / Broad Corporate Objective และ Key Action 12 หัวข้อ × 4 ระยะ ของทุกบริษัท</td></tr>
+<tr><td><b>2 · Business Model</b></td><td>Business Model Canvas 9 ช่อง · Value Proposition Canvas · Ansoff · BCG · Graybar Model · Ladder of Loyalty</td><td>BMC ครบ 9 ช่อง <b>แยกรายตัวทั้ง 6 RST</b> พร้อม Business Process ที่รองรับ</td></tr>
+<tr><td><b>3 · Business Plan &amp; Execution</b></td><td>Tactical Plan → Operation Plan (Ends–Ways–Means) · Monitoring Strategy Life Cycle · Performance Management · Risk</td><td>แผนปฏิบัติที่มีเป้าเชิงปริมาณ เชิงคุณภาพ และกรอบเวลา พร้อมผู้รับผิดชอบรายคน</td></tr>
+<tr><td><b>4 · Financial Budgeting</b></td><td>Base Case / Contingency Budgeting · Income Statement · CAPEX/OPEX Prioritization</td><td>งบเดี่ยวและงบรวม พร้อมค่าเสื่อมและผลกระทบต่อ P&amp;L รายปี</td></tr>
+</table>
+
+<h3>Business Distinctive Competencies — ตัวกรองก่อนลงทุน</h3>
+<div class="grid2">
+<div class="card"><h4>สินค้าและหน่วยธุรกิจที่มีอยู่แล้ว</h4>
+<p class="sm">ใช้หลัก Business Distinctive Competencies — ถามว่าสิ่งนี้เราทำได้ดีกว่าคนอื่นจริงหรือไม่
+ถ้าใช่ ให้ยืดอายุวงจรชีวิตสินค้าด้วยการพัฒนาความสามารถเฉพาะตัวต่อ ถ้าไม่ใช่ ให้พิจารณาถอนหรือเปลี่ยนโมเดล</p></div>
+<div class="card"><h4>สินค้าใหม่</h4>
+<p class="sm">ใช้ Technology Road Mapping (TRM) ประเมิน 4 เกณฑ์ — โอกาสทางตลาด (ขนาด × การเติบโต × การเข้าถึง),
+อัตรากำไรขั้นต้น, การใช้ชิ้นส่วนร่วมกับสินค้าอื่นได้, และความได้เปรียบเหนือคู่แข่ง</p></div>
+</div>
+
+<div class="box g"><h4>กฎการเชื่อมคอลัมน์</h4>
+<p class="sm">ทุกตัวเลขในคอลัมน์ที่ 4 ต้องสาวกลับไปหาแผนในคอลัมน์ที่ 3 ได้ · ทุกแผนในคอลัมน์ที่ 3 ต้องมีโมเดลธุรกิจรองรับในคอลัมน์ที่ 2 ·
+และทุกโมเดลธุรกิจต้องตอบกลยุทธ์ในคอลัมน์ที่ 1 — ข้อนี้ใช้เป็นเกณฑ์ตรวจเอกสารก่อนเข้าวาระคณะกรรมการ</p></div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — หัวคอลัมน์ 1–4, การ์ด “ความสัมพันธ์ระหว่างกลยุทธ์กับโมเดลธุรกิจ”,
+“Business Model Canvas → Business Plan”, “Business Distinctive Competencies”; เล่มเดิมหัวข้อ 2.7, 2.11, 2.12</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">5 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">Wealth Creation <em>3 ขา</em> และ CoE</h2>
+<p class="lead">ทุกบริษัทในกลุ่มถูกอ่านด้วยโครงเดียวกันคือสามขา สร้างดีมานด์ · ส่งมอบให้ได้ · และคุมค่าใช้จ่าย
+โดยมีศูนย์ความเป็นเลิศเป็นขาที่สี่ที่ไม่ขึ้นกับหน่วยธุรกิจใด โครงนี้คือที่มาของหัวข้อ 1.1–1.3 ในเด็ค EC/BOD ทุกเล่ม</p>
+
+<div class="grid2" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--p1)"><span class="tag">3.1</span><h4>Business Generation</h4>
+<p class="sm"><b>สร้างดีมานด์และพัฒนา Revenue Stream ใหม่</b> — วัดที่ <b>GP</b><br>
+ผู้รับผิดชอบ: CTO ร่วมกับทีม RST และทีมพัฒนาแพลตฟอร์ม<br>
+งานหลัก: ขยาย Product/Customer Scope, พัฒนาสินค้าใหม่ผ่าน TRM, เปลี่ยนโอกาส (OI) ให้เป็นคำสั่งซื้อ (PO Received)</p></div>
+<div class="card" style="border-top-color:var(--p2)"><span class="tag">3.2</span><h4>Demand Satisfaction</h4>
+<p class="sm"><b>ส่งมอบตาม QCDS ให้ครบวงจร</b> — วัดที่ <b>Business EBIT</b><br>
+ผู้รับผิดชอบ: COO ในฐานะเจ้าของ Revenue Stream ร่วมกับ BM / PM / S&amp;OP<br>
+งานหลัก: รับ PO ไปผลิตและส่งมอบ เก็บเงินได้ ไม่มีงานค้าง ลูกค้ากลับมาซื้อซ้ำ</p></div>
+<div class="card" style="border-top-color:var(--p3)"><span class="tag">3.3</span><h4>Functional Units</h4>
+<p class="sm"><b>ทำให้ทรัพยากรมีผลิตภาพสูงสุด</b> — วัดที่ <b>SG&amp;A และต้นทุนทางการเงิน</b><br>
+ผู้รับผิดชอบ: CEO / CTO / COO / CFO ตามสายงาน<br>
+งานหลัก: งานสนับสนุนทั้งหมด ตั้งแต่บัญชี จัดซื้อ กฎหมาย ไปจนถึงไอทีและบุคคล</p></div>
+<div class="card" style="border-top-color:var(--p4)"><span class="tag">3.4</span><h4>CoE R&amp;D · PCC Team</h4>
+<p class="sm"><b>ศูนย์ความเป็นเลิศที่รองรับ 3.1–3.3 ร่วมกัน</b> ไม่ผูกกับหน่วยธุรกิจใดหน่วยเดียว<br>
+ผู้รับผิดชอบ: PCC โดยตรง<br>
+งานหลัก: Digital Engineering, DBTP, สถาปัตยกรรม 4 โมเดล และการพัฒนาสินค้าที่ใช้ร่วมกันหลายบริษัท</p></div>
+</div>
+
+<div class="box"><h4>ทำไมต้องมีขาที่สี่</h4>
+<p class="sm">ความสามารถที่สร้าง moat ได้ เช่น สถาปัตยกรรมระบบ มาตรฐานการเชื่อมต่อ และแบบจำลองดิจิทัล
+มักไม่คุ้มสำหรับบริษัทเดียวที่จะลงทุนเอง แต่คุ้มมากเมื่อลงทุนครั้งเดียวแล้วใช้ได้ทั้งกลุ่ม
+CoE จึงต้องอยู่ที่ PCC ไม่ใช่ที่บริษัทลูก และต้องมีงบของตัวเองแยกจากงบบริษัทลูก</p></div>
+
+<h3>เส้นทางของงานหนึ่งชิ้น — จากโอกาสไปจนถึงเงินเข้าบัญชี</h3>
+<table>
+<tr><th style="width:16%">ขั้น</th><th style="width:30%">เกิดอะไรขึ้น</th><th style="width:22%">เจ้าของงาน</th><th>ตัวชี้วัดที่ใช้ตัดสิน</th></tr>
+<tr><td><b>① OI</b> โอกาส</td><td>เก็บข้อมูลโอกาสจากลูกค้ารายสำคัญและบันทึกเข้าระบบ</td><td>Business Generation / RST Team</td><td>จำนวนและมูลค่า OI เทียบเป้า</td></tr>
+<tr><td><b>② OQ → Quotation</b></td><td>คัดกรองโอกาสเป็นใบเสนอราคา แยกสถานะ P1/P2/T1/T2</td><td>Business Generation</td><td>อัตราการแปลง OI → Quotation</td></tr>
+<tr><td><b>③ PO Received</b></td><td>ได้รับคำสั่งซื้อหรือสัญญา ส่งต่อให้ฝั่งส่งมอบ</td><td>Business Generation → ส่งมอบรายสัปดาห์</td><td>PO Received ล่วงหน้า 4 ไตรมาส</td></tr>
+<tr><td><b>④ RRC</b> รับรู้รายได้</td><td>ผลิต ติดตั้ง ส่งมอบ และรับรู้รายได้ตามสัญญา</td><td>Demand Satisfaction (COO)</td><td>OTIF · ไม่มีค่าปรับส่งช้า · Business EBIT</td></tr>
+<tr><td><b>⑤ เก็บเงิน</b></td><td>วางบิล เก็บเงินได้โดยไม่มีหนี้สูญ และคืน Performance Bond ตามกำหนด</td><td>Functional Unit (CFO)</td><td>Positive Cash Flow · ไม่มี Pending Problem</td></tr>
+</table>
+
+<div class="box g"><h4>หลักที่ยึดตลอดเส้นทาง</h4>
+<p class="sm">“ขายหรือทำสัญญาทุกครั้ง ต้องคำนึงถึง <b>Positive Cash Flow, No Risk</b>” และต้องพิสูจน์กำไรได้รายคำสั่งซื้อ
+ให้มากกว่างบที่ตั้งไว้ก่อนเข้าประมูล พร้อมวางแผนล่วงหน้า 1–3 ปี เพื่อให้กำไรแต่ละเดือนสม่ำเสมอและไม่ต่ำกว่า Base Case</p></div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด 3.1–3.4 และ “Target: หาเงินได้ · ส่งของได้ · เก็บเงินได้ · ลูกค้าซื้อซ้ำ”;
+ชีต Platform Flow — A/B/C; เล่มเดิมหัวข้อ 5.3 Promise (Philosophy of Business 8 ประการ)</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">6 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t"><em>6 Revenue Stream Types</em> — รายได้เหมือนสายน้ำ</h2>
+<p class="lead">หลักคิดคือ “พัฒนาที่มาของกระแสรายได้เหมือนสายน้ำที่เข้ามาตลอดเวลาทุกวัน”
+กลุ่มจึงไม่วัดแค่ยอดขายรวม แต่วัดว่ารายได้มาจากกี่ประเภท และแต่ละประเภทมีสัดส่วนเท่าไร
+เพราะรายได้ที่มาจากประมูลอย่างเดียวคือความเสี่ยงต่อกระแสเงินสด</p>
+
+<table>
+<tr><th style="width:5%">#</th><th style="width:17%">ประเภทรายได้</th><th style="width:26%">ขายอะไร</th><th style="width:26%">ตัวชี้วัดหลัก</th><th class="n" style="width:12%">สัดส่วนเป้าหมาย</th></tr>
+<tr><td><b>1</b></td><td><b>Tendering</b></td><td>Best Product · ประมูลงาน</td><td>Win Rate · Backlog · Price Realization</td><td class="n">15%</td></tr>
+<tr><td><b>2</b></td><td><b>Omni Channel</b></td><td>Reach · ขายผ่านหลายช่องทาง</td><td>Customer Acquisition · Channel Mix · Repeat</td><td class="n">10%</td></tr>
+<tr><td><b>3</b></td><td><b>TCS</b><br><span class="mut">Total Customer Solutions</span></td><td>ขายผลลัพธ์ ไม่ใช่ขายของ</td><td>Solution Margin · Attach Rate · CLV</td><td class="n">20%</td></tr>
+<tr><td><b>4</b></td><td><b>Recurring</b></td><td>Lock-in · O&amp;M · MaaS · EMS</td><td>ARR · NRR · GRR · Churn</td><td class="n">25%</td></tr>
+<tr><td><b>5</b></td><td><b>PPA / Long Term</b></td><td>สินทรัพย์และสัญญายาว</td><td>Contracted Revenue · IRR · Availability</td><td class="n">20%</td></tr>
+<tr><td><b>6</b></td><td><b>Investment</b></td><td>ระบบนิเวศ · เงินปันผลและส่วนต่างมูลค่า</td><td>Dividend Yield · Synergy Realized</td><td class="n">10%</td></tr>
+</table>
+
+<div class="box w"><h4>สิ่งที่สัดส่วนนี้บอก</h4>
+<p class="sm">เป้าหมายคือให้รายได้ที่ <b>คาดการณ์ได้</b> (Recurring 25% + PPA 20% + Investment 10% = <b>55%</b>)
+มากกว่ารายได้ที่ <b>ขึ้นกับการประมูลและการแข่งราคา</b> (Tendering 15% + Omni 10% = 25%)
+ซึ่งกลับทิศจากโครงสร้างรายได้ปัจจุบันของกลุ่มที่พึ่งงานประมูลเป็นหลัก — นี่คือการเปลี่ยนแปลงที่ใหญ่ที่สุดของแผนนี้</p></div>
+
+<h3>RST ไหนเป็นของบริษัทไหน</h3>
+<table class="k">
+<tr><th style="width:12%">บริษัท</th><th style="width:30%">RST ที่เป็นเจ้าภาพ</th><th>บทบาทในกระแสรายได้</th></tr>
+<tr><td><b>PEM</b></td><td>RST1 Tendering · RST2 Omni Channel</td><td>ฐานรายได้หลักของกลุ่มจากหม้อแปลงและอุปกรณ์ไฟฟ้า</td></tr>
+<tr><td><b>PEMC</b></td><td>RST1 Tendering</td><td>ผลิตและทดสอบอุปกรณ์แรงสูงที่กัมพูชา</td></tr>
+<tr><td><b>PSP</b></td><td>RST1 · RST3 TCS · RST4 Recurring</td><td>ระบบและโครงการไฟฟ้า เป็นตัวหลักในการเปลี่ยนจากขายของเป็นขายโซลูชัน</td></tr>
+<tr><td><b>PDE</b></td><td>RST4 Recurring · RST3 TCS</td><td>ดิจิทัลและ Data Center — ต้นทางของรายได้ต่อเนื่อง</td></tr>
+<tr><td><b>PPP</b></td><td>RST5 PPA / Long Term</td><td>พลังงานและโรงไฟฟ้าชีวมวล รายได้ตามสัญญายาว</td></tr>
+<tr><td><b>SBP</b></td><td>RST5 PPA / Long Term</td><td>พลังงานชีวมวล ต่อยอดจากของเหลือสายไผ่</td></tr>
+<tr><td><b>PCE</b></td><td>RST1 · RST4</td><td>งานวิศวกรรม บริการ และบำรุงรักษา</td></tr>
+<tr><td><b>PSL</b></td><td>RST5 · ผลิตภัณฑ์จากไผ่</td><td>สายไผ่ครบวงจรตั้งแต่กล้าถึงการแปรรูป</td></tr>
+<tr><td><b>PCC</b></td><td><b>RST6 Investment</b> · ให้เช่าที่ดินและสินทรัพย์</td><td>ถือที่ดิน ถือหุ้น และเก็บผลตอบแทนจากระบบนิเวศ</td></tr>
+</table>
+
+<div class="box"><h4>บทบาทของ PCC ในภาพนี้</h4>
+<p class="sm">PCC ไม่ได้เป็นเจ้าภาพ RST1–RST5 โดยตรง แต่เป็นเจ้าภาพ <b>RST6 Investment</b> และเป็นผู้ที่ทำให้ RST อื่นเกิดขึ้นได้
+ผ่านสามทาง — <b>ให้ทุน</b> (ลงทุนและเพิ่มทุนบริษัทลูก), <b>ให้ที่ดินและสินทรัพย์เช่า</b>, และ
+<b>ให้ความสามารถร่วม</b> (CoE, DBTP, ข้อมูลกลาง) ดังนั้นตัวชี้วัดของ PCC จึงไม่ใช่ยอดขาย
+แต่เป็นผลตอบแทนจากการลงทุนและมูลค่าที่เกิดจากการใช้ทรัพยากรร่วมกัน</p></div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — แถบ RST1–RST6 และการ์ด “6 Revenue Stream Type”;
+เด็ค EC/BOD · PCC หัวข้อ 1.1 ระยะที่ 3 (สัดส่วนรายได้เป้าหมาย) และ Appendix 1; เล่มเดิมหัวข้อ 6.2</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">7 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ทุน <em>4 ประเภท</em> และการวัดมูลค่า</h2>
+<p class="lead">กลุ่มไม่ได้บริหารแค่เงิน แต่บริหารทุนสี่ประเภทพร้อมกัน และเชื่อว่ามูลค่าตลาดของกิจการ
+เท่ากับทุนทางการเงินบวกทุนทางปัญญา ดังนั้นทุนที่มองไม่เห็นจึงต้องมีเจ้าภาพและตัวชี้วัดเหมือนทุนที่มองเห็น</p>
+
+<div class="grid4" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--navy)"><h4>Financial Capital</h4><p class="sm">เงินทุน กระแสเงินสด และโครงสร้างหนี้ — วัดด้วย NPAT, ROE, D/E และ Growth of Equity</p></div>
+<div class="card" style="border-top-color:#6b7584"><h4>Physical Capital</h4><p class="sm">ที่ดิน อาคาร เครื่องจักร — วัดด้วยอัตราการใช้ประโยชน์และผลตอบแทนต่อสินทรัพย์</p></div>
+<div class="card" style="border-top-color:var(--blue)"><h4>Intellectual Capital</h4><p class="sm">แยกเป็น 7 ทีม 7 เป้าหมาย ดูตารางด้านล่าง — เป็นทุนที่สร้าง moat ระยะยาว</p></div>
+<div class="card" style="border-top-color:var(--green)"><h4>ESG</h4><p class="sm">สิ่งแวดล้อมและความหลากหลายทางชีวภาพ สังคม และธรรมาภิบาล — เป็นเงื่อนไขของการเติบโต ไม่ใช่กิจกรรมเสริม</p></div>
+</div>
+
+<h3>Intellectual Capital — 7 ทีม 7 เป้าหมาย</h3>
+<table>
+<tr><th style="width:5%">ทีม</th><th style="width:22%">ประเภททุน</th><th style="width:36%">สิ่งที่ต้องสะสม</th><th>ผู้ที่ควรเป็นเจ้าภาพในกลุ่ม</th></tr>
+<tr><td>1</td><td><b>Relationship Capital</b></td><td>พันธมิตร คู่ค้า ชุมชน สัญญาระยะยาว</td><td>PCC (ระดับกลุ่ม) + แต่ละบริษัทในพื้นที่ของตน</td></tr>
+<tr><td>2</td><td><b>Human Capital</b></td><td>ทักษะ โครงสร้างตำแหน่ง และเส้นทางอาชีพ</td><td>PCC — Workforce Planning ทั้งกลุ่ม</td></tr>
+<tr><td>3</td><td><b>Customer Capital</b></td><td>ฐานลูกค้า ความพึงพอใจ และการซื้อซ้ำ</td><td>COO ของแต่ละบริษัท</td></tr>
+<tr><td>4</td><td><b>Information Capital</b></td><td>ข้อมูลที่เชื่อถือได้ ใช้ร่วมกันได้ และป้อน AI ได้</td><td>PDE + PCC Console</td></tr>
+<tr><td>5</td><td><b>Innovation Capital</b></td><td>สินค้าใหม่ สิทธิบัตร และบัญชีนวัตกรรม</td><td>CoE R&amp;D ของ PCC ร่วมกับ PEM / PSP / PSL</td></tr>
+<tr><td>6</td><td><b>Process Capital</b></td><td>กระบวนการที่เป็นดิจิทัลและทำซ้ำได้</td><td>PDE (ERP/Odoo) + เจ้าของกระบวนการแต่ละสาย</td></tr>
+<tr><td>7</td><td><b>Feasibility Study &amp; Business Model</b></td><td>ความสามารถในการประเมินและออกแบบธุรกิจใหม่</td><td>PCC — ก่อนอนุมัติการลงทุนทุกรายการ</td></tr>
+</table>
+
+<div class="grid2">
+<div>
+<h4>วัดมูลค่าด้วย EVM และ EP</h4>
+<p class="sm">กลุ่มใช้แนวคิดการบริหารมูลค่าเชิงเศรษฐศาสตร์ (Economic Value Management)
+โดยวัดด้วยกำไรเชิงเศรษฐศาสตร์ (Economic Profit) ไม่ใช่กำไรทางบัญชีเพียงอย่างเดียว
+การสร้าง EP ทำได้สามทาง — <b>เพิ่มรายได้</b>, <b>ลดค่าใช้จ่าย</b>, และ <b>ใช้เงินทุนอย่างมีประสิทธิภาพ</b>
+ข้อที่สามคือข้อที่กลุ่มทำได้มากที่สุดจากการใช้สินทรัพย์ร่วมกัน</p>
+<p class="sm"><b>สูตรการเติบโตที่ใช้:</b> g = กำไรที่นำกลับไปลงทุน ÷ ส่วนของเจ้าของ
+โดยกำไรที่นำกลับไปลงทุน = NPAT − เงินปันผล และส่วนของเจ้าของใช้ยอดต้นปี
+พร้อมกันนั้นต้องมีเงินทุนสำรองเพื่อความมั่นคงของบริษัทและพนักงานในกรณีเกิดวิกฤตเศรษฐกิจ</p>
+</div>
+<div>
+<h4>Performance Criteria 7 ข้อ</h4>
+<p class="sm">ทุกหน่วยงานและทุกประเภททุน วัดด้วยเกณฑ์ชุดเดียวกัน 7 ข้อ เพื่อให้เทียบกันได้ข้ามบริษัท</p>
+<ol class="sm">
+<li>Effectiveness — ทำได้ตามเป้าหรือไม่</li>
+<li>Efficiency — ใช้ทรัพยากรคุ้มหรือไม่</li>
+<li>Quality in process — กระบวนการมีของเสียเท่าไร</li>
+<li>Productivity — ผลผลิตต่อหน่วยทรัพยากร</li>
+<li>Quality of work life — คุณภาพชีวิตของผู้ทำงาน</li>
+<li>Innovation — สร้างของใหม่ได้แค่ไหน</li>
+<li>Budgetability / Profitability — อยู่ในงบและทำกำไรหรือไม่</li>
+</ol>
+</div>
+</div>
+
+<div class="box g"><h4>Broad Corporate Objective อ่านด้วยกรอบนี้</h4>
+<p class="sm">“เติบโต” = Financial Capital · “ยั่งยืน” = EVM/EP และ Intellectual Capital · “มีสมรรถนะสูง” = Performance Criteria 7 ข้อ ·
+“ผสานประโยชน์สุขทุกฝ่าย” = ESG และการมีส่วนร่วมของผู้มีส่วนได้เสีย — สี่คำในวัตถุประสงค์จึงตรงกับทุนสี่ประเภทพอดี</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 5.2 (Corporate Broad Objective), 6.3 (พัฒนาระบบบริหารจัดการ — 7 ทีม), 2.13 (Performance Criteria);
+Stewart, <i>Intellectual Capital: The New Wealth of Organizations</i></div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">8 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">C-O-T และสถาปัตยกรรมดิจิทัล <em>4 โมเดล</em></h2>
+<p class="lead">คำถามที่ยากที่สุดคือจะแข่งกับผู้ผลิตจีนอย่างไร คำตอบของกลุ่มคือ C-O-T Model —
+ไม่แข่งที่ตัวสินค้า แต่แข่งที่ชั้นสถาปัตยกรรมเหนือสินค้า ซึ่งเป็นชั้นที่ต้องเข้าใจบริบทไทยจึงจะทำได้</p>
+
+<div class="grid3" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:#c0392b"><h4>C — China</h4>
+<p class="sm">Competitive Global Manufacturing — ใช้กำลังผลิตและต้นทุนของโลกให้เป็นประโยชน์
+แทนที่จะแข่งกับมันตรง ๆ นำผลิตภัณฑ์สำเร็จรูปมาประกอบเข้าระบบได้โดยไม่ต้องผลิตเองทุกชิ้น</p></div>
+<div class="card" style="border-top-color:var(--blue)"><h4>O — Own</h4>
+<p class="sm">Architecture / Platform / Ecosystem — ส่วนที่กลุ่มเป็นเจ้าของเอง คือแบบสถาปัตยกรรม
+แพลตฟอร์ม และสิทธิ์ในการเชื่อมต่อ นี่คือที่มาของกำไรระยะยาวและเป็นสิ่งที่ลอกเลียนยากที่สุด</p></div>
+<div class="card" style="border-top-color:var(--green)"><h4>T — Thai</h4>
+<p class="sm">Thai Ecosystem &amp; Operation — ความเข้าใจผู้ใช้ กฎระเบียบ การไฟฟ้า ชุมชน และงานหน้างาน
+ซึ่งผู้ผลิตต่างชาติเข้ามาทำแทนได้ยาก</p></div>
+</div>
+
+<h3>สถาปัตยกรรมดิจิทัล 4 โมเดล — ภาษากลางของกลุ่ม</h3>
+<table>
+<tr><th style="width:14%">โมเดล</th><th style="width:30%">ใช้กับอุตสาหกรรม</th><th style="width:22%">เจ้าภาพ</th><th>สิ่งที่ได้เมื่อใช้โมเดลเดียวกันทั้งกลุ่ม</th></tr>
+<tr><td><b>SGAM</b></td><td>ระบบไฟฟ้าและสมาร์ทกริด</td><td>PSP (ร่วมกับ PPP)</td><td rowspan="4">ออกแบบครั้งเดียวใช้ได้หลายโครงการ · ข้อมูลไหลข้ามบริษัทได้ ·
+ต่อยอดเป็นสินค้าใหม่ในชั้น Interoperability ได้ · และทำให้ AI ของกลุ่มเรียนรู้จากข้อมูลที่มีโครงสร้างเดียวกัน</td></tr>
+<tr><td><b>SFAM</b></td><td>เกษตรและชีวมวล (สายไผ่)</td><td>PSL (ร่วมกับ PPP, SBP)</td></tr>
+<tr><td><b>SCIAM</b></td><td>เมืองอัจฉริยะและโครงสร้างพื้นฐานดิจิทัล</td><td>PSP + PDE</td></tr>
+<tr><td><b>RAMI 4.0</b></td><td>โรงงานและการผลิต</td><td>PEM + PEMC</td></tr>
+</table>
+
+<div class="box"><h4>DBTP และ Agentic AI Organization</h4>
+<p class="sm"><b>DBTP</b> (Digital Business Transformation Platform) คือชั้นกลางที่แปลสถาปัตยกรรมทั้งสี่ให้เป็นระบบงานจริง
+ส่วน <b>Digital Business Organization</b> มีกติกาสองข้อที่ต้องถือให้มั่น —
+การไหลของข้อมูลต้องไปพร้อมกับการไหลของสินค้าและกระบวนการ และต้องเป็น
+<b>single data entry</b> กับ <b>common database</b> คือกรอกครั้งเดียวและใช้ฐานเดียวทั้งกลุ่ม<br>
+ขั้นต่อไปคือ <b>Agentic AI Organization</b> — ให้ AI รับงานซ้ำทั้งกระบวนการ คนเหลือเฉพาะงานที่ต้องตัดสินใจ
+โดยมี <b>Precise LLM</b> ที่ฝึกบนข้อมูลภายในของกลุ่มเป็นฐาน</p></div>
+
+<h3>Innovation 7 ด้าน — เปลี่ยนความคิดให้เป็นเงิน</h3>
+<div class="grid2">
+<div><ol class="sm">
+<li><b>Business Model Innovation</b> — เปลี่ยนวิธีหาเงินของแต่ละธุรกิจให้เหมาะกับช่วงเวลาใน Value Chain</li>
+<li><b>Business Process Innovation</b> — เปลี่ยนวิธีทำงานตามกระบวนการที่กำหนดไว้ใน Mission</li>
+<li><b>Customer Oriented Innovation</b> — พัฒนาร่วมกับลูกค้าและหน่วยขายของกลุ่ม</li>
+<li><b>Technology &amp; Digital Organization Innovation</b> — เทคโนโลยี สินค้า วิศวกรรมระบบ และโซลูชันดิจิทัล</li>
+</ol></div>
+<div><ol class="sm" start="5">
+<li><b>Marketing-Creating Innovation</b> — นวัตกรรมที่สร้างตลาดใหม่</li>
+<li><b>Sustaining Innovation</b> — ยกระดับสินค้าหรือบริการเดิมที่มีอยู่แล้ว</li>
+<li><b>Performance Innovation</b> — ทำงานได้มากขึ้นด้วยทรัพยากรเท่าเดิม หรือทำได้เท่าเดิมด้วยทรัพยากรที่น้อยลง</li>
+</ol>
+<p class="sm mut">ทั้งเจ็ดด้านใช้เกณฑ์เดียวกันคือ ต้องขายได้ซ้ำ และมี EBIT มากกว่าเงินที่ลงไปในการวิจัยนั้น</p></div>
+</div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “Corporate Strategy: C-O-T Model”, “1. Digital Architecture Model — 4 Industries”,
+“Precise LLM &amp; Opensource AI”; เล่มเดิมหัวข้อ 6.1 (Innovation 7 ด้าน) และ 5.3 (Digital Business Organization)</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">9 / 21</span></div>
+</section>
+
+<section class="pg tight">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ตัวตนของ PCC — <em>Vision · Mission · Objective</em></h2>
+<p class="lead">ภาคที่ 2 ตอบว่า PCC คือใครในกลุ่ม ใช้ถ้อยคำชุดเดียวกับเด็ค EC/BOD และหน้า Strategy Mapping</p>
+
+<div class="grid2" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--navy)"><span class="tag">Vision · วิสัยทัศน์</span>
+<p class="sm" style="font-size:9.8pt">To be Leading Engineering Firm for Social Innovation Business in Thailand
+and Energizing Shared Prosperity for Thai Society</p>
+<p class="sm mut">ภาพปลายทางระยะยาว 5–10 ปี ตอบว่า “จะไปที่ไหน”</p></div>
+<div class="card" style="border-top-color:var(--blue)"><span class="tag">Mission · พันธกิจ</span>
+<p class="sm">พรีไซซเป็นผู้ให้บริการโซลูชั่นนวัตกรรมด้าน <b>ดิจิทัลกริดอัจฉริยะ</b> (Smart Grid Digitalization),
+<b>ขับเคลื่อนห่วงโซ่อุปทานไผ่ครบวงจรอย่างยั่งยืน</b> (Addressing the Overall Supply Chain of Bamboo),
+<b>โซลูชั่นดิจิทัล ปัญญาประดิษฐ์ และระบบอัตโนมัติ</b> โดยร่วมกับกลุ่มนวัตกรรมเป้าหมาย (Innovative Cluster)
+เพื่อขับเคลื่อนการเติบโตที่รุ่งเรืองร่วมกันกับผู้มีส่วนได้ส่วนเสียทุกฝ่าย</p></div>
+</div>
+
+<div class="box"><h4>Broad Corporate Objective</h4>
+<p style="font-size:10.4pt;color:var(--navy);font-weight:600;margin-bottom:1.5mm">
+“มุ่งสู่การเป็นองค์กรที่ เติบโต ยั่งยืน มีคุณภาพสูง ผสานประโยชน์สุขทุกฝ่ายที่เกี่ยวข้อง และพัฒนาร่วมกัน โดยมีการบริหารแบบธรรมาภิบาล”</p>
+<p class="sm mut">ลำดับคือ Vision → Mission → Objective : ภาพปลายทาง → วิธีไป → ผลลัพธ์ที่วัดได้</p></div>
+
+<h3>Corporate Philosophy — สามคำที่ใช้สื่อสารภายนอก</h3>
+<table>
+<tr><th style="width:16%"></th><th style="width:42%">ข้อความ</th><th>ใช้เมื่อไร</th></tr>
+<tr><td><b>Positioning</b><br><span class="mut">ตำแหน่งขององค์กร</span></td>
+<td>พันธมิตรที่คุณเชื่อถือในด้านดิจิทัลกริดอัจฉริยะ ผลิตภัณฑ์นวัตกรรมจากไผ่ และโซลูชั่นดิจิทัลกับระบบอัตโนมัติ
+ที่ประสานความร่วมมือสู่การพัฒนาที่ยั่งยืนในภูมิภาค</td>
+<td>แนะนำองค์กรต่อลูกค้าและพันธมิตร</td></tr>
+<tr><td><b>Essence</b><br><span class="mut">จิตวิญญาณ</span></td>
+<td><b>Energizing Shared Prosperity</b> — จุดพลังแห่งความรุ่งเรืองร่วมกัน</td>
+<td>แก่นของแบรนด์และการสื่อสารภายใน</td></tr>
+<tr><td><b>Promise</b><br><span class="mut">เจตนารมณ์</span></td>
+<td><b>We build the foundations for future growth together</b> — เราสร้างรากฐานแห่งการเติบโตเพื่อมุ่งสู่อนาคตอันรุ่งเรืองร่วมกัน</td>
+<td>ใช้กับพนักงาน คู่ค้า ชุมชน</td></tr>
+</table>
+
+<h3>Values — ค่านิยม “PCC”</h3>
+<div class="grid3" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--p1)"><h4>P — Professionalism</h4>
+<p class="sm">10 ประการ: ความสามารถ · ความน่าเชื่อถือ · ความซื่อสัตย์ · คิดไปข้างหน้า · เคารพผู้อื่น ·
+พัฒนาตนเอง · เชิงรุก · สร้างสรรค์ · ตัดสินใจเร็ว · ฟังอย่างมีประสิทธิผล</p></div>
+<div class="card" style="border-top-color:var(--p2)"><h4>C — Commit for SDGs</h4>
+<p class="sm">มุ่งมั่นเพื่อเป้าหมายการพัฒนาที่ยั่งยืน ใช้เป็นเกณฑ์เลือกโครงการลงทุน ไม่ใช่เพียงรายงานประจำปี</p></div>
+<div class="card" style="border-top-color:var(--p3)"><h4>C — Co-Creation</h4>
+<p class="sm">ร่วมสร้างสรรค์กลุ่มนวัตกรรมเป้าหมาย — รากฐานของการเปลี่ยนสู่ Ecosystem Capitalism</p></div>
+</div>
+
+<h3>Financial Objective — 5 ข้อที่ทุกบริษัทต้องตอบ</h3>
+<table>
+<tr><th style="width:6%">#</th><th style="width:30%">ตัวชี้วัด</th><th style="width:20%">เกณฑ์</th><th>นิยาม</th></tr>
+<tr><td>1</td><td><b>% NPAT Growth</b></td><td>≥ 10%</td><td>กำไรสุทธิเติบโตจากปีฐาน</td></tr>
+<tr><td>2</td><td><b>อัตรากำไรขั้นต้น (GP)</b></td><td>เพิ่มขึ้น 2% จาก Y2026</td><td>GP ÷ รายได้</td></tr>
+<tr><td>3</td><td><b>%SG&amp;A</b></td><td>ลดลง 1% จาก Y2026</td><td>ค่าใช้จ่ายขายและบริหาร ÷ รายได้</td></tr>
+<tr><td>4</td><td><b>D/E Ratio</b></td><td>&lt; 1 เท่า <span class="mut">(PCC)</span></td><td>หนี้สินรวม ÷ ส่วนของเจ้าของ — เกณฑ์ต่างกันตามบริษัท</td></tr>
+<tr><td>5</td><td><b>%Growth Equity</b></td><td>&gt; 4%</td><td>(NPAT − เงินปันผล) ÷ ส่วนของเจ้าของเฉลี่ย</td></tr>
+</table>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หน้า Strategy Concept และ Vision · Mission · Objective;
+เล่มเดิมหัวข้อ 1.3 (Mission Statement), 5.1–5.5 (Corporate Philosophy)</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">10 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">บทบาทของโฮลดิ้ง — <em>PCC ทำอะไร และไม่ทำอะไร</em></h2>
+<p class="lead">ความสับสนที่พบบ่อยคือ PCC ถูกคาดหวังให้ทำงานแทนบริษัทลูก หน้านี้ขีดเส้นให้ชัดว่า
+อะไรคืองานของโฮลดิ้ง และอะไรคืองานของบริษัทปฏิบัติการ</p>
+
+<h3>สามเสาของรายได้ PCC</h3>
+<div class="grid3" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--p1)"><span class="tag">1.1</span><h4>From Investing</h4>
+<p class="sm">ลงทุนและเพิ่มทุนในบริษัทลูกและกิจการร่วมทุน รับผลตอบแทนเป็นเงินปันผลและส่วนต่างมูลค่า
+— ต้องมีเกณฑ์การลงทุนชุดเดียวใช้ทุกบริษัท (Hurdle Rate · ROIC ขั้นต่ำ)</p></div>
+<div class="card" style="border-top-color:var(--p2)"><span class="tag">1.2</span><h4>From Leasing</h4>
+<p class="sm">ให้เช่าอาคาร เครื่องจักร และพื้นที่ภายในกลุ่ม รวมถึงพื้นที่ Colocation Data Center ในระยะถัดไป
+— ต้องมีเกณฑ์ MM Charge ที่ตัดรายการระหว่างกันได้ครบทุกบริษัท</p></div>
+<div class="card" style="border-top-color:var(--p3)"><span class="tag">1.3</span><h4>From Land</h4>
+<p class="sm">ถือครองที่ดินและให้บริษัทในกลุ่มเช่า เป้าหมายราว 1,000 ไร่ต่อปี สำหรับแปลงไผ่
+โรงไฟฟ้า และพื้นที่ Data Center</p></div>
+</div>
+
+<h3>งานที่ PCC ทำแทนทั้งกลุ่ม — เพราะทำครั้งเดียวแล้วใช้ได้ทุกบริษัท</h3>
+<table>
+<tr><th style="width:26%">งาน</th><th style="width:38%">เหตุผลที่ต้องอยู่ที่ PCC</th><th>ผลที่ต้องเห็น</th></tr>
+<tr><td><b>CoE R&amp;D</b></td><td>Digital Engineering และ DBTP แพงเกินกว่าบริษัทเดียวจะลงทุน แต่คุ้มเมื่อใช้ทั้งกลุ่ม</td><td>สินค้าและแบบที่หลายบริษัทใช้ร่วมกันได้</td></tr>
+<tr><td><b>มาตรฐานสถาปัตยกรรม 4 โมเดล</b></td><td>ถ้าแต่ละบริษัทเลือกมาตรฐานเอง ข้อมูลจะเชื่อมกันไม่ได้ตลอดไป</td><td>ข้อมูลไหลข้ามบริษัทได้ตามมาตรฐานเดียว</td></tr>
+<tr><td><b>PCC Console</b></td><td>คณะกรรมการต้องเห็นตัวเลข 9 บริษัทในภาพเดียวและนิยามเดียว</td><td>รายงานชุดเดียวที่ทุกฝ่ายยอมรับ</td></tr>
+<tr><td><b>Workforce Planning</b></td><td>การเคลื่อนย้ายคนข้ามบริษัทจะเกิดได้ต่อเมื่อโครงสร้างตำแหน่งเป็นระบบเดียว</td><td>Job Architecture และ Internal Fill Rate ระดับกลุ่ม</td></tr>
+<tr><td><b>Glossary และภาษากลาง</b></td><td>คำศัพท์ที่ต่างกันทำให้ตัวเลขคนละชุดและ AI ภายในเรียนรู้ผิด</td><td>คำศัพท์ 218 คำที่ใช้ร่วมกันและใช้เป็นบริบทให้ AI</td></tr>
+<tr><td><b>เกณฑ์การลงทุนและ MM Charge</b></td><td>ป้องกันการลงทุนซ้ำซ้อนและทำให้งบรวมตัดรายการระหว่างกันได้ถูกต้อง</td><td>Hurdle Rate ชุดเดียว และคู่ตัดรายการครบ</td></tr>
+</table>
+
+<div class="box w"><h4>สิ่งที่ PCC ไม่ทำ</h4>
+<p class="sm">ไม่ลงไปขายแทนบริษัทลูก · ไม่รับผิดชอบการส่งมอบรายโครงการ · ไม่ตั้งทีมปฏิบัติการซ้อนกับ COO ของบริษัทลูก ·
+และไม่อนุมัติการลงทุนที่บริษัทลูกไม่ได้เสนอผ่านกระบวนการ Feasibility Study —
+เพราะถ้าโฮลดิ้งลงไปทำงานปฏิบัติการ ความรับผิดชอบจะพร่า และตัวชี้วัดของบริษัทลูกจะอธิบายไม่ได้</p></div>
+
+<h3>ตัวชี้วัดของ PCC ต่างจากบริษัทลูกอย่างไร</h3>
+<table class="k">
+<tr><th style="width:26%"></th><th>บริษัทปฏิบัติการ</th><th>PCC (โฮลดิ้ง)</th></tr>
+<tr><td><b>วัดรายได้ที่</b></td><td>ยอดขายและการรับรู้รายได้</td><td>ผลตอบแทนจากการลงทุน ค่าเช่า และเงินปันผล</td></tr>
+<tr><td><b>วัดกำไรที่</b></td><td>GP และ Business EBIT</td><td>NPAT, Growth of Equity และ Economic Profit ของกลุ่ม</td></tr>
+<tr><td><b>วัดความสำเร็จที่</b></td><td>ส่งมอบได้ เก็บเงินได้ ลูกค้าซื้อซ้ำ</td><td>สินทรัพย์ถูกใช้ร่วมกันจริง และ Synergy เกิดเป็นตัวเงิน</td></tr>
+<tr><td><b>ความเสี่ยงหลัก</b></td><td>ส่งมอบไม่ทัน ต้นทุนบานปลาย</td><td>ลงทุนผิดจังหวะ และสินทรัพย์ที่ซื้อแล้วไม่มีผู้เช่า</td></tr>
+</table>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หัวข้อ 1.1 From Investing, 1.2 From Leasing, 1.3 From Land และ Appendix 1;
+หน้า Strategy Mapping — การ์ด “PCC Console” และ “3.4 CoE R&amp;D PCC Team”</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">11 / 21</span></div>
+</section>
+
+<section class="pg tight">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">กลุ่ม <em>9 บริษัท</em> และการเชื่อมโยงแนวนอน–แนวตั้ง</h2>
+<p class="lead">มูลค่าของการเป็นกลุ่มอยู่ที่สองอย่าง คือใช้ของร่วมกันได้ (แนวนอน) และต่อกันเป็นห่วงโซ่ได้ (แนวตั้ง)
+ถ้าไม่มีสองอย่างนี้ การถือหุ้นหลายบริษัทก็เป็นเพียงการกระจายความเสี่ยง</p>
+
+<h3>บริษัทในกลุ่มและงบประมาณปี 2027</h3>
+<table>
+<tr><th style="width:8%">บริษัท</th><th style="width:22%">ธุรกิจ</th><th style="width:11%">Model</th><th style="width:25%">Key Action 2027</th><th class="n">CAPEX</th><th class="n">OPEX</th></tr>
+<tr><td><b>PEM</b></td><td>หม้อแปลงและอุปกรณ์ไฟฟ้า</td><td>RAMI 4.0</td><td>Factory 4.0 · Type Test สินค้าใหม่</td><td class="n">204.34</td><td class="n">513.80</td></tr>
+<tr><td><b>PEMC</b></td><td>อุปกรณ์แรงสูง (กัมพูชา)</td><td>RAMI 4.0</td><td>เครื่องทดสอบล่อฟ้าแรงสูง</td><td class="n">6.46</td><td class="n">21.73</td></tr>
+<tr><td><b>PSP</b></td><td>ระบบและโครงการไฟฟ้า</td><td>SGAM · SCIAM</td><td>Automation line มิเตอร์ · SCPS</td><td class="n">26.19</td><td class="n">265.00</td></tr>
+<tr><td><b>PDE</b></td><td>ดิจิทัลและ Data Center</td><td>SCIAM</td><td>Colocation DC · EMS · optic link</td><td class="n">17.05</td><td class="n">4.96</td></tr>
+<tr><td><b>PPP</b></td><td>พลังงานและโรงไฟฟ้าชีวมวล</td><td>SFAM · SGAM</td><td>CFB 10 MW · CCHP · แปลงเช่าไผ่</td><td class="n">9.50</td><td class="n">41.02</td></tr>
+<tr><td><b>SBP</b></td><td>พลังงานชีวมวล</td><td>SFAM</td><td>ต่อยอดของเหลือสายไผ่</td><td class="n">10.84</td><td class="n">36.70</td></tr>
+<tr><td><b>PCE</b></td><td>วิศวกรรมและบริการ</td><td>SGAM</td><td>งานบริการและบำรุงรักษา</td><td class="n">1.04</td><td class="n">7.60</td></tr>
+<tr><td><b>PSL</b></td><td>สายไผ่ครบวงจร</td><td>SFAM</td><td>กล้า 1 ล้านต้น/ปี · สับชิป · Cascade</td><td class="n">0.50</td><td class="n">20.65</td></tr>
+<tr><td><b>PCC</b></td><td>โฮลดิ้ง · ที่ดินและการลงทุน</td><td>ทั้ง 4 โมเดล</td><td>ที่ดิน 1,000 ไร่/ปี · CoE · DBTP</td><td class="n">45.00</td><td class="n">171.45</td></tr>
+<tr style="background:var(--soft)"><td colspan="4"><b>รวมกลุ่ม 9 บริษัท (Consolidate)</b></td><td class="n"><b>320.92</b></td><td class="n"><b>1,082.91</b></td></tr>
+</table>
+<p class="sm mut" style="margin-top:-1.4mm">หน่วย: ล้านบาท · PCC คิดเป็น 14.0% ของ CAPEX กลุ่ม และ 15.8% ของ OPEX กลุ่ม</p>
+
+<div class="box"><h4>มูลค่าของการเป็นกลุ่มมาจากสองทางเท่านั้น</h4>
+<p class="sm"><b>แนวนอน (Horizontal)</b> — ใช้ของร่วมกัน: โครงสร้างพื้นฐานร่วม (บัญชี กฎหมาย งานรัฐ สรรหาและฝึกอบรม)
+ทำให้ทีมสนับสนุนเล็กลงและดึงคนเก่งระดับสูงได้ · เงินทุนร่วมทำให้ต้นทุนทางการเงินต่ำลง ·
+ถ่ายทอดวิธีบริหารข้าม RST — ต้นทุนที่ต้องยอมรับคือการประสานงานที่มากขึ้น จึงต้องมีกติกาล่วงหน้า</p>
+<p class="sm"><b>แนวตั้ง (Vertical)</b> — ต่อกันเป็นห่วงโซ่: กลุ่มวางตำแหน่งระหว่าง Total Customer Solution กับ System Lock-in
+คือไม่ผลิตเองทุกชิ้น แต่ควบคุมจุดที่กำหนดมาตรฐานและการเชื่อมต่อ ห่วงโซ่ที่ชัดที่สุดคือสายไผ่ซึ่งเชื่อม 5 บริษัทและจบที่ธุรกิจมูลค่าสูงที่สุดคือ Data Center</p></div>
+
+<h3>ห่วงโซ่สายไผ่ — ต้นกล้าถึง Data Center</h3>
+<table class="k">
+<tr><th style="width:5%">ขั้น</th><th style="width:22%">กิจกรรม</th><th style="width:16%">ผู้รับผิดชอบ</th><th>สาระสำคัญ</th></tr>
+<tr><td>1</td><td>ที่ดิน</td><td>PCC · PPP</td><td>ซื้อที่ดินและให้เช่า เป้าราว 1,000 ไร่/ปี</td></tr>
+<tr><td>2</td><td>กล้าไผ่ (Micropropagation)</td><td>PSL</td><td>เพาะเลี้ยงเนื้อเยื่อและเรือนเพาะชำ 5 สายพันธุ์</td></tr>
+<tr><td>3</td><td>ปลูก</td><td>PSL · PPP · เกษตรกร</td><td>Contract Farming 4 เฟส · ตัดครั้งแรกปี 2574–2575</td></tr>
+<tr><td>4</td><td>แปรรูปเบื้องต้น</td><td>PSL</td><td>คัดและสับที่หน้าแปลง เป้า GP 35%</td></tr>
+<tr><td>5</td><td>แปรรูปขั้นสูง</td><td>PSL · ร่วมทุนจีน</td><td>Cascade Fractionation — ไผ่สด 1 ตัน ได้มูลค่าราว 12,000 บาท</td></tr>
+<tr><td>6</td><td>ไฟฟ้าและความเย็น</td><td>PPP · SBP · PSP · PEM</td><td>ของเหลือป้อนโรงไฟฟ้าชีวมวลและระบบ CCHP</td></tr>
+<tr><td>7</td><td>Colocation Data Center</td><td>PSP + พันธมิตร</td><td>ใช้ไฟและความเย็นจากขั้นที่ 6 เป็นต้นทุนที่คุมได้เอง</td></tr>
+<tr><td>8</td><td>Hyperscale Data Center</td><td>PSP + พันธมิตร</td><td>รวมหลาย Wholesale เป็น Hyperscale พร้อม optic link</td></tr>
+</table>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Appendix 1; หน้า Strategy Mapping ชีต “Pitch (ย่อ)” และ “ต้นกล้าไผ่ → Data Center”;
+เล่มเดิมหัวข้อ 3 (Horizontal Strategy) และ 4 (Vertical Integration)</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">12 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ภาพรวม <em>4 ระยะ</em> ในหน้าเดียว</h2>
+<p class="lead">หน้านี้คือหน้าที่ใช้สื่อสารมากที่สุด ถ้าจำได้หน้าเดียว ให้จำหน้านี้ —
+แต่ละระยะมีคำถามของตัวเอง มีผลลัพธ์ของตัวเอง และมีเงื่อนไขที่ต้องผ่านก่อนจึงจะขึ้นระยะถัดไปได้</p>
+
+<div class="phz">
+<span style="background:var(--p1);width:25%">ระยะที่ 1 · 2570</span>
+<span style="background:var(--p2);width:50%">ระยะที่ 2 · 2570–2573</span>
+<span style="background:var(--p3);width:75%">ระยะที่ 3 · 2570–2575</span>
+<span style="background:var(--p4);width:100%">ระยะที่ 4 · 2570–2577</span>
+</div>
+<p class="sm mut" style="margin-top:-2mm">แถบซ้อนกันแบบขั้นบันได เพราะทุกระยะเริ่มนับจากปี 2570 เหมือนกัน ต่างกันที่ปลายทาง — ไม่ใช่แผนสี่ชุดที่แยกจากกัน แต่เป็นแผนเดียวที่มองไกลขึ้นทีละชั้น</p>
+
+<table>
+<tr><th style="width:7%">ระยะ</th><th style="width:21%">คำถามหลัก</th><th style="width:24%">สิ่งที่ PCC ต้องทำให้สำเร็จ</th><th style="width:24%">สิ่งที่กลุ่มต้องเห็น</th><th>เงื่อนไขปิดระยะ</th></tr>
+<tr>
+<td><b style="color:var(--p1)">1</b><br>Budgeting<br><span class="mut">2570</span></td>
+<td>ปีนี้ทำได้ตามงบหรือไม่ และฐานข้อมูลพร้อมหรือยัง</td>
+<td>คุมงบ CAPEX 45.00 ลบ. และ OPEX 171.45 ลบ. · ซื้อที่ดินให้เช่า · เพิ่มทุน PSL · ตั้ง CoE</td>
+<td>ERP go-live ทั้งกลุ่ม · PCC Console ใช้งานได้ · ส่งมอบครบ QCDS ทุก PO</td>
+<td>งบจริงไม่เกินงบประมาณ และตัวเลข 9 บริษัทมาจากฐานเดียวกัน</td></tr>
+<tr>
+<td><b style="color:var(--p2)">2</b><br>Forecasting<br><span class="mut">2571–2573</span></td>
+<td>สามปีข้างหน้าจะโตจากอะไร</td>
+<td>ตั้ง Hurdle Rate และ ROIC ขั้นต่ำ · ร่วมทุนเทคโนโลยีแปรรูปไผ่ · RST6 ให้ผลตอบแทน ≥ 20 ลบ./ปี</td>
+<td>ขยาย Product/Customer Scope · โรงไฟฟ้าชีวมวล 10 MW · 700 คน รายได้ 6,000 ลบ. GP 30%</td>
+<td>รายได้ประเภท Recurring และ TCS เริ่มมีสัดส่วนที่วัดได้ ไม่ใช่โครงการนำร่อง</td></tr>
+<tr>
+<td><b style="color:var(--p3)">3</b><br>Reactive<br><span class="mut">ถึง 2575</span></td>
+<td>ตลาดเปลี่ยนแล้วเราตามทันหรือไม่</td>
+<td>ตัดสินใจเรื่องกำลังไฟของ Data Center · เลือกพันธมิตรระบบนิเวศ · Precise LLM</td>
+<td>Colocation DC เปิดบริการ · สัดส่วนรายได้เข้าใกล้เป้า 6 RST · ผลผลิตไผ่รอบแรกเข้าสู่ระบบ</td>
+<td>แพลตฟอร์มดึงลูกค้าเข้ามาเองได้ โดยไม่ต้องพึ่งการประมูลเป็นหลัก</td></tr>
+<tr>
+<td><b style="color:var(--p4)">4</b><br>Proactive<br><span class="mut">ถึง 2577</span></td>
+<td>เราเป็นผู้กำหนดกติกาได้หรือยัง</td>
+<td>ขยายเป็น Hyperscale · Scale up สายไผ่เต็มรูป · เป็น Ecosystem Orchestrator</td>
+<td>มาตรฐาน 4 โมเดลใช้ได้ข้ามบริษัทและข้ามประเทศ · AI รับงานซ้ำทั้งกระบวนการ</td>
+<td>มี moat จาก complexity · diffusiveness · well interface ที่คู่แข่งตามไม่ทัน</td></tr>
+</table>
+
+<div class="grid2">
+<div class="box g"><h4>กติกาการขึ้นระยะ</h4>
+<p class="sm">ระยะถัดไปไม่ได้เริ่มเพราะปีปฏิทินเปลี่ยน แต่เริ่มเพราะ <b>เงื่อนไขปิดระยะก่อนหน้าผ่านแล้ว</b>
+ถ้าระยะที่ 1 ยังมีตัวเลขคนละชุดระหว่างบริษัท การไปทำ Hurdle Rate ระดับกลุ่มในระยะที่ 2 จะไม่มีความหมาย
+คณะกรรมการควรทบทวนเงื่อนไขปิดระยะปีละครั้งพร้อมกับการอนุมัติงบประมาณ</p></div>
+<div class="box w"><h4>จุดที่แผนเปราะที่สุด</h4>
+<p class="sm">สายไผ่จะตัดครั้งแรกปี <b>2574–2575</b> ซึ่งอยู่ปลายระยะที่ 2 ต่อต้นระยะที่ 3
+หมายความว่าตลอดระยะที่ 1 และเกือบทั้งระยะที่ 2 สายไผ่ยัง <b>ใช้เงินอย่างเดียว</b> ยังไม่คืนเงิน
+กระแสเงินสดของกลุ่มในช่วงนั้นจึงต้องมาจาก PEM และ PSP เป็นหลัก — นี่คือข้อที่ต้องสื่อสารกับคณะกรรมการให้ตรงกันตั้งแต่ต้น</p></div>
+</div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — แถบระยะ 1–4 และการ์ด “แผนกลยุทธ์ 4 ระยะ”;
+เด็ค EC/BOD · PCC หัวข้อ 1.1–3.3 ทั้ง 4 ระยะ</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">13 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ระยะที่ <em>1</em> · 2570 (2027) — Budgeting</h2>
+<p class="lead"><b>คำถามของระยะนี้:</b> ปีนี้ทำกำไรได้ตามงบที่ตั้งไว้หรือไม่ และฐานข้อมูลกับกระบวนการพร้อมสำหรับการขยายตัวหรือยัง<br>
+<b>ลักษณะของระยะ:</b> Basic Financial Planning — ประชุมงบประมาณเพื่อให้ได้การควบคุมที่ดีขึ้น ให้ความสำคัญกับภายในองค์กร</p>
+
+<div class="kpi">
+<div><s>รายได้ PCC (Separate)</s><strong>521.45</strong><em>ล้านบาท · +11.63% จาก 467.12</em></div>
+<div><s>NPAT (Base)</s><strong>350.00</strong><em>ล้านบาท · +5.66% จาก 331.25</em></div>
+<div><s>CAPEX</s><strong>45.00</strong><em>ล้านบาท · 87 โครงการ</em></div>
+<div><s>OPEX</s><strong>171.45</strong><em>ล้านบาท · 32.88% ของรายได้</em></div>
+</div>
+
+<h3>เป้าหมายของ PCC ในระยะที่ 1</h3>
+<div class="grid2">
+<div>
+<h4>ก. การลงทุนและสินทรัพย์ (1.1–1.3, 3.1–3.3)</h4>
+<ul class="sm">
+<li><b>CAPEX 45.00 ลบ. 87 โครงการ</b> — หมวดใหญ่ที่สุดคือซ่อมและปรับปรุงอาคารเดิม 25.94 ลบ. (57.65%) รองลงมาคือ Digital/AI 8.41 ลบ. และระบบปฏิบัติการรองรับการส่งมอบ 8.21 ลบ.</li>
+<li><b>ซื้อที่ดินให้ PPP เช่า เป้า 1,000 ไร่/ปี</b> สำหรับแปลงปลูกไผ่เฟสแรก</li>
+<li><b>เพิ่มทุน PSL</b> เพื่อผลิตกล้าไผ่ 1 ล้านต้นต่อปี</li>
+<li><b>ลงทุนพัฒนาพื้นที่ปากเกร็ด</b> และคัดทำเล Data Center ด้วยเกณฑ์เชิงพื้นที่ 9 ข้อ</li>
+<li><b>Investment Platform</b> — วางกลไกการลงทุนของกลุ่มให้เป็นระบบ</li>
+</ul>
+<h4>ข. รายได้จากการให้เช่าและกติกาภายใน (1.2)</h4>
+<ul class="sm">
+<li><b>ตั้งเกณฑ์ MM Charge</b> ให้ตัดรายการระหว่างกันได้ครบทุกบริษัท</li>
+<li>ให้เช่าอาคารและเครื่องจักรภายในกลุ่มอย่างมีสัญญาและราคาอ้างอิงที่ชัดเจน</li>
+</ul>
+</div>
+<div>
+<h4>ค. ฐานข้อมูลและกระบวนการ (2.1, 2.3)</h4>
+<ul class="sm">
+<li><b>ERP (Odoo) go-live ทั้งกลุ่ม</b> — เงื่อนไขตั้งต้นของทุกอย่างในระยะถัดไป</li>
+<li><b>PCC Console</b> — ตัวเลข 9 บริษัทในภาพเดียวและนิยามเดียว</li>
+<li><b>PCC Digital Process Mapping with Odoo</b> และวางกระบวนการ PSL101 / PSL102</li>
+</ul>
+<h4>ง. คนและความสามารถ (2.2, 2.6)</h4>
+<ul class="sm">
+<li><b>Workforce Planning for New Business</b> — วางกำลังคนรองรับธุรกิจใหม่ล่วงหน้า</li>
+<li><b>RUN — Reskill · Upskill · New Skill</b> รวมถึงการพัฒนา Business Model และ S&amp;OP</li>
+<li><b>ตั้ง CoE R&amp;D</b> — Digital Engineering + DBTP</li>
+<li>พัฒนาสินค้าใหม่ผ่าน TRM เช่น Type Test SF6-free RMU</li>
+</ul>
+<h4>จ. ลูกค้าและพันธมิตร (2.4, 2.5)</h4>
+<ul class="sm">
+<li><b>ส่งมอบตาม QCDS ทุก PO</b> — วัด OTIF และไม่มีค่าปรับส่งช้า</li>
+<li><b>Contract Farming</b> กับเกษตรกร อ.อ.ป. และแปลงเช่า PPP · สัญญาระยะยาวกับการไฟฟ้า (PPA/FiT)</li>
+</ul>
+</div>
+</div>
+
+<div class="box w"><h4>สามเรื่องที่ต้องตัดสินใจในระยะนี้</h4>
+<ol class="sm">
+<li><b>NPAT โตเพียง 5.66% ต่ำกว่าเป้า ≥ 10%</b> — ต้องเลือกว่าจะยอมรับเป็นปีลงทุน หรือปรับแผนให้ถึงเป้า</li>
+<li><b>GP คงที่ 94.50 ลบ. ตลอด 7 ปี ขณะที่รายได้โตถึง 609.90 ลบ.</b> ทำให้ %GP ไหลลงจาก 20.23% เหลือ 15.49% สวนทางเป้า GP +2%</li>
+<li><b>OPEX โต 25.99% ขณะที่รายได้โต 11.63%</b> ทำให้ %SG&amp;A สูงขึ้นแทนที่จะลดลง 1% ตามเป้า — ส่วนใหญ่มาจาก R&amp;D และค่าใช้จ่ายพัฒนาธุรกิจ 55.00 ลบ. ซึ่งเป็นการลงทุนในอนาคต ควรแยกแสดงให้คณะกรรมการเห็นต่างหาก</li>
+</ol></div>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC หน้า Financial Objective, CAPEX 2027, OPEX 2027 และ Key Action ระยะที่ 1 ทั้ง 12 หัวข้อ</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">14 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ระยะที่ <em>2</em> · 2571–2573 (2028–2030) — Forecasting</h2>
+<p class="lead"><b>คำถามของระยะนี้:</b> ถ้ามองไป 3 ปี เราจะโตจากอะไร<br>
+<b>ลักษณะของระยะ:</b> Forecast-Based Planning — พยากรณ์อนาคตถัดจากปีหน้าไปหลายปีเพื่อวางแผนการเติบโต
+พร้อมทำนายสภาพแวดล้อมทางธุรกิจ</p>
+
+<div class="box"><h4>โจทย์ใหญ่สามข้อของระยะนี้ (ตามหน้า Strategy Mapping)</h4>
+<p class="sm">① <b>Digital Organization and Agentic AI Transformation</b> ·
+② <b>พัฒนา CoE Team และ Group CTO Function</b> ·
+③ <b>พัฒนาสัดส่วนรายได้ของแต่ละ RST</b> ให้เข้าใกล้เป้า Tendering 15% · Omni 10% · TCS 20% · Recurring 25% · PPA 20% · Investment 10%<br>
+พร้อมแนวทางปฏิบัติคือ Inbound Marketing และการเป็น One Stop Service Provider ตาม Graybar Model</p></div>
+
+<h3>เป้าหมายของ PCC ในระยะที่ 2</h3>
+<div class="grid2">
+<div>
+<h4>ก. วางกติกาการลงทุนของกลุ่ม</h4>
+<ul class="sm">
+<li><b>ตั้งเกณฑ์ Hurdle Rate และ ROIC ขั้นต่ำของกลุ่ม ใช้ชุดเดียวกันทุกบริษัท</b> — เป็นงานที่ต้องเกิดในระยะนี้ เพราะปริมาณการลงทุนจะเพิ่มขึ้นมาก</li>
+<li><b>RST6 Investment ต้องให้ผลตอบแทน ≥ 20 ลบ./ปี และ Yield ≥ 7%</b></li>
+<li><b>ร่วมทุนเทคโนโลยีแปรรูปไผ่ขั้นสูง</b> (Cascade Fractionation)</li>
+<li><b>โรงไฟฟ้าชีวมวล PPP101 CFB 10 MW</b> กำลังผลิต 79,200 MWh/ปี</li>
+<li><b>สะสมที่ดินแปลงปลูกไผ่ให้ถึง 13,300 ไร่</b></li>
+</ul>
+<h4>ข. เปลี่ยนรายได้ให้เป็นสายน้ำ</h4>
+<ul class="sm">
+<li><b>MaaS / EMS — ขายผลลัพธ์แทนขายเครื่อง</b> เข้าสู่ RST4 Recurring</li>
+<li><b>TCS</b> — วัดด้วย Solution Margin, Attach Rate และ CLV</li>
+<li><b>Omni Channel</b> — สต็อกก้อนเดียวตอบได้ทุกช่องทาง</li>
+<li><b>Social Enterprise</b> — ปันผล 30% ถึงเกษตรกร ราว 6.16 ลบ./ปี</li>
+</ul>
+</div>
+<div>
+<h4>ค. ข้อมูลและกระบวนการระดับกลุ่ม</h4>
+<ul class="sm">
+<li><b>Data Governance ชุดเดียวทั้งกลุ่ม</b> และ <b>Customer 360</b></li>
+<li><b>Glossary 218 คำ</b> ใช้เป็นภาษากลางและเป็นชุดบริบทให้ AI ภายใน</li>
+<li><b>Corporate Digital Process Platform</b> และออกแบบกระบวนการใหม่ตามหมวด APQC PCF</li>
+<li><b>Data Center ใหม่ + Cyber Security</b></li>
+</ul>
+<h4>ง. คนและโครงสร้างองค์กร</h4>
+<ul class="sm">
+<li><b>700 คน ปี 2571 · รายได้ 6,000 ลบ. · GP 30%</b> — ตัวเลขนี้คือเงื่อนไขที่ทำให้ทั้งแผนเป็นจริง</li>
+<li><b>Job Architecture 3 สาย M · S · P</b> โดยเพดานสายบริหาร (M) ไม่เกิน 25%</li>
+<li><b>STEM baseline ทุกสายงาน</b> และหลักสูตร DBTP</li>
+</ul>
+<h4>จ. สถาปัตยกรรมและสินค้า</h4>
+<ul class="sm">
+<li><b>Digital Architecture 4 โมเดล</b> — PSP · PEM · PSL เป็นเจ้าภาพรายโมเดล</li>
+<li><b>อาคารโรงงานรองรับ Factory 4.0</b> และเครื่องจักรแปรรูปไผ่</li>
+</ul>
+</div>
+</div>
+
+<div class="box g"><h4>เงื่อนไขปิดระยะที่ 2</h4>
+<p class="sm">รายได้ประเภท Recurring และ TCS ต้องมีสัดส่วนที่วัดได้จริงในงบการเงิน ไม่ใช่โครงการนำร่อง ·
+Hurdle Rate ถูกใช้จริงในการอนุมัติการลงทุนทุกรายการ · และกำลังคน 700 คนพร้อมโครงสร้างตำแหน่งที่เคลื่อนย้ายข้ามบริษัทได้</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 2 ทั้ง 12 หัวข้อ;
+หน้า Strategy Mapping — การ์ดโจทย์ระยะที่ 2 และแถบ “แผนกลยุทธ์ระยะที่ 2”</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">15 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ระยะที่ <em>3</em> · ถึง 2575 (2032) — Reactive</h2>
+<p class="lead"><b>คำถามของระยะนี้:</b> ตลาดและคู่แข่งเปลี่ยนไปแล้ว เราตามทันหรือไม่<br>
+<b>ลักษณะของระยะ:</b> Externally-Oriented (Strategic) Planning — ตอบสนองต่อการเปลี่ยนแปลงของตลาดและพฤติกรรมของคู่แข่ง
+เริ่มมองออกนอกองค์กรมากกว่ามองเข้าข้างใน</p>
+
+<h3>เป้าหมายของ PCC ในระยะที่ 3</h3>
+<div class="grid2">
+<div>
+<h4>ก. Data Center — จุดเปลี่ยนของกลุ่ม</h4>
+<ul class="sm">
+<li><b>Colocation Data Center (PDE) IT load 8 MW</b> เปิดให้บริการ</li>
+<li><b>ตัดสินใจเรื่องไฟ</b> — เลือกระหว่างเสริมจากกริด ขยายกำลังเป็น 14–15 MW หรือลด IT load เหลือ 6 MW
+นี่คือการตัดสินใจที่กำหนดขนาดของธุรกิจนี้ทั้งหมด</li>
+<li><b>ให้เช่าพื้นที่ Colocation เป็นรายได้ต่อเนื่อง</b> วัดด้วย ARR</li>
+<li><b>พันธมิตร Data Center</b> (PSP + partner) และ optic link กับ PDE/PEA</li>
+<li><b>ที่ดิน Data Center campus</b> ที่ผ่านเกณฑ์ครบ 3 ปัจจัย</li>
+</ul>
+<h4>ข. โครงสร้างรายได้เข้าที่</h4>
+<ul class="sm">
+<li><b>สัดส่วนรายได้เป้าหมาย 6 RST</b> ต้องเห็นผลในระยะนี้ — Tendering 15% · Omni 10% · TCS 20% · Recurring 25% · PPA 20% · Investment 10%</li>
+<li><b>Installed Base → Recurring</b> วัดด้วย ARR · NRR · Churn</li>
+</ul>
+</div>
+<div>
+<h4>ค. ความสามารถที่สร้าง moat</h4>
+<ul class="sm">
+<li><b>Precise LLM</b> บนข้อมูลภายในของกลุ่ม</li>
+<li><b>Digital Twin + Predictive Maintenance</b> ในสาย Recurring</li>
+<li><b>Interoperability Layer เป็นขอบเขตสินค้าใหม่ของสาย Tendering</b> —
+คือการขายความสามารถในการเชื่อมต่อ ไม่ใช่ขายอุปกรณ์</li>
+</ul>
+<h4>ง. คนและการกำกับผลงาน</h4>
+<ul class="sm">
+<li><b>ค่าตอบแทนระดับ P75 เฉพาะสายวิกฤตราว 120 คน</b> — จ่ายสูงเฉพาะจุดที่ขาดไม่ได้</li>
+<li><b>Internal Fill Rate ไม่ต่ำกว่า 40% เป็น KPI ของ COO</b> — บังคับให้เกิดการเคลื่อนย้ายคนข้ามบริษัทจริง</li>
+</ul>
+<h4>จ. สินทรัพย์และพลังงาน</h4>
+<ul class="sm">
+<li><b>CFB boiler 10 MW และระบบ CCHP</b> เดินเครื่องเต็มรูป</li>
+<li><b>อาคาร Data Center และระบบ CCHP</b> พร้อมใช้งาน</li>
+<li>ผลผลิตไผ่รอบแรก (ตัดปี 2574–2575) เข้าสู่สายแปรรูปและสายพลังงาน</li>
+</ul>
+</div>
+</div>
+
+<div class="box w"><h4>เหตุใดระยะนี้จึงเสี่ยงที่สุด</h4>
+<p class="sm">ระยะที่ 3 เป็นจุดที่เงินลงทุนสะสมสูงสุดและรายได้ใหม่เพิ่งเริ่มเข้า ทั้งสายไผ่ (ตัดครั้งแรก 2574–2575)
+และ Data Center (เปิดบริการในระยะนี้) ต่างเพิ่งเริ่มคืนทุนพร้อมกัน
+ขณะที่ข้อตัดสินใจเรื่องกำลังไฟยังไม่ปิด — ถ้ากำลังไฟไม่พอ ธุรกิจ Data Center จะถูกบังคับให้เล็กลงทันที
+และรายได้ Recurring ที่วางไว้ 25% จะไม่เกิดตามแผน</p>
+<p class="sm"><b>สิ่งที่ต้องเตรียมตั้งแต่ระยะที่ 1–2:</b> แผนสำรองด้านไฟฟ้า สัญญาซื้อขายไฟล่วงหน้า
+และเงื่อนไขทางการเงินที่รองรับกรณีรายได้เข้าช้ากว่าแผน 1–2 ปี</p></div>
+
+<div class="box g"><h4>เงื่อนไขปิดระยะที่ 3</h4>
+<p class="sm">แพลตฟอร์มดึงลูกค้าเข้ามาเองได้โดยไม่ต้องพึ่งการประมูลเป็นหลัก ·
+Colocation DC มีผู้เช่าจริงและวัด ARR ได้ · และมาตรฐาน 4 โมเดลถูกใช้ข้ามบริษัทจนข้อมูลไหลถึงกันได้</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 3 ทั้ง 12 หัวข้อ;
+หน้า Strategy Mapping — แถบ “แผนกลยุทธ์ระยะที่ 3” และ “Reactive”; ชีต Hyperscale Data Center</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">16 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ระยะที่ <em>4</em> · ถึง 2577 (2034) — Proactive</h2>
+<p class="lead"><b>คำถามของระยะนี้:</b> เราเป็นผู้กำหนดกติกาของตลาดได้หรือยัง<br>
+<b>ลักษณะของระยะ:</b> Strategic Management — การจัดการเชิงกลยุทธ์เต็มรูป กลยุทธ์ไม่ใช่เอกสารประจำปี
+แต่เป็นวิธีที่องค์กรทำงานทุกวัน</p>
+
+<h3>เป้าหมายของ PCC ในระยะที่ 4</h3>
+<div class="grid2">
+<div>
+<h4>ก. ขยายขนาด (Scale up)</h4>
+<ul class="sm">
+<li><b>ขยาย Wholesale DC → Hyperscale</b> — รวมหลาย Wholesale เป็นบริการระดับ Hyperscale พร้อม optic link</li>
+<li><b>Scale up สายไผ่เต็มรูป 13,300 ไร่ · 172,900 ตัน/ปี</b></li>
+<li><b>Land bank</b> ค้ำการขยายระบบนิเวศและขยาย campus ตามกำลังที่เพิ่มขึ้น</li>
+<li><b>แพลตฟอร์มให้เช่าสินทรัพย์ของกลุ่ม</b> ใช้ร่วมกันข้ามบริษัท</li>
+</ul>
+<h4>ข. เป็นผู้วางกติกา</h4>
+<ul class="sm">
+<li><b>Ecosystem Orchestrator</b> — เป็นผู้วางกติกาและมาตรฐานของระบบนิเวศ ไม่ใช่เพียงผู้เล่นในระบบนิเวศ</li>
+<li><b>สร้าง moat ด้วย complexity · diffusiveness · well interface</b> ของสถาปัตยกรรมทั้ง 4 โมเดล</li>
+<li><b>ข้อมูลไหลข้ามบริษัทตามมาตรฐาน 4 โมเดล</b> โดยมี OPC UA เป็นแกนร่วม</li>
+</ul>
+</div>
+<div>
+<h4>ค. องค์กรและคน</h4>
+<ul class="sm">
+<li><b>AI รับงานซ้ำทั้งกระบวนการ คนเหลือเฉพาะงานที่ต้องตัดสินใจ</b></li>
+<li><b>พัฒนา Workforce To-Be ปี 2029 ให้เป็นรูปทรงบ้านแทนสามเหลี่ยม</b> —
+คือมีสัดส่วนคนระดับกลางที่มีทักษะสูงมากขึ้น แทนที่จะเป็นฐานกว้างของงานทักษะต่ำ</li>
+<li><b>Customer Delight เป็น KPI ของ COO ทุกบริษัท</b></li>
+</ul>
+<h4>ง. ขอบเขตการแข่งขันที่เปลี่ยนไป</h4>
+<p class="sm">เป้าหมายที่เขียนไว้ในหน้า Strategy Mapping คือ
+“Scale up ครอบคลุมลูกค้าทั้งประเทศ และขยายไปประเทศข้างเคียงใน Social Innovation Business
+ด้วย 4 Digital Architecture Model เพื่อเพิ่มรายได้ ด้วยการพัฒนา Tangible และ Intangible
+และบริหารเป้าหมายให้มี RST 6 รายการตามสัดส่วนที่กำหนด”</p>
+<p class="sm">ขอบเขตภูมิศาสตร์ตามพันธกิจคือ <b>CLMT</b> (กัมพูชา ลาว พม่า ไทย) ซึ่งมีประชากรรวมราว 200 ล้านคน</p>
+</div>
+</div>
+
+<div class="box"><h4>วิธีรู้ว่าถึงระยะที่ 4 จริงหรือยัง</h4>
+<p class="sm">ไม่ได้วัดที่ขนาดรายได้ แต่วัดที่คำถามสามข้อ —
+① คู่แข่งต้องปรับตัวตามมาตรฐานที่เราวางหรือไม่ ·
+② ลูกค้าเลือกเราเพราะเชื่อมต่อกับระบบของเราแล้วได้ประโยชน์มากกว่า ไม่ใช่เพราะราคาถูกกว่า ·
+③ พันธมิตรเข้ามาร่วมระบบนิเวศของเราเองโดยเราไม่ต้องไปชวน<br>
+ถ้าตอบว่าใช่ทั้งสามข้อ แปลว่าเปลี่ยนจาก Industrial มาถึง Ecosystem Capitalism ได้สำเร็จ</p></div>
+
+<div class="box w"><h4>ข้อควรระวัง — ระยะที่ 4 ของเล่มเดิมเคยถูกปล่อยว่าง</h4>
+<p class="sm">ในเล่ม Corporate Strategy เดิม หัวข้อแผนระยะที่ 3 และ 4 ระบุเพียงว่า “ยังไม่ได้ดำเนินการ”
+เอกสารฉบับนี้เติมเนื้อหาจาก Strategy Mapping และเด็ค EC/BOD แล้ว แต่ยังเป็นระดับทิศทาง
+ยังไม่มีตัวเลขงบประมาณและ Feasibility Study รองรับ — ควรกำหนดให้ระยะที่ 4 มีแผนการเงินของตัวเองภายในระยะที่ 2</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD · PCC Key Action ระยะที่ 4 ทั้ง 12 หัวข้อ;
+หน้า Strategy Mapping — แถบ “แผนกลยุทธ์ระยะที่ 4”, “Proactive”, “Way to be Leader” และการ์ด Scale up</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">17 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">เป้าหมายการเงินและ<em>หลักการทำงบประมาณ</em></h2>
+<p class="lead">ตัวเลขทั้งหมดในเอกสารนี้เป็นของ <b>PCC Separate</b> คือเฉพาะบริษัทโฮลดิ้ง
+ตัวเลขรวมทั้งกลุ่ม (Consolidate) ใช้เป็นข้อมูลอ้างอิงเท่านั้น และอยู่ใน Appendix ของเด็ค EC/BOD</p>
+
+<h3>หลักการทำงบประมาณ — สองชุดคู่กัน</h3>
+<div class="grid2" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--navy)"><h4>1 · Base Case Budgeting</h4>
+<p class="sm">ใช้กับแผนระยะที่ 1–4 จัดทำโดยอิงการประมาณการให้ <b>NPAT เติบโตขึ้น 10%</b>
+เกิดจากการประมาณการตัวเลขสำคัญสามตัว คือ <b>GP</b>, <b>SG&amp;A</b> และ <b>ต้นทุนทางการเงิน</b></p></div>
+<div class="card" style="border-top-color:var(--blue)"><h4>2 · Contingency Budgeting</h4>
+<p class="sm">มาจากการลงรายละเอียดใน Action Plan เช่น แผนขยาย Scope ผลิตภัณฑ์ ลูกค้าใหม่ การพัฒนาสินค้าเดิม และการสร้างธุรกิจใหม่
+มีไว้เพื่อว่าหากดำเนินงานไม่ได้ตามแผนบางข้อ <b>ผลลัพธ์สุดท้ายอย่างน้อยยังไม่ต่ำกว่าเป้าหมายของ Base Case</b></p></div>
+</div>
+
+<h3>PCC (Separate) · ประมาณการปี 2569–2576</h3>
+<table>
+<tr><th>ล้านบาท</th><th class="n">2026 ML</th><th class="n">2027</th><th class="n">2028</th><th class="n">2029</th><th class="n">2030</th><th class="n">2031</th><th class="n">2032</th><th class="n">2033</th></tr>
+<tr><td>Revenue (Base)</td><td class="n">467.12</td><td class="n">521.45</td><td class="n">523.69</td><td class="n">530.39</td><td class="n">549.76</td><td class="n">572.00</td><td class="n">587.69</td><td class="n">609.90</td></tr>
+<tr><td>Revenue-YoY</td><td class="n">–</td><td class="n">11.63%</td><td class="n">0.43%</td><td class="n">1.28%</td><td class="n">3.65%</td><td class="n">4.05%</td><td class="n">2.74%</td><td class="n">3.78%</td></tr>
+<tr><td>GP (Base)</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td><td class="n">94.50</td></tr>
+<tr><td>GP%</td><td class="n">20.23%</td><td class="n">18.12%</td><td class="n">18.04%</td><td class="n">17.82%</td><td class="n">17.19%</td><td class="n">16.52%</td><td class="n">16.08%</td><td class="n">15.49%</td></tr>
+<tr><td><b>NPAT (Base)</b></td><td class="n"><b>331.25</b></td><td class="n"><b>350.00</b></td><td class="n" colspan="5" style="text-align:center">— เพิ่มขึ้นตามแผนถึง —</td><td class="n"><b>470.00</b></td></tr>
+</table>
+<p class="sm mut" style="margin-top:-1mm">ที่มา: เด็ค EC/BOD · PCC หน้า Financial Objective (Separate) · GP คงที่ที่ 94.50 ลบ. ตลอดช่วงแผนตามไฟล์ต้นฉบับ</p>
+
+<h3>ผลการประเมินเทียบเป้าหมายการเงิน 5 ข้อ</h3>
+<table>
+<tr><th style="width:26%">ตัวชี้วัด</th><th style="width:14%">เกณฑ์</th><th style="width:18%">แผนปี 2027</th><th>ข้อสังเกต</th></tr>
+<tr><td>1. % NPAT Growth</td><td>≥ 10%</td><td style="color:var(--red)"><b>+5.66%</b></td><td>331.25 → 350.00 — ต่ำกว่าเป้า ต้องตัดสินใจว่ารับได้หรือต้องปรับแผน</td></tr>
+<tr><td>2. อัตรากำไรขั้นต้น (GP)</td><td>+2% จาก Y2026</td><td style="color:var(--red)"><b>18.12%</b></td><td>ลดจาก 20.23% และไหลลงต่อเนื่องถึง 15.49% ปี 2033 เพราะ GP คงที่ขณะรายได้โต</td></tr>
+<tr><td>3. %SG&amp;A</td><td>ลดลง 1%</td><td style="color:var(--red)"><b>32.88%</b></td><td>สูงขึ้นจาก 29.13% ปี 2026 — OPEX โต 25.99% ขณะรายได้โต 11.63%</td></tr>
+<tr><td>4. D/E Ratio</td><td>&lt; 1 เท่า</td><td class="mut">รอข้อมูล</td><td>รอหนี้สินรวมและส่วนของเจ้าของจากงบแสดงฐานะการเงิน</td></tr>
+<tr><td>5. %Growth Equity</td><td>&gt; 4%</td><td class="mut">รอข้อมูล</td><td>รอเงินปันผลและส่วนของเจ้าของเฉลี่ย</td></tr>
+</table>
+
+<div class="box w"><h4>ข้อเสนอต่อคณะกรรมการ</h4>
+<p class="sm">สามข้อแรกไม่ผ่านเป้าพร้อมกัน ซึ่งอธิบายได้ว่าปี 2027 เป็นปีที่ลงทุนหนักในฐานข้อมูล สินทรัพย์ และ CoE
+แต่ถ้าปล่อยไว้โดยไม่ชี้แจง จะอ่านได้ว่าแผนไม่สอดคล้องกับเป้าหมายที่ตัวเองตั้ง<br>
+ทางเลือกคือ ① ยอมรับว่าปี 2027–2028 เป็นปีลงทุน และกำหนดเป้าชั่วคราวที่ต่างจากเป้าระยะยาวอย่างเป็นทางการ
+หรือ ② แยกค่าใช้จ่ายลงทุนในอนาคต (R&amp;D 35.00 ลบ. + Business Development 20.00 ลบ.) ออกจากฐานการคำนวณ %SG&amp;A
+แล้วแสดงทั้งสองตัวเลขคู่กัน — แต่ต้องเลือกวิธีใดวิธีหนึ่งและใช้ให้เหมือนกันทุกบริษัท</p></div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “หลักการทำงบประมาณ”;
+เด็ค EC/BOD · PCC หน้า Financial Objective, OPEX 2027 และ Appendix 1</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">18 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">โครงสร้างการบริหารและ<em>การกำกับดูแล</em></h2>
+<p class="lead">กลยุทธ์จะเกิดขึ้นได้ต่อเมื่อโครงสร้างองค์กร ระบบบริหาร และวัฒนธรรมสอดคล้องกัน
+ภาคนี้ตอบว่าใครตัดสินใจอะไร ด้วยข้อมูลชุดไหน และในจังหวะเวลาใด</p>
+
+<h3>สามชั้นของการตัดสินใจ</h3>
+<table>
+<tr><th style="width:18%">ชั้น</th><th style="width:30%">หน้าที่</th><th style="width:26%">ข้อมูลที่ใช้</th><th>จังหวะ</th></tr>
+<tr><td><b>คณะกรรมการบริษัท (Board)</b></td><td>อนุมัติทิศทาง งบประมาณ และการลงทุนขนาดใหญ่ · กำกับความเสี่ยงและธรรมาภิบาล</td><td>งบการเงิน · เด็ค EC/BOD · PCC Console</td><td>รายไตรมาส และวาระพิเศษเมื่อมีการลงทุนเกินเกณฑ์</td></tr>
+<tr><td><b>คณะกรรมการบริหาร (EC)</b></td><td>พิจารณาแผนและงบของแต่ละบริษัทก่อนเสนอ Board · ติดตามผลเทียบแผน</td><td>เด็ค EC/BOD ของทั้ง 9 บริษัท รูปแบบเดียวกัน</td><td>รายไตรมาส</td></tr>
+<tr><td><b>ผู้บริหารแต่ละบริษัท</b></td><td>ดำเนินการตาม Key Action 12 หัวข้อ × 4 ระยะ และรายงานความคืบหน้า</td><td>Tactical Plan และ Operation Plan ของตน</td><td>รายเดือนและรายสัปดาห์</td></tr>
+</table>
+
+<div class="box"><h4>กติกาการรายงานที่ต้องรักษา</h4>
+<p class="sm">ประมาณการ งบประมาณ และการอนุมัติงบการเงินจริง ต้องรายงานต่อคณะกรรมการ
+<b>ภายใน 45 วันหลังสิ้นแต่ละไตรมาส</b> — ถ้าช้ากว่านี้ การตัดสินใจจะตามหลังเหตุการณ์จนแก้อะไรไม่ทัน</p></div>
+
+<h3>ระบบควบคุมการบริหาร (Management Control)</h3>
+<div class="grid2">
+<div>
+<ol class="sm">
+<li><b>กำหนดหน่วยวิเคราะห์</b> — เชื่อมการควบคุมเข้ากับการแบ่งส่วนธุรกิจ (RST และบริษัท) ให้ตรงกัน</li>
+<li><b>เลือกมาตรฐานผลงาน</b> — เชื่อมการวางแผนเข้ากับการควบคุม ใช้ Performance Criteria 7 ข้อเป็นฐาน</li>
+<li><b>พัฒนาความสามารถในการติดตาม</b> — วิเคราะห์ ประเมิน และแก้ไข โดยเชื่อมระบบสารสนเทศเข้ากับการควบคุม</li>
+<li><b>จูงใจพฤติกรรมที่ต้องการ</b> — เชื่อมการควบคุมเข้ากับการบริหารคนและระบบผลตอบแทน</li>
+</ol>
+</div>
+<div>
+<h4>PCC Console — เครื่องมือกลาง</h4>
+<p class="sm">จุดรวมตัวเลขของทั้งกลุ่มให้เห็นภาพเดียวกัน เป็นเงื่อนไขของการกำกับดูแลที่ทำงานได้จริง
+เพราะถ้าแต่ละบริษัทส่งตัวเลขคนละนิยาม คณะกรรมการจะใช้เวลาไปกับการถกว่าตัวเลขไหนถูก แทนที่จะถกว่าควรตัดสินใจอย่างไร</p>
+<p class="sm">สิ่งที่ Console ต้องทำได้ภายในระยะที่ 1 — รายได้และ GP รายบริษัทและราย RST ·
+ความคืบหน้า CAPEX เทียบงบ · PO Received ล่วงหน้า 4 ไตรมาส · และรายการระหว่างกันที่ตัดแล้ว</p>
+</div>
+</div>
+
+<h3>ความสอดคล้องระหว่างโครงสร้างกับวัฒนธรรม</h3>
+<div class="grid3">
+<div class="card"><h4>Small-company soul<br>in a big-company body</h4>
+<p class="sm">รักษาความเร็วและความรับผิดชอบส่วนบุคคลแบบบริษัทเล็ก ไว้ในองค์กรที่มีขนาดใหญ่ขึ้น
+ผ่านการกระจายอำนาจพร้อมตัวชี้วัดที่ชัดเจน</p></div>
+<div class="card"><h4>Measure everything</h4>
+<p class="sm">พัฒนาตัวชี้วัดทางการเงินหลัก (ROE และ Growth of Equity) ควบคู่กับตัวชี้วัดด้าน Intellectual Capital
+ลงไปถึงระดับหน่วยงานและพนักงานรายคน</p></div>
+<div class="card"><h4>Build a people pipeline</h4>
+<p class="sm">Leadership Pipeline · Succession Plan · Management Development และโปรแกรมประเมินและพัฒนาสมรรถนะรายตำแหน่ง</p></div>
+</div>
+
+<div class="box g"><h4>หลักคุณภาพ 7 ประการ ที่ใช้เป็นกรอบการทำงานร่วมกัน</h4>
+<p class="sm">หลักภาพรวม (Total) · หลักความจริง (Fact) · หลักวางแผน-ปฏิบัติ-ตรวจสอบ-แก้ไข (PDCA) ·
+หลักการป้องกัน (Prevention) · หลักกระบวนการ (Process Orientation) · หลักมาตรฐาน (Standardization) ·
+หลักกระบวนการถัดไปคือลูกค้า (Market-in) — ใช้เป็นภาษากลางของการแก้ปัญหาในทุกบริษัท</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เล่มเดิมหัวข้อ 9.1–9.4 (Organizational Structure, Administrative Systems, Management Control, Culture)
+และ 5.3 (Organic Sustainable Growth); หน้า Strategy Mapping — การ์ด “PCC Console”</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">19 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">กำลังคนและ<em>ขีดความสามารถ</em></h2>
+<p class="lead">แผนทั้งหมดขึ้นอยู่กับคนจำนวนจำกัด ตัวเลขที่ใช้ยึดคือ <b>700 คนในปี 2571 ที่ต้องทำรายได้ 6,000 ล้านบาท
+ด้วย GP 30%</b> ซึ่งแปลว่าผลิตภาพต่อคนต้องสูงขึ้นมาก ไม่ใช่การเพิ่มคนตามยอดขาย</p>
+
+<div class="kpi">
+<div><s>กำลังคนเป้าหมาย</s><strong>700</strong><em>คน · ปี 2571 (2028)</em></div>
+<div><s>รายได้กลุ่ม</s><strong>6,000</strong><em>ล้านบาท</em></div>
+<div><s>GP เป้าหมาย</s><strong>30%</strong><em>ของรายได้</em></div>
+<div><s>Internal Fill Rate</s><strong>≥ 40%</strong><em>KPI ของ COO · ระยะที่ 3</em></div>
+</div>
+
+<h3>Job Architecture — สามสายอาชีพ</h3>
+<table>
+<tr><th style="width:12%">สาย</th><th style="width:30%">ลักษณะงาน</th><th style="width:20%">เพดานสัดส่วน</th><th>เหตุผล</th></tr>
+<tr><td><b>M</b> · Management</td><td>บริหารคนและหน่วยงาน</td><td><b>ไม่เกิน 25%</b></td><td>ป้องกันองค์กรบวมที่ชั้นบริหารจนต้นทุน SG&amp;A สูงขึ้นโดยไม่เพิ่มผลผลิต</td></tr>
+<tr><td><b>S</b> · Specialist</td><td>ผู้เชี่ยวชาญเฉพาะทาง</td><td class="mut">ตามความต้องการ</td><td>เป็นเส้นทางก้าวหน้าสำหรับคนเก่งที่ไม่ต้องการบริหารคน</td></tr>
+<tr><td><b>P</b> · Professional / Operation</td><td>ปฏิบัติการและวิชาชีพ</td><td class="mut">ตามความต้องการ</td><td>ฐานของการส่งมอบ เป็นกลุ่มที่ได้ประโยชน์มากที่สุดจากระบบอัตโนมัติ</td></tr>
+</table>
+
+<div class="box"><h4>Workforce To-Be — จากสามเหลี่ยมเป็นรูปทรงบ้าน</h4>
+<p class="sm">เป้าหมายในระยะที่ 4 คือเปลี่ยนรูปทรงกำลังคนจาก <b>สามเหลี่ยม</b> (ฐานกว้างของงานทักษะต่ำ)
+ให้เป็น <b>รูปทรงบ้าน</b> (ชั้นกลางหนาด้วยผู้เชี่ยวชาญและผู้ปฏิบัติที่มีทักษะสูง)
+เพราะงานซ้ำที่เป็นฐานกว้างจะถูก AI และระบบอัตโนมัติรับไปในระยะที่ 3–4
+ถ้าไม่เตรียมเปลี่ยนรูปทรงไว้ล่วงหน้า จะกลายเป็นปัญหาแรงงานส่วนเกินแทนที่จะเป็นผลิตภาพที่เพิ่มขึ้น</p></div>
+
+<h3>Training — สามกลุ่มหลักสูตร</h3>
+<div class="grid3" style="margin-bottom:4mm">
+<div class="card" style="border-top-color:var(--p1)"><h4>กลุ่ม 1 · STEM &amp; DBTP</h4>
+<p class="sm">สถาปัตยกรรม 4 โมเดล (SGAM / SFAM / SCIAM / RAMI 4.0) สำหรับงานพัฒนาผลิตภัณฑ์และ Business Generation</p></div>
+<div class="card" style="border-top-color:var(--p2)"><h4>กลุ่ม 2 · Operation Technology</h4>
+<p class="sm">ดิจิทัล · AI · ระบบอัตโนมัติ สำหรับงาน Demand Satisfaction คือฝั่งผลิตและส่งมอบ</p></div>
+<div class="card" style="border-top-color:var(--p3)"><h4>กลุ่ม 3 · Business Management</h4>
+<p class="sm">การบริหารธุรกิจและงานสนับสนุนองค์กร สำหรับ Platform &amp; Ecosystem Capitalism,
+การบริหาร Intellectual Capital และเทคโนโลยีด้านธรรมาภิบาล</p></div>
+</div>
+
+<h3>หลักการบริหารคนที่ยึดไว้</h3>
+<div class="grid2">
+<div><ul class="sm">
+<li><b>กระจายโอกาสและกระจายผลตอบแทนตามผลงาน</b> — สนับสนุนให้แต่ละคนมีผลิตภาพสูงขึ้น แล้วจ่ายให้สอดคล้องกับผลงานของแต่ละคน</li>
+<li><b>เฉลี่ยทุกข์ เฉลี่ยสุข</b> ทั้งขณะเศรษฐกิจขึ้นและลง และพัฒนาไปพร้อมกันทุกฝ่ายทุกระดับ</li>
+<li><b>ให้ความสำคัญกับส่วนรวมก่อน</b> ส่วนที่เล็กลงมาเป็นลำดับรอง</li>
+</ul></div>
+<div><ul class="sm">
+<li><b>จ่ายสูงเฉพาะจุดที่ขาดไม่ได้</b> — P75 สำหรับสายวิกฤตราว 120 คนในระยะที่ 3 ไม่ใช่ปรับขึ้นทั้งองค์กร</li>
+<li><b>บังคับให้คนเคลื่อนย้ายข้ามบริษัทได้จริง</b> ด้วย Internal Fill Rate ≥ 40% เป็น KPI ของ COO</li>
+<li><b>Leaders: Humble, Passion, Focused Operation</b> — ผู้นำทุกระดับต้องอ่อนน้อม มุ่งมั่น และโฟกัสที่การปฏิบัติ</li>
+</ul></div>
+</div>
+
+<div class="src"><b>อ้างอิง:</b> หน้า Strategy Mapping — การ์ด “Workforce Planning และ Performance Management” และ “6. Training”;
+เด็ค EC/BOD · PCC หัวข้อ 2.2 Human Capital ทั้ง 4 ระยะ; เล่มเดิมหัวข้อ 10.1–10.4</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">20 / 21</span></div>
+</section>
+
+<section class="pg">
+<div class="fill">
+<span class="eyebrow">Corporate Strategy 2570–2577 · PCC Holding Company</span>
+<h2 class="t">ความเสี่ยง เงื่อนไขความสำเร็จ และ<em>รายการที่ยังรอข้อมูล</em></h2>
+<p class="lead">หน้าสุดท้ายรวมสิ่งที่ยังไม่นิ่ง เพื่อให้ผู้อ่านแยกออกว่าอะไรคือข้อสรุป และอะไรคือข้อที่ยังต้องตัดสินใจ</p>
+
+<h3>ความเสี่ยงหลัก 6 ข้อ</h3>
+<table>
+<tr><th style="width:5%">#</th><th style="width:24%">ความเสี่ยง</th><th style="width:30%">ผลกระทบถ้าเกิดขึ้น</th><th>สิ่งที่ลดความเสี่ยงได้</th></tr>
+<tr><td>1</td><td><b>สายไผ่คืนเงินช้า</b></td><td>ตัดครั้งแรก 2574–2575 ตลอดระยะ 1–2 จึงใช้เงินอย่างเดียว</td><td>กระแสเงินสดจาก PEM และ PSP ต้องรองรับ · ทำแผนเงินสดรายไตรมาสแยกสายธุรกิจ</td></tr>
+<tr><td>2</td><td><b>กำลังไฟ Data Center</b></td><td>ถ้าไฟไม่พอ IT load ลดจาก 8 MW เหลือ 6 MW รายได้ Recurring ไม่ถึงเป้า 25%</td><td>ปิดการตัดสินใจภายในระยะที่ 2 · เตรียมทางเลือกกริดเสริมและขยาย 14–15 MW</td></tr>
+<tr><td>3</td><td><b>GP คงที่ขณะรายได้โต</b></td><td>%GP ของ PCC ไหลลงจาก 20.23% เหลือ 15.49% สวนทางเป้าหมายการเงินข้อ 2</td><td>ทบทวนสมมติฐาน GP ในแผนการเงิน หรือเปลี่ยนโครงสร้างรายได้ให้มีสัดส่วน TCS และ Recurring มากขึ้น</td></tr>
+<tr><td>4</td><td><b>พึ่งพา PEM สูง</b></td><td>PEM คิดเป็น CAPEX 204.34 ลบ. และ OPEX 513.80 ลบ. ของกลุ่ม</td><td>เร่งให้ RST3–RST6 มีสัดส่วนจริงตามแผนระยะที่ 2–3</td></tr>
+<tr><td>5</td><td><b>ตัวเลขไม่ตรงกัน</b></td><td>เวลาหมดไปกับการถกว่าตัวเลขไหนถูก แทนการตัดสินใจ</td><td>PCC Console และ Glossary เป็นแหล่งอ้างอิงเดียว · ปิดรายการด้านล่างให้ครบ</td></tr>
+<tr><td>6</td><td><b>คนไม่ทันกับแผน</b></td><td>700 คนทำรายได้ 6,000 ลบ. ต้องการผลิตภาพต่อคนสูงกว่าปัจจุบันมาก</td><td>Job Architecture และ Training 3 กลุ่มต้องเริ่มในระยะที่ 1</td></tr>
+</table>
+
+<h3>รายการที่ยังรอข้อมูลหรือยังไม่ได้ข้อสรุป</h3>
+<table class="k">
+<tr><th style="width:34%">รายการ</th><th style="width:30%">สถานะ</th><th>ควรปิดภายใน</th></tr>
+<tr><td><b>CAPEX / OPEX กลุ่มไม่ตรงกัน</b></td><td>CAPEX ฐานข้อมูล 320.92 ลบ. แต่ผลรวมจากเด็ค 243.60 ลบ. (ต่าง 77.32) · OPEX ฐานข้อมูล 1,082.91 ลบ. แต่ผลรวมจากเด็ค 1,106.95 ลบ. (ต่าง 24.04)</td><td>ก่อนเสนอ Board รอบถัดไป</td></tr>
+<tr><td><b>CAPEX 68.42 ลบ. ไม่ระบุหมวด · OPEX 171.11 ลบ. ไม่ระบุ Priority</b></td><td>ยังจัดเข้า 6 หมวดการลงทุนและลำดับการตัดงบไม่ได้</td><td>ระยะที่ 1</td></tr>
+<tr><td><b>MM Charge 54.63 ลบ. ยังไม่มีคู่ตัด</b></td><td>ทำให้งบรวมตัดรายการระหว่างกันไม่ครบ</td><td>ระยะที่ 1</td></tr>
+<tr><td><b>D/E Ratio และ %Growth Equity</b></td><td>คำนวณไม่ได้ รอหนี้สินรวม ส่วนของเจ้าของ และเงินปันผล</td><td>ระยะที่ 1</td></tr>
+<tr><td><b>ปีสิ้นสุดระยะที่ 3 และ 4</b></td><td>แถบระยะระบุ 2575/2577 แต่การ์ดระบุ 2576/2578</td><td>ทันที</td></tr>
+<tr><td><b>ตารางวิเคราะห์จากเล่มเดิม</b></td><td>SOAR · Horizontal/Vertical Integration · Portfolio Matrix ของแต่ละ RS · Culture Analysis — ยังเป็นตารางเปล่า</td><td>ระยะที่ 2</td></tr>
+<tr><td><b>แผนการเงินของระยะที่ 3 และ 4</b></td><td>มีทิศทางแล้วแต่ยังไม่มีงบประมาณและ Feasibility Study รองรับ</td><td>ภายในระยะที่ 2</td></tr>
+</table>
+
+<div class="box g"><h4>เงื่อนไขความสำเร็จ 4 ข้อ</h4>
+<p class="sm">① <b>ตัวเลขชุดเดียว</b> — ERP และ PCC Console ต้องเป็นแหล่งอ้างอิงเดียวภายในระยะที่ 1 ·
+② <b>วินัยการลงทุน</b> — Hurdle Rate ชุดเดียวที่ใช้จริงทุกรายการภายในระยะที่ 2 ·
+③ <b>รายได้ที่คาดการณ์ได้เกินครึ่ง</b> — Recurring + PPA + Investment ต้องถึง 55% ภายในระยะที่ 3 ·
+④ <b>คนพร้อมก่อนงานมา</b> — Job Architecture และหลักสูตรสามกลุ่มต้องเดินตั้งแต่ระยะที่ 1</p></div>
+
+<div class="src"><b>อ้างอิง:</b> เด็ค EC/BOD ทั้ง 9 บริษัทและหน้ารวมเด็ค; เด็ค EC/BOD · PCC Appendix 1;
+หน้า Strategy Mapping ทุกชีต; เล่ม Corporate Strategy 2026–2029 ฉบับเดิม</div>
+</div>
+<div class="ft"><b>PRECISE CORPORATION PUBLIC CO., LTD.</b><span class="sp"></span><span>For Internal Use Only · ร่าง 1</span><span style="margin-left:8mm;font-variant-numeric:tabular-nums">21 / 21</span></div>
+</section>
+
+</div>
+</body>
+</html>
