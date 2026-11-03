@@ -131,6 +131,9 @@ body.edit .csfig .tools{display:flex}
 .csfig[data-al="r"] img{margin-left:auto;margin-right:0}
 .csfig[data-al="l"] figcaption{text-align:left}
 .csfig[data-al="r"] figcaption{text-align:right}
+.pg.cont h2.t.contt{font-size:13pt;color:var(--muted);font-weight:600;margin:1.4mm 0 2.2mm}
+.pg.cont{break-before:auto}
+@media print{.pg.cont{page-break-before:auto}}
 .fill{position:relative}
 .csblklayer{position:absolute;inset:0;pointer-events:none;z-index:7}
 .csblkbtn{position:absolute;right:-1px;pointer-events:auto;font:600 7.4pt/1 inherit;padding:2px 5px;border:1px solid #f0c4bd;border-radius:4px;background:#fff;color:var(--red);cursor:pointer;opacity:.5;transition:opacity .12s}
@@ -1109,17 +1112,26 @@ and Energizing Shared Prosperity for Thai Society</p>
 (function(){
   var SEL='h1,h2.t,h3,h4,p,li,td,th,.tag,.kpi s,.kpi strong,.kpi em,.chain div,.phz span,'
          +'.toc span,.cvtag,.cvmeta s,.cvmeta b,.conf,.src';
-  var KEY='cs:'+document.title, on=false, items=[];
-  function collect(){
-    items=[];
+  var KEY='cs:'+document.title, on=false, items=[], keySeq={};
+  function assignKeys(){
     [].forEach.call(document.querySelectorAll('section.pg'),function(pg,pi){
+      pg.setAttribute('data-pgid','p'+(pi+1));
       var n=0;
       [].forEach.call(pg.querySelectorAll(SEL),function(el){
         if(el.closest('.ft'))return;
         el.setAttribute('data-k','p'+(pi+1)+'.'+(n++));
-        items.push(el);
       });
+      keySeq['p'+(pi+1)]=n;
     });
+  }
+  function collect(){
+    items=[].slice.call(document.querySelectorAll('[data-k]'))
+             .filter(function(el){return !el.closest('.ft')});
+  }
+  function newKey(near){
+    var k=(near&&near.getAttribute)?near.getAttribute('data-k'):null;
+    var pid=k?k.split('.')[0]:'p1';
+    var i=keySeq[pid]||0;keySeq[pid]=i+1;return pid+'.'+i;
   }
   var imgs={}, hid={};
   function cleanHTML(el){
@@ -1133,7 +1145,7 @@ and Energizing Shared Prosperity for Thai Society</p>
   function apply(d){if(!d)return;items.forEach(function(el){var k=el.getAttribute('data-k');
     if(d[k]!=null)el.innerHTML=d[k]})}
   window.__csState=snapshot;
-  collect();
+  assignKeys();collect();
   var emb=null;try{emb=JSON.parse(document.getElementById('cs-data').textContent)}catch(e){}
   var ls=null;try{ls=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
   var src=(ls&&(!emb||ls.t>=emb.t))?ls:emb;
@@ -1145,6 +1157,7 @@ and Energizing Shared Prosperity for Thai Society</p>
     catch(e){if(window.__csSay)window.__csSay('รูปใหญ่เกินกว่าที่เบราว์เซอร์จะเก็บชั่วคราวได้ — กด “บันทึกขึ้นเว็บ” เลยเพื่อไม่ให้งานหาย',7000)}},400)}
   function toggle(v){
     on=(v==null)?!on:v;
+    setTimeout(function(){if(window.__csRelayout)window.__csRelayout()},40);
     document.body.classList.toggle('edit',on);
     items.forEach(function(el){if(on)el.setAttribute('contenteditable','true');else el.removeAttribute('contenteditable')});
     [].forEach.call(document.querySelectorAll('.csedit'),function(b){b.classList.toggle('on',on);
@@ -1164,7 +1177,7 @@ and Energizing Shared Prosperity for Thai Society</p>
       if(e.key==='Escape'){t.blur();return}
       if(e.key==='Enter'&&t.tagName==='LI'){e.preventDefault();
         var li=document.createElement('li');li.setAttribute('contenteditable','true');
-        t.after(li);collect();li.focus();save();return}
+        t.after(li);li.setAttribute('data-k',newKey(t));collect();li.focus();save();return}
       if(e.key==='Backspace'&&t.tagName==='LI'&&!t.textContent.trim()){
         var prev=t.previousElementSibling;
         if(prev||t.parentNode.children.length>1){e.preventDefault();t.remove();collect();
@@ -1178,7 +1191,8 @@ and Energizing Shared Prosperity for Thai Society</p>
   var WIDTHS=['100%','75%','50%','35%'], lastKey=null, pendingPage=null;
   document.addEventListener('focusin',function(e){var el=e.target.closest&&e.target.closest('[data-k]');
     if(el)lastKey=el.getAttribute('data-k')});
-  function pages(){return [].slice.call(document.querySelectorAll('section.pg'))}
+  function pages(){return [].slice.call(document.querySelectorAll('section.pg:not(.cont)'))}
+  function allPages(){return [].slice.call(document.querySelectorAll('section.pg'))}
   function topChild(pg,el){var f=pg.querySelector('.fill')||pg;var n=el;
     while(n&&n.parentNode!==f)n=n.parentNode;return n}
   function figure(pk,idx,e){
@@ -1248,7 +1262,7 @@ and Energizing Shared Prosperity for Thai Society</p>
         lastTop=tp;btn.style.top=tp+'px';
         btn.onclick=function(ev){ev.preventDefault();ev.stopPropagation();
           if(hid[k])delete hid[k];else hid[k]=1;
-          renderBlocks();save();spill();
+          save();render();
           if(window.__csSay)window.__csSay(hid[k]?'ซ่อนบล็อกแล้ว — จะไม่แสดงตอนพิมพ์ กด ↺ แสดง เพื่อเอากลับ':'เอาบล็อกกลับมาแล้ว')};
         layer.appendChild(btn);
       });
@@ -1283,9 +1297,75 @@ and Energizing Shared Prosperity for Thai Society</p>
     if(np<0||np>=sl.length){if(window.__csSay)window.__csSay('รูปอยู่สุดทางของหน้านี้แล้ว');return}
     list[idx].after=sl[np];reorderFigs(pk);render();save();
   }
+  function unpaginate(){
+    [].forEach.call(document.querySelectorAll('section.pg.cont'),function(c){
+      var host=document.querySelector('section.pg[data-pgid="'+c.getAttribute('data-src')+'"] .fill');
+      var f=c.querySelector('.fill');
+      if(host&&f){while(f.firstChild)host.appendChild(f.firstChild)}
+      c.remove();
+    });
+  }
+  function movable(el){
+    return el.nodeType===1&&!(el.classList.contains('csadd')||el.classList.contains('csover')
+      ||el.classList.contains('csblklayer'));
+  }
+  function makeCont(pg){
+    var sec=document.createElement('section');
+    sec.className='pg cont';
+    sec.setAttribute('data-src',pg.getAttribute('data-pgid'));
+    var eb=pg.querySelector('.eyebrow'), ttl=pg.querySelector('h2.t');
+    var fill=document.createElement('div');fill.className='fill';
+    if(eb){var e2=eb.cloneNode(true);e2.removeAttribute('data-k');e2.removeAttribute('data-b');
+      e2.removeAttribute('contenteditable');sec.appendChild(e2)}
+    if(ttl){var t2=document.createElement('h2');t2.className='t contt';
+      t2.textContent=(ttl.textContent||'').replace(/\s+/g,' ').trim()+' (ต่อ)';sec.appendChild(t2)}
+    sec.appendChild(fill);
+    var ft=pg.querySelector('.ft');
+    if(ft){var f2=ft.cloneNode(true);
+      [].forEach.call(f2.querySelectorAll('[data-k]'),function(x){x.removeAttribute('data-k')});
+      sec.appendChild(f2)}
+    return sec;
+  }
+  function paginate(){
+    var A4=297/25.4*96, guard=0;
+    while(guard++<120){
+      var moved=false, all=allPages();
+      for(var i=0;i<all.length;i++){
+        var pg=all[i];
+        if(pg.classList.contains('cover'))continue;
+        if(pg.getBoundingClientRect().height<=A4+1)continue;
+        var f=pg.querySelector('.fill');if(!f)continue;
+        var kids=[].slice.call(f.children).filter(movable);
+        if(kids.length<=1)continue;
+        var last=kids[kids.length-1];
+        var src=pg.getAttribute('data-pgid')||pg.getAttribute('data-src');
+        var nxt=pg.nextElementSibling;
+        if(!(nxt&&nxt.classList&&nxt.classList.contains('cont')&&nxt.getAttribute('data-src')===src)){
+          nxt=makeCont(document.querySelector('section.pg[data-pgid="'+src+'"]')||pg);
+          pg.parentNode.insertBefore(nxt,pg.nextSibling);
+        }
+        var nf=nxt.querySelector('.fill');
+        nf.insertBefore(last,nf.firstChild);
+        moved=true;break;
+      }
+      if(!moved)break;
+    }
+    [].forEach.call(document.querySelectorAll('section.pg.cont'),function(c){
+      var f=c.querySelector('.fill');
+      if(!f||![].slice.call(f.children).filter(movable).length)c.remove();
+    });
+  }
+  function renumber(){
+    var all=allPages();
+    all.forEach(function(pg,i){
+      var sp=pg.querySelector('.ft span[style*="tabular-nums"]');
+      if(sp)sp.textContent=(i+1)+' / '+all.length;
+    });
+  }
   function render(){
-    pages().forEach(function(pg,pi){
-      var pk='p'+(pi+1), fill=pg.querySelector('.fill');if(!fill)return;
+    unpaginate();
+    pages().forEach(function(pg){
+      var pk=pg.getAttribute('data-pgid'), fill=pg.querySelector('.fill');if(!fill)return;
       [].forEach.call(pg.querySelectorAll('.csfig'),function(x){x.remove()});
       var list=imgs[pk]||[];
       list.forEach(function(e,i){
@@ -1306,24 +1386,28 @@ and Energizing Shared Prosperity for Thai Society</p>
         var sc=fill.querySelector('.src');if(sc)fill.insertBefore(btn,sc);else fill.appendChild(btn);
       }
       if(!pg.querySelector('.csover')){
-        var ov=document.createElement('div');ov.className='csover';ov.textContent='เนื้อหาเกินหน้า — ย่อรูปหรือลดข้อความ';
+        var ov=document.createElement('div');ov.className='csover';ov.textContent='เนื้อหาเกินหน้า';
         pg.appendChild(ov);
       }
     });
+    relayout();
+  }
+  function relayout(){
+    paginate();
     renderBlocks();
+    renumber();
     spill();
   }
-  function fitPages(){
+  function fitLeftovers(){
     var A4=297/25.4*96;
-    pages().forEach(function(pg){
+    allPages().forEach(function(pg){
       var ims=[].slice.call(pg.querySelectorAll('.csfig img'));
       if(!ims.length)return;
-      ims.forEach(function(im){im.style.maxHeight=''});
-    });
-    pages().forEach(function(pg){
-      var ims=[].slice.call(pg.querySelectorAll('.csfig img'));
-      if(!ims.length)return;
-      for(var k=0;k<5;k++){
+      var f=pg.querySelector('.fill');
+      var kids=f?[].slice.call(f.children).filter(movable).length:0;
+      if(pg.getBoundingClientRect().height<=A4+1||kids>1){
+        ims.forEach(function(im){im.style.maxHeight=''});return}
+      for(var k=0;k<6;k++){
         var over=pg.getBoundingClientRect().height-A4+2;
         if(over<=0)break;
         var tot=0;ims.forEach(function(im){tot+=im.getBoundingClientRect().height});
@@ -1336,13 +1420,12 @@ and Energizing Shared Prosperity for Thai Society</p>
     });
   }
   function spill(){var A4=297/25.4*96;
-    fitPages();
-    pages().forEach(function(pg){
+    fitLeftovers();
+    allPages().forEach(function(pg){
       var d=Math.round(pg.getBoundingClientRect().height-A4);
       pg.classList.toggle('spill',d>2);
       var ov=pg.querySelector(':scope > .csover');
-      if(ov)ov.textContent=d>2?('เนื้อหาเกินหน้า '+d+' px — ย่อรูปหรือลดข้อความ')
-                              :'เนื้อหาเกินหน้า — ย่อรูปหรือลดข้อความ';
+      if(ov)ov.textContent='เนื้อหาเกินหน้า '+d+' px';
     })}
   var fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='image/*';
   fileInput.style.display='none';document.body.appendChild(fileInput);
@@ -1402,11 +1485,15 @@ and Energizing Shared Prosperity for Thai Society</p>
       if(on)c.setAttribute('contenteditable','true');else c.removeAttribute('contenteditable')});
     spill()};
   window.__csEdit=toggle;
-  document.addEventListener('click',function(e){if(e.target.closest('.csedit'))setTimeout(spill,60)});
-  addEventListener('resize',function(){clearTimeout(spill.t);spill.t=setTimeout(spill,200)});
-  addEventListener('beforeprint',spill);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setTimeout(spill,80)});
-  addEventListener('load',function(){setTimeout(spill,120)});
+  window.__csRelayout=function(){relayout()};
+  document.addEventListener('click',function(e){if(e.target.closest('.csedit'))setTimeout(render,60)});
+  var itmr;document.addEventListener('input',function(e){
+    if(e.target.closest&&e.target.closest('[data-k],[data-ci]')){
+      clearTimeout(itmr);itmr=setTimeout(relayout,700)}});
+  addEventListener('resize',function(){clearTimeout(spill.t);spill.t=setTimeout(render,250)});
+  addEventListener('beforeprint',relayout);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setTimeout(render,80)});
+  addEventListener('load',function(){setTimeout(render,120)});
   render();
 })();
 </script>
