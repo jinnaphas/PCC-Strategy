@@ -143,19 +143,6 @@ body.edit .card .go{opacity:.5;pointer-events:none}
     <div class="cap">แถบความคืบหน้าอ่านจากไฟล์จริงบนเว็บ — นับจำนวนโครงการที่กรอกในหน้า 3–14 (12 หัวข้อ × 4 ระยะ = 48 จุด) · กดปุ่ม ✎ แก้ไข เพื่อแก้ข้อความและตัวเลขได้ทุกช่อง</div>
     <div class="grid" id="cards"></div>
   </div>
-
-  <div class="sec">
-    <h2>ตัวเลขที่เสนอ เทียบกับฐานข้อมูล Capex / Opex ของกลุ่ม</h2>
-    <div class="cap">ช่องสีแดงคือจุดที่สองแหล่งไม่ตรงกัน · สองคอลัมน์แรกของแต่ละฝั่งรวมกันตรงๆ ไม่ได้เพราะ PPP รวม SBP และ PCE ไว้แล้ว จึงใช้คอลัมน์ “นับเข้ากลุ่ม” คำนวณยอดรวมแทน</div>
-    <table class="t" id="tNum"></table>
-    <p class="cap" id="tFoot" data-f="foot" style="margin-top:10px"></p>
-  </div>
-
-  <div class="sec">
-    <h2>สิ่งที่ยังรอข้อมูล</h2>
-    <div class="cap">กดปุ่มแก้ไขแล้วพิมพ์ทับได้ · กด Enter เพื่อขึ้นรายการใหม่ · ลบข้อความจนหมดแล้วกด Backspace เพื่อลบรายการ</div>
-    <div class="pendgrid" id="pend"></div>
-  </div>
 </div>
 <div id="tip"></div>
 
@@ -230,17 +217,18 @@ function renderTable(){
   h+='<tr class="sum"><td>รวมทั้งกลุ่ม (ไม่นับซ้ำ)</td><td class="n">–</td><td class="n">–</td>'+
      '<td class="n">'+fmt(g1)+'</td><td class="n">–</td><td class="n">–</td>'+
      '<td class="n">'+fmt(g2)+'</td></tr>';
-  $('tNum').innerHTML=h;
+  var tn=$('tNum'); if(!tn)return; tn.innerHTML=h;
   var ft=$('tFoot'); if(ft) ft.textContent=S.foot||'';
-  if(editMode) markEditable($('tNum'));
+  if(editMode) markEditable(tn);
 }
 function renderPend(){
-  $('pend').innerHTML=(S.co||[]).map(function(x,i){
+  var pe=$('pend'); if(!pe)return;
+  pe.innerHTML=(S.co||[]).map(function(x,i){
     return '<div class="pendbox" data-i="'+i+'"><b>'+esc(x.c)+'</b><ul class="pend">'+
       (x.pend||[]).map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+
       '</ul><button class="addpend">+ เพิ่มรายการ</button></div>';
   }).join('');
-  if(editMode) markEditable($('pend'));
+  if(editMode) markEditable(pe);
 }
 function setPath(p,v){var a=p.split('.'),o=S;for(var i=0;i<a.length-1;i++){o=o[a[i]]}o[a[a.length-1]]=v}
 var editMode=false;
