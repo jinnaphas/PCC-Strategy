@@ -139,6 +139,20 @@ body.edit .card .go{opacity:.5;pointer-events:none}
   </div>
 
   <div class="sec">
+    <h2>เอกสารนำเสนอคณะกรรมการ</h2>
+    <div class="cap">เล่มสรุปสำหรับวาระการประชุม — รวมงบกำไรขาดทุน 2027–2030, Financial Objective, CAPEX/OPEX ปี 2027 และแผนกลยุทธ์หมวดที่ 1 (ระยะที่ 1 และ 2) ของทุกบริษัทไว้ในเล่มเดียว</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(330px,520px));margin-top:14px">
+      <div class="card" style="border-top-color:#F6851F">
+        <div class="hd"><span class="code">วาระ 4.3</span><span class="tag">BOD · ปี 2570</span><span class="tag" style="background:#F1F5F9;color:#5B7389">29 หน้า</span></div>
+        <div class="th">พิจารณาอนุมัติประมาณการรายได้ ค่าใช้จ่าย การลงทุน ของ PCC ประจำปี 2570</div>
+        <div class="d">และแจ้งเพื่อทราบแผนระยะที่ 1 และ ระยะที่ 2 ของบริษัท และบริษัทย่อย</div>
+        <div class="sp"></div>
+        <a class="go" href="bod-brief-2570.html" style="background:#F6851F">เปิดเล่มนำเสนอบอร์ด →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
     <h2>เด็คของแต่ละบริษัท</h2>
     <div class="cap">แถบความคืบหน้าอ่านจากไฟล์จริงบนเว็บ — นับจำนวนโครงการที่กรอกในหน้า 3–14 (12 หัวข้อ × 4 ระยะ = 48 จุด) · กดปุ่ม ✎ แก้ไข เพื่อแก้ข้อความและตัวเลขได้ทุกช่อง</div>
     <div class="grid" id="cards"></div>
@@ -282,7 +296,7 @@ document.addEventListener('click',function(e){
 function setProg(el,txt,pct,color){el.querySelector('.pv').textContent=txt;
   var bar=el.querySelector('.tr i');bar.style.width=(pct||0)+'%';if(color)bar.style.background=color}
 async function scan(){
-  var cards=[].slice.call(document.querySelectorAll('.card')),started=0,ok=0;
+  var cards=[].slice.call(document.querySelectorAll('#cards .card')),started=0,ok=0;
   $('st').textContent='● กำลังอ่าน…';
   for(var i=0;i<cards.length;i++){
     var el=cards[i],f=el.getAttribute('data-f-file');

@@ -576,6 +576,16 @@ body.kaedit .apxtxt{min-height:3em}
 .tbl tr.phz td .pz{display:block;color:#fff;font-weight:700;text-align:center;font-size:.92em;padding:1px 6px;line-height:1.35}
 .pg.finpg .blist{font-size:calc(var(--u)*.86);line-height:1.38;padding:calc(var(--u)*.55) calc(var(--u)*.8) calc(var(--u)*.55) calc(var(--u)*1.9)}
 .pg.finpg .blist li+li{margin-top:calc(var(--u)*.2)}
+/* ---- หน้า Income statement: ให้รูปที่แปะเต็มกรอบ ---- */
+.pg.ispg .wrap{display:flex;flex-direction:column;gap:calc(var(--u)*.9);
+  height:calc(100vh - var(--u)*4.6);min-height:0;padding-bottom:calc(var(--u)*1.6)}
+.pg.ispg .apxbox{flex:1 1 auto;min-height:0;height:auto;padding:calc(var(--u)*.7);
+  grid-template-rows:minmax(0,1fr) auto;align-content:stretch;justify-items:stretch}
+.pg.ispg .apxbox>img{width:100%;height:100%;min-height:0;max-width:100%;max-height:100%;
+  object-fit:contain;margin:0;align-self:stretch}
+.pg.ispg .apxbox.has{border:1px solid var(--hair)}
+/* ตัวยึดลำดับคีย์ .apxbox/.apxtxt หลังเอาหน้า IS ของ PEMC ออก — ห้ามลบ */
+.kanchor{display:none!important}
 /* ---- หน้าแผนหมวดที่ 1 (ระยะ 1-2) ---- */
 .pg.pm1 .wrap{gap:calc(var(--u)*1.1)}
 .pmx{display:grid;grid-template-columns:calc(var(--u)*16) 1fr 1fr;gap:calc(var(--u)*.55);align-content:start;min-height:0}
@@ -632,44 +642,39 @@ body.kaedit .apxtxt{min-height:3em}
 <div class="cvrtxt"><span class="cvrlb">วาระที่ 4.3</span><p class="cvrag">พิจารณาอนุมัติประมาณการรายได้ ค่าใช้จ่าย การลงทุน ของบริษัท พรีไซซ คอร์ปอเรชั่น จำกัด (มหาชน) ประจำปี 2570 และแจ้งเพื่อทราบแผนระยะที่ 1 และ ระยะที่ 2 ของบริษัท และบริษัทย่อย</p></div></div></div>
 <aside class="notes">หน้าปกวาระ 4.3 สำหรับนำเสนอคณะกรรมการบริษัท พรีไซซ คอร์ปอเรชั่น จำกัด (มหาชน)</aside>
 </section>
-<section class="pg" data-name="IS · PCC Consolidate" data-tab="Income Statement">
-<div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">CONSOLIDATE</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<section class="pg ispg" data-name="IS · PCC Consolidate" data-tab="งบกำไรขาดทุน">
+<div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">PCC Consolidate</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">2027–2030</span></h2></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>PCC Consolidate · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนรวม (Consolidate) ของ PCC ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PCC Separate" data-tab="Income Statement">
-<div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">SEPARATE</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<section class="pg ispg" data-name="IS · PCC Separate" data-tab="งบกำไรขาดทุน">
+<div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">PCC Separate</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">2027–2030</span></h2></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>PCC Separate · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนเฉพาะกิจการ (Separate) ของ PCC ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PEM" data-tab="Income Statement">
+<section class="pg ispg" data-name="IS · PEM" data-tab="งบกำไรขาดทุน">
 <div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PEM</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>IS · PEM · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div><div class="apxbox kanchor"><div class="apxtxt"></div></div></div>
 <aside class="notes">งบกำไรขาดทุนของ PEM ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PEMC" data-tab="Income Statement">
-<div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PEMC</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
-<aside class="notes">งบกำไรขาดทุนของ PEMC ปี 2027–2030</aside>
-</section>
-<section class="pg" data-name="IS · PSP" data-tab="Income Statement">
+<section class="pg ispg" data-name="IS · PSP" data-tab="งบกำไรขาดทุน">
 <div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PSP</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>IS · PSP · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนของ PSP ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PPP" data-tab="Income Statement">
+<section class="pg ispg" data-name="IS · PPP" data-tab="งบกำไรขาดทุน">
 <div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PPP</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>IS · PPP · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนของ PPP ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PBI" data-tab="Income Statement">
+<section class="pg ispg" data-name="IS · PBI" data-tab="งบกำไรขาดทุน">
 <div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PBI</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>IS · PBI · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนของ PBI ปี 2027–2030</aside>
 </section>
-<section class="pg" data-name="IS · PDE" data-tab="Income Statement">
+<section class="pg ispg" data-name="IS · PDE" data-tab="งบกำไรขาดทุน">
 <div class="wrap"><div class="ttl"><h2 class="h2">Income statement <span class="c">(ปี 2027–2030)</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PDE</span></h2></div>
-<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>งบกำไรขาดทุน ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
+<div class="apxbox" aria-label="พื้นที่สำหรับตาราง Income statement"><div class="apxtxt"></div><span class="ph"><span>IS · PDE · ปี 2027–2030<br><small style="font-weight:400">แปะภาพตารางงบ หรือพิมพ์ตัวเลขลงที่นี่ (กดปุ่มดินสอเพื่อแก้)</small></span></span></div></div>
 <aside class="notes">งบกำไรขาดทุนของ PDE ปี 2027–2030</aside>
 </section>
 <section class="pg" data-name="Financial Objective · Consolidate" data-tab="Financial Objective">
