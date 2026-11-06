@@ -1175,6 +1175,114 @@ document.addEventListener('keydown',function(e){if(e.target.closest&&e.target.cl
 .ghtoast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#0e2c4d;color:#fff;
   padding:9px 18px;border-radius:999px;font:600 13px 'Sarabun',sans-serif;z-index:120;display:none;
   box-shadow:0 10px 26px rgba(14,44,77,.3)}
+/*==MOBILE_CSS_START==*/
+/* ---------- จอมือถือ / แท็บเล็ตแนวตั้ง: เลื่อนอ่านเป็นเอกสาร ---------- */
+@media screen and (max-width:820px){
+  :root{--u:11px}
+  html{-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+
+  /* แถบบน */
+  .bar{position:sticky;top:0;z-index:30;height:auto;min-height:48px;padding:6px 12px;
+    grid-template-columns:minmax(0,1fr) auto!important;gap:8px;align-items:center;
+    background:rgba(255,255,255,.97);box-shadow:0 1px 0 rgba(14,44,77,.12)}
+  .bar .tabs{display:none!important}
+  .bar .brand{font-size:12px;min-width:0;gap:6px!important;padding-right:6px!important;
+    overflow:hidden;white-space:nowrap}
+  .bar .brand img{height:16px!important;width:auto;max-width:none}
+  .prt.kz,.prt.ksv{display:none!important}
+  .bar .brand em{padding-left:6px!important}
+  .bar .pgr{padding-left:4px!important}
+  .bar .pgno{font-size:11px}
+  .prt{width:32px!important;height:32px!important;margin-right:3px!important;border-radius:9px}
+  .prt svg{width:15px;height:15px}
+  .pnav{display:none!important}
+  .notes{display:none!important}
+
+  /* หน้า */
+  body.flow .pg{overflow:visible!important;height:auto!important;min-height:0!important}
+  body.flow .pg+.pg{border-top:2px solid rgba(14,44,77,.12)}
+  body.flow .pg .wrap{max-width:none!important;width:100%!important;height:auto!important;
+    min-height:0!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto!important;align-self:start!important;align-content:start!important;
+    padding:16px 14px 30px!important;gap:12px!important;overflow:visible!important}
+
+  /* หัวเรื่อง */
+  .h1{font-size:27px!important;line-height:1.26}
+  .h2{font-size:19px!important;line-height:1.32}
+  .eyebrow{font-size:10.5px!important;letter-spacing:.07em;line-height:1.4}
+  .ttl,.ttl *{min-width:0}
+
+  /* กริดการ์ด -> คอลัมน์เดียว */
+  .toc,.toc li,.chev,.phases,.vm>div,.take>div,.cc,.ccv,.ccps,.ccgs,.kpi,.pf,.sec,.vf,
+  .vmo3,.vmo3.big,.vmo3.big.vmo4,.era,.cot,.a5,.a5role,.objrow,.lanes,.finl,.gnote,.ka,.lv3,
+  .p4,.p4c,.p4strip,.agx,.agl.one,.cols2,.p34,.p34c,.p34top,.p34g2,
+  .pg.finpg .finl,.pg.p4pg .lanes,.pg.p4pg .p4,.pg.p4pg .sec
+  {grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;gap:10px!important}
+  .a5c{grid-row:auto!important;grid-template-rows:auto!important}
+  .a5img{height:auto!important;max-height:42vh}
+  .a5img img{max-height:42vh}
+
+  /* ตารางแบบ "ชื่อแถว + หลายคอลัมน์": ชื่อแถวกินเต็มความกว้าง */
+  .pmx{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .pmxh0{display:none!important}
+  .pmxr{grid-column:1/-1!important}
+  .pmxc{font-size:11.5px!important;line-height:1.38}
+  .pmxh,.pmxr{font-size:12.5px!important}
+  .vmx{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .vmh0{display:none!important}
+  .vmr{grid-column:1/-1!important}
+  .arch{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}
+  .arch .archh:first-child{display:none!important}
+  .archn{grid-column:1/-1!important}
+  .cmp{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+  .cmpr{grid-column:1/-1!important}
+  .cmpr:empty{display:none!important}
+
+  /* แกลเลอรีภาพของหน้าแผนระยะ 3-4 */
+  .p34gal{flex-direction:column!important;gap:10px!important;justify-content:flex-start!important}
+  .p34r{grid-template-rows:auto!important;gap:10px!important}
+  .p34f{flex:none!important;aspect-ratio:auto!important;max-width:none!important;
+    height:auto!important;min-height:0!important;grid-template-rows:auto auto!important}
+  .p34f img{height:auto!important;width:100%!important;max-height:58vh;object-fit:contain}
+  .p34h{font-size:15px!important}
+  .p34h small{font-size:.72em!important}
+  ol.p34l{font-size:13px!important;padding-left:30px!important}
+
+  /* รูปทั่วไป */
+  .fig img,.apximg img,.apxbox img,.pg img{max-width:100%}
+  .apxbox{min-height:0!important}
+  .apximg{min-height:0!important;overflow:visible!important;flex:none!important}
+  .apximg img{position:static!important;width:100%!important;height:auto!important;
+    transform:none!important;object-fit:contain!important;max-height:none!important}
+
+  /* ตารางกว้าง: เลื่อนแนวนอนได้ */
+  .tscroll{overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:11.5px!important}
+  .split{height:auto!important;flex-wrap:wrap}
+
+  /* งบกำไรขาดทุน: แสดงตารางจริง เลื่อนดูได้ ไม่ย่อจนอ่านไม่ออก */
+  .istb{display:none!important}
+  .isvp{flex:none!important;max-height:none!important;overflow:auto!important;
+    -webkit-overflow-scrolling:touch}
+  .issc{width:auto!important;height:auto!important;position:static!important;display:block!important}
+  .iszw{position:static!important;transform:none!important;left:auto!important;top:auto!important}
+  table.istbl{font-size:10.5px!important}
+  .isvp::before{content:"เลื่อนตารางซ้าย–ขวาเพื่อดูทุกคอลัมน์";position:sticky;left:0;
+    display:block;width:max-content;max-width:100%;font-size:10.5px;color:var(--muted);
+    padding:5px 7px 2px;font-weight:600;letter-spacing:.02em}
+
+  /* หน้าปก */
+  .pg.cvr .wrap{padding:12px 10px 22px!important}
+  .cvrbox{width:100%}
+  .cvrbox>img{max-height:none!important;width:100%!important}
+  .cvrtxt{position:static!important;inset:auto!important;padding:12px 2px 0!important}
+  .cvrlb{font-size:13px!important}
+  .cvrag{font-size:15px!important}
+  .cvrtop{font-size:12px!important;white-space:normal!important;text-align:center;
+    padding:6px 14px!important;letter-spacing:.06em}
+}
+/*==MOBILE_CSS_END==*/
 </style>
 <script>
 /* กล่องแผน 4 ระยะ: เลือกขนาดตัวอักษรที่ใหญ่ที่สุดที่ยังอยู่ในกรอบหน้า
