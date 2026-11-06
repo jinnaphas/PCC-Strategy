@@ -1300,12 +1300,15 @@ document.addEventListener('keydown',function(e){if(e.target.closest&&e.target.cl
         lab=sec.querySelector('.iszl'),bar=sec.querySelector('.istb');
     if(!vp||!tb)return;
     var st={z:1,mark:false,anchor:null,user:false};
-    function apply(z){st.z=Math.max(0.2,Math.min(3.2,z));
+    function apply(z){st.z=Math.max(0.2,Math.min(4,z));
+      var sw=tb.offsetWidth*st.z, sh=tb.offsetHeight*st.z;
+      var vw=vp.clientWidth, vh=vp.clientHeight;
       zw.style.transform='scale('+st.z+')';
-      sc.style.width=(tb.offsetWidth*st.z)+'px';sc.style.height=(tb.offsetHeight*st.z)+'px';
+      sc.style.width=Math.max(sw,vw)+'px';sc.style.height=Math.max(sh,vh)+'px';
+      zw.style.left=Math.max(0,(vw-sw)/2)+'px';zw.style.top=Math.max(0,(vh-sh)/2)+'px';
       if(lab)lab.textContent=Math.round(st.z*100)+'%'}
     function fit(){var w=tb.offsetWidth,h=tb.offsetHeight;if(!w||!h)return;
-      apply(Math.min(1,(vp.clientWidth-4)/w,(vp.clientHeight-4)/h));st.user=false}
+      apply(Math.min((vp.clientWidth-2)/w,(vp.clientHeight-2)/h));st.user=false}
     function center(td){var r=td.getBoundingClientRect(),v=vp.getBoundingClientRect();
       vp.scrollLeft+=(r.left+r.width/2)-(v.left+v.clientWidth/2);
       vp.scrollTop+=(r.top+r.height/2)-(v.top+v.clientHeight/2)}
