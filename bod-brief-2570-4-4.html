@@ -757,6 +757,48 @@ body.kaedit .pg.pm34 ol.blist:empty::before{content:""}
  .pmxh{font-size:calc(var(--u)*var(--pmf,1)*.98)}
  .pmxc li{margin-bottom:calc(var(--u)*.24)}
 }
+/* ---- หน้าแผนระยะ 3-4 แบบมีภาพ (PDE) ---- */
+.pg.pde34 .wrap{display:flex;flex-direction:column;gap:calc(var(--u)*.9);
+  height:calc(100vh - var(--u)*4.6);min-height:0;padding-bottom:calc(var(--u)*1.4)}
+.p34{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1.1)}
+.p34c{min-height:0;display:grid;grid-template-rows:auto auto 1fr;gap:calc(var(--u)*.55)}
+.p34h{color:#fff;font-weight:700;text-align:center;border-radius:calc(var(--u)*.4);
+  padding:calc(var(--u)*.45) calc(var(--u)*.7);font-size:calc(var(--u)*1.3);line-height:1.2}
+.p34h small{display:block;font-weight:600;font-size:.62em;opacity:.9;letter-spacing:.06em;margin-top:.1em}
+.p34h.p34a{background:#5b6cd6}
+.p34h.p34b{background:#8a4fc4}
+ol.p34l{background:#fff;border:1px solid var(--hair);border-radius:calc(var(--u)*.35);
+  margin:0;padding:calc(var(--u)*.55) calc(var(--u)*.8) calc(var(--u)*.55) calc(var(--u)*2.1);
+  font-size:calc(var(--u)*.98);line-height:1.34;color:var(--ink)}
+ol.p34l li{margin:0 0 calc(var(--u)*.26)}
+ol.p34l li:last-child{margin-bottom:0}
+ol.p34l li::marker{color:var(--blue);font-weight:700}
+.p34f{margin:0;min-height:0;background:#fff;border:1px solid var(--hair);border-radius:calc(var(--u)*.35);
+  display:grid;grid-template-rows:auto 1fr;gap:calc(var(--u)*.3);padding:calc(var(--u)*.5);justify-items:stretch}
+.p34f figcaption{display:block;font-weight:700;color:var(--navy);font-size:calc(var(--u)*.95);
+  text-align:center;letter-spacing:.02em}
+.p34f img{min-height:0;width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in}
+body.kaedit .pg.pde34 ol.p34l{font-size:calc(var(--u)*.88)}
+body.kaedit .pg.pde34 .p34f{min-height:calc(var(--u)*8)}
+/* ---- หน้าแผนระยะ 3-4 แบบแถบบน-ล่าง หลายภาพ (PSP) ---- */
+.pg.bd34 .wrap{display:flex;flex-direction:column;gap:calc(var(--u)*.7);
+  height:calc(100vh - var(--u)*4.6);min-height:0;padding-bottom:calc(var(--u)*1.4)}
+.p34r{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:auto 1fr auto 1fr;
+  gap:calc(var(--u)*.45) 0;row-gap:calc(var(--u)*.45)}
+.p34r>.p34top:nth-of-type(2){margin-top:calc(var(--u)*.45)}
+.p34top{display:grid;grid-template-columns:calc(var(--u)*15.5) 1fr;gap:calc(var(--u)*.6);align-items:stretch}
+.pg.bd34 .p34h{display:flex;flex-direction:column;justify-content:center;
+  font-size:calc(var(--u)*1.06);padding:calc(var(--u)*.4) calc(var(--u)*.5)}
+.pg.bd34 .p34h small{font-size:.66em;margin-top:.18em}
+.pg.bd34 ol.p34l{font-size:calc(var(--u)*.9);line-height:1.3;
+  padding:calc(var(--u)*.42) calc(var(--u)*.7) calc(var(--u)*.42) calc(var(--u)*1.9)}
+.pg.bd34 ol.p34l li{margin-bottom:calc(var(--u)*.16)}
+.p34gal{min-height:0;display:flex;gap:calc(var(--u)*.6)}
+.p34gal .p34f{flex:1 1 0;min-width:0;padding:calc(var(--u)*.4)}
+.p34gal .p34f figcaption{font-size:calc(var(--u)*.84);line-height:1.2}
+body.kaedit .pg.bd34 ol.p34l{font-size:calc(var(--u)*.82)}
+body.kaedit .pg.bd34 .p34gal .p34f{min-height:calc(var(--u)*6)}
+@media print{.p34gal .p34f img{max-height:none}}
 </style></head>
 <!-- data-minutes = talk length (check_deck.py budgets the notes' time ranges against it) · class="builds" / "motion" are opt-in · data-tabs = section names in the top bar; each slide's data-tab must match one of them -->
 <body data-tabs="ปก|วิสัยทัศน์|แผนกลยุทธ์|Paradigm|C-O-T|5 Arch|แผนระยะ 3-4">
@@ -819,10 +861,10 @@ body.kaedit .pg.pm34 ol.blist:empty::before{content:""}
 <div class="pmx" style="--pmf:1.4"><div class="pmxh pmxh0"></div><div class="pmxh pmxp3">แผนระยะที่ 3 (2027 - 2032)</div><div class="pmxh pmxp4">แผนระยะที่ 4 (2027 - 2034)</div><div class="pmxr" style="--g:#3cc14c">1.1 Business Generation</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#f6851f">1.2 Demand Satisfaction</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#5b6cd6">1.3 Support & Functional Unit</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div></div></div>
 <aside class="notes">แผนกลยุทธ์หมวดที่ 1 (Business plan — Wealth Creation by key action plan) ระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PEM</aside>
 </section>
-<section class="pg soft pm1 pm34" data-name="แผนระยะ 3-4 · PSP" data-tab="แผนระยะ 3-4">
+<section class="pg soft bd34" data-name="แผนระยะ 3-4 · PSP" data-tab="แผนระยะ 3-4">
 <div class="wrap"><div class="ttl"><span class="eyebrow">PSP · บริษัท พรีไซซ ซิสเท็ม แอนด์ โปรเจ็ค จำกัด</span><h2 class="h2">แผนกลยุทธ์ <span class="c">หมวดที่ 1 · ระยะที่ 3 และ 4</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PSP</span></h2></div>
-<div class="pmx" style="--pmf:1.4"><div class="pmxh pmxh0"></div><div class="pmxh pmxp3">แผนระยะที่ 3 (2027 - 2032)</div><div class="pmxh pmxp4">แผนระยะที่ 4 (2027 - 2034)</div><div class="pmxr" style="--g:#3cc14c">1.1 Business Generation</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#f6851f">1.2 Demand Satisfaction</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#5b6cd6">1.3 Support & Functional Unit</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div></div></div>
-<aside class="notes">แผนกลยุทธ์หมวดที่ 1 (Business plan — Wealth Creation by key action plan) ระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PSP</aside>
+<div class="p34r"><div class="p34top"><div class="p34h p34a">แผนระยะที่ 3 (2027 - 2032)<small>WAY TO COMPLETE-REACTIVE</small></div><ol class="blist p34l"><li>พัฒนา business unit ของแต่ละ RS ที่ตกต่ำ (BCG Model – Dog, ?) ให้มี Distinctive Competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol></div><div class="p34gal"><figure class="p34f fig" style="flex:1.415 1 0"><figcaption>Inbound / Outbound Marketing</figcaption><img src="assets/psp34-marketing.webp" alt="แนวคิด Graybar — จาก Lead สู่การดูแลอุปกรณ์ตลอดอายุ: ผู้จัดจำหน่ายที่เป็นพาร์ทเนอร์ด้าน Supply Chain (SGAM · SCIAM · ADCAM)"></figure><figure class="p34f fig" style="flex:1.795 1 0"><figcaption>Product / Solution Portfolio</figcaption><img src="assets/psp34-products.webp" alt="กลุ่มผลิตภัณฑ์ Smart Energy ครอบคลุม Application Layer, Network Layer และ Perceptive Layer"></figure><figure class="p34f fig" style="flex:1.455 1 0"><figcaption>Project Management Cockpit</figcaption><img src="assets/psp34-cockpit.webp" alt="ศูนย์ติดตามโครงการก่อสร้าง — เห็นทุกโครงการ ตัดสินใจได้ในห้องเดียว"></figure></div><div class="p34top"><div class="p34h p34b">แผนระยะที่ 4 (2027 - 2034)<small>WAY TO BE LEADER-PROACTIVE</small></div><ol class="blist p34l"><li>สร้างให้เป็น Leader ด้วย STEM &amp; DE และ Addressing &amp; Manageable Overall Supply Chain</li><li>พัฒนากลยุทธ์ในการสร้าง Moat (คูเมืองที่มีน้ำล้อมรอบปราสาท) ด้วยการสร้าง core competence ด้วย complexity (hazel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น Leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS successful, must plan for scale up</li></ol></div><div class="p34gal"><figure class="p34f fig" style="flex:1.257 1 0"><figcaption>4 Architecture Models</figcaption><img src="assets/psp34-4am.webp" alt="SGAM · SFAM · RAMI 4.0 · SCIAM — well interface 4 AM"></figure><figure class="p34f fig" style="flex:0.936 1 0"><figcaption>ADCAM · AI-Cloud-Data Center Architecture Model</figcaption><img src="assets/psp34-adcam.webp" alt="ADCAM — Interoperability Layers (L1 Component ถึง L7 Business) x Domains x Zones"></figure></div></div></div>
+<aside class="notes">แผนระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PSP ตามไฟล์นำเสนอต้นฉบับ · ระยะที่ 3 เน้น Inbound/Outbound Marketing, กลุ่มผลิตภัณฑ์ และ Project Management Cockpit · ระยะที่ 4 เน้นการเชื่อม 4 Architecture Models และ ADCAM · กดที่ภาพเพื่อขยายเต็มจอ</aside>
 </section>
 <section class="pg soft pm1 pm34" data-name="แผนระยะ 3-4 · PPP" data-tab="แผนระยะ 3-4">
 <div class="wrap"><div class="ttl"><span class="eyebrow">PPP · Precise Power Producer Co., Ltd. (รวม SBP, PCE)</span><h2 class="h2">แผนกลยุทธ์ <span class="c">หมวดที่ 1 · ระยะที่ 3 และ 4</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PPP</span></h2></div>
@@ -834,10 +876,10 @@ body.kaedit .pg.pm34 ol.blist:empty::before{content:""}
 <div class="pmx" style="--pmf:1.4"><div class="pmxh pmxh0"></div><div class="pmxh pmxp3">แผนระยะที่ 3 (2027 - 2032)</div><div class="pmxh pmxp4">แผนระยะที่ 4 (2027 - 2034)</div><div class="pmxr" style="--g:#3cc14c">1.1 Business Generation</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#f6851f">1.2 Demand Satisfaction</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#5b6cd6">1.3 Support & Functional Unit</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div></div></div>
 <aside class="notes">แผนกลยุทธ์หมวดที่ 1 (Business plan — Wealth Creation by key action plan) ระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PBI</aside>
 </section>
-<section class="pg soft pm1 pm34" data-name="แผนระยะ 3-4 · PDE" data-tab="แผนระยะ 3-4">
+<section class="pg soft pde34" data-name="แผนระยะ 3-4 · PDE" data-tab="แผนระยะ 3-4">
 <div class="wrap"><div class="ttl"><span class="eyebrow">PDE · บริษัท พรีไซซ ดิจิตอล อีโคโนมี่ จำกัด</span><h2 class="h2">แผนกลยุทธ์ <span class="c">หมวดที่ 1 · ระยะที่ 3 และ 4</span><span style="display:inline-block;vertical-align:middle;margin-left:.55em;background:#0e2c4d;color:#fff;border-radius:999px;padding:.16em .75em;font-size:.4em;font-weight:700;letter-spacing:.07em;white-space:nowrap">PDE</span></h2></div>
-<div class="pmx" style="--pmf:1.4"><div class="pmxh pmxh0"></div><div class="pmxh pmxp3">แผนระยะที่ 3 (2027 - 2032)</div><div class="pmxh pmxp4">แผนระยะที่ 4 (2027 - 2034)</div><div class="pmxr" style="--g:#3cc14c">1.1 Business Generation</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#f6851f">1.2 Demand Satisfaction</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxr" style="--g:#5b6cd6">1.3 Support & Functional Unit</div><div class="pmxc"><ol class="blist"></ol></div><div class="pmxc"><ol class="blist"></ol></div></div></div>
-<aside class="notes">แผนกลยุทธ์หมวดที่ 1 (Business plan — Wealth Creation by key action plan) ระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PDE</aside>
+<div class="p34"><div class="p34c"><div class="p34h p34a">แผนระยะที่ 3 (2027 - 2032)<small>WAY TO COMPLETE-REACTIVE</small></div><ol class="blist p34l"><li>พัฒนา business unit ของแต่ละ RS ที่ตกต่ำ (BCG Model – Dog, ?) ให้มี Distinctive Competence</li><li>พัฒนา intangible และ tangible asset ให้ทันกับการเปลี่ยนแปลงสภาพแวดล้อม</li></ol><figure class="p34f fig"><figcaption>Digital Organization</figcaption><img src="assets/pde34-digital-org.webp" alt="PCC Digital Organization Roadmap (R.8) - จากองค์กรดิจิทัล สู่ Agentic Organization"></figure></div><div class="p34c"><div class="p34h p34b">แผนระยะที่ 4 (2027 - 2034)<small>WAY TO BE LEADER-PROACTIVE</small></div><ol class="blist p34l"><li>สร้างให้เป็น Leader ด้วย STEM &amp; DE และ Addressing &amp; Manageable Overall Supply Chain</li><li>พัฒนากลยุทธ์ในการสร้าง Moat (คูเมืองที่มีน้ำล้อมรอบปราสาท) ด้วยการสร้าง core competence ด้วย complexity (hazel model), diffusiveness, well interface 4 AM</li><li>สร้างให้เป็น Leader ด้วยแนวทาง COT และ addressing &amp; manageable overall supply chain</li><li>After Develop BG&amp;DS successful, must plan for scale up</li></ol><figure class="p34f fig"><figcaption>DBTP for 5 Architecture Models</figcaption><img src="assets/pde34-dbtp.webp" alt="DBTP Reference Architecture Pillars - SGAM, SFAM, RAMI 4.0, ADCAM, SCIAM"></figure></div></div></div>
+<aside class="notes">แผนระยะที่ 3 (Way to Complete · Reactive) และระยะที่ 4 (Way to be Leader · Proactive) ของ PDE ตามไฟล์นำเสนอต้นฉบับ พร้อมภาพ PCC Digital Organization Roadmap (R.8) และ DBTP Reference Architecture Pillars · กดที่ภาพเพื่อขยายเต็มจอ</aside>
 </section>
 </div>
 <script>
