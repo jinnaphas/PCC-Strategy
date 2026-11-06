@@ -972,17 +972,50 @@
     'PCC': 'd5ea5ed8fcc021fe460bd84eeea308571fd5e008e8913808f6559b3a2e8d10d4'
   };
 
+  /* --- เก็บ session: localStorage -> sessionStorage -> cookie -> หน่วยความจำ ---
+     เบราว์เซอร์บางเครื่อง localStorage เต็มหรือถูกปิด การเขียนจะ throw
+     ถ้าไม่ดักไว้ ปุ่มจะค้างที่ Verifying... --- */
+  var MEM_SESSION = null;
+  function storeSession(obj) {
+    var raw = JSON.stringify(obj), ok = false;
+    try { localStorage.setItem('pcc_session', raw); ok = true; } catch(e) {}
+    if (!ok) { try { sessionStorage.setItem('pcc_session', raw); ok = true; } catch(e) {} }
+    if (!ok) {
+      try {
+        document.cookie = 'pcc_session=' + encodeURIComponent(raw) +
+          ';path=/;max-age=' + (SESSION_HOURS * 3600) + ';samesite=lax';
+        ok = document.cookie.indexOf('pcc_session=') >= 0;
+      } catch(e) {}
+    }
+    MEM_SESSION = obj;
+    return ok;
+  }
+  function readSession() {
+    var raw = null;
+    try { raw = localStorage.getItem('pcc_session'); } catch(e) {}
+    if (!raw) { try { raw = sessionStorage.getItem('pcc_session'); } catch(e) {} }
+    if (!raw) {
+      try {
+        var m = document.cookie.match(/(?:^|;\s*)pcc_session=([^;]*)/);
+        if (m) raw = decodeURIComponent(m[1]);
+      } catch(e) {}
+    }
+    if (!raw) return MEM_SESSION;
+    try { return JSON.parse(raw); } catch(e) { return null; }
+  }
+  function clearSession() {
+    try { localStorage.removeItem('pcc_session'); } catch(e) {}
+    try { sessionStorage.removeItem('pcc_session'); } catch(e) {}
+    try { document.cookie = 'pcc_session=;path=/;max-age=0;samesite=lax'; } catch(e) {}
+    MEM_SESSION = null;
+  }
+
   /* --- Session check --- */
   function checkSession() {
     try {
-      var s = localStorage.getItem('pcc_session');
-      if (!s) return false;
-      var d = JSON.parse(s);
-      if (!d.user || !d.t) return false;
-      if ((Date.now() - d.t) > SESSION_HOURS * 3600000) {
-        localStorage.removeItem('pcc_session');
-        return false;
-      }
+      var d = readSession();
+      if (!d || !d.user || !d.t) return false;
+      if ((Date.now() - d.t) > SESSION_HOURS * 3600000) { clearSession(); return false; }
       return d.user;
     } catch(e) { return false; }
   }
@@ -1029,11 +1062,24 @@
     return out;
   }
 
+  /* --- กัน Web Crypto ที่ค้างไม่ยอมตอบ (พบในเบราว์เซอร์ในแอปบางตัว) --- */
+  function withTimeout(promise, ms) {
+    return new Promise(function(resolve, reject) {
+      var done = false;
+      var t = setTimeout(function(){ if (!done) { done = true; reject(new Error('timeout')); } }, ms);
+      promise.then(
+        function(v){ if (!done) { done = true; clearTimeout(t); resolve(v); } },
+        function(e){ if (!done) { done = true; clearTimeout(t); reject(e); } }
+      );
+    });
+  }
+
   /* --- SHA-256: ใช้ Web Crypto ถ้าใช้ได้ ไม่งั้น fallback --- */
   async function sha256(str) {
     try {
       if (window.crypto && window.crypto.subtle && window.crypto.subtle.digest && window.TextEncoder) {
-        var buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        var buf = await withTimeout(
+          window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)), 3000);
         return Array.prototype.map.call(new Uint8Array(buf), function(b){
           var x = b.toString(16); return x.length < 2 ? '0' + x : x;
         }).join('');
@@ -1107,16 +1153,24 @@
       btn.textContent = 'Sign In'; btn.disabled = false;
       return;
     }
-    if (USERS[user] && USERS[user] === hash) {
-      localStorage.setItem('pcc_session', JSON.stringify({user: user, t: Date.now()}));
-      overlay.style.transition = 'opacity .4s';
-      overlay.style.opacity = '0';
-      setTimeout(function(){ overlay.remove(); }, 420);
-    } else {
-      errEl.textContent = 'Invalid username or password.';
-      btn.textContent = 'Sign In'; btn.disabled = false;
-      document.getElementById('pcc-pass').value = '';
-      document.getElementById('pcc-pass').focus();
+    try {
+      if (USERS[user] && USERS[user] === hash) {
+        storeSession({user: user, t: Date.now()});
+        overlay.style.transition = 'opacity .4s';
+        overlay.style.opacity = '0';
+        setTimeout(function(){ try { overlay.remove(); } catch(e) {} }, 420);
+      } else {
+        errEl.textContent = 'Invalid username or password.';
+        btn.textContent = 'Sign In'; btn.disabled = false;
+        document.getElementById('pcc-pass').value = '';
+        document.getElementById('pcc-pass').focus();
+      }
+    } catch(err2) {
+      /* กันทุกกรณีที่เหลือ ไม่ให้ปุ่มค้างที่ Verifying... */
+      try { overlay.remove(); } catch(e) {
+        errEl.textContent = 'เข้าสู่ระบบไม่สำเร็จ: ' + ((err2 && err2.message) ? err2.message : err2);
+        btn.textContent = 'Sign In'; btn.disabled = false;
+      }
     }
   }
 
